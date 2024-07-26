@@ -1,0 +1,462 @@
+@charset "UTF-8";
+/*---------------
+----- FONTS -----
+---------------*/
+@font-face {
+  font-family: "SpecialFont";
+  src: url("../../public/assets/fonts/Mermaid1001.ttf") format("truetype");
+  /* Ajouter ici les autres formats de police (.woff2, .ttf, .eot, etc.) pour la compatibilité des navigateurs */
+}
+@font-face {
+  font-family: "MainFont_light";
+  src: url("../../public/assets/fonts/ProximaNova-Light.ttf") format("truetype");
+  /* Ajouter ici les autres formats de police (.woff2, .ttf, .eot, etc.) pour la compatibilité des navigateurs */
+}
+@font-face {
+  font-family: "MainFont_lightItalic";
+  src: url("../../public/assets/fonts/ProximaNova-LightIt.ttf") format("truetype");
+  /* Ajouter ici les autres formats de police (.woff2, .ttf, .eot, etc.) pour la compatibilité des navigateurs */
+}
+@font-face {
+  font-family: "MainFont_bold";
+  src: url("../../public/assets/fonts/ProximaNova-Bold.ttf") format("truetype");
+  /* Ajouter ici les autres formats de police (.woff2, .ttf, .eot, etc.) pour la compatibilité des navigateurs */
+}
+/*----------------
+----- MIXINS -----
+----------------*/
+/*-------------------
+----- VARIABLES -----
+-------------------*/
+/*-------------------
+----- KEYFRAMES -----
+-------------------*/
+@-webkit-keyframes float {
+  0% {
+    transform: translatey(0px);
+  }
+  50% {
+    transform: translatey(-20px);
+  }
+  100% {
+    transform: translatey(0px);
+  }
+}
+@keyframes float {
+  0% {
+    transform: translatey(0px);
+  }
+  50% {
+    transform: translatey(-20px);
+  }
+  100% {
+    transform: translatey(0px);
+  }
+}
+@-webkit-keyframes heightRetract {
+  0% {
+    padding-top: 0%;
+    padding-bottom: 0%;
+  }
+  25% {
+    padding-top: 0%;
+    padding-bottom: 0%;
+  }
+  100% {
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
+}
+@keyframes heightRetract {
+  0% {
+    padding-top: 0%;
+    padding-bottom: 0%;
+  }
+  25% {
+    padding-top: 0%;
+    padding-bottom: 0%;
+  }
+  100% {
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
+}
+@-webkit-keyframes heightRetractInvert {
+  0% {
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
+  100% {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+}
+@keyframes heightRetractInvert {
+  0% {
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
+  100% {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+}
+@-webkit-keyframes navOpen {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes navOpen {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes navOpenInvert {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes navOpenInvert {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@-webkit-keyframes showHamburger {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes showHamburger {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes hideHamburger {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes hideHamburger {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@-webkit-keyframes openHeader {
+  0% {
+    height: 35px;
+  }
+  100% {
+    height: 98px;
+  }
+}
+@keyframes openHeader {
+  0% {
+    height: 35px;
+  }
+  100% {
+    height: 98px;
+  }
+}
+@-webkit-keyframes closeVerticalHeader {
+  0% {
+    width: 40%;
+  }
+  100% {
+    width: 35px;
+  }
+}
+@keyframes closeVerticalHeader {
+  0% {
+    width: 40%;
+  }
+  100% {
+    width: 35px;
+  }
+}
+@-webkit-keyframes openVerticalHeader {
+  0% {
+    width: 35px;
+  }
+  100% {
+    width: 40%;
+  }
+}
+@keyframes openVerticalHeader {
+  0% {
+    width: 35px;
+  }
+  100% {
+    width: 40%;
+  }
+}
+@-webkit-keyframes closeHeader {
+  0% {
+    height: 98px;
+  }
+  100% {
+    height: 35px;
+  }
+}
+@keyframes closeHeader {
+  0% {
+    height: 98px;
+  }
+  100% {
+    height: 35px;
+  }
+}
+@-webkit-keyframes disappear {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    display: none;
+  }
+}
+@keyframes disappear {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    display: none;
+  }
+}
+@-webkit-keyframes disappearValidBox {
+  0% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes disappearValidBox {
+  0% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@-webkit-keyframes darkAppear {
+  0% {
+    filter: brightness(0);
+  }
+  20% {
+    filter: brightness(0);
+  }
+  100% {
+    filter: brightness(1);
+  }
+}
+@keyframes darkAppear {
+  0% {
+    filter: brightness(0);
+  }
+  20% {
+    filter: brightness(0);
+  }
+  100% {
+    filter: brightness(1);
+  }
+}
+@-webkit-keyframes closeCollapse {
+  0% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+@keyframes closeCollapse {
+  0% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+@-webkit-keyframes openCollapse {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(180deg);
+  }
+}
+@keyframes openCollapse {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(180deg);
+  }
+}
+@-webkit-keyframes openCollapseChildren {
+  0% {
+    height: 0px;
+    opacity: 0;
+  }
+  50% {
+    height: auto;
+    opacity: 0;
+  }
+  100% {
+    height: auto;
+    opacity: 1;
+  }
+}
+@keyframes openCollapseChildren {
+  0% {
+    height: 0px;
+    opacity: 0;
+  }
+  50% {
+    height: auto;
+    opacity: 0;
+  }
+  100% {
+    height: auto;
+    opacity: 1;
+  }
+}
+@-webkit-keyframes closeCollapseChildren {
+  0% {
+    height: auto;
+    opacity: 1;
+  }
+  50% {
+    height: auto;
+    opacity: 0;
+  }
+  100% {
+    height: 0px;
+    opacity: 0;
+  }
+}
+@keyframes closeCollapseChildren {
+  0% {
+    height: auto;
+    opacity: 1;
+  }
+  50% {
+    height: auto;
+    opacity: 0;
+  }
+  100% {
+    height: 0px;
+    opacity: 0;
+  }
+}
+@-webkit-keyframes appearOpacity {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes appearOpacity {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.editWorkModal_confirmBox {
+  z-index: 1;
+  position: fixed;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+}
+.editWorkModal_confirmBox_container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+  padding-top: 22px;
+  padding-bottom: 22px;
+  width: 500px;
+  height: auto;
+  background-color: #E9E9E9;
+}
+@media only screen and (min-width: 769px) and (max-width: 991px) {
+  .editWorkModal_confirmBox_container {
+    width: 40%;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .editWorkModal_confirmBox_container {
+    width: 70%;
+  }
+}
+.editWorkModal_confirmBox_container_question {
+  text-align: center;
+  font-size: 22px;
+  font-family: "SpecialFont";
+}
+.editWorkModal_confirmBox_container_buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: auto;
+  -moz-column-gap: 16px;
+       column-gap: 16px;
+}
+.editWorkModal_confirmBox_container_buttons button {
+  margin: auto;
+  font-family: "SpecialFont";
+  color: #E9E9E9;
+  background-color: #0c0c0c;
+  font-size: 25px;
+  padding: 10px;
+  border: none;
+  font-size: 19px;
+}
+.editWorkModal_confirmBox_container_buttons button:hover {
+  color: #0c0c0c;
+  background-color: rgb(255, 242, 0);
+  cursor: pointer;
+}
+.editWorkModal_confirmBox--displayOn {
+  display: flex;
+}
+.editWorkModal_confirmBox--displayOff {
+  display: none;
+}/*# sourceMappingURL=ConfirmBox.css.map */
