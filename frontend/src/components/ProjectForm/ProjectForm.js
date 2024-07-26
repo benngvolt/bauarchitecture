@@ -189,6 +189,9 @@ function ProjectForm ({handleLoadProjects, projectFormMode, projectEdit, setProj
 
     return (
         <form onSubmit={(event) => projectFormSubmit(event)} method="post">
+            <div className='projectForm_buttons'>
+                <button type='button' onClick={() => setDisplayProjectForm(false)}>FERMER</button>
+            </div>
             <FormSimpleField
                 htmlFor={'inputProjectTitle'}
                 label={'TITRE*'}

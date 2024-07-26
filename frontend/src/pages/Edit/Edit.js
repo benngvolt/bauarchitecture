@@ -19,12 +19,10 @@ function Edit () {
     // OUVERTURE MODE MODIF
     async function handleEditProject(project) {
         try {
-            // await storeProject(project);
             setProjectEdit(project);
             handleLoadProjects();
-            // setDisplayModal(true);
+            setDisplayProjectForm(true);
             setProjectFormMode('edit');
-            // setMainImageIndex(project.mainImageIndex);
         } catch (error) {
             console.log(error.message)
         }
@@ -37,12 +35,15 @@ function Edit () {
                     projects={projectsList}
                     handleEditProject={handleEditProject}
                     handleLoadProjects={handleLoadProjects}
+                    setDisplayProjectForm={setDisplayProjectForm}
+                    displayProjectForm={displayProjectForm}
                 />
                 <button onClick={() => { 
                         setDisplayProjectForm(true);
                         setProjectFormMode("add");
                 }}>AJOUTER UN PROJET</button>
             </div>
+            {displayProjectForm===true &&
             <ProjectForm
                 projectFormMode={projectFormMode} 
                 setProjectFormMode={setProjectFormMode}
@@ -52,6 +53,7 @@ function Edit () {
                 projectEdit={projectEdit}
                 setProjectEdit={setProjectEdit}
             />
+        }
         </main>
     )
 }

@@ -1,0 +1,10 @@
+.edit {
+    &_projectFormContainer {
+        &--displayOn {
+            display: flex;
+        }
+        &--displayOff {
+            display: none;
+        }
+    }
+}

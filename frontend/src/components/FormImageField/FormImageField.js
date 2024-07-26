@@ -52,12 +52,12 @@ const FormImageField = (({htmlFor, label, type, id, name, imageFiles, setImageFi
             <input type={type} id={id} name={name} ref={inputImageRef} onChange={displaySample} style={{ display: 'none' }}></input>
             <div>
                 <img ref={inputSampleImageRef} id='sample' src='' alt=''/>
-                <div 
-                className={isImageLoaded ? "projectForm_projectImageField_imageFile_sampleContainer_buttonsSystem--displayOn" :  "projectForm_projectImageField_imageFile_sampleContainer_buttonsSystem--displayOff"}
-                >
+                {isImageLoaded === true &&
+                <div >
                     <button aria-label="Ajouter l'image" onClick={handleAddImageFile} type="button">AJOUTER</button>
                     <button aria-label="Annuler" onClick={cancelAddImageFile} type="button">ANNULER</button>
                 </div>
+                }
             </div>
         </div>
     )

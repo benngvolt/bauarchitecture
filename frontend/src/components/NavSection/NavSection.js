@@ -24,6 +24,7 @@ function NavSection() {
                             <h2>SITE</h2>
                             <ul>
                                 <li>
+                                    <Link aria-label="Accéder à la page d'accueil" to="/"><p>Accueil</p></Link>
                                     <Link aria-label="Accéder à la page projets" to="/projets"><p>Projets</p></Link>
                                     <Link aria-label="Accéder à la page prestations" to="/prestations"><p>Prestations</p></Link>
                                     <Link aria-label="Accéder à la page Cabinet de Curiosités" to="/curiosites"><p>Cabinet de curiosités</p></Link>
