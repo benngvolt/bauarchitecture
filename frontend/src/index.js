@@ -4,10 +4,10 @@ import './index.scss';
 
 import reportWebVitals from './reportWebVitals';
 
-// import Edit from './pages/Edit/Edit';
+import Edit from './pages/Edit/Edit';
 // import OneProject from './pages/OneProject/OneProject';
 // import About from './pages/About/About';
-// import Header from './components/Header/Header';
+import Header from './components/Header/Header';
 // import Footer from './components/Footer/Footer';
 import Home from './pages/Home/Home';
 // import Error404 from './pages/Error404/Error404';
@@ -21,11 +21,10 @@ root.render(
   <React.StrictMode> 
     <Router>
       <ProjectsProvider>
-        {/* <Header/> */}
+        <Header/>
         <Routes>
-
           <Route path="/" element={<Home/>} />
-          
+          <Route path="/edit" element={<Edit/>} />
         </Routes>
         {/* <Footer/> */}
       </ProjectsProvider>
