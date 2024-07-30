@@ -1,7 +1,6 @@
 import './EditProjectsList.scss'
 import ConfirmBox from '../../components/ConfirmBox/ConfirmBox'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faTrashCan , faPenToSquare} from '@fortawesome/free-solid-svg-icons'
+
 import React, { useState, useRef, useEffect } from 'react'
 import { API_URL } from '../../utils/constants'
 

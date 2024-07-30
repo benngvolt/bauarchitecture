@@ -1,0 +1,132 @@
+@import '../../utils/mixins';
+
+.singleProject {
+    
+    &_firstImageContainer {
+
+        img {
+            width: 100%;
+            object-fit: cover;
+            aspect-ratio: 2;
+            display: flex;
+        }
+    }
+
+    &_datasContainer {
+        background-color: $color2;
+        padding: 45px 45px 90px 0 ;
+        @include Row;
+        
+        &_imagesCarousel {
+            
+            width: 60%;
+            &_image {
+                width: 100%;
+                aspect-ratio: 1;
+                object-fit: cover;
+            }
+            &_selectBox {
+                position: relative;
+                bottom: 70px;
+                width: 100%;
+                @include Row;
+                justify-content: center;
+                margin: auto;
+
+                &_icon {
+                    vertical-align: middle;
+                    margin: auto 10px;
+                    color: $colorDarkGrey;
+                    &:hover {
+                        color: $color1;
+                        cursor: pointer;
+                    }
+                }
+                &_indexBar {
+                    font-size: 30px;
+                    font-family: $mainFont;
+                    padding: 0;
+                    margin: auto 2px;
+                    color: $colorDarkGrey;
+                    &--bold {
+                        font-size: 40px;
+                    }
+                }
+            }
+        }
+
+        &_datasBox {
+            width: 40%;
+            @include SidePaddings;
+            @include Column;
+            
+
+            &_maindatas {
+                @include Row;
+                justify-content: space-between;
+                width: 100%;
+                height: 600px;
+                color: $colorLightGrey;
+                font-family: $mainFont;
+                
+                &_type  {
+                    width: 30%;
+                    @include Column;
+                    justify-content: flex-start;
+                    margin: 0;
+                    font-size: $fontSize3;
+                    
+                }
+                &_title  {
+                    width: 40%;
+                    @include Column;
+                    justify-content: center;
+                    margin: 0;
+                    font-size: 70px;
+                    text-align: center;
+                    
+                }
+                &_date  {
+                    width: 30%;
+                    @include Column;
+                    justify-content: flex-end;
+                    margin: 0;
+                    font-size: $fontSize4;
+                    text-align: right; 
+                }
+            }
+            &_description {
+                margin: 35px auto;
+                color: $colorLightGrey;
+                font-family: $mainFont;
+                font-size: $fontSize4;
+                text-align: justify;
+            }
+            &_details {
+                color: $colorLightGrey;
+                font-family: $mainFont;
+                font-size: $fontSize4;
+                @include Row;
+                margin: 100px 0 0 0;
+                justify-content: space-between;
+                
+                &_priceBox {
+                    &_label {
+
+                    }
+                    &_price {
+                        
+                    }
+                }
+                &_surfaceBox {
+                    &_label {
+
+                    }
+                    &_surface {
+                        
+                    }
+                }
+            }
+        }
+    }
+}
