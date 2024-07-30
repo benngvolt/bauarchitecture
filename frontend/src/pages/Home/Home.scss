@@ -32,9 +32,9 @@
         @include Column;
         &:hover {
             cursor: pointer;
-            p {
-                color: $color1;
-            }
+            // p {
+            //     color: $color1;
+            // }
         }
 
         img {

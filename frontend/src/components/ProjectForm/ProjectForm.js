@@ -25,6 +25,8 @@ function ProjectForm ({
     const [projectState, setProjectState] = useState('')
     const [projectDate, setProjectDate] = useState('')
     const [projectDescription, setProjectDescription] = useState('')
+    const [projectPrice, setProjectPrice] = useState('')
+    const [projectSurface, setProjectSurface] = useState('')
     const [imageFiles, setImageFiles] = useState ([])
     const [mainImageIndex, setMainImageIndex] = useState(0)
 
@@ -36,6 +38,8 @@ function ProjectForm ({
     const inputProjectStateRef = useRef(null);
     const inputProjectDateRef = useRef(null);
     const inputProjectDescriptionRef = useRef(null)
+    const inputProjectPriceRef = useRef(null)
+    const inputProjectSurfaceRef = useRef(null)
 
     const projectTypes = ['réhabilitation', 'construction neuve', 'extension']
     const projectStates = ['en chantier', 'construit', 'esquisse']
@@ -53,6 +57,8 @@ function ProjectForm ({
             setProjectType('');
             setProjectState('');
             setProjectDescription('');
+            setProjectPrice('');
+            setProjectSurface('');
             setMainImageIndex(0);
             setImageFiles([]);
         } else {
@@ -62,11 +68,21 @@ function ProjectForm ({
             setProjectType(projectEdit.projectType);
             setProjectState(projectEdit.projectState);
             setProjectDescription(projectEdit.description);
+            setProjectPrice(projectEdit.price);
+            setProjectSurface(projectEdit.surface);
             setMainImageIndex(projectEdit.mainImageIndex ?? 0);
             setImageFiles(projectEdit.images ?? []);
         }
     }
 
+
+    useEffect(() => {
+        const element = document.getElementById("inputProjectDescription");
+        if (element) {
+            element.editor.setSelectedRange([0, 0]);
+            element.editor.loadHTML(projectDescription); 
+        }
+    }, [projectDescription, projectFormMode]);
 
     /* --------------------------------------
     ----- SOUMISSION DU FORMULAIRE ----------
@@ -82,7 +98,9 @@ function ProjectForm ({
         projectFormData.append('creationDate', inputProjectDateRef.current.value);
         projectFormData.append('projectType', inputProjectTypeRef.current.value);
         projectFormData.append('projectState', inputProjectStateRef.current.value);
-        projectFormData.append('description', inputProjectDescriptionRef.current.value)
+        projectFormData.append('description', inputProjectDescriptionRef.current.value);
+        projectFormData.append('price', inputProjectPriceRef.current.value);
+        projectFormData.append('surface', inputProjectSurfaceRef.current.value);
         projectFormData.append('mainImageIndex', mainImageIndex);
 
         const newImageFiles = Array.from(imageFiles);
@@ -204,6 +222,24 @@ function ProjectForm ({
                         ref={inputProjectDateRef}
                         value={projectDate}
                         onChangeFunction={setProjectDate}
+                    />
+                    <FormSimpleField
+                        htmlFor={'inputProjectPrice'}
+                        label={'MONTANT DES TRAVAUX'}
+                        type={'text'}
+                        id={'inputProjectPrice'}
+                        ref={inputProjectPriceRef}
+                        value={projectPrice}
+                        onChangeFunction={setProjectPrice}
+                    />
+                    <FormSimpleField
+                        htmlFor={'inputProjectSurface'}
+                        label={'SURFACE'}
+                        type={'text'}
+                        id={'inputProjectSurface'}
+                        ref={inputProjectSurfaceRef}
+                        value={projectSurface}
+                        onChangeFunction={setProjectSurface}
                     />
                     <FormSelectionField
                         htmlFor={'inputProjectType'}

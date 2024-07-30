@@ -9,13 +9,11 @@ const projectSchema = mongoose.Schema({
     creationDate: {type: String, required: false},
     description: {type: String, required: false},
     surface: {type: String, required: false},
-    price: {type: Number, required: false},
-    moreInfos: {type: String, required: false},
+    price: {type: String, required: false},
     mainImageIndex: { type: Number, required: false },
     images: [
         {
         imageUrl: {type: String, required: false},
-        photograph: {type: String, required: false},
         }
     ],
 });

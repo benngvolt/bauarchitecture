@@ -6,8 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev-start": "env-cmd -f ./env/.env nodemon server.js",
-    "start": "node server.js",
-    "build": "react-scripts build"
+    "start": "node server.js"
   },
   "author": "Benjamin Gibert",
   "license": "ISC",
@@ -28,5 +27,8 @@
     "uuid": "^9.0.1",
     "valid-url": "^1.0.9",
     "validator": "^13.9.0"
-  }
+  },
+  "engines": {
+      "node": "19.5.0"
+    }
 }
