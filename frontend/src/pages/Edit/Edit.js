@@ -6,11 +6,16 @@ import React, { useContext, useState, useEffect } from 'react'
 
 function Edit () {
 
-    const { handleLoadProjects, projects } = useContext(ProjectsContext);
+    const { handleLoadProjects, projects, loaderDisplay, setLoaderDisplay, setDisplayNavSection } = useContext(ProjectsContext);
     const [projectFormMode, setProjectFormMode] = useState('add');
     const [projectsList, setProjectsList] = useState(projects);
     const [displayProjectForm, setDisplayProjectForm] = useState(false);
     const [projectEdit, setProjectEdit] = useState(null)
+
+    useEffect(() => {
+        setDisplayNavSection(false)
+    }, []);
+    
     useEffect(() => {
         setProjectsList(projects)
     }, [projects]);
@@ -29,19 +34,23 @@ function Edit () {
     }
 
     return (
-        <main>
-            <div>
+        <main className='edit'>
+            <div className='edit_projectsListContainer'>
                 <EditProjectsList
                     projects={projectsList}
                     handleEditProject={handleEditProject}
                     handleLoadProjects={handleLoadProjects}
                     setDisplayProjectForm={setDisplayProjectForm}
                     displayProjectForm={displayProjectForm}
+                    loaderDisplay={loaderDisplay} 
+                    setLoaderDisplay={setLoaderDisplay}
                 />
-                <button onClick={() => { 
+                <button 
+                    className='edit_projectsListContainer_addButton'
+                    onClick={() => { 
                         setDisplayProjectForm(true);
                         setProjectFormMode("add");
-                }}>AJOUTER UN PROJET</button>
+                }}>+ AJOUTER UN PROJET +</button>
             </div>
             {displayProjectForm===true &&
             <ProjectForm
@@ -52,6 +61,8 @@ function Edit () {
                 displayProjectForm={displayProjectForm}
                 projectEdit={projectEdit}
                 setProjectEdit={setProjectEdit}
+                loaderDisplay={loaderDisplay} 
+                setLoaderDisplay={setLoaderDisplay}
             />
         }
         </main>

@@ -8,8 +8,13 @@ import { API_URL } from '../../utils/constants'
 
 function SingleProject () {
 
+    const { displayNavSection, setDisplayNavSection } = useContext(ProjectsContext);
     const [singleProject, setSingleProject] = useState(null);
     const { id } = useParams();
+
+    useEffect(() => {
+        setDisplayNavSection(false)
+    }, []);
 
     useEffect(() => {
         fetch(`${API_URL}/api/projects/${id}`)
@@ -27,7 +32,7 @@ function SingleProject () {
             <section>
                 {singleProject &&
                     <figure>
-                        <img src={singleProject.images[singleProject.mainImageIndex].imageUrl}/>
+                        <img src={singleProject.images[singleProject.mainImageIndex]?.imageUrl}/>
                         <figcaption>
                         {singleProject.title}
                         </figcaption>

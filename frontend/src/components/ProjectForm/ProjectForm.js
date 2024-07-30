@@ -8,7 +8,15 @@ import DNDGallery from '../DNDGallery/DNDGallery'
 import { API_URL } from '../../utils/constants'
 
 
-function ProjectForm ({handleLoadProjects, projectFormMode, projectEdit, setProjectEdit, setDisplayProjectForm}) {
+function ProjectForm ({
+        handleLoadProjects, 
+        projectFormMode, 
+        projectEdit, 
+        setProjectEdit, 
+        setDisplayProjectForm, 
+        loaderDisplay, 
+        setLoaderDisplay
+    }) {
 
     
     const [projectTitle, setProjectTitle] = useState('')
@@ -35,29 +43,6 @@ function ProjectForm ({handleLoadProjects, projectFormMode, projectEdit, setProj
     useEffect(() => {
         formatFields()
     }, [projectFormMode]);
-
-    // function formatFields() {
-    //     console.log(projectEdit)
-    //     if (projectFormMode === 'add') {
-    //         if (inputProjectTitleRef.current) inputProjectTitleRef.current.value = '';
-    //         if (inputProjectSubtitleRef.current) inputProjectSubtitleRef.current.value = '';
-    //         if (inputProjectDateRef.current) inputProjectDateRef.current.value = '';
-    //         if (inputProjectTypeRef.current) inputProjectTypeRef.current.value = '';
-    //         if (inputProjectStateRef.current) inputProjectStateRef.current.value = '';
-    //         if (inputProjectDescriptionRef.current) inputProjectDescriptionRef.current.value = '';
-    //         setMainImageIndex(0);
-    //         setImageFiles([]);
-    //     } else {
-    //         if (inputProjectTitleRef.current) inputProjectTitleRef.current.value = projectEdit.title;
-    //         if (inputProjectSubtitleRef.current) inputProjectSubtitleRef.current.value = projectEdit.subtitle;
-    //         if (inputProjectDateRef.current) inputProjectDateRef.current.value = projectEdit.creationDate;
-    //         if (inputProjectTypeRef.current) inputProjectTypeRef.current.value = projectEdit.projectType;
-    //         if (inputProjectStateRef.current) inputProjectStateRef.current.value = projectEdit.projectState;
-    //         if (inputProjectDescriptionRef.current) inputProjectDescriptionRef.current.value = projectEdit.description;
-    //         setMainImageIndex(projectEdit.mainImageIndex ?? 0);
-    //         setImageFiles(projectEdit.images ?? []);
-    //     }
-    // }
 
     function formatFields() {
         
@@ -88,9 +73,8 @@ function ProjectForm ({handleLoadProjects, projectFormMode, projectEdit, setProj
     ---------------------------------------*/
 
     function projectFormSubmit(event) {
-        
         event.preventDefault();
-        // setLoaderDisplay(true);
+        setLoaderDisplay(true);
         // const token = window.sessionStorage.getItem('1');
         const projectFormData = new FormData();
         projectFormData.append('title', inputProjectTitleRef.current.value);
@@ -122,7 +106,7 @@ function ProjectForm ({handleLoadProjects, projectFormMode, projectEdit, setProj
             !inputProjectTypeRef.current.value ||
             !inputProjectDateRef.current.value
         ) {
-            // setLoaderDisplay(false);
+            setLoaderDisplay(false);
             // setDisplayError(true);
             return;
         }
@@ -147,7 +131,7 @@ function ProjectForm ({handleLoadProjects, projectFormMode, projectEdit, setProj
                     .then(()=> {
                         handleLoadProjects();
                         setDisplayProjectForm(false)
-                        // setLoaderDisplay(false);
+                        setLoaderDisplay(false);
                         // openValidBox();
                     })
                     .catch((error) => {
@@ -175,100 +159,103 @@ function ProjectForm ({handleLoadProjects, projectFormMode, projectEdit, setProj
                     .then(()=> {
                         handleLoadProjects();
                         setDisplayProjectForm(false)
-                        // setLoaderDisplay(false);
+                        setLoaderDisplay(false);
                         // openValidBox();
                     })
                     .catch((error) => {
                         console.error(error);
                         // setDisplayServerError(true);
-                        // setLoaderDisplay(false);
+                        setLoaderDisplay(false);
                 });
             }
         }
     }
 
     return (
-        <form onSubmit={(event) => projectFormSubmit(event)} method="post">
-            <div className='projectForm_buttons'>
-                <button type='button' onClick={() => setDisplayProjectForm(false)}>FERMER</button>
-            </div>
-            <FormSimpleField
-                htmlFor={'inputProjectTitle'}
-                label={'TITRE*'}
-                type={'text'}
-                id={'inputProjectTitle'}
-                ref={inputProjectTitleRef}
-                value={projectTitle}
-                onChangeFunction={setProjectTitle}
-            /> 
-            <FormSimpleField
-                htmlFor={'inputProjectSubtitle'}
-                label={'SOUS-TITRE*'}
-                type={'text'}
-                id={'inputProjectSubtitle'}
-                ref={inputProjectSubtitleRef}
-                value={projectSubtitle}
-                onChangeFunction={setProjectSubtitle}
-            />
-            <FormSimpleField
-                htmlFor={'inputDate'}
-                label={'DATE DE LIVRAISON'}
-                type={'date'}
-                id={'inputDate'}
-                ref={inputProjectDateRef}
-                value={projectDate}
-                onChangeFunction={setProjectDate}
-            />
-            <FormSelectionField
-                htmlFor={'inputProjectType'}
-                label={'TYPE DE PROJET*'}
-                type={'text'}
-                id={'inputProjectType'}
-                ref={inputProjectTypeRef}
-                value={projectType}
-                onChangeFunction={setProjectType}
-                selectionArray={projectTypes}
-            />
-            <FormSelectionField
-                htmlFor={'inputProjectState'}
-                label={'ÉTAT DU PROJET*'}
-                type={'text'}
-                id={'inputProjectState'}
-                ref={inputProjectStateRef}
-                value={projectState}
-                onChangeFunction={setProjectState}
-                selectionArray={projectStates}
-            />
-            <FormRichTextField
-                htmlFor={'inputProjectDescription'}
-                label={'DESCRIPTION DU PROJET'}
-                type={'hidden'}
-                id={'inputProjectDescription'}
-                ref={inputProjectDescriptionRef}
-                name={'projectDescription'}
-                value={projectDescription}
-            />
-            <DNDGallery
-                imageFiles={imageFiles} 
-                setImageFiles={setImageFiles} 
-                mainImageIndex={mainImageIndex} 
-                setMainImageIndex={setMainImageIndex} 
-                displayClass={'grid'}/>
-            <FormImageField
-                htmlFor={'inputImage'}
-                label={'TÉLÉCHARGER UNE IMAGE'}
-                type={'file'}
-                id={'inputImage'}
-                name={'image'}
-                imageFiles={imageFiles}
-                setImageFiles={setImageFiles}
-            />
-            <div className='projectForm_buttons'>
-                <button type='submit'>ENVOYER</button>
-                {/* <button type='button' onClick={() => setConfirmBoxState(true)}>SORTIR</button> */}
-            </div>
-
-        </form>
+        <div className='projectFormContainer'>
+            <form className='projectForm' onSubmit={(event) => projectFormSubmit(event)} method="post">
+                <div className='projectForm_closeButton'>
+                    <button type='button' onClick={() => setDisplayProjectForm(false)}>X FERMER</button>
+                </div>
+                <div>
+                    <FormSimpleField
+                        htmlFor={'inputProjectTitle'}
+                        label={'TITRE*'}
+                        type={'text'}
+                        id={'inputProjectTitle'}
+                        ref={inputProjectTitleRef}
+                        value={projectTitle}
+                        onChangeFunction={setProjectTitle}
+                    /> 
+                    <FormSimpleField
+                        htmlFor={'inputProjectSubtitle'}
+                        label={'SOUS-TITRE*'}
+                        type={'text'}
+                        id={'inputProjectSubtitle'}
+                        ref={inputProjectSubtitleRef}
+                        value={projectSubtitle}
+                        onChangeFunction={setProjectSubtitle}
+                    />
+                    <FormSimpleField
+                        htmlFor={'inputDate'}
+                        label={'DATE DE LIVRAISON'}
+                        type={'date'}
+                        id={'inputDate'}
+                        ref={inputProjectDateRef}
+                        value={projectDate}
+                        onChangeFunction={setProjectDate}
+                    />
+                    <FormSelectionField
+                        htmlFor={'inputProjectType'}
+                        label={'TYPE DE PROJET*'}
+                        type={'text'}
+                        id={'inputProjectType'}
+                        ref={inputProjectTypeRef}
+                        value={projectType}
+                        onChangeFunction={setProjectType}
+                        selectionArray={projectTypes}
+                    />
+                    <FormSelectionField
+                        htmlFor={'inputProjectState'}
+                        label={'ÉTAT DU PROJET*'}
+                        type={'text'}
+                        id={'inputProjectState'}
+                        ref={inputProjectStateRef}
+                        value={projectState}
+                        onChangeFunction={setProjectState}
+                        selectionArray={projectStates}
+                    />
+                    <FormRichTextField
+                        htmlFor={'inputProjectDescription'}
+                        label={'DESCRIPTION DU PROJET'}
+                        type={'hidden'}
+                        id={'inputProjectDescription'}
+                        ref={inputProjectDescriptionRef}
+                        name={'projectDescription'}
+                        value={projectDescription}
+                    />
+                    <DNDGallery
+                        imageFiles={imageFiles} 
+                        setImageFiles={setImageFiles} 
+                        mainImageIndex={mainImageIndex} 
+                        setMainImageIndex={setMainImageIndex} 
+                        displayClass={'grid'}/>
+                    <FormImageField
+                        htmlFor={'inputImage'}
+                        label={'TÉLÉCHARGER UNE IMAGE'}
+                        type={'file'}
+                        id={'inputImage'}
+                        name={'image'}
+                        imageFiles={imageFiles}
+                        setImageFiles={setImageFiles}
+                    />
+                </div>
+                <div className='projectForm_submitButton'>
+                    <button type='submit'>ENVOYER</button>
+                    {/* <button type='button' onClick={() => setConfirmBoxState(true)}>SORTIR</button> */}
+                </div>
+            </form>
+        </div>
     )
 }
 

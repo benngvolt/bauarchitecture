@@ -1,1 +1,25 @@
 @import '../../utils/mixins';
+
+.item {
+        
+    list-style-type: none;
+    margin-bottom: 12px;
+    img {
+        width: 200px;
+        height: 250px;
+        object-fit: cover;
+    }
+
+    &_buttons {
+
+        &_supprButton, &_isMainButton {
+            border: none;
+            background: none;
+            &:hover {
+                color: $colorLightGrey;
+                cursor: pointer;
+            }
+
+        }
+    }
+}

@@ -1,0 +1,43 @@
+@import '../../utils/mixins';
+
+.header {
+    z-index: 3;
+    &--fixed {
+        position: fixed;
+        top: 0;
+    }
+
+    &_topBar {
+        @include Row;
+        justify-content: space-between;
+        height: 180px;
+        @include SidePaddings;
+        background-color: $colorLightGrey;
+        &_link {
+                @include Column;
+                justify-content: center;
+            img {
+                height: 100px;
+                
+            }
+        }
+
+        button {
+            @include Column;
+            border: none;
+            background: none;
+            color: $colorDarkGrey;
+            justify-content: center;
+            svg {
+                animation: apparition 2s ease forwards;
+                height: 33px;
+                margin : 0 auto;
+                &:hover {
+                    color: $color1;
+                    cursor: pointer;
+                }
+            }
+            
+        }
+    }
+}

@@ -1,0 +1,87 @@
+/*-------------------
+----- VARIABLES -----
+-------------------*/
+.navSection {
+  display: flex;
+  flex-direction: row;
+}
+.navSection_navContainer {
+  width: 45%;
+  padding-left: 45px;
+  padding-right: 45px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #E9E9E9;
+}
+.navSection_navContainer_navGrid {
+  display: grid;
+  padding-left: 45px;
+  padding-right: 45px;
+  box-sizing: border-box;
+  height: 80%;
+  width: 80%;
+  margin: auto;
+  grid-template-columns: 1fr 1fr;
+}
+.navSection_navContainer_navGrid_item {
+  display: flex;
+  flex-direction: row;
+  width: 200px;
+  height: auto;
+  justify-content: flex-start;
+  margin-top: 10%;
+  -moz-column-gap: 22px;
+       column-gap: 22px;
+}
+.navSection_navContainer_navGrid_item_index {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  font-family: "Carme", sans-serif;
+  color: #0c0c0c;
+  font-size: 17px;
+  margin: 0;
+}
+.navSection_navContainer_navGrid_item_content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  row-gap: 22px;
+}
+.navSection_navContainer_navGrid_item_content h2 {
+  font-family: "Carme", sans-serif;
+  color: #0c0c0c;
+  font-size: 30px;
+  font-weight: 200;
+  margin: 0;
+}
+.navSection_navContainer_navGrid_item_content p {
+  margin: 0;
+  font-family: "Carme", sans-serif;
+}
+.navSection_navContainer_navGrid_item_content ul {
+  display: flex;
+  flex-direction: column;
+  row-gap: 9px;
+  padding: 0;
+}
+.navSection_navContainer_navGrid_item_content ul li {
+  list-style-type: none;
+}
+.navSection_navContainer_navGrid_item_content ul li a {
+  text-decoration: none;
+  color: #0c0c0c;
+  font-family: "Carme", sans-serif;
+}
+.navSection_navContainer_navGrid_item_content ul li a:hover {
+  color: rgb(255, 125, 0);
+}
+.navSection_imageContainer {
+  width: 55%;
+}
+.navSection_imageContainer img {
+  width: 100%;
+  height: calc(100vh - 180px);
+}/*# sourceMappingURL=NavSection.css.map */

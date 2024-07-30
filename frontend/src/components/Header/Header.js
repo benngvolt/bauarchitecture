@@ -4,29 +4,39 @@ import NavSection from '../NavSection/NavSection'
 import logo from "../../assets/bau_logo.png"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-    faBars
+    faBars,
+    faXmark
 } from '@fortawesome/free-solid-svg-icons'
-// import React, { useState, useEffect, useContext, useRef } from 'react'
-// import { Context } from '../../utils/Context'
-// import facebookLogo from '../../assets/facebook_black.png'
-// import xLogo from '../../assets/x_black.png'
-// import youtubeLogo from '../../assets/youtube_black.png'
-// import instagramLogo from '../../assets/instagram_black.png'
-// import ContactModal from '../ContactModal/ContactModal'
-// import { useLocation, useNavigate } from 'react-router-dom';
+import React, { useContext } from 'react'
+import { ProjectsContext } from '../../utils/ProjectsContext'
+import Loader from '../Loader/Loader'
 
  
 function Header() {
+    
+    const { displayNavSection, setDisplayNavSection, loaderDisplay } = useContext(ProjectsContext);
 
     return  (      
-        <header>
-            <div>
-                <img src={logo}/>
-                <button >
+        <header className={displayNavSection===true?'header header--fixed':'header'}>
+            <div className='header_topBar'>
+                <Link className='header_topBar_link' aria-label="Accéder à la page d'accueil" to="/" onClick={()=> setDisplayNavSection(false)}>
+                    <img src={logo}/>
+                </Link>
+                <button onClick={()=> setDisplayNavSection(displayNavSection===true ?  false  : true)}>
+                    {displayNavSection===false &&
                     <FontAwesomeIcon icon={faBars} />
+                    }
+                    {displayNavSection===true &&
+                    <FontAwesomeIcon icon={faXmark} />
+}
                 </button>
             </div>
-            <NavSection/>
+            {displayNavSection===true &&
+                <NavSection/>
+            }
+            {loaderDisplay===true &&
+                <Loader/>
+            }
         </header>
     )
 }

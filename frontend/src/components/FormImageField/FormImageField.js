@@ -44,16 +44,27 @@ const FormImageField = (({htmlFor, label, type, id, name, imageFiles, setImageFi
     }
 
     return (
-        <div>
-            <p>{label}</p>
-            <label htmlFor={htmlFor}>
+        <div className='formImageField'>
+            <label 
+                htmlFor={htmlFor} 
+                className='formImageField_label'>
                 { isImageLoaded ? 'CHANGER D\'IMAGE' : '+ AJOUTER UNE IMAGE' }
             </label>
-            <input type={type} id={id} name={name} ref={inputImageRef} onChange={displaySample} style={{ display: 'none' }}></input>
-            <div>
-                <img ref={inputSampleImageRef} id='sample' src='' alt=''/>
+            <input 
+                type={type} 
+                id={id} 
+                name={name} 
+                ref={inputImageRef} 
+                onChange={displaySample} 
+                style={{ display: 'none' }}
+                className='formImageField_input'
+            ></input>
+            <div className='formImageField_sampleContainer'>
+                <img 
+                    className='formImageField_sampleContainer_image'
+                    ref={inputSampleImageRef} id='sample' src='' alt=''/>
                 {isImageLoaded === true &&
-                <div >
+                <div className='formImageField_sampleContainer_buttonsContainer'>
                     <button aria-label="Ajouter l'image" onClick={handleAddImageFile} type="button">AJOUTER</button>
                     <button aria-label="Annuler" onClick={cancelAddImageFile} type="button">ANNULER</button>
                 </div>

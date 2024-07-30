@@ -1,0 +1,27 @@
+@import '../../utils/mixins';
+
+.formSimpleField {
+    width: 40%;
+    margin: 8px auto;
+    @include Row;
+    column-gap: 22px;
+    justify-content: center;
+
+    label {
+        @include Row;
+        justify-content: flex-end;
+        width: 200px;
+        font-family: $mainFont;
+        font-size: $fontSize5;
+    }
+    input {
+        @include Row;
+        justify-content: flex-start;
+        width: 200px;
+        padding: 0;
+        border: none;
+        background-color: $colorLightGrey;
+        font-family: $mainFont;
+        font-size: $fontSize5;
+    }
+}

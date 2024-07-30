@@ -1,4 +1,5 @@
 import './FormRichTextField.scss'
+import '../../utils/trix.scss'
 import 'trix';
 import React, { forwardRef } from 'react'
 // import React, { useContext } from 'react'
@@ -7,13 +8,12 @@ import React, { forwardRef } from 'react'
 const FormRichTextField = forwardRef(({htmlFor, label, type, id, name, value}, ref) => {
   
     return (
-        <div>
+        <div className='formRichtextField'>
             <label htmlFor={htmlFor}>{label}</label>
-            <input id={id} type={type} name={name} defaultValue={value} ></input>
+            <input id='trix' type={type} name={name} defaultValue={value} ref={ref}></input>
             <trix-editor 
-                id={htmlFor}
-                input={id}
-                ref={ref}
+                id={id}
+                input='trix'   
             />
         </div>
     )

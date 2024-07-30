@@ -1,0 +1,76 @@
+/*-------------------
+----- VARIABLES -----
+-------------------*/
+
+$mainFont: 'Carme', sans-serif;
+
+$colorLightGrey: #E9E9E9;
+$colorDarkGrey: #0c0c0c;
+$color1: rgb(255, 125, 0);
+$color2: rgb(47, 0, 255);
+
+$mobileMaxWidth: 768px;
+$padMinWidth: 769px;
+$padMaxWidth: 991px;
+
+$fontSize1: 35px;
+$fontSize2: 30px;
+$fontSize3: 22px;
+$fontSize4: 17px;
+$fontSize5: 15px;
+
+@mixin Column {
+    display: flex;
+    flex-direction: column;
+}
+
+@mixin Row {
+    display: flex;
+    flex-direction: row;
+}
+
+@mixin SidePaddings {
+    padding-left: 45px;
+    padding-right: 45px;
+    box-sizing: border-box;
+}
+
+@mixin AllOverPaddings {
+    padding: 45px;
+    box-sizing: border-box;
+}
+
+@media only screen and (min-width: $padMinWidth) and (max-width: $padMaxWidth){
+
+}
+
+@media only screen and (max-width:$mobileMaxWidth){
+    
+}  
+
+
+@keyframes closeWelcomeLogo {
+
+    0% {  
+        top: 0;
+    }
+    70% {  
+        top: 0;
+    }
+
+    100% { 
+        top: -100vh;
+    }
+    
+}
+
+@keyframes apparition {
+
+    0% {  
+        opacity: 0;
+    }
+    100% {  
+        opacity: 1;
+    }
+}
+

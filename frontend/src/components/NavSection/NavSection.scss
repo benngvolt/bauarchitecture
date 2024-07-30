@@ -1,0 +1,88 @@
+@import '../../utils/mixins';
+
+.navSection {
+    
+    @include Row;
+    animation: apparition 2s ease forwards;
+    &_navContainer {
+        width: 45%;
+        @include SidePaddings;
+        @include Column;
+        justify-content: center;
+        background-color: $colorLightGrey;
+
+        &_navGrid {
+            display: grid;
+            @include SidePaddings;
+            height: 80%;
+            width: 80%;
+            margin: auto;
+            grid-template-columns: 1fr 1fr;
+
+            &_item {
+                @include Row;
+                width: 200px;
+                height: auto;
+                justify-content: flex-start;
+                margin-top:10%;
+                column-gap: 22px;
+
+                &_index {
+                    @include Column;
+                    justify-content: flex-start;
+                    font-family: $mainFont;
+                    color: $colorDarkGrey;
+                    font-size: $fontSize4;
+                    margin: 0;
+                }
+
+                &_content {
+                    @include Column;
+                    justify-content: flex-start;
+                    row-gap: 22px;
+                    
+                    h2 {
+    
+                        font-family: $mainFont;
+                        color: $colorDarkGrey;
+                        font-size: $fontSize2;
+                        font-weight: 200;
+                        margin: 0;
+
+                    }
+                    p {
+                        margin: 0;
+                        font-family: $mainFont;
+                    }
+
+                    ul {
+                        @include Column;
+                        row-gap: 9px;
+                        padding: 0;
+
+                        li {
+                            list-style-type: none;
+
+
+                            a {
+                                text-decoration: none;
+                                color: $colorDarkGrey;
+                                font-family: $mainFont;
+                                &:hover {
+                                    color: $color1;
+                                }
+                            }
+                         }
+                    }
+                }
+            }
+        }
+    }
+    &_imageContainer {
+        width: 55%;
+        img {
+            width: 100%;
+            height: calc(100vh - 180px);
+        }
+    }
+}

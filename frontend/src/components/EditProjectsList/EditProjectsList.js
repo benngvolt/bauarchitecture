@@ -6,7 +6,13 @@ import React, { useState, useRef, useEffect } from 'react'
 import { API_URL } from '../../utils/constants'
 
 
-function EditProjectsList ({projects, handleEditProject, handleLoadProjects}) {
+function EditProjectsList ({
+    projects, 
+    handleEditProject, 
+    handleLoadProjects, 
+    loaderDisplay, 
+    setLoaderDisplay
+    }) {
 
     const [confirmBoxEPLState, setConfirmBoxEPLState] = useState(false);
     const [projectToDelete, setProjectToDelete] = useState(null);
@@ -20,6 +26,7 @@ function EditProjectsList ({projects, handleEditProject, handleLoadProjects}) {
 
     function deleteProject() {
         console.log(projectToDelete)
+        setLoaderDisplay(true)
         fetch(`${API_URL}/api/projects/${projectToDelete._id}`, {
             method: 'DELETE',
             headers: {
@@ -28,6 +35,7 @@ function EditProjectsList ({projects, handleEditProject, handleLoadProjects}) {
         })
         .then ((response) => {
             if(response.ok) {
+                setLoaderDisplay(false)
                 console.log(response);
             }
             // setHandleDisplayProjectForm(false);
@@ -35,28 +43,31 @@ function EditProjectsList ({projects, handleEditProject, handleLoadProjects}) {
             handleLoadProjects();
             setProjectToDelete (null);
         })
-        .catch ((error)=>console.log(error.message))
+        .catch ((error)=> {
+            setLoaderDisplay(false)
+            console.log(error.message);
+        })
     }
 
     return (
-        <div>
-            <p>
-                PROJETS PUBLIÉS
-            </p>
-            <ul>
+        <div className='editProjectList'>
+            <ul className='editProjectList_list'>
                 {projects.map((project)=>(
-                <li key={project._id}>
-                    <p>{project.title}</p>
-                    <div>
+                <li className='editProjectList_list_item' key={project._id}>
+                    <img src={project.images[project.mainImageIndex].imageUrl}/>
+                    <p className='editProjectList_list_item_title'>{project.title}</p>
+                    <div className='editProjectList_list_item_buttonsContainer'>
                         <button aria-label="Supprimer le projet" onClick={() => {
                             setProjectToDelete (project)
                             openConfirmBox()
                             }} 
-                            type='button'><FontAwesomeIcon icon={faTrashCan}/>
+                            type='button'>
+                            Supprimer
                         </button>
                         <button aria-label="Modifier le projet" onClick={() => {
                             handleEditProject(project);
-                            }}><FontAwesomeIcon icon={faPenToSquare} />
+                            }}>
+                            Modifier
                         </button>
                     </div>
                 </li>

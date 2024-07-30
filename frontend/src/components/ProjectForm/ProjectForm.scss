@@ -1,0 +1,65 @@
+@import '../../utils/mixins';
+
+.projectFormContainer {
+    z-index: 1;
+    position: fixed;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:rgba(0, 0, 0, 0.8);
+    @include Column;
+}
+
+.projectForm {
+    width: 90%;
+    height: 90%;
+    overflow: scroll;
+    background-color: $color1;
+    margin: auto;
+    @include AllOverPaddings;
+    @include Column;
+    justify-content: space-between;
+    &_closeButton {
+        position: fixed;
+        top: 75px;
+        right: 130px;
+        width: 100%;
+        @include Row;
+        justify-content: flex-end;
+        button {
+            font-family: $mainFont;
+            font-size: $fontSize4;
+            background: none;
+            border: none;
+            padding: 0;
+            &:hover {
+                cursor: pointer;
+                color: $colorLightGrey;
+            }
+        }
+    }
+
+    &_submitButton {
+        width: 40%;
+        @include Row;
+        margin: 80px auto;
+        justify-content: center;
+
+        button {
+            font-family: $mainFont;
+            font-size: $fontSize3;
+            font-weight: bold;
+            color: $colorDarkGrey;
+            border: none;
+            background: none;
+            &:hover {
+                color: $colorLightGrey;
+                cursor: pointer;
+            }
+        }
+    }
+    
+}

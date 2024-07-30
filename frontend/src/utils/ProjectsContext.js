@@ -6,24 +6,35 @@ export const ProjectsProvider = ({ children }) => {
 
     const [projects, setProjects] = useState([])
     const [loadProjects, setLoadProjects] = useState(false)
+    const [displayNavSection, setDisplayNavSection] = useState(false)
+    const [loaderDisplay, setLoaderDisplay] = useState(false)
+    const [welcomeDisplay, setWelcomeDisplay] = useState(false)
 
     /*---------------------------------------------
     ----- Chargement des projets et stockage ------
     ---------------------------------------------*/
 
     useEffect(() => {
-        // displayLoader();
+        setLoaderDisplay(true);
         fetch(`${API_URL}/api/projects`)
             .then((res) => res.json())
             .then((data) => {
                 setProjects(data);
-                // hideLoader();
+                setLoaderDisplay(false);
             })
             .catch((error) => {
                 console.log(error.message);
-                // hideLoader(); // Appel à hideLoader() pour gérer les erreurs
+                setLoaderDisplay(false);
             });
     }, [loadProjects]);
+
+    useEffect(() => {
+        setWelcomeDisplay(true);
+        setTimeout(function() {
+            // Faire disparaître l'élément
+            setWelcomeDisplay(false);
+        }, 3000); 
+    }, []);
 
     const handleLoadProjects = () => { 
         setLoadProjects(loadProjects === false ? true : false);
@@ -36,6 +47,12 @@ export const ProjectsProvider = ({ children }) => {
         <ProjectsContext.Provider value={{ 
                 handleLoadProjects,
                 projects,
+                displayNavSection,
+                setDisplayNavSection,
+                loaderDisplay,
+                setLoaderDisplay,
+                welcomeDisplay,
+                setWelcomeDisplay
                 }}>
             {children}
         </ProjectsContext.Provider>

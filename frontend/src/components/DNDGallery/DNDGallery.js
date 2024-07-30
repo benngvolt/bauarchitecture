@@ -99,7 +99,7 @@ function DNDGallery ({ imageFiles, setImageFiles, mainImageIndex, setMainImageIn
             ))}
           </DNDGrid>
           ) : (
-          <p className="">Aucune image à afficher</p>
+          <p className="projectForm_DNDGallery_alertTextStyle">Aucune image à afficher</p>
         )}
         </SortableContext>
         <DragOverlay adjustScale={true}>

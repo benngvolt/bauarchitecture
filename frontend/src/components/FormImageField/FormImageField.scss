@@ -1,0 +1,48 @@
+@import '../../utils/mixins';
+
+.formImageField {
+    width: 40%;
+    margin: 8px auto;
+    @include Column;
+    row-gap: 22px;
+    justify-content: center;
+    
+    &_label {
+        margin: auto;
+        font-family: $mainFont;
+        font-size: $fontSize5;
+        &:hover {
+            color: $colorLightGrey;
+            cursor: pointer;
+        }
+    }
+    &_input {
+       
+    }
+    &_sampleContainer {
+        width: 50%;
+        margin: auto;
+
+        &_image {
+            width: 100%;
+        }
+        &_buttonsContainer {
+            @include Row;
+            margin : 8px auto;
+            justify-content: center;
+            button {
+                border: none;
+                font-weight: bold;
+                background: none;
+                font-family: $mainFont;
+                font-size: $fontSize5;
+                &:hover {
+                    color: $colorLightGrey;
+                    cursor: pointer;
+                }
+            }
+
+        }
+        
+    }
+}

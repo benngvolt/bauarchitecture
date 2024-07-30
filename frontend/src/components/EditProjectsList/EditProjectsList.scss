@@ -1,0 +1,41 @@
+@import '../../utils/mixins';
+
+.editProjectList {
+
+    &_list {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        list-style-type: none;
+        &_item {
+            width: 90%;
+            margin: auto;
+            img {
+                width: 100%;
+                aspect-ratio: 1.2;
+                object-fit: cover;
+            }
+
+            &_title {
+                color: $colorDarkGrey;
+                font-family: $mainFont;
+                font-size: $fontSize4;
+            }
+            &_buttonsContainer {
+                @include Column;
+                button {
+                    text-align: left;
+                    padding: 0;
+                    border: none;
+                    background: none;
+                    color: $colorDarkGrey;
+                    font-family: $mainFont;
+                    font-size: $fontSize5;
+                    &:hover {
+                        color: $color1;
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+    }
+}

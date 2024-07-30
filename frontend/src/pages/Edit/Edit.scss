@@ -1,10 +1,23 @@
+@import '../../utils/mixins';
+
 .edit {
-    &_projectFormContainer {
-        &--displayOn {
-            display: flex;
-        }
-        &--displayOff {
-            display: none;
+
+    &_projectsListContainer {
+        width: 100%;
+        height: auto;
+        @include SidePaddings;
+        &_addButton {
+            @include Row;
+            justify-content: center;
+            margin: 100px auto;
+            border: none;
+            font-family: $mainFont;
+            font-size: $fontSize3;
+            background: none;
+            &:hover {
+                color: $color1;
+                cursor: pointer;
+            }
         }
     }
 }

@@ -1,0 +1,9 @@
+/*-------------------
+----- VARIABLES -----
+-------------------*/
+.edit_projectFormContainer--displayOn {
+  display: flex;
+}
+.edit_projectFormContainer--displayOff {
+  display: none;
+}/*# sourceMappingURL=Edit.css.map */

@@ -6,7 +6,7 @@ import React, { forwardRef } from 'react'
 const FormSelectionField = forwardRef(({htmlFor, label, id, value, onChangeFunction, selectionArray}, ref) =>{
     
     return (
-        <div>
+        <div className='formSelectionField'>
             <label htmlFor={htmlFor}>{label}</label>
             <select id={id} 
                     ref={ref} 

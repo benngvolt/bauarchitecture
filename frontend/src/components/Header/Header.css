@@ -1,0 +1,35 @@
+/*-------------------
+----- VARIABLES -----
+-------------------*/
+.header--fixed {
+  position: fixed;
+}
+.header_topBar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 180px;
+  padding-left: 45px;
+  padding-right: 45px;
+  box-sizing: border-box;
+  background-color: #E9E9E9;
+}
+.header_topBar_link {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.header_topBar_link img {
+  height: 100px;
+}
+.header_topBar button {
+  display: flex;
+  flex-direction: column;
+  border: none;
+  background: none;
+  color: #0c0c0c;
+  justify-content: center;
+}
+.header_topBar button svg {
+  height: 33px;
+}/*# sourceMappingURL=Header.css.map */

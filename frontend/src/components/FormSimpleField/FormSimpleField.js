@@ -6,7 +6,7 @@ import React, { forwardRef } from 'react'
 const FormSimpleField = forwardRef(({htmlFor, label, type, id, value, onChangeFunction}, ref) => {
     
     return (
-        <div>
+        <div className='formSimpleField'>
             <label htmlFor={htmlFor}>{label}</label>
             <input type={type} id={id} ref={ref} value={value} onChange={(e) => onChangeFunction(e.target.value)}></input>
         </div>

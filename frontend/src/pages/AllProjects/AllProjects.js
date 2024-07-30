@@ -6,8 +6,12 @@ import React, { useContext, useState, useEffect } from 'react'
 
 function AllProjects () {
 
-    const { projects } = useContext (ProjectsContext);
+    const { projects, displayNavSection, setDisplayNavSection } = useContext (ProjectsContext);
     const [projectsList, setProjectsList] = useState(projects);
+
+    useEffect(() => {
+        setDisplayNavSection(false)
+    }, []);
 
     useEffect(() => {
         setProjectsList(projects)
@@ -15,12 +19,12 @@ function AllProjects () {
 
     return (
         <main>
-            <nav>
-                <ul>
+            <nav className='allProjects'>
+                <ul className='allProjects_list'>
                     {projectsList.map((project)=>(
-                        <Link aria-label={`Accéder à la page du projet ${project.title}`} to={project._id?`/projets/${project._id}`:'*'}>
+                        <Link className='allProjects_list_link' aria-label={`Accéder à la page du projet ${project.title}`} to={project._id?`/projets/${project._id}`:'*'}>
                             <figure>
-                                <img src={project.images[project.mainImageIndex].imageUrl}/>
+                                <img src={project.images[project.mainImageIndex]?.imageUrl}/>
                                 <figcaption>{project.title}</figcaption>
                             </figure>
                         </Link>
