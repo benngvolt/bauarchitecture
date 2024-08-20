@@ -1,3 +1,78 @@
 /*-------------------
 ----- VARIABLES -----
--------------------*//*# sourceMappingURL=EditProjectsList.css.map */
+-------------------*/
+@-webkit-keyframes closeWelcomeLogo {
+  0% {
+    top: 0;
+  }
+  70% {
+    top: 0;
+  }
+  100% {
+    top: -100vh;
+  }
+}
+@keyframes closeWelcomeLogo {
+  0% {
+    top: 0;
+  }
+  70% {
+    top: 0;
+  }
+  100% {
+    top: -100vh;
+  }
+}
+@-webkit-keyframes apparition {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes apparition {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.editProjectList_list {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  list-style-type: none;
+}
+.editProjectList_list_item {
+  width: 90%;
+  margin: auto;
+}
+.editProjectList_list_item img {
+  width: 100%;
+  aspect-ratio: 1.2;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.editProjectList_list_item_title {
+  color: #0c0c0c;
+  font-family: "Carme", sans-serif;
+  font-size: 17px;
+}
+.editProjectList_list_item_buttonsContainer {
+  display: flex;
+  flex-direction: column;
+}
+.editProjectList_list_item_buttonsContainer button {
+  text-align: left;
+  padding: 0;
+  border: none;
+  background: none;
+  color: #0c0c0c;
+  font-family: "Carme", sans-serif;
+  font-size: 15px;
+}
+.editProjectList_list_item_buttonsContainer button:hover {
+  color: rgb(255, 125, 0);
+  cursor: pointer;
+}/*# sourceMappingURL=EditProjectsList.css.map */

@@ -1,6 +1,44 @@
 /*-------------------
 ----- VARIABLES -----
 -------------------*/
+@-webkit-keyframes closeWelcomeLogo {
+  0% {
+    top: 0;
+  }
+  70% {
+    top: 0;
+  }
+  100% {
+    top: -100vh;
+  }
+}
+@keyframes closeWelcomeLogo {
+  0% {
+    top: 0;
+  }
+  70% {
+    top: 0;
+  }
+  100% {
+    top: -100vh;
+  }
+}
+@-webkit-keyframes apparition {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes apparition {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;

@@ -1,9 +1,62 @@
 /*-------------------
 ----- VARIABLES -----
 -------------------*/
-.edit_projectFormContainer--displayOn {
-  display: flex;
+@-webkit-keyframes closeWelcomeLogo {
+  0% {
+    top: 0;
+  }
+  70% {
+    top: 0;
+  }
+  100% {
+    top: -100vh;
+  }
 }
-.edit_projectFormContainer--displayOff {
-  display: none;
+@keyframes closeWelcomeLogo {
+  0% {
+    top: 0;
+  }
+  70% {
+    top: 0;
+  }
+  100% {
+    top: -100vh;
+  }
+}
+@-webkit-keyframes apparition {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes apparition {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.edit_projectsListContainer {
+  width: 100%;
+  height: auto;
+  padding-left: 45px;
+  padding-right: 45px;
+  box-sizing: border-box;
+}
+.edit_projectsListContainer_addButton {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 100px auto;
+  border: none;
+  font-family: "Carme", sans-serif;
+  font-size: 22px;
+  background: none;
+}
+.edit_projectsListContainer_addButton:hover {
+  color: rgb(255, 125, 0);
+  cursor: pointer;
 }/*# sourceMappingURL=Edit.css.map */

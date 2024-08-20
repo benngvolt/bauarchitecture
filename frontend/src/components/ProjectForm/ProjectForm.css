@@ -1,1 +1,106 @@
-/*# sourceMappingURL=ProjectForm.css.map */
+/*-------------------
+----- VARIABLES -----
+-------------------*/
+@-webkit-keyframes closeWelcomeLogo {
+  0% {
+    top: 0;
+  }
+  70% {
+    top: 0;
+  }
+  100% {
+    top: -100vh;
+  }
+}
+@keyframes closeWelcomeLogo {
+  0% {
+    top: 0;
+  }
+  70% {
+    top: 0;
+  }
+  100% {
+    top: -100vh;
+  }
+}
+@-webkit-keyframes apparition {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes apparition {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.projectFormContainer {
+  z-index: 1;
+  position: fixed;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  flex-direction: column;
+}
+
+.projectForm {
+  width: 90%;
+  height: 90%;
+  overflow: scroll;
+  background-color: rgb(255, 125, 0);
+  margin: auto;
+  padding: 45px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.projectForm_closeButton {
+  position: fixed;
+  top: 75px;
+  right: 130px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+.projectForm_closeButton button {
+  font-family: "Carme", sans-serif;
+  font-size: 17px;
+  background: none;
+  border: none;
+  padding: 0;
+}
+.projectForm_closeButton button:hover {
+  cursor: pointer;
+  color: #E9E9E9;
+}
+.projectForm_submitButton {
+  width: 40%;
+  display: flex;
+  flex-direction: row;
+  margin: 80px auto;
+  justify-content: center;
+}
+.projectForm_submitButton button {
+  font-family: "Carme", sans-serif;
+  font-size: 22px;
+  font-weight: bold;
+  color: #0c0c0c;
+  border: none;
+  background: none;
+}
+.projectForm_submitButton button:hover {
+  color: #E9E9E9;
+  cursor: pointer;
+}/*# sourceMappingURL=ProjectForm.css.map */

@@ -1,3 +1,59 @@
 /*-------------------
 ----- VARIABLES -----
--------------------*//*# sourceMappingURL=DNDSortableSingleItem.css.map */
+-------------------*/
+@-webkit-keyframes closeWelcomeLogo {
+  0% {
+    top: 0;
+  }
+  70% {
+    top: 0;
+  }
+  100% {
+    top: -100vh;
+  }
+}
+@keyframes closeWelcomeLogo {
+  0% {
+    top: 0;
+  }
+  70% {
+    top: 0;
+  }
+  100% {
+    top: -100vh;
+  }
+}
+@-webkit-keyframes apparition {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes apparition {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.item {
+  list-style-type: none;
+  margin-bottom: 12px;
+}
+.item img {
+  width: 200px;
+  height: 250px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.item_buttons_supprButton, .item_buttons_isMainButton {
+  border: none;
+  background: none;
+}
+.item_buttons_supprButton:hover, .item_buttons_isMainButton:hover {
+  color: #E9E9E9;
+  cursor: pointer;
+}/*# sourceMappingURL=DNDSortableSingleItem.css.map */

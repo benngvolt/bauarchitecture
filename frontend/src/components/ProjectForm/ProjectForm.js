@@ -28,7 +28,9 @@ function ProjectForm ({
     const [projectPrice, setProjectPrice] = useState('')
     const [projectSurface, setProjectSurface] = useState('')
     const [imageFiles, setImageFiles] = useState ([])
+    const [sketchFiles, setSketchFiles] = useState ([])
     const [mainImageIndex, setMainImageIndex] = useState(0)
+    const [mainSketchIndex, setMainSketchIndex] = useState(0)
 
     
 
@@ -61,6 +63,7 @@ function ProjectForm ({
             setProjectSurface('');
             setMainImageIndex(0);
             setImageFiles([]);
+            setSketchFiles([])
         } else {
             setProjectTitle(projectEdit.title);
             setProjectSubtitle(projectEdit.subtitle);
@@ -72,6 +75,7 @@ function ProjectForm ({
             setProjectSurface(projectEdit.surface);
             setMainImageIndex(projectEdit.mainImageIndex ?? 0);
             setImageFiles(projectEdit.images ?? []);
+            setSketchFiles(projectEdit.sketches ?? []);
         }
     }
 
@@ -104,10 +108,16 @@ function ProjectForm ({
         projectFormData.append('mainImageIndex', mainImageIndex);
 
         const newImageFiles = Array.from(imageFiles);
+        const newSketchFiles = Array.from(sketchFiles);
         
         const imagesWithIndex = newImageFiles.map((image, index) => ({
             index,
             image
+        }));
+        
+        const sketchesWithIndex = newSketchFiles.map((sketch, index) => ({
+            index,
+            sketch
         }));
 
         imagesWithIndex.forEach(({ index, image }) => {
@@ -116,6 +126,15 @@ function ProjectForm ({
                 projectFormData.append('fileIndexes', index)
             } else {
                 projectFormData.append(`existingImages[${index}]`, JSON.stringify(image));
+            }
+        });
+
+        sketchesWithIndex.forEach(({ index, sketch }) => {
+            if (sketch instanceof File) {
+                projectFormData.append('sketches', sketch);
+                projectFormData.append('sketchFileIndexes', index)
+            } else {
+                projectFormData.append(`existingSketches[${index}]`, JSON.stringify(sketch));
             }
         });
 
@@ -270,6 +289,7 @@ function ProjectForm ({
                         name={'projectDescription'}
                         value={projectDescription}
                     />
+                    <p>GALLERIE DE PHOTOS</p>
                     <DNDGallery
                         imageFiles={imageFiles} 
                         setImageFiles={setImageFiles} 
@@ -284,6 +304,22 @@ function ProjectForm ({
                         name={'image'}
                         imageFiles={imageFiles}
                         setImageFiles={setImageFiles}
+                    />
+                    <p>GALLERIE DE CROQUIS</p>
+                    <DNDGallery
+                        imageFiles={sketchFiles} 
+                        setImageFiles={setSketchFiles} 
+                        mainImageIndex={mainSketchIndex} 
+                        setMainImageIndex={setMainSketchIndex} 
+                        displayClass={'grid'}/>
+                    <FormImageField
+                        htmlFor={'inputSketch'}
+                        label={'TÉLÉCHARGER UN CROQUIS'}
+                        type={'file'}
+                        id={'inputSketch'}
+                        name={'sketch'}
+                        imageFiles={sketchFiles}
+                        setImageFiles={setSketchFiles}
                     />
                 </div>
                 <div className='projectForm_submitButton'>

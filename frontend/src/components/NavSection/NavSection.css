@@ -1,9 +1,49 @@
 /*-------------------
 ----- VARIABLES -----
 -------------------*/
+@-webkit-keyframes closeWelcomeLogo {
+  0% {
+    top: 0;
+  }
+  70% {
+    top: 0;
+  }
+  100% {
+    top: -100vh;
+  }
+}
+@keyframes closeWelcomeLogo {
+  0% {
+    top: 0;
+  }
+  70% {
+    top: 0;
+  }
+  100% {
+    top: -100vh;
+  }
+}
+@-webkit-keyframes apparition {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes apparition {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
 .navSection {
   display: flex;
   flex-direction: row;
+  -webkit-animation: apparition 2s ease forwards;
+          animation: apparition 2s ease forwards;
 }
 .navSection_navContainer {
   width: 45%;
@@ -84,4 +124,6 @@
 .navSection_imageContainer img {
   width: 100%;
   height: calc(100vh - 180px);
+  -o-object-fit: cover;
+     object-fit: cover;
 }/*# sourceMappingURL=NavSection.css.map */

@@ -1,13 +1,14 @@
 @import '../../utils/mixins';
 
 .header {
-    z-index: 3;
+    
     &--fixed {
         position: fixed;
         top: 0;
     }
 
     &_topBar {
+        z-index: 3;
         @include Row;
         justify-content: space-between;
         height: 180px;

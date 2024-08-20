@@ -15,7 +15,11 @@ const deleteImages = require('../middlewares/deleteImages').deleteImages;
 
 router.post('/',
             // auth,
-            multer.array('images'), 
+            // multer.array('images'), 
+            multer.fields([
+                { name: 'images'},
+                { name: 'sketches'}
+              ]),
             uploadImages, 
             projectsCtrl.createProject);
             
@@ -32,7 +36,10 @@ router.delete ('/:id',
 
 router.put ('/:id',
             // auth, 
-            multer.array('images'), 
+            multer.fields([
+                { name: 'images'},
+                { name: 'sketches'}
+              ]),
             uploadImages, 
             projectsCtrl.updateOneProject, 
             deleteImages);

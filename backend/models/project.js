@@ -16,6 +16,12 @@ const projectSchema = mongoose.Schema({
         imageUrl: {type: String, required: false},
         }
     ],
+    sketches: [
+        {
+        imageUrl: {type: String, required: false},
+        sktechCaption: {type: String, required: false}
+        }
+    ],
 });
 
 

@@ -1,1 +1,66 @@
-/*# sourceMappingURL=FormRichTextField.css.map */
+/*-------------------
+----- VARIABLES -----
+-------------------*/
+@-webkit-keyframes closeWelcomeLogo {
+  0% {
+    top: 0;
+  }
+  70% {
+    top: 0;
+  }
+  100% {
+    top: -100vh;
+  }
+}
+@keyframes closeWelcomeLogo {
+  0% {
+    top: 0;
+  }
+  70% {
+    top: 0;
+  }
+  100% {
+    top: -100vh;
+  }
+}
+@-webkit-keyframes apparition {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes apparition {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.formRichtextField {
+  width: 40%;
+  margin: 45px auto;
+  display: flex;
+  flex-direction: column;
+  row-gap: 22px;
+  justify-content: center;
+}
+.formRichtextField label {
+  display: flex;
+  flex-direction: row;
+  width: 200px;
+  font-family: "Carme", sans-serif;
+  font-size: 15px;
+  margin: auto;
+}
+.formRichtextField input {
+  display: flex;
+  flex-direction: row;
+  padding: 0;
+  border: none;
+  background-color: #E9E9E9;
+  font-family: "Carme", sans-serif;
+  font-size: 15px;
+}/*# sourceMappingURL=FormRichTextField.css.map */

@@ -1,1 +1,82 @@
-/*# sourceMappingURL=FormImageField.css.map */
+/*-------------------
+----- VARIABLES -----
+-------------------*/
+@-webkit-keyframes closeWelcomeLogo {
+  0% {
+    top: 0;
+  }
+  70% {
+    top: 0;
+  }
+  100% {
+    top: -100vh;
+  }
+}
+@keyframes closeWelcomeLogo {
+  0% {
+    top: 0;
+  }
+  70% {
+    top: 0;
+  }
+  100% {
+    top: -100vh;
+  }
+}
+@-webkit-keyframes apparition {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes apparition {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.formImageField {
+  width: 40%;
+  margin: 8px auto;
+  display: flex;
+  flex-direction: column;
+  row-gap: 22px;
+  justify-content: center;
+}
+.formImageField_label {
+  margin: auto;
+  font-family: "Carme", sans-serif;
+  font-size: 15px;
+}
+.formImageField_label:hover {
+  color: #E9E9E9;
+  cursor: pointer;
+}
+.formImageField_sampleContainer {
+  width: 50%;
+  margin: auto;
+}
+.formImageField_sampleContainer_image {
+  width: 100%;
+}
+.formImageField_sampleContainer_buttonsContainer {
+  display: flex;
+  flex-direction: row;
+  margin: 8px auto;
+  justify-content: center;
+}
+.formImageField_sampleContainer_buttonsContainer button {
+  border: none;
+  font-weight: bold;
+  background: none;
+  font-family: "Carme", sans-serif;
+  font-size: 15px;
+}
+.formImageField_sampleContainer_buttonsContainer button:hover {
+  color: #E9E9E9;
+  cursor: pointer;
+}/*# sourceMappingURL=FormImageField.css.map */

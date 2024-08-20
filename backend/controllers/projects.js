@@ -32,8 +32,8 @@ exports.deleteOneProject = async (req, res, next) => {
     if (!deletedProject) {
       return res.status(404).json({ message: 'Projet non trouvée' });
     }
-    const projects = await Project.find();
-    const imageUrls = projects.flatMap((project) => project.images.map((image) => image.imageUrl));
+    // const projects = await Project.find();
+    // const imageUrls = projects.flatMap((project) => project.images.map((image) => image.imageUrl));
     // Appeler la fonction de suppression d'images après avoir supprimé la série
     res.status(200).json({ message: 'Projet supprimé !' });
     next();
@@ -52,6 +52,7 @@ exports.createProject = async (req, res) => {
     
     const projectData = req.body;
     const images = req.newImagesObjects;
+    const sketches = req.newSketchesObjects;
   
     const descriptionWithBr = req.body.description
   
@@ -66,6 +67,7 @@ exports.createProject = async (req, res) => {
           ... projectData,
           description: descriptionWithBr,
           images: images,
+          sketches: sketches
         });
         await project.save();
         res.status(201).json({ message: 'Projet enregistrée !' });
@@ -98,7 +100,11 @@ exports.updateOneProject = async (req, res, next) => {
       // RÉCUPÉRATION DES IMAGES EXISTANTES DEPUIS LE FRONTEND, PARSE DES DONNÉES
       const existingImages = req.body.existingImages || [];
       const existingImagesObjects = existingImages.map((imageStr) => JSON.parse(imageStr));
-      
+
+      //RÉCUPÉRATION DES CROQUIS EXISTANTS DEPUIS LE FRONTEND, PARSE DES DONNÉES
+      const existingSketches = req.body.existingSketches || [];
+      const existingSketchesObjects = existingSketches.map((sketchStr) => JSON.parse(sketchStr));
+
       async function processAndSortImages(existingImagesObjects, newImagesObjects) {
         const allImages = existingImagesObjects.map((image, index) => ({
           imageUrl: image.imageUrl,
@@ -108,10 +114,21 @@ exports.updateOneProject = async (req, res, next) => {
         const updatedImages = allImages.filter((image) => image != null && image !== "empty");
         return updatedImages;
       }
+
+      async function processAndSortSketches(existingSketchesObjects, newSketchesObjects) {
+        const allSketches = existingSketchesObjects.map((sketch, index) => ({
+          imageUrl: sketch.imageUrl,
+          index,
+        })).concat(newSketchesObjects);
+        allSketches.sort((a, b) => a.index - b.index);
+        const updatedSketches = allSketches.filter((sketch) => sketch != null && sketch !== "empty");
+        return updatedSketches;
+      }
   
       // MISE À JOUR DE LA SÉRIE DANS LA BASE DE DONNÉES
       async function updateProject(updatedImages) {
         const updatedMainImageIndex = req.body.mainImageIndex || 0;
+        const updatedMainSketchIndex = req.body.mainSketchIndex || 0;
 
         if (!projectData.title || !projectData.projectState) {
           return res.status(400).json({ error: 'Le champ "title" ou "state" est manquant dans la demande.' });
@@ -122,6 +139,7 @@ exports.updateOneProject = async (req, res, next) => {
           description: descriptionWithBr,     
           mainImageIndex: updatedMainImageIndex,
           images: updatedImages,
+          sketches: updatedSketches
         };
   
         await Project.updateOne({ _id: req.params.id }, projectObject);
@@ -132,10 +150,12 @@ exports.updateOneProject = async (req, res, next) => {
       }
   
       const newImagesObjects = req.newImagesObjects || [];
+      const newSketchesObjects = req.newSketchesObjects || [];
 
       const updatedImages = await processAndSortImages(existingImagesObjects, newImagesObjects);
+      const updatedSketches = await processAndSortSketches(existingSketchesObjects, newSketchesObjects);
 
-      await updateProject(updatedImages);
+      await updateProject(updatedImages, updatedSketches);
 
     } catch (error) {
       console.error(error);
