@@ -118,6 +118,7 @@ exports.updateOneProject = async (req, res, next) => {
       async function processAndSortSketches(existingSketchesObjects, newSketchesObjects) {
         const allSketches = existingSketchesObjects.map((sketch, index) => ({
           imageUrl: sketch.imageUrl,
+          sketchCaption: sketch.sketchCaption,
           index,
         })).concat(newSketchesObjects);
         allSketches.sort((a, b) => a.index - b.index);

@@ -19,7 +19,7 @@ const projectSchema = mongoose.Schema({
     sketches: [
         {
         imageUrl: {type: String, required: false},
-        sktechCaption: {type: String, required: false}
+        sketchCaption: {type: String, required: false}
         }
     ],
 });

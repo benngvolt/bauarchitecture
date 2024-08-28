@@ -55,51 +55,50 @@ function SingleProject () {
         <main>
             {singleProject &&
             <div className='singleProject'>
-                <section className='singleProject_firstImageContainer'>
-                    <img src={singleProject.images[singleProject.mainImageIndex]?.imageUrl}/>
-                </section>
-                <section className='singleProject_datasContainer'>
-                    <div className='singleProject_datasContainer_imagesCarousel'>
-                        <img className='singleProject_datasContainer_imagesCarousel_image' src={singleProject.images[selectedImageIndex]?.imageUrl}/>
-                        {singleProject.images.length > 1 &&
-                        <div className='singleProject_datasContainer_imagesCarousel_selectBox'>
-                            <FontAwesomeIcon 
-                                className='singleProject_datasContainer_imagesCarousel_selectBox_icon'
-                                icon={faChevronLeft}
-                                onClick={()=>previousImageDisplay()}
-                                    />
-                            {singleProject.images.map((image, index)=>(
-                                <p className={index===selectedImageIndex? 'singleProject_datasContainer_imagesCarousel_selectBox_indexBar singleProject_datasContainer_imagesCarousel_selectBox_indexBar--bold':'singleProject_datasContainer_imagesCarousel_selectBox_indexBar'}>|</p>
-                            ))}
-                            <FontAwesomeIcon 
-                                className='singleProject_datasContainer_imagesCarousel_selectBox_icon'
-                                icon={faChevronRight}
-                                onClick={()=>nextImageDisplay()} 
-                                />
-                        </div>
-                        }   
-                    </div>
+                <section className='singleProject_datasContainer'> 
+                    <h3 className='singleProject_datasContainer_title'>{singleProject.title}</h3>
                     <article className='singleProject_datasContainer_datasBox'>
                         <div className='singleProject_datasContainer_datasBox_maindatas'>
-                            <p className='singleProject_datasContainer_datasBox_maindatas_type'>{singleProject.projectType}</p>
-                            <h3 className='singleProject_datasContainer_datasBox_maindatas_title'>{singleProject.title}</h3>
-                            <p className='singleProject_datasContainer_datasBox_maindatas_date'>{singleProject.creationDate}</p>
-                        </div>
-                        {cleanedDescription &&
-                            <p className='singleProject_datasContainer_datasBox_description' dangerouslySetInnerHTML={{__html:cleanedDescription}}></p>
+                            {singleProject.projectType &&
+                            <p className='singleProject_datasContainer_datasBox_maindatas_type'>Type de projet : {singleProject.projectType}</p>
                             }
-                        <div className='singleProject_datasContainer_datasBox_details'>
-                            <div className='singleProject_datasContainer_datasBox_details_priceBox'>
-                                <p className='singleProject_datasContainer_datasBox_details_priceBox_label'>montant des travaux</p>
-                                <p className='singleProject_datasContainer_datasBox_details_priceBox_price'>{singleProject.price}</p>
-                            </div>
-                            <div>
-                                <p className='singleProject_datasContainer_datasBox_details_surfaceBox_label'>surface</p>
-                                <p className='singleProject_datasContainer_datasBox_details_surfaceBox_surface'>{singleProject.surface}</p>
-                            </div>
+                            {singleProject.projectState &&
+                            <p className='singleProject_datasContainer_datasBox_maindatas_state'>État du projet : {singleProject.projectState}</p>
+                            }
+                            {singleProject.creationDate &&
+                            <p className='singleProject_datasContainer_datasBox_maindatas_date'>Date de fin des travaux : {singleProject.creationDate}</p>
+                            }
+                            {singleProject.price &&
+                            <p className='singleProject_datasContainer_datasBox_maindatas_price'>Montant des travaux : {singleProject.price}</p>
+                            }
+                            {singleProject.surface &&
+                            <p className='singleProject_datasContainer_datasBox_maindatas_surface'>Surface : {singleProject.surface}</p>
+                            }
+                        </div>
+                        <div className='singleProject_datasContainer_datasBox_description'>
+                            {cleanedDescription &&
+                            <p dangerouslySetInnerHTML={{__html:cleanedDescription}}></p>
+                            }
                         </div>
                     </article>
-                    
+                    <div className='singleProject_datasContainer_sketchesBox'>
+                        {singleProject.sketches.length > 1 &&
+                            <div className='singleProject_datasContainer_sketchesBox_grid'> 
+                                {singleProject.sketches.map((sketch, index)=>(
+                                    <img className={sketch.imageUrl.endsWith('.png')?`singleProject_datasContainer_sketchesBox_grid_image singleProject_datasContainer_sketchesBox_grid_image_${index} singleProject_datasContainer_sketchesBox_grid_image_png` : `singleProject_datasContainer_sketchesBox_grid_image singleProject_datasContainer_sketchesBox_grid_image_${index} singleProject_datasContainer_sketchesBox_grid_image_other`} src={sketch.imageUrl}/>
+                                ))}
+                            </div>
+                        }   
+                    </div>
+                    <div className='singleProject_datasContainer_imagesWowColumn'>
+                        {singleProject.images.length > 1 &&
+                            <div className='singleProject_datasContainer_imagesWowColumn_column'> 
+                                {singleProject.images.map((image, index)=>(
+                                    <img className='singleProject_datasContainer_imagesWowColumn_image' src={image.imageUrl}/>
+                                ))}
+                            </div>
+                        }   
+                    </div>
                 </section>
                 
             </div>

@@ -1,11 +1,15 @@
 import './DNDSortableSingleItem.scss'
-import {useSortable} from '@dnd-kit/sortable'
-import {CSS} from '@dnd-kit/utilities'
+import FormSimpleField from '../FormSimpleField/FormSimpleField'
+import React, { useContext, useState, useRef } from 'react'
+import { useSortable } from '@dnd-kit/sortable'
+import { CSS } from '@dnd-kit/utilities'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faTrashCan, faCertificate, faCircle, faBolt} from '@fortawesome/free-solid-svg-icons'
+import {faTrashCan, faCertificate, faCircle, faPen} from '@fortawesome/free-solid-svg-icons'
 
 export const DNDSortableSingleItem = (props) => {
+
   const sortable = useSortable({id: props.itemId});
+
   const {
     attributes,
     listeners,
@@ -29,6 +33,10 @@ export const DNDSortableSingleItem = (props) => {
         props.setMainImageIndex(0)
       }
   }
+
+  
+
+
 
   return (
     <div 
@@ -54,6 +62,16 @@ export const DNDSortableSingleItem = (props) => {
           <button type='button' aria-label="Définir cette image comme image principale de la série" className='item_buttons_isMainButton'
             onMouseDown={() => { handleMainImage(props.index)}} >
             <FontAwesomeIcon icon={props.index === props.mainImageIndex ? faCertificate : faCircle} className={props.index === props.mainImageIndex ? 'item_buttons_isMainButton--isOrange' : 'item_buttons_isMainButton--isWhite'} />
+          </button>
+          }
+          {props.isCaptionFormAvailable===true &&
+          <button type='button' aria-label="Editer la légende de l'image" className='item_buttons_captionButton'
+            onMouseDown={() => {
+              props.openCaptionModal(props.index);
+            }}
+            draggable="false"
+            >
+            <FontAwesomeIcon icon={faPen} />
           </button>
           }
       </div>

@@ -8,7 +8,15 @@ const FormSimpleField = forwardRef(({htmlFor, label, type, id, value, onChangeFu
     return (
         <div className='formSimpleField'>
             <label htmlFor={htmlFor}>{label}</label>
+            {/* <input
+                type={type}
+                id={id}
+                ref={ref}
+                value={value}
+                onChange={(e) => onChangeFunction(e)} // Pass the event, not just the value
+            /> */}
             <input type={type} id={id} ref={ref} value={value} onChange={(e) => onChangeFunction(e.target.value)}></input>
+            
         </div>
     )
 })

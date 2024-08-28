@@ -1,5 +1,6 @@
 import './ProjectForm.scss'
 import FormSimpleField from '../FormSimpleField/FormSimpleField'
+import FormCaptionField from '../FormCaptionField/FormCaptionField'
 import React, { useState, useRef, useEffect } from 'react'
 import FormSelectionField from '../FormSelectionField/FormSelectionField'
 import FormRichTextField from '../FormRichTextField/FormRichTextField'
@@ -29,10 +30,11 @@ function ProjectForm ({
     const [projectSurface, setProjectSurface] = useState('')
     const [imageFiles, setImageFiles] = useState ([])
     const [sketchFiles, setSketchFiles] = useState ([])
+    const [caption, setCaption] = useState ('')
     const [mainImageIndex, setMainImageIndex] = useState(0)
     const [mainSketchIndex, setMainSketchIndex] = useState(0)
-
-    
+    const [captionIndex, setCaptionIndex] = useState(null)
+    const [captionModalDisplay, setCaptionModalDisplay] = useState(false)
 
     const inputProjectTitleRef = useRef('');
     const inputProjectSubtitleRef = useRef(null);
@@ -42,6 +44,7 @@ function ProjectForm ({
     const inputProjectDescriptionRef = useRef(null)
     const inputProjectPriceRef = useRef(null)
     const inputProjectSurfaceRef = useRef(null)
+    const inputImageCaptionRef = useRef(null);
 
     const projectTypes = ['réhabilitation', 'construction neuve', 'extension']
     const projectStates = ['en chantier', 'construit', 'esquisse']
@@ -80,6 +83,7 @@ function ProjectForm ({
     }
 
 
+
     useEffect(() => {
         const element = document.getElementById("inputProjectDescription");
         if (element) {
@@ -87,6 +91,34 @@ function ProjectForm ({
             element.editor.loadHTML(projectDescription); 
         }
     }, [projectDescription, projectFormMode]);
+
+    function handleCaptionChange(index, newCaption) {
+
+        console.log(index)
+        setCaption(newCaption)
+        // const updatedCaptions = [...sketchCaptions];
+        // updatedCaptions[index] = newCaption;
+        // setSketchCaptions(updatedCaptions);
+    }
+
+    function openCaptionModal(index) {
+        setCaptionIndex(index);
+        setCaption(sketchFiles[index].sketchCaption);
+        setCaptionModalDisplay(true);
+    }
+
+    function closeCaptionModal() {
+        setCaptionIndex(null);
+        setCaption('');
+        setCaptionModalDisplay(false);
+    }
+
+    function captionSubmit(index, value) {
+        const updatedSketches = [...sketchFiles];
+        updatedSketches[index].sketchCaption = value;
+        setSketchFiles(updatedSketches);
+        closeCaptionModal()
+    }
 
     /* --------------------------------------
     ----- SOUMISSION DU FORMULAIRE ----------
@@ -291,11 +323,13 @@ function ProjectForm ({
                     />
                     <p>GALLERIE DE PHOTOS</p>
                     <DNDGallery
+                        isCaptionFormAvailable={false}
                         imageFiles={imageFiles} 
                         setImageFiles={setImageFiles} 
                         mainImageIndex={mainImageIndex} 
                         setMainImageIndex={setMainImageIndex} 
-                        displayClass={'grid'}/>
+                        displayClass={'grid'}
+                        />
                     <FormImageField
                         htmlFor={'inputImage'}
                         label={'TÉLÉCHARGER UNE IMAGE'}
@@ -307,11 +341,13 @@ function ProjectForm ({
                     />
                     <p>GALLERIE DE CROQUIS</p>
                     <DNDGallery
+                        isCaptionFormAvailable={true}
                         imageFiles={sketchFiles} 
                         setImageFiles={setSketchFiles} 
                         mainImageIndex={mainSketchIndex} 
                         setMainImageIndex={setMainSketchIndex} 
-                        displayClass={'grid'}/>
+                        displayClass={'grid'}
+                        openCaptionModal={openCaptionModal}/>
                     <FormImageField
                         htmlFor={'inputSketch'}
                         label={'TÉLÉCHARGER UN CROQUIS'}
@@ -326,6 +362,23 @@ function ProjectForm ({
                     <button type='submit'>ENVOYER</button>
                     {/* <button type='button' onClick={() => setConfirmBoxState(true)}>SORTIR</button> */}
                 </div>
+                {captionModalDisplay===true &&
+                <div className='projectForm_imageCaptionFormModal'>
+                    <FormCaptionField
+                        htmlFor={'inputSketchCaption'}
+                        label={'LÉGENDE'}
+                        type={'text'}
+                        id={'inputSketchCaption'}
+                        ref={inputImageCaptionRef}
+                        value={caption}
+                        onChangeFunction={
+                            handleCaptionChange}
+                        index={captionIndex}
+                        closeModal={closeCaptionModal}
+                        captionSubmit={captionSubmit}
+                    />
+                </div>
+                }
             </form>
         </div>
     )

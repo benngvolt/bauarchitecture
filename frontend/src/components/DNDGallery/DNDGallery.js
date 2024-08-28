@@ -22,7 +22,7 @@ import DNDGrid from '../DNDGrid/DNDGrid';
 import { DNDSortableSingleItem } from '../DNDSortableSingleItem/DNDSortableSingleItem';
 
 
-function DNDGallery ({ imageFiles, setImageFiles, mainImageIndex, setMainImageIndex, displayClass}) {
+function DNDGallery ({ imageFiles, setImageFiles, mainImageIndex, setMainImageIndex, displayClass, openCaptionModal, isCaptionFormAvailable}) {
 
   const [items, setItems] = useState(imageFiles);
   const [activeId, setActiveId] = useState(null);
@@ -94,7 +94,9 @@ function DNDGallery ({ imageFiles, setImageFiles, mainImageIndex, setMainImageIn
                 imageFiles={imageFiles}
                 setImageFiles={setImageFiles}
                 openConfirmBox={() => openConfirmBox(index)}
+                openCaptionModal={() => openCaptionModal(index)}
                 displayClass={displayClass}
+                isCaptionFormAvailable={isCaptionFormAvailable}
                 />
             ))}
           </DNDGrid>
