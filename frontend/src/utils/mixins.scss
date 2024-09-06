@@ -20,6 +20,8 @@ $fontSize3: 22px;
 $fontSize4: 17px;
 $fontSize5: 15px;
 
+$headerHeight: 100px;
+
 @mixin Column {
     display: flex;
     flex-direction: column;
@@ -116,13 +118,13 @@ $fontSize5: 15px;
     }
 }
 
-@keyframes slideFromLeft {
+@keyframes slideCaptionBoxFromLeft {
 
     0% {  
         max-width: 0%;
     }
     100% {  
-        max-width: 45%;
+        max-width: 100%;
     }
 }
 

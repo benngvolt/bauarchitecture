@@ -17,7 +17,7 @@ function Header() {
     const { displayNavSection, setDisplayNavSection, loaderDisplay } = useContext(ProjectsContext);
 
     return  (      
-        <header className={displayNavSection===true?'header header--fixed':'header'}>
+        <header className='header--fixed'>
             <div className='header_topBar'>
                 <Link className='header_topBar_link' aria-label="Accéder à la page d'accueil" to="/" onClick={()=> setDisplayNavSection(false)}>
                     <img src={logo}/>

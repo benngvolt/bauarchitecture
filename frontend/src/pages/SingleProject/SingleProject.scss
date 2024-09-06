@@ -1,6 +1,8 @@
 @import '../../utils/mixins';
 
 .singleProject {
+    
+    margin-top: $headerHeight;
 
     &_datasContainer {
         background-color: $colorLightGrey;
@@ -197,6 +199,7 @@
             z-index: 0;
             width: 100%;
             &_image {
+                z-index: 0;
                 width: 100%;
                 object-fit: cover;
             }

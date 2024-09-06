@@ -2,10 +2,11 @@
 
 .header {
 
-    z-index: 1;
+    z-index: 3;
     width: 100vw;
 
     &--fixed {
+        z-index: 3;
         position: fixed;
         top: 0;
         width: 100vw;
@@ -15,14 +16,16 @@
         z-index: 3;
         @include Row;
         justify-content: space-between;
-        height: 180px;
+        height: $headerHeight;
         @include SidePaddings;
         background-color: $colorLightGrey;
         &_link {
+                height: 100%;
                 @include Column;
                 justify-content: center;
+                vertical-align: middle;
             img {
-                height: 100px;
+                height: 85px;
                 object-fit: cover;
             }
         }
@@ -42,7 +45,6 @@
                     cursor: pointer;
                 }
             }
-            
         }
     }
 }

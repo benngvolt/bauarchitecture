@@ -1,7 +1,7 @@
 @import '../../utils/mixins';
 
 .home {
-
+    margin-top: $headerHeight;
     &_logoContainer {
         animation: closeWelcomeLogo 3s ease forwards;
         @include Column;

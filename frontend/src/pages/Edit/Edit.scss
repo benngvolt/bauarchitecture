@@ -1,7 +1,7 @@
 @import '../../utils/mixins';
 
 .edit {
-
+    margin-top: $headerHeight;
     &_projectsListContainer {
         width: 100%;
         height: auto;

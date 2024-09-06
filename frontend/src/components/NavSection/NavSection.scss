@@ -109,7 +109,7 @@
         animation: slideFormRight 1s ease forwards;
         img {
             width: 100%;
-            height: calc(100vh - 180px);
+            height: calc(100vh - $headerHeight);
             object-fit: cover;
         }
     }

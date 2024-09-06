@@ -16,7 +16,7 @@
 
 
         &_container {
-            animation: slideFromLeft 0.3s ease forwards;
+            animation: slideCaptionBoxFromLeft 0.3s ease forwards;
             position: relative;
             display: flex;
             row-gap: 16px;
@@ -33,27 +33,28 @@
     
             &_closeButton {
                 position: absolute;
-                top: 0;
+                top: 20px;
                 right: 30px;
                 &:hover {
                     cursor: pointer;
-                    color: $colorLightGrey;
+                    color: $color1;
                 }
             }
 
             &_datas {
                 @include Row;
                 @include AllOverPaddings;
-                
+                width: 100%;
                 box-sizing: border-box;
 
                 &_image {
-                    width: 80%;
+                    width: auto;
                     max-height: 100%;
                     object-fit: contain;
                     margin: auto;
                 }
                 &_caption {
+                    width: 50%;
                     @include Row;
                     height: 50%;
                     column-gap: 20px;
