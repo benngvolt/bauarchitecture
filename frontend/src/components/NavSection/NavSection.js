@@ -6,13 +6,13 @@ import React, { useContext} from 'react'
 
 
  
-function NavSection() {
+function NavSection({displayNavSection}) {
 
     const { setDisplayNavSection } = useContext(ProjectsContext);
 
     return  (      
-        <div className='navSection'>
-            <nav className='navSection_navContainer'>
+        <div className={displayNavSection===true?'navSection navSection--display':'navSection navSection--hide'}>
+            <nav className={displayNavSection===true?'navSection_navContainer navSection_navContainer--opened':'navSection_navContainer navSection_navContainer--closed'}>
                 <ul className='navSection_navContainer_navGrid'>
                     <li className='navSection_navContainer_navGrid_item'>
                         <p className='navSection_navContainer_navGrid_item_index'>01</p>
@@ -80,7 +80,7 @@ function NavSection() {
                     </li>
                 </ul>
             </nav>
-            <div className='navSection_imageContainer'>
+            <div className={displayNavSection===true?'navSection_imageContainer navSection_imageContainer--opened':'navSection_imageContainer navSection_imageContainer--closed'}>
                 <img src={agenceBau}/>
             </div>
         </div>

@@ -1,0 +1,28 @@
+@import '../../utils/mixins';
+
+.formCaptionField {
+    margin: auto;
+    align-items: center;
+    @include Column;
+    @include AllOverPaddings;
+    row-gap: 20px;
+    animation: apparition 1s ease forwards;
+    justify-content: center;
+    width: 50%;
+    height: 50%;
+    background-color: $colorLightGrey;
+
+    img {
+        width: 30%;
+        height: auto;
+        object-fit: cover;
+    }
+
+    textarea {
+        width: 50%;
+        height: 200px;
+        border: none;
+        font-family: $mainFont;
+    }
+
+}

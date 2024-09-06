@@ -7,26 +7,28 @@
         @include Column;
         height: auto;
         justify-content: space-between;
-
-        &_title  {
-            width: auto;
-            @include Column;
-            justify-content: center;
-            margin: auto;
-            font-size: 200px;
-            font-family: $mainFont;
-            text-align: center;
-        }   
-
+        
         &_datasBox {
             margin: 2% 0;
             width: 100%;
             @include SidePaddings;
-            @include Row;
+            @include Column;
+            min-height: calc(100vh - 250px);
             height: auto;
+
+            &_title  {
+                width: auto;
+                @include Column;
+                justify-content: center;
+                margin: auto;
+                font-size: 200px;
+                font-family: $mainFont;
+                text-align: center;
+            }   
             
             &_maindatas {
                 width: 50%;
+                margin: 45px 0;
                 @include Column;
                 justify-content: flex-start;
                 color: $colorDarkGrey;
@@ -37,101 +39,158 @@
             }
 
             &_description {
-                width: 50%;
-                @include Column;
-                justify-content: flex-start;
+                width: 100%;
+                @include Row;
+                justify-content: flex-end;
                 color: $colorDarkGrey;
                 font-family: $mainFont;
                 font-size: $fontSize4;
+                p {
+                width: 40%;
                 text-align: justify;
-            }
-        }
-
-        &_sketchesBox {
-            @include SidePaddings;
-            display: flex;
-            justify-content: center;
-            margin: 10% auto;
-            width: 60%;
-            height: 100%;
-
-            &_grid {
-                display: grid;
-                grid-template-columns: 1fr 1fr 1fr 1fr;
-                grid-gap: 20px;
-
-                &_image {
-                    margin: auto;
-                    // aspect-ratio: 1;
-                    height: 200px;
-                    object-fit: contain;
-
-                    &_png {
-                        background: none;
-                    }
-                    &_other {
-                        width: 100%;
-                        background-color: white;
-                        padding: 5%;
-                        box-sizing: border-box;
-                    }
-
-                    &_0 {
-                        grid-column-start: 1;
-                        grid-column-end: 3;
-                        grid-row-start: 1;
-                        grid-row-start: 2;
-                    }
-                    &_1 {      
-                        grid-column-start: 3;
-                        grid-column-end: 5;
-                        grid-row-start: 1;
-                        grid-row-start: 2;
-                    }
-                    &_2 {
-                        grid-column-start: 1;
-                        grid-column-end: 2;
-                        grid-row-start: 2;
-                        grid-row-start: 3;
-                    }
-
-                    &_3 {
-                        grid-column-start: 2;
-                        grid-column-end: 3;
-                        grid-row-start: 2;
-                        grid-row-start: 3;
-                    }
-
-                    &_4 {
-                        grid-column-start: 3;
-                        grid-column-end: 4;
-                        grid-row-start: 2;
-                        grid-row-start: 3;
-                    }
-                    &_5 {
-                        grid-column-start: 4;
-                        grid-column-end: 5;
-                        grid-row-start: 2;
-                        grid-row-start: 3;
-                    }
-                    &_6 {
-                        grid-column-start: 1;
-                        grid-column-end: 2;
-                        grid-row-start: 3;
-                        grid-row-start: 5;
-                    }
-                    &_7 {
-                        grid-column-start: 2;
-                        grid-column-end: 4;
-                        grid-row-start: 3;
-                        grid-row-start: 4;
-                    }
                 }
             }
         }
+
+        &_sketches {
+            @include Row;
+            @include SidePaddings;
+            justify-content: center;
+            column-gap: 180px;
+            margin: 0 auto;
+            min-height: 100vh;
+            height: auto;
+            width: 100%;
+
+            &_grid {
+                margin: auto 0;
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr 1fr;
+                grid-gap: 20px;
+                width: 800px;
+                height: auto;
+
+                &_image {
+                    margin: auto;
+                    height: 300px;
+                    width: 100%;
+                    display: flex;
+                    flex-direction: column-reverse;
+                    justify-content: center;
+                    
+
+                    &_png {
+                        background: none;
+                        width: 100%;
+                        height: 100%;
+                        padding: 20px;
+                        box-sizing: border-box;
+                        margin: 0;
+                    }
+
+                    &_other {
+                        width: 100%;
+                        height: 100%;
+                        margin: 0;
+                        background-color: white;
+                        padding: 20px;
+                        box-sizing: border-box;
+                        box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.1);
+                    }
+
+                    img {
+                        object-fit: contain;
+                        width: 100%;
+                        height: 90%;
+                    }
+
+                    p {
+                        font-family: $mainFont;
+                        font-size: $fontSize5;
+                        font-weight: bold;
+                        object-fit: contain;
+                        width: 90%;
+                        margin: 10px 0;
+                    }
+
+                    &_0, &_9, &_18 {
+                        grid-column-start: 1;
+                        grid-column-end: 3;
+                        // grid-row-start: 1;
+                        // grid-row-end: 2;
+                    }
+                    &_1, &_10, &_19 {      
+                        grid-column-start: 3;
+                        grid-column-end: 4;
+                        // grid-row-start: 1;
+                        // grid-row-end: 2;
+                    }
+                    &_2, &_11, &_20 {
+                        grid-column-start: 4;
+                        grid-column-end: 5;
+                        // grid-row-start: 1;
+                        // grid-row-end: 2;
+                    }
+
+                    &_3, &_12, &_21 {
+                        grid-column-start: 1;
+                        grid-column-end: 2;
+                        // grid-row-start: 2;
+                        // grid-row-end: 3;
+                    }
+
+                    &_4, &_13, &_22 {
+                        grid-column-start: 2;
+                        grid-column-end: 3;
+                        // grid-row-start: 2;
+                        // grid-row-end: 3;
+                    }
+                    &_5, &_14, &_23 {
+                        grid-column-start: 3;
+                        grid-column-end: 5;
+                        // grid-row-start: 2;
+                        // grid-row-end: 3;
+                    }
+                    &_6, &_15, &_24 {
+                        grid-column-start: 1;
+                        grid-column-end: 2;
+                        // grid-row-start: 3;
+                        // grid-row-end: 4;
+                    }
+                    &_7, &_16, &_25 {
+                        grid-column-start: 2;
+                        grid-column-end: 4;
+                        // grid-row-start: 3;
+                        // grid-row-end: 4;
+                    }
+                    &_8, &_17, &_26 {
+                        grid-column-start: 4;
+                        grid-column-end: 5;
+                        // grid-row-start: 3;
+                        // grid-row-end: 4;
+                    }
+                }
+            }
+            
+            &_captionsBox {
+                margin: auto 0;
+                width: 20%;
+                @include Column;
+                &_item {
+                    @include Row;
+                    column-gap: 20px;
+                    font-family: $mainFont;
+                    font-size: $fontSize5;
+                    font-weight: bold;
+                    text-align: justify;
+                }  
+            }
+        }
+
+        
         
         &_imagesWowColumn {
-            
+            z-index: 0;
             width: 100%;
             &_image {
                 width: 100%;

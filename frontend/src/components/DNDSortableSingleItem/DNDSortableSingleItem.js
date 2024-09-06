@@ -34,47 +34,45 @@ export const DNDSortableSingleItem = (props) => {
       }
   }
 
-  
-
-
 
   return (
     <div 
-      className='item'
+      className={props.displayClass==='column'?'item_column':`item item_${props.index}`}
       ref={setNodeRef}
       style={style}
       {...props}
       {...attributes}
       {...listeners}>
-      <img className='item_img'
+      <img className={props.displayClass==='column'?'item_img_column':(props.item.imageUrl.endsWith('.png')?'item_img item_img_png':'item_img item_img_other')}
         src={props.item.imageUrl ?? (props.item instanceof File ? props.item.sampleImageUrl : '')}
         alt={`image ${props.item._id}`}/>
       <div className='item_buttons'>
-          <button type='button' aria-label="Supprimer l'image" className='item_buttons_supprButton'
-            onMouseDown={() => {
-              props.openConfirmBox(props.index);
-            }}
-            draggable="false"
-            >
-            <FontAwesomeIcon icon={faTrashCan} />
-          </button>
-          { props.displayClass==='grid' &&
-          <button type='button' aria-label="Définir cette image comme image principale de la série" className='item_buttons_isMainButton'
-            onMouseDown={() => { handleMainImage(props.index)}} >
-            <FontAwesomeIcon icon={props.index === props.mainImageIndex ? faCertificate : faCircle} className={props.index === props.mainImageIndex ? 'item_buttons_isMainButton--isOrange' : 'item_buttons_isMainButton--isWhite'} />
-          </button>
+            <button type='button' aria-label="Supprimer l'image" className='item_buttons_supprButton'
+              onMouseDown={() => {
+                props.openConfirmBox(props.index);
+              }}
+              draggable="false"
+              >
+              <FontAwesomeIcon icon={faTrashCan} />
+            </button>
+          { props.displayClass==='column' &&
+            <button type='button' aria-label="Définir cette image comme image principale de la série" className='item_buttons_isMainButton'
+              onMouseDown={() => { handleMainImage(props.index)}} >
+              <FontAwesomeIcon icon={props.index === props.mainImageIndex ? faCertificate : faCircle} className={props.index === props.mainImageIndex ? 'item_buttons_isMainButton--isWhite' : 'item_buttons_isMainButton--isBlack'} />
+            </button>
           }
           {props.isCaptionFormAvailable===true &&
-          <button type='button' aria-label="Editer la légende de l'image" className='item_buttons_captionButton'
-            onMouseDown={() => {
-              props.openCaptionModal(props.index);
-            }}
-            draggable="false"
-            >
-            <FontAwesomeIcon icon={faPen} />
-          </button>
+            <button type='button' aria-label="Editer la légende de l'image" className='item_buttons_captionButton'
+              onMouseDown={() => {
+                props.openCaptionModal(props.index);
+              }}
+              draggable="false"
+              >
+              <FontAwesomeIcon icon={faPen} />
+            </button>
           }
       </div>
+      <p className='item_caption'>{props.item.sketchCaption}</p>
     </div>
   );
 };

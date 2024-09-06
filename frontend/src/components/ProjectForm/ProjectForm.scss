@@ -42,6 +42,27 @@
         }
     }
 
+    &_form {
+        margin: 100px 0;
+
+        &_title, &_text {
+            width: 50%;
+            font-family: $mainFont;
+        }
+
+        &_title {
+            text-align: center;
+            font-size: $fontSize3;
+            margin: 100px auto 25px auto;
+        }
+
+        &_text {
+            margin: auto;
+            text-align: justify;
+            font-size: $fontSize4;
+        }
+    }
+
     &_submitButton {
         width: 40%;
         @include Row;
@@ -61,5 +82,9 @@
             }
         }
     }
-    
+    &_imageCaptionFormModal {
+        @include ModalBase;
+        @include Column;
+        justify-content: center;
+    }
 }

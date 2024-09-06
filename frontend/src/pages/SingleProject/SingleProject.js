@@ -56,8 +56,8 @@ function SingleProject () {
             {singleProject &&
             <div className='singleProject'>
                 <section className='singleProject_datasContainer'> 
-                    <h3 className='singleProject_datasContainer_title'>{singleProject.title}</h3>
                     <article className='singleProject_datasContainer_datasBox'>
+                        <h3 className='singleProject_datasContainer_datasBox_title'>{singleProject.title}</h3>
                         <div className='singleProject_datasContainer_datasBox_maindatas'>
                             {singleProject.projectType &&
                             <p className='singleProject_datasContainer_datasBox_maindatas_type'>Type de projet : {singleProject.projectType}</p>
@@ -81,15 +81,28 @@ function SingleProject () {
                             }
                         </div>
                     </article>
-                    <div className='singleProject_datasContainer_sketchesBox'>
-                        {singleProject.sketches.length > 1 &&
-                            <div className='singleProject_datasContainer_sketchesBox_grid'> 
-                                {singleProject.sketches.map((sketch, index)=>(
-                                    <img className={sketch.imageUrl.endsWith('.png')?`singleProject_datasContainer_sketchesBox_grid_image singleProject_datasContainer_sketchesBox_grid_image_${index} singleProject_datasContainer_sketchesBox_grid_image_png` : `singleProject_datasContainer_sketchesBox_grid_image singleProject_datasContainer_sketchesBox_grid_image_${index} singleProject_datasContainer_sketchesBox_grid_image_other`} src={sketch.imageUrl}/>
-                                ))}
-                            </div>
-                        }   
+                    {singleProject.sketches.length > 1 &&
+                    <div className='singleProject_datasContainer_sketches'>  
+                        <div className='singleProject_datasContainer_sketches_grid'> 
+                            {singleProject.sketches.map((sketch, index)=>(
+                                <div className={`singleProject_datasContainer_sketches_grid_image singleProject_datasContainer_sketches_grid_image_${index}`}>
+                                    <img className={sketch.imageUrl.endsWith('.png')?'singleProject_datasContainer_sketches_grid_image_png' : 'singleProject_datasContainer_sketches_grid_image_other'} src={sketch.imageUrl}/>
+                                    <p className='singleProject_datasContainer_sketches_grid_index'>#{index+1}</p>
+                                </div>
+                            ))}
+                        </div> 
+                        <div className='singleProject_datasContainer_sketches_captionsBox'> 
+                            {singleProject.sketches.map((sketch, index)=>(
+                                (sketch.sketchCaption &&
+                                <div className="singleProject_datasContainer_sketches_captionsBox_item">
+                                    <p>#{index+1}</p>
+                                    <p>{sketch.sketchCaption}</p>
+                                </div>
+                                )
+                            ))}
+                        </div>        
                     </div>
+                    }
                     <div className='singleProject_datasContainer_imagesWowColumn'>
                         {singleProject.images.length > 1 &&
                             <div className='singleProject_datasContainer_imagesWowColumn_column'> 

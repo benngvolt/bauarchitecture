@@ -12,7 +12,7 @@
         justify-content: flex-end;
         width: 200px;
         font-family: $mainFont;
-        font-size: $fontSize5;
+        font-size: $fontSize4;
     }
     input {
         @include Row;
@@ -22,6 +22,6 @@
         border: none;
         background-color: $colorLightGrey;
         font-family: $mainFont;
-        font-size: $fontSize5;
+        font-size: $fontSize4;
     }
 }

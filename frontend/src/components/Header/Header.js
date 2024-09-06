@@ -31,9 +31,9 @@ function Header() {
 }
                 </button>
             </div>
-            {displayNavSection===true &&
-                <NavSection/>
-            }
+        
+            <NavSection displayNavSection={displayNavSection}/>
+            
             {loaderDisplay===true &&
                 <Loader/>
             }

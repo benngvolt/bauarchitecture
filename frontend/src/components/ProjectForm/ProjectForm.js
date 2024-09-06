@@ -246,7 +246,7 @@ function ProjectForm ({
                 <div className='projectForm_closeButton'>
                     <button type='button' onClick={() => setDisplayProjectForm(false)}>X FERMER</button>
                 </div>
-                <div>
+                <div className='projectForm_form'>
                     <FormSimpleField
                         htmlFor={'inputProjectTitle'}
                         label={'TITRE*'}
@@ -321,25 +321,17 @@ function ProjectForm ({
                         name={'projectDescription'}
                         value={projectDescription}
                     />
-                    <p>GALLERIE DE PHOTOS</p>
-                    <DNDGallery
-                        isCaptionFormAvailable={false}
-                        imageFiles={imageFiles} 
-                        setImageFiles={setImageFiles} 
-                        mainImageIndex={mainImageIndex} 
-                        setMainImageIndex={setMainImageIndex} 
-                        displayClass={'grid'}
-                        />
-                    <FormImageField
-                        htmlFor={'inputImage'}
-                        label={'TÉLÉCHARGER UNE IMAGE'}
-                        type={'file'}
-                        id={'inputImage'}
-                        name={'image'}
-                        imageFiles={imageFiles}
-                        setImageFiles={setImageFiles}
-                    />
-                    <p>GALLERIE DE CROQUIS</p>
+                    <div>
+                        <p className='projectForm_form_title'><strong>GALLERIE D'OBJETS</strong></p>
+                        <p className='projectForm_form_text'>
+                            <em>C'est à cet endroit que tu crées ton cabinet de curiosités lié au projet. <br/>
+                            Pense-le comme une table d'objets. Chaque objet peut-être un plan, un échantillon de matériaux, une esquisse... Part juste du principe qu'il est possible d'uploader une image en .png afin de donner la sensation de flottement de l'objet, c'est à dire avec fond transparent.<br/> 
+                            Si tu uploades un autre format que le .png, alors l'image aura un fond blanc, pour donner l'idée d'un graphisme posé sur du papier. <br/>
+                            Tu as la possiblité d'assigner un texte à chaque objet. Cela peut-être une brève description, une légende, ou un mot-clé.<br/>
+                            Aussi tu peux changer, intervertir l'emplacement des images, avec un cliquer-glisser. <br/><br/>
+                            <strong>N'oublies pas de réduire la taille des images, à 1500px maximum pour le côté le plus large. </strong></em> 
+                        </p>
+                    </div>
                     <DNDGallery
                         isCaptionFormAvailable={true}
                         imageFiles={sketchFiles} 
@@ -357,6 +349,31 @@ function ProjectForm ({
                         imageFiles={sketchFiles}
                         setImageFiles={setSketchFiles}
                     />
+                    <div>
+                        <p className='projectForm_form_title'><strong>GALLERIE DE PHOTOS</strong></p>
+                        <p className='projectForm_form_text'>
+                            <em>Ici tu peux uploader les belles photos de réalisations, en haute définition, en ne dépassant pas 1900px pour le côté le plus long. <br/>
+                            Il est recommandé d'uploader un format <strong>.webp</strong> pour optimiser les performances d'affichage du site. <br/>
+                            Tu peux également intervertir les positions des photos dans la colonne, et choisir quelle sera la photo de couverture du projet pour la page d'accueil.</em> 
+                        </p>
+                    </div>
+                    <DNDGallery
+                        isCaptionFormAvailable={false}
+                        imageFiles={imageFiles} 
+                        setImageFiles={setImageFiles} 
+                        mainImageIndex={mainImageIndex} 
+                        setMainImageIndex={setMainImageIndex} 
+                        displayClass={'column'}
+                        />
+                    <FormImageField
+                        htmlFor={'inputImage'}
+                        label={'TÉLÉCHARGER UNE IMAGE'}
+                        type={'file'}
+                        id={'inputImage'}
+                        name={'image'}
+                        imageFiles={imageFiles}
+                        setImageFiles={setImageFiles}
+                    />
                 </div>
                 <div className='projectForm_submitButton'>
                     <button type='submit'>ENVOYER</button>
@@ -371,11 +388,11 @@ function ProjectForm ({
                         id={'inputSketchCaption'}
                         ref={inputImageCaptionRef}
                         value={caption}
-                        onChangeFunction={
-                            handleCaptionChange}
+                        onChangeFunction={handleCaptionChange}
                         index={captionIndex}
                         closeModal={closeCaptionModal}
                         captionSubmit={captionSubmit}
+                        imageFiles={sketchFiles}
                     />
                 </div>
                 }

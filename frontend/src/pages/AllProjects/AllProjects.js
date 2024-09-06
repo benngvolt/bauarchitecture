@@ -23,10 +23,7 @@ function AllProjects () {
                 <ul className='allProjects_list'>
                     {projectsList.map((project)=>(
                         <Link className='allProjects_list_link' aria-label={`Accéder à la page du projet ${project.title}`} to={project._id?`/projets/${project._id}`:'*'}>
-                            <figure>
-                                <img src={project.images[project.mainImageIndex]?.imageUrl}/>
-                                <figcaption>{project.title}</figcaption>
-                            </figure>
+                            <h3>{project.title}</h3>
                         </Link>
                     ))}
                 </ul>

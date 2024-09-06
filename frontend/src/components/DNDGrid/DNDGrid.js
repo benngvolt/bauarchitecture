@@ -3,7 +3,7 @@ import  './DNDGrid.scss'
 function DNDGrid ({children, displayClass}) {
     
     return (
-        <div className='dndRow'>
+        <div className={displayClass==='grid'?'dndGrid':'dndColumn'}>
             {children}
         </div>
     );

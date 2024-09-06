@@ -2,9 +2,25 @@
 
 .navSection {
     
+    &--display  {
+        animation: slideFromTop 1s ease forwards;
+    }
+    &--hide  {
+        animation: slideToTop 1s ease forwards;
+    }
     @include Row;
-    animation: apparition 2s ease forwards;
+    justify-content: space-between;
+    overflow: hidden;
+    
     &_navContainer {
+        &--opened {
+            animation: slideFromLeft 1s ease forwards;
+        }
+        &--closed {
+            animation: slideToLeft 1s ease forwards;
+        }
+        box-sizing: content-box;
+        overflow: hidden;
         width: 45%;
         @include SidePaddings;
         @include Column;
@@ -13,9 +29,11 @@
 
         &_navGrid {
             display: grid;
+            column-gap: 45px;
             @include SidePaddings;
             height: 80%;
-            width: 80%;
+            // width: auto;
+            // margin: auto auto auto 20%;
             margin: auto;
             grid-template-columns: 1fr 1fr;
 
@@ -79,7 +97,16 @@
         }
     }
     &_imageContainer {
+        
+        &--opened {
+            animation: slideFromRight 1s ease forwards;
+        }
+        &--closed {
+            animation: slideToRight 1s ease forwards;
+        }
+
         width: 55%;
+        animation: slideFormRight 1s ease forwards;
         img {
             width: 100%;
             height: calc(100vh - 180px);

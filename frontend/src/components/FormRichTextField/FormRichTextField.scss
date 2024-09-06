@@ -1,18 +1,18 @@
 @import '../../utils/mixins';
 
 .formRichtextField {
-    width: 40%;
+    width: 800px;
     margin: 45px auto;
     @include Column;
     row-gap: 22px;
     justify-content: center;
 
     label {
-        @include Row;
-        width: 200px;
+        
         font-family: $mainFont;
-        font-size: $fontSize5;
-        margin : auto;
+        font-size: $fontSize3;
+        margin : 50px auto 25px auto;
+        font-weight: bold;
     }
 
     input {
