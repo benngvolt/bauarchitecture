@@ -76,8 +76,7 @@
                     width: 100%;
                     display: flex;
                     flex-direction: column-reverse;
-                    justify-content: center;
-                    
+                    justify-content: center;                    
 
                     &_png {
                         background: none;
@@ -86,6 +85,7 @@
                         padding: 20px;
                         box-sizing: border-box;
                         margin: 0;
+                        
                     }
 
                     &_other {
@@ -102,6 +102,10 @@
                         object-fit: contain;
                         width: 100%;
                         height: 90%;
+                        &:hover {
+                            cursor: pointer;
+                            animation: rotateOnHover 0.2s ease forwards
+                        }
                     }
 
                     p {
@@ -199,7 +203,7 @@
             &_column {
                 position: relative;
                 // bottom: 70px;
-                width: 100%;
+                width: 70%;
                 @include Column;
                 row-gap: 5px;
                 justify-content: center;
@@ -223,6 +227,10 @@
                     &--bold {
                         font-size: 40px;
                     }
+                }
+
+                img {
+                    // height: 100px;
                 }
             }
         }  

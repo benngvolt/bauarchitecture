@@ -3,6 +3,7 @@ import './SingleProject.scss'
 import logo from "../../assets/bau_logo.png"
 import { ProjectsContext } from '../../utils/ProjectsContext'
 import { useParams } from 'react-router-dom'
+import CaptionBox from '../../components/CaptionBox/CaptionBox'
 import React, { useContext, useState, useEffect } from 'react'
 import { API_URL } from '../../utils/constants'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -13,7 +14,8 @@ function SingleProject () {
 
     const { displayNavSection, setDisplayNavSection } = useContext(ProjectsContext);
     const [singleProject, setSingleProject] = useState(null);
-    const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+    const [selectedSketchIndex, setSelectedSketchIndex] = useState(0);
+    const [handleDisplayCaptionBox, setHandleDisplayCaptionBox] = useState(false);
     const { id } = useParams();
 
     useEffect(() => {
@@ -31,23 +33,13 @@ function SingleProject () {
             .catch((error) => console.log(error.message));
     }, [id]);
 
-    function nextImageDisplay() {
-        if (selectedImageIndex < singleProject.images.length - 1) {
-            setSelectedImageIndex(selectedImageIndex + 1)
-        } else {
-            setSelectedImageIndex(0)
-        }
-    }
-
-    function previousImageDisplay() {
-        if (selectedImageIndex > 0) {
-            setSelectedImageIndex(selectedImageIndex - 1)
-        } else {
-            setSelectedImageIndex(singleProject.images.length - 1)
-        }
-    }
-
     const cleanedDescription = DOMPurify.sanitize(singleProject?.description);
+
+    function openCaptionBox(index){
+        setHandleDisplayCaptionBox(true);
+        setSelectedSketchIndex(index);
+        console.log(selectedSketchIndex)
+    }
 
 
 
@@ -85,13 +77,20 @@ function SingleProject () {
                     <div className='singleProject_datasContainer_sketches'>  
                         <div className='singleProject_datasContainer_sketches_grid'> 
                             {singleProject.sketches.map((sketch, index)=>(
-                                <div className={`singleProject_datasContainer_sketches_grid_image singleProject_datasContainer_sketches_grid_image_${index}`}>
+                                <div className={`singleProject_datasContainer_sketches_grid_image singleProject_datasContainer_sketches_grid_image_${index}`}
+                                onClick={() => {
+                                    openCaptionBox(index);
+                                    // D'autres instructions si nécessaire
+                                }}>
                                     <img className={sketch.imageUrl.endsWith('.png')?'singleProject_datasContainer_sketches_grid_image_png' : 'singleProject_datasContainer_sketches_grid_image_other'} src={sketch.imageUrl}/>
                                     <p className='singleProject_datasContainer_sketches_grid_index'>#{index+1}</p>
                                 </div>
                             ))}
-                        </div> 
-                        <div className='singleProject_datasContainer_sketches_captionsBox'> 
+                        </div>
+                        {handleDisplayCaptionBox===true &&
+                            <CaptionBox sketches={singleProject.sketches} index={selectedSketchIndex} setHandleDisplayCaptionBox={setHandleDisplayCaptionBox}/>
+                        }
+                        {/* <div className='singleProject_datasContainer_sketches_captionsBox'> 
                             {singleProject.sketches.map((sketch, index)=>(
                                 (sketch.sketchCaption &&
                                 <div className="singleProject_datasContainer_sketches_captionsBox_item">
@@ -100,7 +99,7 @@ function SingleProject () {
                                 </div>
                                 )
                             ))}
-                        </div>        
+                        </div>         */}
                     </div>
                     }
                     <div className='singleProject_datasContainer_imagesWowColumn'>

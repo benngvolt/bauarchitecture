@@ -4,7 +4,8 @@
 
 $mainFont: 'Carme', sans-serif;
 
-$colorLightGrey: #E9E9E9;
+$colorLightGrey: rgb(233, 233, 233);
+$colorLightTransparentGrey: rgba(233, 233, 233, 0.8);
 $colorDarkGrey: rgb(12, 12, 12);
 $color1: rgb(134, 134, 134);
 $color2: rgb(36, 36, 36);
@@ -115,6 +116,16 @@ $fontSize5: 15px;
     }
 }
 
+@keyframes slideFromLeft {
+
+    0% {  
+        max-width: 0%;
+    }
+    100% {  
+        max-width: 45%;
+    }
+}
+
 @keyframes slideToLeft {
 
     0% {  
@@ -145,6 +156,15 @@ $fontSize5: 15px;
     100% {  
         max-height: 0%;
         display: none;
+    }
+}
+
+@keyframes rotateOnHover {
+    0% {
+        transform: rotate(0);
+    }
+    100% {  
+        transform: rotate(3deg);
     }
 }
 
