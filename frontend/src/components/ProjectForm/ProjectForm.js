@@ -1,7 +1,8 @@
 import './ProjectForm.scss'
 import FormSimpleField from '../FormSimpleField/FormSimpleField'
 import FormCaptionField from '../FormCaptionField/FormCaptionField'
-import React, { useState, useRef, useEffect } from 'react'
+import Loader from '../Loader/Loader'
+import React, { useState, useRef, useEffect} from 'react'
 import FormSelectionField from '../FormSelectionField/FormSelectionField'
 import FormRichTextField from '../FormRichTextField/FormRichTextField'
 import FormImageField from '../FormImageField/FormImageField'
@@ -48,6 +49,7 @@ function ProjectForm ({
 
     const projectTypes = ['réhabilitation', 'construction neuve', 'extension']
     const projectStates = ['en chantier', 'construit', 'esquisse']
+
 
     useEffect(() => {
         formatFields()
@@ -243,6 +245,9 @@ function ProjectForm ({
     return (
         <div className='projectFormContainer'>
             <form className='projectForm' onSubmit={(event) => projectFormSubmit(event)} method="post">
+                {loaderDisplay===true &&
+                    <Loader/>
+                }
                 <div className='projectForm_closeButton'>
                     <button type='button' onClick={() => setDisplayProjectForm(false)}>X FERMER</button>
                 </div>

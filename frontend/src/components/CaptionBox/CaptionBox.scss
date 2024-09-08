@@ -32,8 +32,9 @@
             column-gap: 45px;
     
             &_closeButton {
+                z-index: 2;
                 position: absolute;
-                top: 20px;
+                top: 30px;
                 right: 30px;
                 &:hover {
                     cursor: pointer;
@@ -44,15 +45,18 @@
             &_datas {
                 @include Row;
                 @include AllOverPaddings;
+                animation: apparition 2s ease forwards;
+                column-gap: 20px;
                 width: 100%;
                 box-sizing: border-box;
 
                 &_image {
-                    width: auto;
+                    width: 70%;
                     max-height: 100%;
                     object-fit: contain;
                     margin: auto;
                 }
+
                 &_caption {
                     width: 50%;
                     @include Row;
@@ -76,8 +80,8 @@
                     }
                     &_caption {
                         justify-content: flex-start;
-                        width: 50%;
-                        text-align: justify;
+                        width: auto;
+                        text-align: left;
                     }
                 }
 

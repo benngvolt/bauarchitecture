@@ -9,8 +9,9 @@
     animation: apparition 1s ease forwards;
     justify-content: center;
     width: 50%;
-    height: 50%;
+    height: auto;
     background-color: $colorLightGrey;
+    overflow: scroll;
 
     img {
         width: 30%;

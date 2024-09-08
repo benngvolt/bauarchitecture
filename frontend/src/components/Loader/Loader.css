@@ -40,7 +40,7 @@
   }
 }
 .loader {
-  z-index: 10;
+  z-index: 4;
   display: block;
   position: fixed;
   align-items: center;

@@ -18,6 +18,9 @@ function Header() {
 
     return  (      
         <header className='header--fixed'>
+            {loaderDisplay===true &&
+                <Loader/>
+            }
             <div className='header_topBar'>
                 <Link className='header_topBar_link' aria-label="Accéder à la page d'accueil" to="/" onClick={()=> setDisplayNavSection(false)}>
                     <img src={logo}/>
@@ -33,10 +36,6 @@ function Header() {
             </div>
         
             <NavSection displayNavSection={displayNavSection}/>
-            
-            {loaderDisplay===true &&
-                <Loader/>
-            }
         </header>
     )
 }

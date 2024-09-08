@@ -43,7 +43,7 @@ export const DNDSortableSingleItem = (props) => {
       {...props}
       {...attributes}
       {...listeners}>
-      <img className={props.displayClass==='column'?'item_img_column':(props.item.imageUrl.endsWith('.png')?'item_img item_img_png':'item_img item_img_other')}
+      <img className={props.displayClass==='column'?'item_img_column':(props?.item.imageUrl?.endsWith('.png')?'item_img item_img_png':'item_img item_img_other')}
         src={props.item.imageUrl ?? (props.item instanceof File ? props.item.sampleImageUrl : '')}
         alt={`image ${props.item._id}`}/>
       <div className='item_buttons'>
