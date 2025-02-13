@@ -88,18 +88,8 @@ function SingleProject () {
                             ))}
                         </div>
                         {handleDisplayCaptionBox===true &&
-                            <CaptionBox sketches={singleProject.sketches} index={selectedSketchIndex} setHandleDisplayCaptionBox={setHandleDisplayCaptionBox}/>
+                            <CaptionBox sketches={singleProject.sketches} index={selectedSketchIndex} setHandleDisplayCaptionBox={setHandleDisplayCaptionBox} isPictureDisplayed={singleProject.sketches[selectedSketchIndex]?.isPictureDisplayed ?? true}/>
                         }
-                        {/* <div className='singleProject_datasContainer_sketches_captionsBox'> 
-                            {singleProject.sketches.map((sketch, index)=>(
-                                (sketch.sketchCaption &&
-                                <div className="singleProject_datasContainer_sketches_captionsBox_item">
-                                    <p>#{index+1}</p>
-                                    <p>{sketch.sketchCaption}</p>
-                                </div>
-                                )
-                            ))}
-                        </div>         */}
                     </div>
                     }
                     <div className='singleProject_datasContainer_imagesWowColumn'>

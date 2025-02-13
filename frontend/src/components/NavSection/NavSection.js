@@ -2,13 +2,20 @@ import './NavSection.scss'
 import { Link } from 'react-router-dom'
 import agenceBau from '../../assets/agence_bau.jpg'
 import { ProjectsContext } from '../../utils/ProjectsContext'
-import React, { useContext} from 'react'
+import React, { useContext, useState} from 'react'
+import Modal from '../Modal/Modal'
+import FaQ from '../FaQ/FaQ'
+import LegalMentions from '../LegalMentions/LegalMentions'
+
 
 
  
 function NavSection({displayNavSection}) {
 
     const { setDisplayNavSection } = useContext(ProjectsContext);
+    const [displayModal, setDisplayModal] = useState(false);
+    const [modalMode, setModalMode] = useState('');
+
 
     return  (      
         <div className={displayNavSection===true?'navSection navSection--display':'navSection navSection--hide'}>
@@ -17,19 +24,19 @@ function NavSection({displayNavSection}) {
                     <li className='navSection_navContainer_navGrid_item'>
                         <p className='navSection_navContainer_navGrid_item_index'>01</p>
                         <div className='navSection_navContainer_navGrid_item_content'>
-                            <h2>SITE</h2>
+                            <h2 className='navSection_navContainer_navGrid_item_content_mainTitle'>SITE</h2>
                             <ul>
                                 <li>
-                                    <Link aria-label="Accéder à la page d'accueil" to="/" onClick={()=>setDisplayNavSection(false)}><p>Accueil</p></Link>
+                                    <Link aria-label="Accéder à la page d'accueil" to="/" onClick={()=>setDisplayNavSection(false)}><h2>Accueil</h2></Link>
                                 </li>
                                 <li>
-                                    <Link aria-label="Accéder à la page projets" to="/projets" onClick={()=>setDisplayNavSection(false)}><p>Projets</p></Link>
+                                    <Link aria-label="Accéder à la page Cabinet de Curiosités" to="/about" onClick={()=>setDisplayNavSection(false)}><h2>À propos</h2></Link>
                                 </li>
                                 <li>
-                                    <Link aria-label="Accéder à la page prestations" to="/prestations" onClick={()=>setDisplayNavSection(false)}><p>Prestations</p></Link>
+                                    <Link aria-label="Accéder à la page projets" to="/projets" onClick={()=>setDisplayNavSection(false)}><h2>Projets</h2></Link>
                                 </li>
                                 <li>
-                                    <Link aria-label="Accéder à la page Cabinet de Curiosités" to="/curiosites" onClick={()=>setDisplayNavSection(false)}><p>Cabinet de curiosités</p></Link>
+                                    <Link aria-label="Accéder à la page prestations" to="/prestations" onClick={()=>setDisplayNavSection(false)}><h2>Prestations</h2></Link>
                                 </li>
                                 <li>
                                     <Link aria-label="Accéder à la page d\'édition" to="/edit" onClick={()=>setDisplayNavSection(false)}><p>Edit</p></Link>
@@ -40,42 +47,41 @@ function NavSection({displayNavSection}) {
                     <li className='navSection_navContainer_navGrid_item'>
                         <p className='navSection_navContainer_navGrid_item_index'>02</p>
                         <div className='navSection_navContainer_navGrid_item_content'>
-                            <h2>ATELIER</h2>
-                            <p> 5, rue de l'Etoile <br/>
-                                31000 Toulouse <br/><br/>
-                                +33 6 87 12 95 50
+                            <h2 className='navSection_navContainer_navGrid_item_content_mainTitle'>CONTACT</h2>
+                            <p> 10, rue de Sorbiers <br/>
+                                42000 Saint-Etienne <br/><br/>
+                                +33 6 35 54 77 80
                             </p>
+                            <p>amata.zdziobeck@gmail.com</p>
                         </div>
                     </li>
                     <li className='navSection_navContainer_navGrid_item'>
                         <p className='navSection_navContainer_navGrid_item_index'>03</p>
                         <div className='navSection_navContainer_navGrid_item_content'>
-                            <h2>RÉSEAUX</h2>
+                            <h2 className='navSection_navContainer_navGrid_item_content_mainTitle'>AILLEURS</h2>
                             <ul>
                                 <li>
-                                    <a href='www.facebook.com'> Facebook </a>
+                                    <Link aria-label="Voyages" to="/voyages" onClick={()=>setDisplayNavSection(false)}><p>Voyages</p></Link>
                                 </li>
                                 <li>
-                                    <a href='www.instagram.com'> Instagram </a>
+                                    <Link aria-label="Dessins" to="/dessins" onClick={()=>setDisplayNavSection(false)}><p>Dessins</p></Link>
                                 </li>
                                 <li>
-                                    <a href='www.linkedin.com'> Linkedin </a>
+                                    <Link aria-label="Références" to="/references" onClick={()=>setDisplayNavSection(false)}><p>Références</p></Link>
                                 </li>
                             </ul>  
                         </div>
                     </li>
                     <li className='navSection_navContainer_navGrid_item'>
-                        <p className='navSection_navContainer_navGrid_item_index'>04</p>
-                        <div className='navSection_navContainer_navGrid_item_content'>
-                            <h2>CONTACT</h2>
-                            <p>bengig46@gmail.com</p>
-                        </div>
-                    </li>
-                    <li className='navSection_navContainer_navGrid_item'>
-                        <p className='navSection_navContainer_navGrid_item_index'>05</p>
-                        <div className='navSection_navContainer_navGrid_item_content'>
-                            <h2>MENTIONS LÉGALES</h2>
-                            <p>Conditions générales</p>
+                        <div className='navSection_navContainer_navGrid_item_content--faq'>
+                            <p onClick={()=> {
+                                setModalMode('faq');
+                                setDisplayModal(true)
+                                }}>FaQ</p>
+                            <p onClick={()=> {
+                                setModalMode('legalMentions');
+                                setDisplayModal(true)
+                                }}>Mentions légales</p>
                         </div>
                     </li>
                 </ul>
@@ -83,6 +89,16 @@ function NavSection({displayNavSection}) {
             <div className={displayNavSection===true?'navSection_imageContainer navSection_imageContainer--opened':'navSection_imageContainer navSection_imageContainer--closed'}>
                 <img src={agenceBau}/>
             </div>
+            <aside className={displayModal===true ? 'navSection_modal navSection_modal--opened':' navSection_modal navSection_modal--closed'}>
+                <Modal setDisplayModal={setDisplayModal}>
+                    {modalMode==='faq' &&
+                    <FaQ/>
+                    }
+                    {modalMode==='legalMentions' &&
+                    <LegalMentions/>
+                    }
+                </Modal>
+            </aside>
         </div>
     )
 }

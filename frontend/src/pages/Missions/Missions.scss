@@ -1,0 +1,88 @@
+@import '../../utils/mixins';
+
+.missions {
+    
+    margin-top: $headerHeight;
+    // height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    // overflow: scroll;
+
+    &_list {
+        width: 30%;
+        list-style-type: none;
+        padding: 0;
+        margin: 100px auto;
+        
+        &_item {
+            
+            &_name {
+                margin: 0;
+                text-transform: uppercase;
+                font-family: $mainFont;
+                font-size: 60px;
+                cursor: pointer;
+                &--active {
+                    color: $color2
+                    
+                }
+                &--inactive{
+                    color: $colorDarkGrey
+                }
+                &:hover {
+                    color: $color2
+                }
+            }
+
+            &_container {
+                height: auto;
+                overflow: hidden;
+                // padding-bottom: 20px;
+                &_opened {
+                    animation: openCollapse 2s ease forwards;
+                }
+                &_closed {
+                    // animation: closeCollapse 1s ease forwards;
+                    display: none;
+                }
+
+                &_text {
+                    font-family: $mainFont;
+                    text-align: justify;
+                }
+
+                &_innerList {
+                    
+                    list-style-type: none;
+                    padding: 20px 0 0 40px;
+                    margin-bottom: 50px;
+                    &_innerItem {
+                        &_text {
+                            font-family: $mainFont;
+                            font-style: italic;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    &_logos {
+        position: fixed;
+        bottom: 0;
+        left: 35%;
+        background-color: $colorLightGrey;
+        padding: 30px 0 40px 0;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        column-gap: 40px;
+        width: 30%;
+        margin: auto;
+
+        img {
+            height: 50px;
+        }
+    }
+}

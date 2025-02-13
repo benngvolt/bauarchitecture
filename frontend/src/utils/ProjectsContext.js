@@ -9,6 +9,7 @@ export const ProjectsProvider = ({ children }) => {
     const [displayNavSection, setDisplayNavSection] = useState(false)
     const [loaderDisplay, setLoaderDisplay] = useState(false)
     const [welcomeDisplay, setWelcomeDisplay] = useState(false)
+    const [currentPage, setCurrentPage] = useState('')
 
     /*---------------------------------------------
     ----- Chargement des projets et stockage ------
@@ -39,9 +40,6 @@ export const ProjectsProvider = ({ children }) => {
     const handleLoadProjects = () => { 
         setLoadProjects(loadProjects === false ? true : false);
     };
-
-    const test = ["pomme", "fraise", "abricot"]
-
     
     return (
         <ProjectsContext.Provider value={{ 
@@ -52,7 +50,9 @@ export const ProjectsProvider = ({ children }) => {
                 loaderDisplay,
                 setLoaderDisplay,
                 welcomeDisplay,
-                setWelcomeDisplay
+                setWelcomeDisplay,
+                currentPage,
+                setCurrentPage
                 }}>
             {children}
         </ProjectsContext.Provider>

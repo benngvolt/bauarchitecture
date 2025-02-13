@@ -32,8 +32,6 @@
             column-gap: 45px;
             @include SidePaddings;
             height: 80%;
-            // width: auto;
-            // margin: auto auto auto 20%;
             margin: auto;
             grid-template-columns: 1fr 1fr;
 
@@ -58,8 +56,23 @@
                     @include Column;
                     justify-content: flex-start;
                     row-gap: 22px;
+
+                    &--faq {
+                        margin-left: 45px;
+                        p {
+                            color: $colorDarkGrey;
+                            font-family: $mainFont;
+                            font-weight: normal;
+                            font-size: $fontSize4; 
+                            margin: 10px 0;
+                            cursor: pointer;
+                            &:hover {
+                                color: $color1;
+                            }
+                        }
+                    }
                     
-                    h2 {
+                    &_mainTitle {
     
                         font-family: $mainFont;
                         color: $colorDarkGrey;
@@ -69,8 +82,11 @@
 
                     }
                     p {
-                        margin: 0;
+                        color: $colorDarkGrey;
                         font-family: $mainFont;
+                        font-weight: normal;
+                        font-size: $fontSize4; 
+                        margin: 0;
                     }
 
                     ul {
@@ -84,12 +100,19 @@
 
                             a {
                                 text-decoration: none;
-                                color: $colorDarkGrey;
-                                font-family: $mainFont;
-                                &:hover {
-                                    color: $color1;
+
+                                h2, p {
+                                    color: $colorDarkGrey;
+                                    font-family: $mainFont;
+                                    font-weight: normal;
+                                    font-size: $fontSize4; 
+                                    margin: 0;
+                                    &:hover {
+                                        color: $color1;
+                                    }
                                 }
                             }
+                            
                          }
                     }
                 }
@@ -112,5 +135,17 @@
             height: calc(100vh - $headerHeight);
             object-fit: cover;
         }
+    }
+
+    &_modal {
+        position: fixed;
+
+        &--opened{
+            display: flex;
+        }
+        &--closed{
+            display: none;
+        }
+
     }
 }

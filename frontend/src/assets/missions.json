@@ -1,0 +1,74 @@
+[
+    {
+        "title": "Conseiller",
+        "text": "Connaître la faisabilité — technique, réglementaire & financière — au démarrage de votre projet, pour éviter les surprises. – Rencontre sur place, pour définir vos besoins, souhaits, contraintes, faire les premiers relevés et analyses de l’existant, et définir ensemble plusieurs stratégies de projet.",
+        "list": [
+            {
+                "item":"Rencontre sur place, pour définir vos besoins, souhaits, contraintes, faire les premiers relevés et analyses de l’existant, et définir ensemble plusieurs stratégies de projet."
+            },
+            {
+                "item":"Analyse des règlements applicables à votre terrain et à votre projet."
+            },
+            {
+                "item":"Transcription des stratégies et des alertes sous forme de plans schématiques."
+            },
+            {
+                "item":"Estimation de la durée du chantier et du budget à prévoir (travaux + études)."
+            }
+
+        ]
+    },
+    {
+        "title": "Concevoir",
+        "text": "Mettre en espace vos envies, en définissant les grandes lignes de l’organisation intérieure et, le cas échéant, avec précision le volume et l’aspect extérieur.",
+        "list": [
+            {
+                "item":"Proposition de deux ou trois Esquisses et planches d’ambiances."
+            },
+            {
+                "item":"Dessin de l’Avant-Projet d’après retour sur les esquisses et propositions de matériaux et fournitures."
+            },
+            {
+                "item":"Élaboration du dossier de demandes d’autorisations d’urbanisme et accompagnement durant l’instruction."
+            }
+        ]
+    },
+    {
+        "title": "Préparer",
+        "text": "Préparer le démarrage des travaux, en vous accompagnant dans la consultation et le choix des entreprises et en dessinant les plans détaillés.",
+        "list": [
+            {
+                "item":"Élaboration et diffusion d’un dossier de consultation des entreprises."
+            },
+            {
+                "item":"Dialogue avec les entreprises et analyse des offres reçues."
+            },
+            {
+                "item":"Réalisation d’un descriptif des travaux à réaliser par corps d’état et dessins des plan détaillés du projet."
+            },
+            {
+                "item":"Accompagnement dans la sélection des entreprises."
+            }
+
+        ]
+    },
+    {
+        "title": "Superviser",
+        "text": "Superviser la réalisation des travaux en s’assurant de la bonne réalisation par les entreprises, du projet validé ensemble lors des précédentes phases.",
+        "list": [
+            {
+                "item":"Assistance à la passation des marchés de travaux avec les entreprises."
+            },
+            {
+                "item":"Coordination du chantier, grâce à un suivi quotidien et à des réunions hebdomadaires sur place."
+            },
+            {
+                "item":"Aide à la prise de décisions et à l’adaptation du projet selon l’avancée du chantier."
+            },
+            {
+                "item":"Assistance à la réception des travaux."
+            }
+
+        ]
+    }
+]

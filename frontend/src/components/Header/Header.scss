@@ -19,14 +19,28 @@
         height: $headerHeight;
         @include SidePaddings;
         background-color: $colorLightGrey;
-        &_link {
-                height: 100%;
-                @include Column;
-                justify-content: center;
-                vertical-align: middle;
-            img {
-                height: 85px;
-                object-fit: cover;
+        &_leftElements{
+            display: flex;
+            flex-direction: row;
+            column-gap: 50px;
+
+            &_link {
+                    height: 100%;
+                    @include Column;
+                    justify-content: center;
+                    vertical-align: middle;
+                img {
+                    height: 85px;
+                    object-fit: cover;
+                }
+            }
+
+            &_location {
+                margin: auto;
+                text-transform: uppercase;
+                font-family: $mainFont;
+                font-weight: normal;
+                font-size: $fontSize4;
             }
         }
 

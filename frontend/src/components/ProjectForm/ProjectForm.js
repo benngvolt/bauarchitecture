@@ -46,8 +46,7 @@ function ProjectForm ({
     const inputProjectPriceRef = useRef(null)
     const inputProjectSurfaceRef = useRef(null)
     const inputImageCaptionRef = useRef(null);
-
-    const projectTypes = ['réhabilitation', 'construction neuve', 'extension']
+    
     const projectStates = ['en chantier', 'construit', 'esquisse']
 
 
@@ -297,15 +296,14 @@ function ProjectForm ({
                         value={projectSurface}
                         onChangeFunction={setProjectSurface}
                     />
-                    <FormSelectionField
+                    <FormSimpleField
                         htmlFor={'inputProjectType'}
-                        label={'TYPE DE PROJET*'}
+                        label={'TYPE DE PROGRAMME*'}
                         type={'text'}
                         id={'inputProjectType'}
                         ref={inputProjectTypeRef}
                         value={projectType}
                         onChangeFunction={setProjectType}
-                        selectionArray={projectTypes}
                     />
                     <FormSelectionField
                         htmlFor={'inputProjectState'}

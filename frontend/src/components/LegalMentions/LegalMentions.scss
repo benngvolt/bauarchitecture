@@ -1,0 +1,24 @@
+@import '../../utils/mixins';
+
+.mentionsContainer {
+    width: 90%;
+    height: 100%;
+    margin: auto;
+    padding-right: 30px;
+    overflow: scroll;
+    &_title {
+        text-align: center;
+        font-family: $mainFont;
+        color: $colorDarkGrey;
+        font-size: $fontSize3;
+        margin-bottom: 50px;
+        
+    }
+    &_text {
+        text-align: center;
+        font-family: $mainFont;
+        color: $colorDarkGrey;
+        font-size: $fontSize5;
+    }
+    
+}

@@ -1,0 +1,36 @@
+@import '../../utils/mixins';
+
+.faqSection {
+    width: 90%;
+    height: 100%;
+    margin: auto;
+    padding-right: 30px;
+    overflow: scroll;
+    &_title {
+        font-family: $mainFont;
+        color: $colorDarkGrey;
+        font-size: $fontSize3;
+        margin-bottom: 50px;
+        
+    }
+    &_list {
+        list-style-type: none;
+        padding: 0;
+        &_item {
+            margin-bottom: 40px;
+
+            &_question {
+                font-family: $mainFont;
+                color: $colorDarkGrey;
+                font-size: $fontSize4;
+                font-weight: bold;
+            }
+            &_answer {
+                text-align: justify;
+                font-family: $mainFont;
+                color: $colorDarkGrey;
+                font-size: $fontSize4;
+            }
+        }
+    }
+}

@@ -1,6 +1,6 @@
 import './CaptionBox.scss'
     
-function CaptionBox({setHandleDisplayCaptionBox, index, sketches}) {
+function CaptionBox({setHandleDisplayCaptionBox, index, sketches, isPictureDisplayed}) {
     
     return (
         <div className='captionBox'>
@@ -10,15 +10,26 @@ function CaptionBox({setHandleDisplayCaptionBox, index, sketches}) {
                         setHandleDisplayCaptionBox(false);
                 }}>X FERMER</p>             
                 <div className='captionBox_container_datas'>
-                    <img 
-                        className='captionBox_container_datas_image'
-                        src={sketches[index].imageUrl}
-                        alt={`objet ${index}`}
-                    />
+                    {isPictureDisplayed===true &&
+                        <img 
+                            className='captionBox_container_datas_image'
+                            src={sketches[index].imageUrl}
+                            alt={`objet ${index}`}
+                        />
+                    }
                     {sketches[index].sketchCaption && sketches[index].sketchCaption !=='' &&
                     <div className='captionBox_container_datas_caption'>
                         <p className='captionBox_container_datas_caption_index'>#{index + 1}</p>
-                        <p className='captionBox_container_datas_caption_caption'>{sketches[index].sketchCaption}</p> 
+                        <p className='captionBox_container_datas_caption_caption'>{sketches[index].sketchCaption}</p>
+                        {sketches[index].list &&
+                            <ul>
+                                {sketches[index].list.map((item)=>(
+                                    <li>
+                                        <a href={item.itemUrl} target="_blank" rel="noreferrer">{item.itemName}</a>
+                                    </li>
+                                ))}
+                            </ul>
+                        }
                     </div>
                     }
                 </div> 
