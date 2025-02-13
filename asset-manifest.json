@@ -1,17 +1,24 @@
 {
   "files": {
-    "main.css": "/bauarchitecture/static/css/main.73df5a90.css",
-    "main.js": "/bauarchitecture/static/js/main.22c467b2.js",
+    "main.css": "/bauarchitecture/static/css/main.1b1bea82.css",
+    "main.js": "/bauarchitecture/static/js/main.db11a2f4.js",
     "static/js/453.8ab44547.chunk.js": "/bauarchitecture/static/js/453.8ab44547.chunk.js",
     "static/media/agence_bau.jpg": "/bauarchitecture/static/media/agence_bau.f398108e266c9cb7fcc1.jpg",
+    "static/media/potes.png": "/bauarchitecture/static/media/potes.a46b1d3b54e25a50c222.png",
+    "static/media/portrait.webp": "/bauarchitecture/static/media/portrait.0890f5c9bcb2f0f963a6.webp",
+    "static/media/crayons.png": "/bauarchitecture/static/media/crayons.c493c1a598e81cabb4db.png",
+    "static/media/diplome.png": "/bauarchitecture/static/media/diplome.db8ae23caa6e339a2d49.png",
+    "static/media/fleurblanche.png": "/bauarchitecture/static/media/fleurblanche.062ad435aedc34c4871d.png",
+    "static/media/trousseau.png": "/bauarchitecture/static/media/trousseau.40b2906f1cfd5d894009.png",
     "static/media/bau_logo.png": "/bauarchitecture/static/media/bau_logo.4fba8a7fa1dd61d7b262.png",
+    "static/media/logoOA.png": "/bauarchitecture/static/media/logoOA.5668ed4349ba1d9ec5b1.png",
     "index.html": "/bauarchitecture/index.html",
-    "main.73df5a90.css.map": "/bauarchitecture/static/css/main.73df5a90.css.map",
-    "main.22c467b2.js.map": "/bauarchitecture/static/js/main.22c467b2.js.map",
+    "main.1b1bea82.css.map": "/bauarchitecture/static/css/main.1b1bea82.css.map",
+    "main.db11a2f4.js.map": "/bauarchitecture/static/js/main.db11a2f4.js.map",
     "453.8ab44547.chunk.js.map": "/bauarchitecture/static/js/453.8ab44547.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.73df5a90.css",
-    "static/js/main.22c467b2.js"
+    "static/css/main.1b1bea82.css",
+    "static/js/main.db11a2f4.js"
   ]
 }
