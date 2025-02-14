@@ -1,0 +1,33 @@
+@import '../../utils/mixins';
+
+.trips {
+    margin-top: $headerHeight;
+
+    &_list {
+
+        &_item {
+
+            &_name {
+
+
+            }
+
+            &_list {
+                
+                @include Row;
+                position: relative;
+                &_item {
+                    position: absolute;
+                    width: 300px;
+                    height: 500px;
+                    object-fit: cover;
+                    &:hover{
+                        cursor: pointer;
+                        z-index: 100;
+                        animation: decal 1s ease forwards;
+                    }
+                }
+            }
+        }
+    }
+}

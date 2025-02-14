@@ -1,5 +1,6 @@
 const { storage, bucket } = require('../config/storage');
 const Project = require('../models/project')
+const Trip = require('../models/trip')
 
 async function deleteImages(req) {
     // Obtenez la liste des URLs des images depuis Google Cloud Storage
@@ -12,6 +13,11 @@ async function deleteImages(req) {
     async function getCloudSketchUrls() {
       const [sketchFiles] = await bucket.getFiles({ prefix: 'projects_sketches/' });
       return sketchFiles.map((file) => `https://storage.googleapis.com/${bucket.name}/${file.name}`);
+    }
+
+    async function getCloudTripUrls() {
+      const [tripFiles] = await bucket.getFiles({ prefix: 'trips/' });
+      return tripFiles.map((file) => `https://storage.googleapis.com/${bucket.name}/${file.name}`);
     }
       
     // Obtenez la liste des URLs des images depuis MongoDB
@@ -28,6 +34,14 @@ async function deleteImages(req) {
       const projects = await Project.find();
       const sketchUrls = projects.flatMap((project) => project.sketches.map((sketch) => decodeURIComponent(sketch.imageUrl.replace(/\+/g, ' '))));
       return sketchUrls;
+    }
+
+    // Obtenez la liste des URLs des images depuis MongoDB
+    async function getDbTripUrls() {
+      // Récupérez toutes les séries depuis MongoDB
+      const trips = await Trip.find();
+      const tripUrls = trips.flatMap((trip) => trip.trips.map((trip) => decodeURIComponent(trip.imageUrl.replace(/\+/g, ' '))));
+      return tripUrls;
     }
   
     try {
@@ -61,6 +75,24 @@ async function deleteImages(req) {
         const fileToDeleteName = parts.pop();
         if (fileToDeleteName) {
           await bucket.file('projects_sketches/' + fileToDeleteName).delete();
+        }
+      }
+    } catch (error) {
+      console.error(error.message);
+    }
+
+    try {    
+      const cloudTripUrls = await getCloudTripUrls();
+      const dbTripUrls = await getDbTripUrls(); // Utilisez "await" pour attendre la résolution de la promesse
+      const tripsToDelete = cloudTripUrls.filter((url) => !dbTripUrls.includes(url));
+      // Suppression des images non référencées dans le cloud
+      for (const tripUrl of tripsToDelete) {
+        // Divisez l'URL en parties en utilisant "/" comme séparateur
+        const parts = tripUrl.split('/');
+        // Récupérez la dernière partie qui contient le nom du fichier
+        const fileToDeleteName = parts.pop();
+        if (fileToDeleteName) {
+          await bucket.file('trips/' + fileToDeleteName).delete();
         }
       }
     } catch (error) {
