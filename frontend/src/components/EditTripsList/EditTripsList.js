@@ -49,7 +49,7 @@ function EditTripsList ({
 
     return (
         <div className='editProjectList'>
-            <ul className='editProjectList_list'>
+            <ul className='editProjectList_list editTripsList_list'>
                 {trips.map((trip)=>(
                 <li className='editProjectList_list_item' key={trip._id}>
                     { trip.trips && trip.trips.length > 0 &&

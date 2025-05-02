@@ -12,6 +12,7 @@ import Home from './pages/Home/Home';
 import About from './pages/About/About';
 import Missions from './pages/Missions/Missions';
 import Trips from './pages/Trips/Trips';
+import Drawings from './pages/Drawings/Drawings';
 // import Error404 from './pages/Error404/Error404';
 // Utilisation de HashRouter pour que les différents composants soient rendus dynamiquement en fonction de l'URL, sans avoir besoin de recharger la page entière à chaque fois.
 import { HashRouter as Router, Route, Routes } from 'react-router-dom'
@@ -28,6 +29,7 @@ root.render(
           <Route path="/edit" element={<Edit/>} />
           <Route path="/projets" element={<AllProjects/>} />
           <Route path="/voyages" element={<Trips/>} />
+          <Route path="/dessins" element={<Drawings/>} />
           <Route path="/about" element={<About/>} />
           <Route path="/prestations" element={<Missions/>} />
           <Route path="/projets/:id" element={<SingleProject/>} />

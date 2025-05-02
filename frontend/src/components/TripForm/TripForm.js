@@ -232,7 +232,7 @@ function TripForm ({
                         setImageFiles={setImageFiles} 
                         mainImageIndex={mainImageIndex} 
                         setMainImageIndex={setMainImageIndex} 
-                        displayClass={'column'}
+                        displayClass={'tripsGrid'}
                         />
                     <FormImageField
                         htmlFor={'inputImage'}

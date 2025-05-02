@@ -21,6 +21,8 @@ const SECRET_MONGODBKEY = process.env.SECRET_MONGODBKEY;
 
 const projectsRoutes = require('./routes/projects');
 const tripsRoutes = require('./routes/trips');
+const drawingsRoutes = require('./routes/drawings');
+
 
 /* --------------------------------------------------------
 
@@ -74,6 +76,7 @@ app.use(express.json());
 
 app.use ('/api/projects', projectsRoutes);
 app.use ('/api/trips', tripsRoutes);
+app.use ('/api/drawings', drawingsRoutes);
 
 
 /* --------------------------------------------------------

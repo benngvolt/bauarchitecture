@@ -2,6 +2,7 @@ import './Trips.scss'
 // import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { ProjectsContext } from '../../utils/ProjectsContext'
+import TripsGrid from '../../components/TripsGrid/TripsGrid'
 import React, { useContext, useState, useEffect } from 'react'
 import DOMPurify from 'dompurify';
 
@@ -14,32 +15,35 @@ function Trips () {
         setLoaderDisplay, 
         } = useContext(ProjectsContext);
 
+    const [tripDisplayed, setTripDisplayed] = useState({})
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     return (
         <main>
             <section className='trips'>
-                <ul className='trips_list'>
-                {trips.map((trip)=>(
-                    <li className='trips_list_item'>
-                        <h5 className='trips_list_item_name'>{trip.title}</h5>
-                        {/* <div>
-                            <img src={trip.trips[trip.mainImageIndex].imageUrl} alt={`image${trip.title}`}/>
-                        </div> */}
-                        <p dangerouslySetInnerHTML={{__html:DOMPurify.sanitize(trip.description)}}></p>
-                        <ul className='trips_list_item_list'>
-                            {trip.trips.map((trip, index)=>(
-                            <img className='trips_list_item_list_item' 
-                                style={{
-                                    left: `calc(${index} * 40px)`
-                                }}
-                                src={trip.imageUrl}/>
-                            ))}
-                        </ul>
-                    </li>
+                <div className='trips_listTextContainer'>
+                    <ul className='trips_listTextContainer_list'>
+                    {trips.map((trip)=>(
+                        <li className='trips_listTextContainer_list_item' onClick={()=>setTripDisplayed(trip)}>
+                            <h5 className={trip.title === tripDisplayed.title ? 'trips_listTextContainer_list_item_name trips_listTextContainer_list_item_name--selected':'trips_listTextContainer_list_item_name trips_listTextContainer_list_item_name--notSelected'}>{trip.title}</h5>
+                        </li>
                     ))}
-                </ul>
+                    </ul>
+                    {tripDisplayed !== {} &&
+                    <div className='trips_listTextContainer_text'>
+                        <p dangerouslySetInnerHTML={{__html:DOMPurify.sanitize(tripDisplayed?.description)}}></p>
+                    </div>
+                    }
+                </div>
+                {tripDisplayed !== {} &&
+                <div className="trips_gridContainer">
+                    <TripsGrid trip={tripDisplayed}/>
+                </div>
+                }
             </section>
         </main>
     )
 }
-
 export default Trips

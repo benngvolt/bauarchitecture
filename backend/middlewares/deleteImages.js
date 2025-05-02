@@ -1,6 +1,7 @@
 const { storage, bucket } = require('../config/storage');
 const Project = require('../models/project')
 const Trip = require('../models/trip')
+const Drawing = require('../models/drawing')
 
 async function deleteImages(req) {
     // Obtenez la liste des URLs des images depuis Google Cloud Storage
@@ -18,6 +19,11 @@ async function deleteImages(req) {
     async function getCloudTripUrls() {
       const [tripFiles] = await bucket.getFiles({ prefix: 'trips/' });
       return tripFiles.map((file) => `https://storage.googleapis.com/${bucket.name}/${file.name}`);
+    }
+
+    async function getCloudDrawingUrls() {
+      const [drawingFiles] = await bucket.getFiles({ prefix: 'drawings/' });
+      return drawingFiles.map((file) => `https://storage.googleapis.com/${bucket.name}/${file.name}`);
     }
       
     // Obtenez la liste des URLs des images depuis MongoDB
@@ -42,6 +48,14 @@ async function deleteImages(req) {
       const trips = await Trip.find();
       const tripUrls = trips.flatMap((trip) => trip.trips.map((trip) => decodeURIComponent(trip.imageUrl.replace(/\+/g, ' '))));
       return tripUrls;
+    }
+
+    // Obtenez la liste des URLs des images depuis MongoDB
+    async function getDbDrawingUrls() {
+      // Récupérez toutes les séries depuis MongoDB
+      const drawings = await Drawing.find();
+      const drawingUrls = drawings.flatMap((drawing) => drawing.drawings.map((drawing) => decodeURIComponent(drawing.imageUrl.replace(/\+/g, ' '))));
+      return drawingUrls;
     }
   
     try {
@@ -93,6 +107,24 @@ async function deleteImages(req) {
         const fileToDeleteName = parts.pop();
         if (fileToDeleteName) {
           await bucket.file('trips/' + fileToDeleteName).delete();
+        }
+      }
+    } catch (error) {
+      console.error(error.message);
+    }
+
+    try {    
+      const cloudDrawingUrls = await getCloudDrawingUrls();
+      const dbDrawingUrls = await getDbDrawingUrls(); // Utilisez "await" pour attendre la résolution de la promesse
+      const drawingsToDelete = cloudDrawingUrls.filter((url) => !dbDrawingUrls.includes(url));
+      // Suppression des images non référencées dans le cloud
+      for (const drawingUrl of drawingsToDelete) {
+        // Divisez l'URL en parties en utilisant "/" comme séparateur
+        const parts = drawingUrl.split('/');
+        // Récupérez la dernière partie qui contient le nom du fichier
+        const fileToDeleteName = parts.pop();
+        if (fileToDeleteName) {
+          await bucket.file('drawings/' + fileToDeleteName).delete();
         }
       }
     } catch (error) {

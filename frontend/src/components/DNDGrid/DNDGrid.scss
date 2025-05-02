@@ -11,6 +11,17 @@
     
 }
 
+.dndTripsGrid {
+    width: 800px;
+    height: auto;
+    margin: 100px auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-content: center;
+    grid-gap: 20px;
+    
+}
+
 .dndColumn {
     height: auto;
     margin: 100px auto;

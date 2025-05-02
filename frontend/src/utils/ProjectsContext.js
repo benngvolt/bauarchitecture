@@ -6,8 +6,10 @@ export const ProjectsProvider = ({ children }) => {
 
     const [projects, setProjects] = useState([])
     const [trips, setTrips] = useState([])
+    const [drawings, setDrawings] = useState([])
     const [loadProjects, setLoadProjects] = useState(false)
     const [loadTrips, setLoadTrips] = useState(false)
+    const [loadDrawings, setLoadDrawings] = useState(false)
     const [displayNavSection, setDisplayNavSection] = useState(false)
     const [loaderDisplay, setLoaderDisplay] = useState(false)
     const [welcomeDisplay, setWelcomeDisplay] = useState(false)
@@ -46,6 +48,20 @@ export const ProjectsProvider = ({ children }) => {
     }, [loadTrips]);
 
     useEffect(() => {
+        setLoaderDisplay(true);
+        fetch(`${API_URL}/api/drawings`)
+            .then((res) => res.json())
+            .then((data) => {
+                setDrawings(data);
+                setLoaderDisplay(false);
+            })
+            .catch((error) => {
+                console.log(error.message);
+                setLoaderDisplay(false);
+            });
+    }, [loadDrawings]);
+
+    useEffect(() => {
         setWelcomeDisplay(true);
         setTimeout(function() {
             // Faire disparaître l'élément
@@ -60,13 +76,19 @@ export const ProjectsProvider = ({ children }) => {
     const handleLoadTrips = () => { 
         setLoadTrips(loadTrips === false ? true : false);
     };
+
+    const handleLoadDrawings = () => { 
+        setLoadDrawings(loadDrawings === false ? true : false);
+    };
     
     return (
         <ProjectsContext.Provider value={{ 
                 handleLoadProjects,
                 projects,
                 handleLoadTrips,
+                handleLoadDrawings,
                 trips,
+                drawings,
                 displayNavSection,
                 setDisplayNavSection,
                 loaderDisplay,

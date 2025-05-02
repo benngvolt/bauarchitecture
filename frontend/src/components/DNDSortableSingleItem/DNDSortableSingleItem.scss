@@ -94,6 +94,17 @@
             box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.1);
         }
 
+        &_tripsGrid {
+            width: 100%;
+            object-fit: cover;
+            margin: 0;
+            background-color: white;
+            aspect-ratio:  1;
+            padding: 0;
+            box-sizing: border-box;
+            box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.1);
+        }
+
         &_column {
             width: 100%;
             height: 300px;

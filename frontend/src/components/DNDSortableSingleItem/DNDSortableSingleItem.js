@@ -37,13 +37,13 @@ export const DNDSortableSingleItem = (props) => {
 
   return (
     <div 
-      className={props.displayClass==='column'?'item_column':`item item_${props.index}`}
+      className={props.displayClass==='column'?'item_column':(props.displayClass==='grid'?'item_grid':(props.displayClass==='tripsGrid'?'item_tripsGrid':`item item_${props.index}`))}
       ref={setNodeRef}
       style={style}
       {...props}
       {...attributes}
       {...listeners}>
-      <img className={props.displayClass==='column'?'item_img_column':(props?.item.imageUrl?.endsWith('.png')?'item_img item_img_png':'item_img item_img_other')}
+      <img className={props.displayClass==='column'?'item_img_column':(props.displayClass==='tripsGrid'?'item_img_tripsGrid':(props?.item.imageUrl?.endsWith('.png')?'item_img item_img_png':'item_img item_img_other'))}
         src={props.item.imageUrl ?? (props.item instanceof File ? props.item.sampleImageUrl : '')}
         alt={`image ${props.item._id}`}/>
       <div className='item_buttons'>

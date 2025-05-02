@@ -1,33 +1,57 @@
 @import '../../utils/mixins';
 
 .trips {
-    margin-top: $headerHeight;
+    margin-top: calc($headerHeight + 100px);
+    @include SidePaddings;
+    &_listTextContainer {
+        width: 100%;
+        @include Row;
+        column-gap: 40px;
+        justify-content: center;
 
-    &_list {
+        &_list {
+            width: 40%;
+            list-style-type: none;
+            @include Column;
+            margin: 0;
+            min-height: 500px;
+            padding: 0;
 
-        &_item {
-
-            &_name {
-
-
-            }
-
-            &_list {
-                
-                @include Row;
-                position: relative;
-                &_item {
-                    position: absolute;
-                    width: 300px;
-                    height: 500px;
-                    object-fit: cover;
-                    &:hover{
+            &_item {
+            
+                text-align: right;
+                &_name {
+                    width: auto;
+                    text-transform: uppercase;
+                    font-family: $mainFont;
+                    margin: 0;
+                    font-size: $fontSize1;
+                    &:hover {
+                        // color:$color1;
                         cursor: pointer;
-                        z-index: 100;
-                        animation: decal 1s ease forwards;
+                    }
+                    &--notSelected {
+                        color: $color1;
+                    }
+                    &--selected {
+                        color: $colorDarkGrey;
+                        
                     }
                 }
             }
         }
+        &_text {
+            width: 50%;
+            p {
+                text-align: left;
+                font-family: $mainFont;
+                width: 60%;
+                text-align: justify;
+                padding-right: 8px;
+            }
+        }
+    }
+    &_gridContainer {
+        margin-top: 100px;
     }
 }
