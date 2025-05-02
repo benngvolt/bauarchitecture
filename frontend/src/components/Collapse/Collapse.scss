@@ -1,0 +1,69 @@
+@import '../../utils/mixins';
+
+
+.collapse {
+
+&_collapseButton {
+    
+    width: 100%;
+    padding: 0 100px;
+    
+    border: none;
+    background-color: $color1;
+    height: 60px;
+    
+    &_titleContainer {
+        
+        @include Row;
+        column-gap: 20px;
+        justify-content: center;
+        margin: auto;
+        padding: 0 10%;
+    }
+
+    p {
+        margin: auto;
+        width: 50%;
+        text-align: right;
+        font-family: $mainFont;
+        font-size: $fontSize2;
+
+    }
+    svg {
+        @include Row;
+        justify-content: flex-start;
+        width: 50%;
+        margin: auto;
+    }
+
+    &--open {
+        svg {
+            animation: rotateCollapseIcon 0.5s ease forwards;
+        }
+    }
+
+    &--close {
+        svg {
+            animation: rotateInvertCollapseIcon 0.5s ease forwards;
+        }
+    }
+
+    &:hover {
+        cursor: pointer;
+        color: $colorLightGrey;
+    }
+}
+
+    &_children {
+        
+        &--closed {
+            animation: closeCollapseChildren 0.5s ease forwards;
+            overflow: hidden;
+        }
+
+        &--opened {
+            
+            animation: openCollapseChildren 0.5s ease forwards;
+        }
+    }
+}

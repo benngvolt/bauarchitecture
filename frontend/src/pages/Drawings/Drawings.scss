@@ -1,0 +1,57 @@
+@import '../../utils/mixins';
+
+.drawings {
+    margin-top: calc($headerHeight + 100px);
+    @include SidePaddings;
+    &_listTextContainer {
+        width: 100%;
+        @include Row;
+        column-gap: 40px;
+        justify-content: center;
+
+        &_list {
+            width: 40%;
+            list-style-type: none;
+            @include Column;
+            margin: 0 0 200px 0;
+            // min-height: 500px;
+            padding: 0;
+
+            &_item {
+            
+                text-align: right;
+                &_name {
+                    width: auto;
+                    text-transform: uppercase;
+                    font-family: $mainFont;
+                    font-size: $fontSize1;
+                    margin: 0;
+                    &:hover {
+                        cursor: pointer;
+                    }
+
+                    &--notSelected {
+                        color: $color1;
+                    }
+                    &--selected {
+                        color: $colorDarkGrey;
+                        
+                    }
+                }
+            }
+        }
+        &_text {
+            width: 50%;
+            p {
+                text-align: left;
+                font-family: $mainFont;
+                width: 60%;
+                text-align: justify;
+                padding-right: 8px;
+            }
+        }
+    }
+    &_gridContainer {
+        margin-top: 100px;
+    }
+}
