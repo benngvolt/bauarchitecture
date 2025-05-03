@@ -18,7 +18,7 @@
         &_link {
             @include Row;
             text-decoration: none;
-            width: 50%;
+            width: 70%;
             margin: 0 auto;
 
             h3 {
@@ -28,7 +28,7 @@
                 justify-content: flex-start;
                 color: $colorDarkGrey;
                 font-family: $mainFont;
-                font-size: 60px;
+                font-size: 120px;
                 text-align: center;
                 vertical-align: middle;
                 &:hover {

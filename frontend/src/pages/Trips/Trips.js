@@ -1,6 +1,7 @@
 import './Trips.scss'
 // import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
+import carteFictive from '../../assets/carteFictive.webp'
 import { ProjectsContext } from '../../utils/ProjectsContext'
 import TripsGrid from '../../components/TripsGrid/TripsGrid'
 import React, { useContext, useState, useEffect } from 'react'
@@ -18,6 +19,7 @@ function Trips () {
     const [tripDisplayed, setTripDisplayed] = useState({})
     useEffect(() => {
         window.scrollTo(0, 0);
+        setTripDisplayed({});
     }, []);
 
     return (
@@ -31,13 +33,18 @@ function Trips () {
                         </li>
                     ))}
                     </ul>
-                    {tripDisplayed !== {} &&
+                    {Object.keys(tripDisplayed).length !== 0 &&
                     <div className='trips_listTextContainer_text'>
                         <p dangerouslySetInnerHTML={{__html:DOMPurify.sanitize(tripDisplayed?.description)}}></p>
                     </div>
                     }
+                    {Object.keys(tripDisplayed).length === 0 &&
+                    <div className='trips_listTextContainer_img'>
+                        <img src={carteFictive} />
+                    </div>
+                    }
                 </div>
-                {tripDisplayed !== {} &&
+                {Object.keys(tripDisplayed).length !== 0 &&
                 <div className="trips_gridContainer">
                     <TripsGrid trip={tripDisplayed}/>
                 </div>

@@ -50,6 +50,12 @@
                 padding-right: 8px;
             }
         }
+        &_img {
+            width: 50%;
+            img {
+                width: 100%;
+            }
+        }
     }
     &_gridContainer {
         margin-top: 100px;

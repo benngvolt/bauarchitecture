@@ -1,6 +1,7 @@
 import './Drawings.scss'
 // import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
+import mainDrawing from '../../assets/mainDrawing.webp'
 import { ProjectsContext } from '../../utils/ProjectsContext'
 import DrawingsGrid from '../../components/DrawingsGrid/DrawingsGrid'
 import React, { useContext, useState, useEffect } from 'react'
@@ -18,6 +19,7 @@ function Drawings () {
     const [drawingDisplayed, setDrawingDisplayed] = useState({})
     useEffect(() => {
         window.scrollTo(0, 0);
+        setDrawingDisplayed({})
     }, []);
 
     return (
@@ -31,13 +33,18 @@ function Drawings () {
                         </li>
                     ))}
                     </ul>
-                    {drawingDisplayed !== {} &&
+                    {Object.keys(drawingDisplayed).length !== 0 &&
                     <div className='drawings_listTextContainer_text'>
                         <p dangerouslySetInnerHTML={{__html:DOMPurify.sanitize(drawingDisplayed?.description)}}></p>
                     </div>
                     }
+                    {Object.keys(drawingDisplayed).length === 0 &&
+                    <div className='drawings_listTextContainer_img'>
+                        <img src={mainDrawing} />
+                    </div>
+                    }
                 </div>
-                {drawingDisplayed !== {} &&
+                {Object.keys(drawingDisplayed).length !== 0 &&
                 <div>
                     <DrawingsGrid drawing={drawingDisplayed}/>
                 </div>

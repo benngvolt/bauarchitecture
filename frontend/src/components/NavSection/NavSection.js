@@ -66,9 +66,9 @@ function NavSection({displayNavSection}) {
                                 <li>
                                     <Link aria-label="Dessins" to="/dessins" onClick={()=>setDisplayNavSection(false)}><p>Dessins</p></Link>
                                 </li>
-                                <li>
+                                {/* <li>
                                     <Link aria-label="Références" to="/references" onClick={()=>setDisplayNavSection(false)}><p>Références</p></Link>
-                                </li>
+                                </li> */}
                             </ul>  
                         </div>
                     </li>

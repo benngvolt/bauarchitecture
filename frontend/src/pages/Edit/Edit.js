@@ -112,7 +112,8 @@ function Edit () {
                             setProjectFormMode("add");
                     }}>+ AJOUTER UN PROJET +</button>
                 </div>
-                {displayProjectForm===true &&
+            </Collapse>
+            {displayProjectForm===true &&
                 <ProjectForm
                     projectFormMode={projectFormMode} 
                     setProjectFormMode={setProjectFormMode}
@@ -124,8 +125,7 @@ function Edit () {
                     loaderDisplay={loaderDisplay} 
                     setLoaderDisplay={setLoaderDisplay}
                 />
-                }
-            </Collapse>
+            }
 
             {/* EDITION VOYAGES */}
             <Collapse title="GÉRER LES VOYAGES">
@@ -146,7 +146,8 @@ function Edit () {
                             setTripFormMode("add");
                     }}>+ AJOUTER UN VOYAGE +</button>
                 </div>
-                {displayTripForm===true &&
+            </Collapse>
+            {displayTripForm===true &&
                 <TripForm
                     tripFormMode={tripFormMode} 
                     setTripFormMode={setTripFormMode}
@@ -158,8 +159,7 @@ function Edit () {
                     loaderDisplay={loaderDisplay} 
                     setLoaderDisplay={setLoaderDisplay}
                 />
-                }
-            </Collapse>
+            }
 
         
             {/* EDITION DESSINS */}
@@ -181,7 +181,8 @@ function Edit () {
                             setDrawingFormMode("add");
                     }}>+ AJOUTER UN CARNET DE DESSINS +</button>
                 </div>
-                {displayDrawingForm===true &&
+            </Collapse>
+            {displayDrawingForm===true &&
                 <DrawingForm
                     drawingFormMode={drawingFormMode} 
                     setDrawingFormMode={setDrawingFormMode}
@@ -193,8 +194,7 @@ function Edit () {
                     loaderDisplay={loaderDisplay} 
                     setLoaderDisplay={setLoaderDisplay}
                 />
-                }
-            </Collapse>
+            }
         </main>
     )
 }

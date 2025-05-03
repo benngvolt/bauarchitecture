@@ -44,15 +44,49 @@
             }
         }
 
+        &_menu {
+            list-style-type: none;
+            @include Row;
+            width: auto;
+            // column-gap: 10%;
+            justify-content: flex-end;
+            padding: 0;
+            &_item {
+                margin: auto 0;
+                width: auto;
+                padding-left: 70px;
+                &_title {
+                    font-family: $mainFont;
+                    font-size: $fontSize4;
+                    text-transform: uppercase;
+                    &--bold {
+                        font-weight: bold;
+                        color: $colorDarkGrey;
+                    }
+                    &--regular {
+                        font-weight: lighter;
+                        color: $color1;
+                    }
+                    &:hover {
+                        cursor: pointer;
+                    }
+                }
+
+                &_link {
+                    text-decoration: none;
+                }
+            }
+        }
+
         button {
             @include Column;
             border: none;
             background: none;
             color: $colorDarkGrey;
-            justify-content: center;
+            justify-content: right;
             svg {
                 animation: apparition 2s ease forwards;
-                height: 33px;
+                height: 22px;
                 margin : 0 auto;
                 &:hover {
                     color: $color1;

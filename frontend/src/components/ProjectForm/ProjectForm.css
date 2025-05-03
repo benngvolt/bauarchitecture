@@ -40,7 +40,7 @@
   }
 }
 .projectFormContainer {
-  z-index: 1;
+  z-index: 2;
   position: fixed;
   align-items: center;
   justify-content: center;

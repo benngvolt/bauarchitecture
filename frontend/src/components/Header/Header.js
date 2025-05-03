@@ -16,11 +16,12 @@ function Header() {
     
     const { displayNavSection, setDisplayNavSection, loaderDisplay, currentPage, setCurrentPage } = useContext(ProjectsContext);
     const location = useLocation();
+    const menuTitles = ["projets", "prestations", "voyages", "dessins" ]
 
     useEffect(() => {
         if (displayNavSection===false) {
             if (location.pathname==="/about") {
-                setCurrentPage('à propos')
+                setCurrentPage('about')
             } else if (location.pathname==="/projets") {
                 setCurrentPage('projets')
             } else if (location.pathname==="/prestations") {
@@ -51,16 +52,41 @@ function Header() {
                     <Link className='header_topBar_leftElements_link' aria-label="Accéder à la page d'accueil" to="/" onClick={()=> setDisplayNavSection(false)}>
                         <img src={logo}/>
                     </Link>
-                    <h2 className='header_topBar_leftElements_location'>{currentPage}</h2>
                 </div>
-                <button onClick={()=> setDisplayNavSection(displayNavSection===true ?  false  : true)}>
+                <ul className='header_topBar_menu'>
                     {displayNavSection===false &&
-                    <FontAwesomeIcon icon={faBars} />
+                    <li className='header_topBar_menu_item'>
+                        <Link className='header_topBar_menu_item_link' 
+                                aria-label={`Accéder à la page À propos`} 
+                                to={`/about`} 
+                                onClick={()=> setDisplayNavSection(false)}>
+                            <h2 className={currentPage === "about"? 'header_topBar_menu_item_title header_topBar_menu_item_title--bold':'header_topBar_menu_item_title header_topBar_menu_item_title--regular'} >À PROPOS</h2>
+                        </Link>
+                    </li>
                     }
-                    {displayNavSection===true &&
-                    <FontAwesomeIcon icon={faXmark} />
-                    }               
-                </button>
+                    {displayNavSection===false &&
+                        (menuTitles.map((title) => (
+                        <li className='header_topBar_menu_item'>
+                            <Link className='header_topBar_menu_item_link' 
+                                    aria-label={`Accéder à la page ${title}`} 
+                                    to={`/${title}`} 
+                                    onClick={()=> setDisplayNavSection(false)}>
+                                <h2 className={title === currentPage ? 'header_topBar_menu_item_title header_topBar_menu_item_title--bold':'header_topBar_menu_item_title header_topBar_menu_item_title--regular'} >{title}</h2>
+                            </Link>
+                        </li>
+                        )))
+                    }
+                    <li className='header_topBar_menu_item'>
+                        <button onClick={()=> setDisplayNavSection(displayNavSection===true ?  false  : true)}>
+                            {displayNavSection===false &&
+                            <FontAwesomeIcon icon={faBars} />
+                            }
+                            {displayNavSection===true &&
+                            <FontAwesomeIcon icon={faXmark} />
+                            }               
+                        </button>
+                    </li>
+                </ul>
             </div>
         
             <NavSection displayNavSection={displayNavSection}/>
