@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/bauarchitecture/static/css/main.da7d903b.css",
-    "main.js": "/bauarchitecture/static/js/main.267bde60.js",
+    "main.css": "/bauarchitecture/static/css/main.1982901a.css",
+    "main.js": "/bauarchitecture/static/js/main.03d2128e.js",
     "static/js/453.8ab44547.chunk.js": "/bauarchitecture/static/js/453.8ab44547.chunk.js",
     "static/media/agence_bau.jpg": "/bauarchitecture/static/media/agence_bau.f398108e266c9cb7fcc1.jpg",
     "static/media/potes.png": "/bauarchitecture/static/media/potes.a46b1d3b54e25a50c222.png",
@@ -15,12 +15,12 @@
     "static/media/bau_logo.png": "/bauarchitecture/static/media/bau_logo.4fba8a7fa1dd61d7b262.png",
     "static/media/logoOA.png": "/bauarchitecture/static/media/logoOA.5668ed4349ba1d9ec5b1.png",
     "index.html": "/bauarchitecture/index.html",
-    "main.da7d903b.css.map": "/bauarchitecture/static/css/main.da7d903b.css.map",
-    "main.267bde60.js.map": "/bauarchitecture/static/js/main.267bde60.js.map",
+    "main.1982901a.css.map": "/bauarchitecture/static/css/main.1982901a.css.map",
+    "main.03d2128e.js.map": "/bauarchitecture/static/js/main.03d2128e.js.map",
     "453.8ab44547.chunk.js.map": "/bauarchitecture/static/js/453.8ab44547.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.da7d903b.css",
-    "static/js/main.267bde60.js"
+    "static/css/main.1982901a.css",
+    "static/js/main.03d2128e.js"
   ]
 }
