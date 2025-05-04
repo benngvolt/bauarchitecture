@@ -18,7 +18,7 @@ function Missions () {
                 {missions.map((mission)=>(
                     <li className='missions_list_item' key={mission._id}>
                         <h3 onClick={() => setActiveMissionTitle(mission.title)} className={activeMissionTitle===mission.title?'missions_list_item_name missions_list_item_name--active':'missions_list_item_name missions_list_item_name--inactive'}>{mission.title}</h3>
-                        <div className={activeMissionTitle===mission.title?'missions_list_item_container missions_list_item_container_opened':'missions_list_item_container missions_list_item_container_closed'}>
+                        <div className={activeMissionTitle===mission.title?'missions_list_item_container missions_list_item_container--opened':'missions_list_item_container missions_list_item_container--closed'}>
                             <p className='missions_list_item_container_text'>{mission.text}</p>
                             <ul className='missions_list_item_container_innerList'>
                                 {mission.list.map((item)=>(

@@ -34,7 +34,7 @@ function NavSection({ displayNavSection }) {
                 <li>
                   <Link to="/prestations" onClick={() => setDisplayNavSection(false)}><h2>Prestations</h2></Link>
                 </li>
-                <li>
+                <li className='navSection_navContainer_navGrid_item_content_editSection'>
                   <Link to="/edit" onClick={() => setDisplayNavSection(false)}><p>Edit</p></Link>
                 </li>
               </ul>

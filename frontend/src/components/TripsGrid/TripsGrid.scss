@@ -1,22 +1,36 @@
 @import '../../utils/mixins';
 
 .tripsGrid {
-    width: 60%;
+    width: 80%;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: repeat(3, 1fr);
     list-style-type: none;
     padding: 0;
     gap: 4px;
     margin: auto;
-
+  
+    @media only screen and (min-width: $padMinWidth) and (max-width: $padMaxWidth),
+    only screen and (max-width: $mobileMaxWidth) {
+      width: 100%;
+    }
+  
+    @media only screen and (max-width: $mobileMaxWidth) {
+      @include Column;
+    }
+  
     li {
-        aspect-ratio: 1;
+      aspect-ratio: 1;
+  
+      @media only screen and (max-width: $mobileMaxWidth) {
+        aspect-ratio: initial;
+      }
     }
-    
+  
     &_img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        animation: appear 1s ease forwards;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      animation: appear 1s ease forwards;
     }
-}
+  }
+  

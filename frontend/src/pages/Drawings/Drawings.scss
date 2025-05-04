@@ -1,63 +1,109 @@
 @import '../../utils/mixins';
 
 .drawings {
-    margin-top: calc($headerHeight + 100px);
-    @include SidePaddings;
-    &_listTextContainer {
+  margin-top: calc($headerHeight + 100px);
+  @include SidePaddings;
+
+  &_listTextContainer {
+    width: 100%;
+    @include Row;
+    justify-content: center;
+    column-gap: 40px;
+    margin-bottom: 45px;
+    @media only screen and (max-width: $mobileMaxWidth) {
+        @include Column;
+        margin-bottom: 20px;
+      }
+
+    &_list {
+      width: 50%;
+      list-style-type: none;
+      @include Column;
+      margin: 0;
+      padding: 0;
+     
+      @media only screen and (max-width: $mobileMaxWidth) {
         width: 100%;
-        @include Row;
-        column-gap: 40px;
-        justify-content: center;
+        min-height: 0;
+      }
 
-        &_list {
-            width: 40%;
-            list-style-type: none;
-            @include Column;
-            margin: 0 0 200px 0;
-            // min-height: 500px;
-            padding: 0;
+      &_item {
+        text-align: right;
 
-            &_item {
-            
-                text-align: right;
-                &_name {
-                    width: auto;
-                    text-transform: uppercase;
-                    font-family: $mainFont;
-                    font-size: $fontSize1;
-                    margin: 0;
-                    &:hover {
-                        cursor: pointer;
-                    }
+        @media only screen and (max-width: $mobileMaxWidth) {
+            text-align: left;
+        }
 
-                    &--notSelected {
-                        color: $color1;
-                    }
-                    &--selected {
-                        color: $colorDarkGrey;
-                        
-                    }
-                }
-            }
+        &_name {
+          width: auto;
+          margin: 0;
+          text-transform: uppercase;
+          font-family: $mainFont;
+          font-size: clamp(1.5rem, 2.5vw, 120px);
+          cursor: pointer;
+
+          @media only screen and (min-width: $padMinWidth) and (max-width: $padMaxWidth) {
+            font-size: clamp(1rem, 2.5vw, 120px);
+          }
+
+          @media only screen and (max-width: $mobileMaxWidth) {
+            font-size: clamp(1.3rem, 2.5vw, 120px);
+          }
+
+          &--notSelected {
+            color: $color1;
+          }
+
+          &--selected {
+            color: $colorDarkGrey;
+          }
         }
-        &_text {
-            width: 50%;
-            p {
-                text-align: left;
-                font-family: $mainFont;
-                width: 60%;
-                text-align: justify;
-                padding-right: 8px;
-            }
-        }
-        &_img {
-            width: 50%;
-            img {
-                width: 100%;
-            }
-        }
+      }
     }
-    &_gridContainer {
-        margin-top: 100px;
+
+    &_text {
+      width: 50%;
+      margin-top: 100px;
+
+      @media only screen and (max-width: $mobileMaxWidth) {
+        margin-top: 20px;
+        width: 100%;
+      }
+
+      p {
+        width: 80%;
+        padding-right: 8px;
+        font-family: $mainFont;
+        text-align: justify;
+
+        @media only screen and (min-width: $padMinWidth) and (max-width: $padMaxWidth),
+        only screen and (max-width: $mobileMaxWidth) {
+          width: 100%;
+          font-size: $fontSize5;
+        }
+      }
     }
+
+    &_img {
+      width: 50%;
+
+      @media only screen and (max-width: $mobileMaxWidth) {
+        width: 100%;
+        margin-top: 20px;
+      }
+
+      img {
+        width: 100%;
+        object-fit: cover;
+
+        @media only screen and (max-width: $mobileMaxWidth) {
+          aspect-ratio: 1;
+        }
+      }
+    }
+  }
+
+  &_gridContainer {
+    margin-top: 20px;
+  }
 }

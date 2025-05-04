@@ -156,12 +156,23 @@
                   font-family: $mainFont;
                   font-size: $fontSize5;
                   margin: 0;
+                  font-weight: normal;
 
                   &:hover {
-                    color: $color1;
+                    // color: $color1;
+                    font-weight: bold;
                   }
                 }
               }
+            }
+          }
+          &_editSection {
+            @media only screen and (min-width: $padMinWidth) and (max-width: $padMaxWidth) {
+              display: none;
+            }
+      
+            @media only screen and (max-width: $mobileMaxWidth) {
+              display: none;
             }
           }
         }
