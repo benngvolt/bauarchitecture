@@ -5,6 +5,7 @@
     z-index: 1;
     width: 100vw;
 
+
     &--fixed {
         z-index: 1;
         position: fixed;
@@ -32,6 +33,13 @@
                 img {
                     height: 85px;
                     object-fit: cover;
+                    @media only screen and (min-width: $padMinWidth) and (max-width: $padMaxWidth){
+                        height: 60px;
+                    }
+                    
+                    @media only screen and (max-width:$mobileMaxWidth){
+                        height: 60px;
+                    }  
                 }
             }
 
@@ -48,17 +56,37 @@
             list-style-type: none;
             @include Row;
             width: auto;
-            // column-gap: 10%;
             justify-content: flex-end;
             padding: 0;
+
             &_item {
                 margin: auto 0;
                 width: auto;
-                padding-left: 70px;
+                padding-left: 50px;
+                @media only screen and (min-width: $padMinWidth) and (max-width: $padMaxWidth){
+                    padding-left: 30px;
+                }
+                
+                @media only screen and (max-width:$mobileMaxWidth){
+                    padding-left: 0; 
+                }  
+
+                &--notDisplayedMobile {
+                    @media only screen and (max-width:$mobileMaxWidth){
+                        display: none;
+                    } 
+                }
                 &_title {
                     font-family: $mainFont;
                     font-size: $fontSize4;
                     text-transform: uppercase;
+                    @media only screen and (min-width: $padMinWidth) and (max-width: $padMaxWidth){
+                        font-size: $fontSize5;
+                    }
+                    
+                    @media only screen and (max-width:$mobileMaxWidth){
+                        font-size: $fontSize5;
+                    }  
                     &--bold {
                         font-weight: bold;
                         color: $colorDarkGrey;

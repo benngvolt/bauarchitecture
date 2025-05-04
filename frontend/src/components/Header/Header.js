@@ -7,91 +7,135 @@ import {
     faBars,
     faXmark
 } from '@fortawesome/free-solid-svg-icons'
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { ProjectsContext } from '../../utils/ProjectsContext'
 import Loader from '../Loader/Loader'
 
- 
 function Header() {
-    
-    const { displayNavSection, setDisplayNavSection, loaderDisplay, currentPage, setCurrentPage } = useContext(ProjectsContext);
+    const {
+        displayNavSection,
+        setDisplayNavSection,
+        loaderDisplay,
+        currentPage,
+        setCurrentPage
+    } = useContext(ProjectsContext);
+
     const location = useLocation();
-    const menuTitles = ["projets", "prestations", "voyages", "dessins" ]
+    const menuTitles = ["projets", "prestations", "voyages", "dessins"];
+    const [shouldRenderNav, setShouldRenderNav] = useState(false);
+
+    // Gérer affichage ou démontage du menu avec délai
+    useEffect(() => {
+        if (displayNavSection) {
+            setShouldRenderNav(true);
+        } else {
+            const timeout = setTimeout(() => {
+                setShouldRenderNav(false);
+            }, 1000); // Doit correspondre à la durée d'animation CSS
+
+            return () => clearTimeout(timeout);
+        }
+    }, [displayNavSection]);
 
     useEffect(() => {
-        if (displayNavSection===false) {
-            if (location.pathname==="/about") {
-                setCurrentPage('about')
-            } else if (location.pathname==="/projets") {
-                setCurrentPage('projets')
-            } else if (location.pathname==="/prestations") {
-                setCurrentPage('prestations')
-            } else if (location.pathname==="/edit") {
-                setCurrentPage('tableau de bord')
-            } else if (location.pathname==="/voyages") {
-                setCurrentPage('voyages')
-            } else if (location.pathname==="/dessins") {
-                setCurrentPage('dessins')
-            } else if (location.pathname==="/references") {
-                setCurrentPage('références')
-            } else {
-                setCurrentPage('')
+        if (!displayNavSection) {
+            switch (location.pathname) {
+                case "/about":
+                    setCurrentPage('about');
+                    break;
+                case "/projets":
+                    setCurrentPage('projets');
+                    break;
+                case "/prestations":
+                    setCurrentPage('prestations');
+                    break;
+                case "/edit":
+                    setCurrentPage('tableau de bord');
+                    break;
+                case "/voyages":
+                    setCurrentPage('voyages');
+                    break;
+                case "/dessins":
+                    setCurrentPage('dessins');
+                    break;
+                case "/references":
+                    setCurrentPage('références');
+                    break;
+                default:
+                    setCurrentPage('');
             }
         } else {
-            setCurrentPage('')
+            setCurrentPage('');
         }
     }, [location.pathname, displayNavSection]);
 
-    return  (      
+    return (
         <header className='header--fixed'>
-            {loaderDisplay===true &&
-                <Loader/>
-            }
+            {loaderDisplay && <Loader />}
+
             <div className='header_topBar'>
                 <div className='header_topBar_leftElements'>
-                    <Link className='header_topBar_leftElements_link' aria-label="Accéder à la page d'accueil" to="/" onClick={()=> setDisplayNavSection(false)}>
-                        <img src={logo}/>
+                    <Link
+                        className='header_topBar_leftElements_link'
+                        aria-label="Accéder à la page d'accueil"
+                        to="/"
+                        onClick={() => setDisplayNavSection(false)}
+                    >
+                        <img src={logo} alt="Logo Bau" />
                     </Link>
                 </div>
+
                 <ul className='header_topBar_menu'>
-                    {displayNavSection===false &&
-                    <li className='header_topBar_menu_item'>
-                        <Link className='header_topBar_menu_item_link' 
-                                aria-label={`Accéder à la page À propos`} 
-                                to={`/about`} 
-                                onClick={()=> setDisplayNavSection(false)}>
-                            <h2 className={currentPage === "about"? 'header_topBar_menu_item_title header_topBar_menu_item_title--bold':'header_topBar_menu_item_title header_topBar_menu_item_title--regular'} >À PROPOS</h2>
-                        </Link>
-                    </li>
+                    {!displayNavSection &&
+                        <>
+                            <li className='header_topBar_menu_item header_topBar_menu_item--notDisplayedMobile'>
+                                <Link
+                                    className='header_topBar_menu_item_link'
+                                    aria-label="Accéder à la page À propos"
+                                    to="/about"
+                                    onClick={() => setDisplayNavSection(false)}
+                                >
+                                    <h2 className={currentPage === "about"
+                                        ? 'header_topBar_menu_item_title header_topBar_menu_item_title--bold'
+                                        : 'header_topBar_menu_item_title header_topBar_menu_item_title--regular'}
+                                    >
+                                        À PROPOS
+                                    </h2>
+                                </Link>
+                            </li>
+
+                            {menuTitles.map((title) => (
+                                <li className='header_topBar_menu_item header_topBar_menu_item--notDisplayedMobile' key={title}>
+                                    <Link
+                                        className='header_topBar_menu_item_link'
+                                        aria-label={`Accéder à la page ${title}`}
+                                        to={`/${title}`}
+                                        onClick={() => setDisplayNavSection(false)}
+                                    >
+                                        <h2 className={title === currentPage
+                                            ? 'header_topBar_menu_item_title header_topBar_menu_item_title--bold'
+                                            : 'header_topBar_menu_item_title header_topBar_menu_item_title--regular'}
+                                        >
+                                            {title}
+                                        </h2>
+                                    </Link>
+                                </li>
+                            ))}
+                        </>
                     }
-                    {displayNavSection===false &&
-                        (menuTitles.map((title) => (
-                        <li className='header_topBar_menu_item'>
-                            <Link className='header_topBar_menu_item_link' 
-                                    aria-label={`Accéder à la page ${title}`} 
-                                    to={`/${title}`} 
-                                    onClick={()=> setDisplayNavSection(false)}>
-                                <h2 className={title === currentPage ? 'header_topBar_menu_item_title header_topBar_menu_item_title--bold':'header_topBar_menu_item_title header_topBar_menu_item_title--regular'} >{title}</h2>
-                            </Link>
-                        </li>
-                        )))
-                    }
-                    <li className='header_topBar_menu_item'>
-                        <button onClick={()=> setDisplayNavSection(displayNavSection===true ?  false  : true)}>
-                            {displayNavSection===false &&
-                            <FontAwesomeIcon icon={faBars} />
-                            }
-                            {displayNavSection===true &&
-                            <FontAwesomeIcon icon={faXmark} />
-                            }               
+
+                    <li className='header_topBar_menu_item' key='menu2'>
+                        <button onClick={() => setDisplayNavSection(!displayNavSection)}>
+                            <FontAwesomeIcon icon={displayNavSection ? faXmark : faBars} />
                         </button>
                     </li>
                 </ul>
             </div>
-        
-            <NavSection displayNavSection={displayNavSection}/>
+            {shouldRenderNav && (
+                <NavSection displayNavSection={displayNavSection} />
+            )}
         </header>
-    )
+    );
 }
 
-export default Header
+export default Header;

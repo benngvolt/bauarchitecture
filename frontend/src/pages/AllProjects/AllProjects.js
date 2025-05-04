@@ -22,7 +22,7 @@ function AllProjects () {
             <nav className='allProjects'>
                 <ul className='allProjects_list'>
                     {projectsList.map((project)=>(
-                        <Link className='allProjects_list_link' aria-label={`Accéder à la page du projet ${project.title}`} to={project._id?`/projets/${project._id}`:'*'}>
+                        <Link key={project._id} className='allProjects_list_link' aria-label={`Accéder à la page du projet ${project.title}`} to={project._id?`/projets/${project._id}`:'*'}>
                             <h3>{project.title}</h3>
                             <p></p>
                         </Link>

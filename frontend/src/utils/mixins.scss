@@ -95,14 +95,14 @@ $headerHeight: 100px;
         max-width: 0%;
     }
     100% {  
-        max-width: 55%;
+        max-width: 50%;
     }
 }
 
 @keyframes slideToRight {
 
     0% {  
-        max-width: 55%;
+        max-width: 50%;
     }
     100% {  
         max-width: 0%;
@@ -114,7 +114,17 @@ $headerHeight: 100px;
         max-width: 0%;
     }
     100% {  
-        max-width: 45%;
+        max-width: 50%;
+    }
+}
+
+@keyframes slideFromLeftPad {
+
+    0% {  
+        max-width: 0%;
+    }
+    100% {  
+        max-width: 63%;
     }
 }
 
@@ -131,35 +141,23 @@ $headerHeight: 100px;
 @keyframes slideToLeft {
 
     0% {  
-        max-width: 45%;
+        max-width: 50%;
     }
     100% {  
         max-width: 0%;
     }
 }
 
-@keyframes slideFromTop {
+@keyframes slideToLeftPad {
 
     0% {  
-        max-height: 0%;
-        display: none;
+        max-width: 63%;
     }
     100% {  
-        max-height: 100%;
-        
+        max-width: 0%;
     }
 }
 
-@keyframes slideToTop {
-
-    0% {  
-        max-height: 100%;
-    }
-    100% {  
-        max-height: 0%;
-        display: none;
-    }
-}
 
 @keyframes rotateOnHover {
     0% {
@@ -180,18 +178,6 @@ $headerHeight: 100px;
         max-height: 500px;
     }
 }
-
-// @keyframes closeCollapse {
-//     0% {
-//         opacity: 100%;
-//         max-height: 500px;
-//     }
-//     100% {  
-//         opacity: 0%;
-//         max-height: 0px;
-//         display: none;
-//     }
-// }
 
 @keyframes decal {
     0% {

@@ -28,7 +28,7 @@ function Home () {
                 }
                 {projectsList && projectsList.length > 0 &&
                 (projectsList.map((project, index)=>(
-                <Link aria-label={`Accéder à la page du projet ${project.title}`} to={project._id?`/projets/${project._id}`:'*'}>
+                <Link aria-label={`Accéder à la page du projet ${project.title}`} to={project._id?`/projets/${project._id}`:'*'} key={project._id}>
                     <figure className='home_figure'>
                         <img src={project.images[project.mainImageIndex]?.imageUrl}/>
                         <figcaption>

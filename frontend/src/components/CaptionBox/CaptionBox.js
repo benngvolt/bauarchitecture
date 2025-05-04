@@ -19,7 +19,6 @@ function CaptionBox({setHandleDisplayCaptionBox, index, sketches, isPictureDispl
                     }
                     {sketches[index].sketchCaption && sketches[index].sketchCaption !=='' &&
                     <div className='captionBox_container_datas_caption'>
-                        <p className='captionBox_container_datas_caption_index'>#{index + 1}</p>
                         <p className='captionBox_container_datas_caption_caption'>{sketches[index].sketchCaption}</p>
                         {sketches[index].list &&
                             <ul>

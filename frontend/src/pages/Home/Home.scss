@@ -1,65 +1,77 @@
 @import '../../utils/mixins';
 
 .home {
-    margin-top: $headerHeight;
-    &_logoContainer {
-        animation: closeWelcomeLogo 3s ease forwards;
-        @include Column;
-        position: fixed;
-        background: $colorLightGrey;
-        width: 100vw;
-        height: 100vh;
-        top: 0;
+  margin-top: $headerHeight;
 
-        img {
-            width: 30%;
-            height: auto;
-            object-fit: cover;
-            margin: auto;
-            justify-content: center;
-        }
+  // Logo plein écran au chargement
+  &_logoContainer {
+    @include Column;
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background: $colorLightGrey;
+    animation: closeWelcomeLogo 3s ease forwards;
+
+    img {
+      width: 30%;
+      height: auto;
+      object-fit: cover;
+      margin: auto;
+    }
+  }
+
+  // Supprime soulignement global
+  a {
+    text-decoration: none;
+  }
+
+  // Figure principale cliquable
+  &_figure {
+    @include Column;
+    margin: 0;
+    width: 100%;
+    aspect-ratio: 1.75;
+    cursor: pointer;
+
+    @media only screen and (min-width: $padMinWidth) and (max-width: $padMaxWidth) {
+      aspect-ratio: 1.5;
     }
 
-    a {
+    @media only screen and (max-width: $mobileMaxWidth) {
+      aspect-ratio: 1;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    figcaption {
+      @include Column;
+      justify-content: center;
+      width: 100%;
+      height: 120px;
+      background-color: $colorDarkGrey;
+      text-align: center;
+      margin: auto;
+
+      @media only screen and (max-width: $mobileMaxWidth) {
+        height: 80px;
+      }
+
+      p {
+        color: $colorLightGrey;
+        font-size: $fontSize4;
+        font-family: $mainFont;
+        margin: 0 auto;
         text-decoration: none;
+
+        @media only screen and (max-width: $mobileMaxWidth) {
+          font-size: $fontSize5;
+        }
+      }
     }
-
-    &_figure {
-        
-        margin: 0;
-        width: 100%;
-        aspect-ratio: 1.75;
-        @include Column;
-        &:hover {
-            cursor: pointer;
-            // p {
-            //     color: $color1;
-            // }
-        }
-
-        img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        figcaption {
-            height: 200px;
-            background-color: $colorDarkGrey;
-            @include Column;
-            justify-content: center;
-            width: 100%;
-            margin: auto;
-            text-align: center;
-            
-
-            p {
-                color: $colorLightGrey;
-                font-size: $fontSize4;
-                font-family: $mainFont;
-                margin: 0 auto;
-                text-decoration: none;
-            }
-        }
-    }
+  }
 }

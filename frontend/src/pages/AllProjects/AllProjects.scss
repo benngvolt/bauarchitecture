@@ -1,40 +1,39 @@
 @import '../../utils/mixins';
 
 .allProjects {
-    margin-top: $headerHeight;
-    @include SidePaddings;
+  margin-top: $headerHeight;
+  @include SidePaddings;
+  @include Column;
+  height: calc(100vh - $headerHeight);
+
+  &_list {
     @include Column;
-    height: calc(100vh - $headerHeight);
+    width: 100%;
+    justify-content: center;
+    margin: auto 0;
+    padding: 0;
 
-    &_list {
-        @include Column;
+    &_link {
+      @include Row;
+      width: 100%;
+      margin: 0 auto;
+      text-decoration: none;
+
+      h3 {
         width: 100%;
-        height: auto;
-        justify-content: center;
-        margin: auto 0;
-        padding: 0;
-    
+        margin: 0;
+        color: $colorDarkGrey;
+        font-family: $mainFont;
+        font-size: clamp(2rem, 8vw, 120px);
+        text-align: left;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
 
-        &_link {
-            @include Row;
-            text-decoration: none;
-            width: 70%;
-            margin: 0 auto;
-
-            h3 {
-                display: flex;
-                width: 100%;
-                margin: 0;
-                justify-content: flex-start;
-                color: $colorDarkGrey;
-                font-family: $mainFont;
-                font-size: 120px;
-                text-align: center;
-                vertical-align: middle;
-                &:hover {
-                    color: $color1;
-                }
-            }
+        &:hover {
+          color: $color1;
         }
+      }
     }
+  }
 }

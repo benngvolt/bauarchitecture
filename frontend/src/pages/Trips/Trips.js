@@ -28,7 +28,7 @@ function Trips () {
                 <div className='trips_listTextContainer'>
                     <ul className='trips_listTextContainer_list'>
                     {trips.map((trip)=>(
-                        <li className='trips_listTextContainer_list_item' onClick={()=>setTripDisplayed(trip)}>
+                        <li key={trip._id} className='trips_listTextContainer_list_item' onClick={()=>setTripDisplayed(trip)}>
                             <h5 className={trip.title === tripDisplayed.title ? 'trips_listTextContainer_list_item_name trips_listTextContainer_list_item_name--selected':'trips_listTextContainer_list_item_name trips_listTextContainer_list_item_name--notSelected'}>{trip.title}</h5>
                         </li>
                     ))}

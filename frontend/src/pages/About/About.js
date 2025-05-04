@@ -68,7 +68,7 @@ function About () {
                 <div className='about_datasContainer'>  
                     <div className='about_datasContainer_grid'> 
                         {aboutObjects.map((sketch, index)=>(
-                            <div className={`about_datasContainer_grid_image singleProject_datasContainer_sketches_grid_image_${index}`}
+                            <div key={`objetApropos${index}`} className={`about_datasContainer_grid_image singleProject_datasContainer_sketches_grid_image_${index}`}
                             onClick={() => {
                                 openCaptionBox(index);
                                 // D'autres instructions si nécessaire

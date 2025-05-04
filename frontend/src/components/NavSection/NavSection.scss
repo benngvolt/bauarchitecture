@@ -1,151 +1,212 @@
 @import '../../utils/mixins';
 
 .navSection {
-    
-    &--display  {
-        animation: slideFromTop 1s ease forwards;
-    }
-    &--hide  {
-        animation: slideToTop 1s ease forwards;
-    }
-    @include Row;
-    justify-content: space-between;
+  @include Row;
+  justify-content: space-between;
+  overflow: hidden;
+  height: 100vh;
+
+  // MOBILE
+  @media only screen and (max-width: $mobileMaxWidth) {
+    @include Column;
+    height: 100vh;
     overflow: hidden;
-    
-    &_navContainer {
-        &--opened {
-            animation: slideFromLeft 1s ease forwards;
-        }
-        &--closed {
-            animation: slideToLeft 1s ease forwards;
-        }
-        box-sizing: content-box;
-        overflow: hidden;
-        width: 45%;
-        @include SidePaddings;
+  }
+
+  // Nav Container
+  &_navContainer {
+    box-sizing: content-box;
+    width: 50%;
+    @include Column;
+    justify-content: center;
+    background-color: $colorLightGrey;
+    overflow: hidden;
+
+    @media only screen and (min-width: $padMinWidth) and (max-width: $padMaxWidth) {
+      width: 63%;
+    }
+
+    @media only screen and (max-width: $mobileMaxWidth) {
+      width: 100%;
+      height: 100%;
+      overflow-y: auto; // <-- scrollable zone sur mobile
+    }
+
+    // OPENED / CLOSED Animations
+    &--opened {
+      animation: slideFromLeft 1s ease forwards;
+
+      @media only screen and (min-width: $padMinWidth) and (max-width: $padMaxWidth) {
+        animation: slideFromLeftPad 1s ease forwards;
+      }
+
+      @media only screen and (max-width: $mobileMaxWidth) {
+        animation: appear 1s ease forwards;
+      }
+    }
+
+    &--closed {
+      animation: slideToLeft 1s ease forwards;
+
+      @media only screen and (min-width: $padMinWidth) and (max-width: $padMaxWidth) {
+        animation: slideToLeftPad 1s ease forwards;
+      }
+
+      @media only screen and (max-width: $mobileMaxWidth) {
+        display: none;
+        animation: none;
+      }
+    }
+
+    // Grid
+    &_navGrid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 1%;
+      width: 500px;
+      height: 60%;
+      margin: auto 0;
+      @include SidePaddings;
+
+      @media only screen and (max-width: $mobileMaxWidth) {
         @include Column;
-        justify-content: center;
-        background-color: $colorLightGrey;
+        width: 100%;
+        height: auto;
+        overflow: visible;
+        margin: 0 0 80px 0;
+        padding: 60px 0 0 45px;
+      }
 
-        &_navGrid {
-            display: grid;
-            column-gap: 45px;
-            @include SidePaddings;
-            height: 80%;
-            margin: auto;
-            grid-template-columns: 1fr 1fr;
+      // Grid Items
+      &_item {
+        @include Row;
+        justify-content: flex-start;
+        width: 180px;
+        margin-top: 10%;
+        column-gap: 12px;
 
-            &_item {
-                @include Row;
-                width: 200px;
-                height: auto;
-                justify-content: flex-start;
-                margin-top:10%;
-                column-gap: 22px;
+        &_index {
+          @include Column;
+          justify-content: flex-start;
+          font-family: $mainFont;
+          color: $colorDarkGrey;
+          font-size: $fontSize5;
+          margin: 0;
 
-                &_index {
-                    @include Column;
-                    justify-content: flex-start;
-                    font-family: $mainFont;
-                    color: $colorDarkGrey;
-                    font-size: $fontSize4;
-                    margin: 0;
-                }
-
-                &_content {
-                    @include Column;
-                    justify-content: flex-start;
-                    row-gap: 22px;
-
-                    &--faq {
-                        margin-left: 45px;
-                        p {
-                            color: $colorDarkGrey;
-                            font-family: $mainFont;
-                            font-weight: normal;
-                            font-size: $fontSize4; 
-                            margin: 10px 0;
-                            cursor: pointer;
-                            &:hover {
-                                color: $color1;
-                            }
-                        }
-                    }
-                    
-                    &_mainTitle {
-    
-                        font-family: $mainFont;
-                        color: $colorDarkGrey;
-                        font-size: $fontSize2;
-                        font-weight: 200;
-                        margin: 0;
-
-                    }
-                    p {
-                        color: $colorDarkGrey;
-                        font-family: $mainFont;
-                        font-weight: normal;
-                        font-size: $fontSize4; 
-                        margin: 0;
-                    }
-
-                    ul {
-                        @include Column;
-                        row-gap: 9px;
-                        padding: 0;
-
-                        li {
-                            list-style-type: none;
-
-
-                            a {
-                                text-decoration: none;
-
-                                h2, p {
-                                    color: $colorDarkGrey;
-                                    font-family: $mainFont;
-                                    font-weight: normal;
-                                    font-size: $fontSize4; 
-                                    margin: 0;
-                                    &:hover {
-                                        color: $color1;
-                                    }
-                                }
-                            }
-                            
-                         }
-                    }
-                }
-            }
-        }
-    }
-    &_imageContainer {
-        
-        &--opened {
-            animation: slideFromRight 1s ease forwards;
-        }
-        &--closed {
-            animation: slideToRight 1s ease forwards;
-        }
-
-        width: 55%;
-        animation: slideFormRight 1s ease forwards;
-        img {
-            width: 100%;
-            height: calc(100vh - $headerHeight);
-            object-fit: cover;
-        }
-    }
-
-    &_modal {
-        position: fixed;
-
-        &--opened{
-            display: flex;
-        }
-        &--closed{
+          @media only screen and (max-width: $mobileMaxWidth) {
             display: none;
+          }
         }
 
+        &_content {
+          @include Column;
+          justify-content: flex-start;
+          row-gap: 22px;
+
+          &--faq {
+            margin-left: 31px;
+
+            @media only screen and (max-width: $mobileMaxWidth) {
+              margin-left: 0;
+              margin-bottom: 50px;
+            }
+
+            p {
+              color: $colorDarkGrey;
+              font-family: $mainFont;
+              font-size: $fontSize5;
+              margin: 10px 0;
+              cursor: pointer;
+
+              &:hover {
+                color: $color1;
+              }
+            }
+          }
+
+          &_mainTitle {
+            font-family: $mainFont;
+            color: $colorDarkGrey;
+            font-size: $fontSize2;
+            font-weight: 200;
+            margin: 0;
+          }
+
+          p {
+            color: $colorDarkGrey;
+            font-family: $mainFont;
+            font-size: $fontSize5;
+            margin: 0;
+          }
+
+          ul {
+            @include Column;
+            row-gap: 9px;
+            padding: 0;
+
+            li {
+              list-style-type: none;
+
+              a {
+                text-decoration: none;
+
+                h2,
+                p {
+                  color: $colorDarkGrey;
+                  font-family: $mainFont;
+                  font-size: $fontSize5;
+                  margin: 0;
+
+                  &:hover {
+                    color: $color1;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
+  }
+
+  // Image Container
+  &_imageContainer {
+    width: 55%;
+    animation: slideFormRight 1s ease forwards;
+
+    @media only screen and (min-width: $padMinWidth) and (max-width: $padMaxWidth) {
+      width: 37%;
+    }
+
+    @media only screen and (max-width: $mobileMaxWidth) {
+      display: none;
+    }
+
+    &--opened {
+      animation: slideFromRight 1s ease forwards;
+    }
+
+    &--closed {
+      animation: slideToRight 1s ease forwards;
+    }
+
+    img {
+      width: 100%;
+      height: calc(100vh - $headerHeight);
+      object-fit: cover;
+    }
+  }
+
+  // Modal
+  &_modal {
+    position: fixed;
+
+    &--opened {
+      display: flex;
+    }
+
+    &--closed {
+      display: none;
+    }
+  }
 }

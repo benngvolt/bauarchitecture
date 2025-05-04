@@ -28,7 +28,7 @@ function Drawings () {
                 <div className='drawings_listTextContainer'>
                     <ul className='drawings_listTextContainer_list'>
                     {drawings.map((drawing)=>(
-                        <li className='drawings_listTextContainer_list_item' onClick={()=>setDrawingDisplayed(drawing)}>
+                        <li key={drawing._id} className='drawings_listTextContainer_list_item' onClick={()=>setDrawingDisplayed(drawing)}>
                             <h5 className={drawing.title === drawingDisplayed.title ? 'drawings_listTextContainer_list_item_name drawings_listTextContainer_list_item_name--selected' : 'drawings_listTextContainer_list_item_name drawings_listTextContainer_list_item_name--notSelected'} >{drawing.title}</h5>
                         </li>
                     ))}

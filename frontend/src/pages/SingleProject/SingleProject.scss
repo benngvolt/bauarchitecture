@@ -1,241 +1,230 @@
 @import '../../utils/mixins';
 
 .singleProject {
-    
-    margin-top: $headerHeight;
+  margin-top: $headerHeight;
 
-    &_datasContainer {
-        background-color: $colorLightGrey;
+  &_datasContainer {
+    background-color: $colorLightGrey;
+    @include Column;
+    justify-content: space-between;
+
+    // Infos du projet
+    &_datasBox {
+      @include Column;
+      @include SidePaddings;
+      margin: 2% 0;
+      width: 100%;
+      min-height: calc(100vh - 250px);
+
+      &_title {
         @include Column;
-        height: auto;
-        justify-content: space-between;
-        
-        &_datasBox {
-            margin: 2% 0;
-            width: 100%;
-            @include SidePaddings;
-            @include Column;
-            min-height: calc(100vh - 250px);
-            height: auto;
+        justify-content: center;
+        margin: auto;
+        width: auto;
+        font-family: $mainFont;
+        text-align: justify;
+        font-size: clamp(6rem, 10vw, 200px);
 
-            &_title  {
-                width: auto;
-                @include Column;
-                justify-content: center;
-                margin: auto;
-                font-size: 200px;
-                font-family: $mainFont;
-                text-align: center;
-            }   
-            
-            &_maindatas {
-                width: 50%;
-                margin: 45px 0;
-                @include Column;
-                justify-content: flex-start;
-                color: $colorDarkGrey;
-                font-family: $mainFont;
-                &_type, &_date, &_state, &_price, &_surface  {
-                    margin: 0;
-                }
-            }
+        @media only screen and (max-width: $mobileMaxWidth) {
+          font-size: clamp(2.5rem, 1vw, $fontSize2);
+          margin-top: 20px;
+        }
+      }
 
-            &_description {
-                width: 100%;
-                @include Row;
-                justify-content: flex-end;
-                color: $colorDarkGrey;
-                font-family: $mainFont;
-                font-size: $fontSize4;
-                p {
-                width: 40%;
-                text-align: justify;
-                }
-            }
+      &_maindatas {
+        @include Column;
+        justify-content: flex-start;
+        width: 50%;
+        margin: 45px 0;
+        font-family: $mainFont;
+        font-size: $fontSize4;
+        color: $colorDarkGrey;
+
+        &_type,
+        &_date,
+        &_state,
+        &_price,
+        &_surface {
+          margin: 0;
         }
 
-        &_sketches {
-            @include Row;
-            @include SidePaddings;
-            justify-content: center;
-            column-gap: 180px;
-            margin: 100px auto;
-            min-height: 100vh;
-            height: auto;
-            width: 100%;
+        @media only screen and (max-width: $mobileMaxWidth) {
+          width: 100%;
+          font-size: $fontSize5;
+        }
+      }
 
-            &_grid {
-                margin: auto 0;
-                display: grid;
-                grid-template-columns: 1fr 1fr 1fr 1fr;
-                grid-gap: 20px;
-                width: 800px;
-                height: auto;
+      &_description {
+        @include Row;
+        width: 100%;
+        font-family: $mainFont;
+        color: $colorDarkGrey;
+        justify-content: flex-end;
 
-                &_image {
-                    margin: auto;
-                    height: 300px;
-                    width: 100%;
-                    display: flex;
-                    flex-direction: column-reverse;
-                    justify-content: center;                    
-
-                    &_png {
-                        background: none;
-                        width: 100%;
-                        height: 100%;
-                        padding: 20px;
-                        box-sizing: border-box;
-                        margin: 0;
-                        
-                    }
-
-                    &_other {
-                        width: 100%;
-                        height: 100%;
-                        margin: 0;
-                        background-color: white;
-                        padding: 20px;
-                        box-sizing: border-box;
-                        box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.1);
-                    }
-
-                    img {
-                        object-fit: contain;
-                        width: 100%;
-                        height: 90%;
-                        &:hover {
-                            cursor: pointer;
-                            animation: rotateOnHover 0.2s ease forwards
-                        }
-                    }
-
-                    p {
-                        font-family: $mainFont;
-                        font-size: $fontSize5;
-                        font-weight: bold;
-                        object-fit: contain;
-                        width: 90%;
-                        margin: 10px 0;
-                    }
-
-                    &_0, &_9, &_18 {
-                        grid-column-start: 1;
-                        grid-column-end: 3;
-                        // grid-row-start: 1;
-                        // grid-row-end: 2;
-                    }
-                    &_1, &_10, &_19 {      
-                        grid-column-start: 3;
-                        grid-column-end: 4;
-                        // grid-row-start: 1;
-                        // grid-row-end: 2;
-                    }
-                    &_2, &_11, &_20 {
-                        grid-column-start: 4;
-                        grid-column-end: 5;
-                        // grid-row-start: 1;
-                        // grid-row-end: 2;
-                    }
-
-                    &_3, &_12, &_21 {
-                        grid-column-start: 1;
-                        grid-column-end: 2;
-                        // grid-row-start: 2;
-                        // grid-row-end: 3;
-                    }
-
-                    &_4, &_13, &_22 {
-                        grid-column-start: 2;
-                        grid-column-end: 3;
-                        // grid-row-start: 2;
-                        // grid-row-end: 3;
-                    }
-                    &_5, &_14, &_23 {
-                        grid-column-start: 3;
-                        grid-column-end: 5;
-                        // grid-row-start: 2;
-                        // grid-row-end: 3;
-                    }
-                    &_6, &_15, &_24 {
-                        grid-column-start: 1;
-                        grid-column-end: 2;
-                        // grid-row-start: 3;
-                        // grid-row-end: 4;
-                    }
-                    &_7, &_16, &_25 {
-                        grid-column-start: 2;
-                        grid-column-end: 4;
-                        // grid-row-start: 3;
-                        // grid-row-end: 4;
-                    }
-                    &_8, &_17, &_26 {
-                        grid-column-start: 4;
-                        grid-column-end: 5;
-                        // grid-row-start: 3;
-                        // grid-row-end: 4;
-                    }
-                }
-            }
-            
-            &_captionsBox {
-                margin: auto 0;
-                width: 20%;
-                @include Column;
-                &_item {
-                    @include Row;
-                    column-gap: 20px;
-                    font-family: $mainFont;
-                    font-size: $fontSize5;
-                    font-weight: bold;
-                    text-align: justify;
-                }  
-            }
+        @media only screen and (max-width: $mobileMaxWidth) {
+          justify-content: flex-start;
         }
 
-        
-        
-        &_imagesWowColumn {
-            z-index: 0;
+        p {
+          width: 50%;
+          text-align: justify;
+          font-size: $fontSize4;
+
+          @media only screen and (min-width: $padMinWidth) and (max-width: $padMaxWidth) {
+            width: 80%;
+          }
+
+          @media only screen and (max-width: $mobileMaxWidth) {
             width: 100%;
-            &_image {
-                z-index: 0;
-                width: 100%;
-                object-fit: cover;
-            }
-            &_column {
-                position: relative;
-                // bottom: 70px;
-                width: 70%;
-                @include Column;
-                row-gap: 5px;
-                justify-content: center;
-                margin: auto;
-
-                &_icon {
-                    vertical-align: middle;
-                    margin: auto 10px;
-                    color: $colorDarkGrey;
-                    &:hover {
-                        color: $color1;
-                        cursor: pointer;
-                    }
-                }
-                &_indexBar {
-                    font-size: 30px;
-                    font-family: $mainFont;
-                    padding: 0;
-                    margin: auto 2px;
-                    color: $colorDarkGrey;
-                    &--bold {
-                        font-size: 40px;
-                    }
-                }
-
-                img {
-                    // height: 100px;
-                }
-            }
-        }  
+            font-size: $fontSize5;
+          }
+        }
+      }
     }
+
+    // Croquis (grille + légendes)
+    &_sketches {
+      @include Row;
+      @include SidePaddings;
+      justify-content: center;
+      column-gap: 180px;
+      margin: 100px auto;
+      min-height: 100vh;
+      width: 100%;
+
+      &_grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        width: 800px;
+        margin: auto 0;
+
+        @media only screen and (max-width: $mobileMaxWidth) {
+          @include Column;
+          max-width: 320px;
+        }
+
+        &_image {
+          display: flex;
+          flex-direction: column-reverse;
+          justify-content: center;
+          height: 300px;
+          width: 100%;
+          margin: auto;
+
+          &_png,
+          &_other {
+            width: 100%;
+            height: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+
+            @media only screen and (max-width: $mobileMaxWidth) {
+              padding: 0;
+            }
+          }
+
+          &_other {
+            background-color: white;
+            box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.1);
+          }
+
+          img {
+            object-fit: contain;
+            width: 100%;
+            height: 90%;
+
+            &:hover {
+              cursor: pointer;
+              animation: rotateOnHover 0.2s ease forwards;
+            }
+          }
+
+          p {
+            font-family: $mainFont;
+            font-size: $fontSize5;
+            font-weight: bold;
+            width: 90%;
+            margin: 10px 0;
+          }
+
+          // Grille : positionnement spécifique
+          &_0, &_9, &_18 { grid-column: 1 / 3; }
+          &_1, &_10, &_19 { grid-column: 3 / 4; }
+          &_2, &_11, &_20 { grid-column: 4 / 5; }
+          &_3, &_12, &_21 { grid-column: 1 / 2; }
+          &_4, &_13, &_22 { grid-column: 2 / 3; }
+          &_5, &_14, &_23 { grid-column: 3 / 5; }
+          &_6, &_15, &_24 { grid-column: 1 / 2; }
+          &_7, &_16, &_25 { grid-column: 2 / 4; }
+          &_8, &_17, &_26 { grid-column: 4 / 5; }
+        }
+      }
+
+      &_captionsBox {
+        @include Column;
+        width: 20%;
+        margin: auto 0;
+
+        &_item {
+          @include Row;
+          column-gap: 20px;
+          font-family: $mainFont;
+          font-size: $fontSize5;
+          font-weight: bold;
+          text-align: justify;
+        }
+      }
+    }
+
+    // Colonne d’icônes/images verticales
+    &_imagesWowColumn {
+      z-index: 0;
+      width: 100%;
+
+      &_image {
+        z-index: 0;
+        width: 100%;
+        object-fit: cover;
+      }
+
+      &_column {
+        @include Column;
+        justify-content: center;
+        row-gap: 5px;
+        width: 80%;
+        margin: auto;
+        position: relative;
+
+        @media only screen and (max-width: $padMaxWidth) {
+          width: 100%;
+          @include SidePaddings;
+        }
+
+        &_icon {
+          color: $colorDarkGrey;
+          margin: auto 10px;
+          vertical-align: middle;
+
+          &:hover {
+            color: $color1;
+            cursor: pointer;
+          }
+        }
+
+        &_indexBar {
+          font-family: $mainFont;
+          font-size: 30px;
+          color: $colorDarkGrey;
+          margin: auto 2px;
+          padding: 0;
+
+          &--bold {
+            font-size: 40px;
+          }
+        }
+      }
+    }
+  }
 }
+
