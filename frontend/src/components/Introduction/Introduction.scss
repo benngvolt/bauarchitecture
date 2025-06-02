@@ -1,0 +1,7 @@
+@import '../../utils/mixins';
+
+.introduction {
+    @include Column;
+    @include CaptionBoxCommons;
+    margin: auto;
+}

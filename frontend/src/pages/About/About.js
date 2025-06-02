@@ -1,57 +1,44 @@
 import './About.scss'
-// import React, { useContext } from 'react'
-import { Link } from 'react-router-dom'
-import { ProjectsContext } from '../../utils/ProjectsContext'
 import React, { useContext, useState, useEffect } from 'react'
 import CaptionBox from '../../components/CaptionBox/CaptionBox'
 import portrait from '../../assets/portrait.webp'
 import potes from '../../assets/potes.png'
-import diplome from '../../assets/diplome.png'
-import trousseau from '../../assets/trousseau.png'
-import crayons from '../../assets/crayons.png'
-import fleur from '../../assets/fleurblanche.png'
+import ensase from '../../assets/ensase.png'
+import skyline from '../../assets/skyline.png'
+import collaboratrice from '../../assets/collaboratrice.png'
+import Introduction from '../../components/Introduction/Introduction'
+import FriendsUrls from '../../components/FriendsUrls/FriendsUrls'
+import Curriculum from '../../components/Curriculum/Curriculum'
+import Collaborations from '../../components/Collaborations/Collaborations'
+import Programs from '../../components/Programs/Programs'
 
 
 function About () {
 
     const [selectedSketchIndex, setSelectedSketchIndex] = useState(0);
     const [handleDisplayCaptionBox, setHandleDisplayCaptionBox] = useState(false);
+    const [tagSelected, setTagSelected] = useState('');
     
     const aboutObjects = [
         {
-            "sketchCaption": "Là je parle de moi un peu perso, genre où j’habite, le fait que j’ai un gamin, là où j’ai grandi, d’où je viens,... Il m’était venu un jour l’idée, peut-être un peu conne, je faire défiler des images de moi y compris petite, histoire de me rendre un peu humaine et pas trop « employée du mois »",
-            "imageUrl":portrait
-        },
+            "imageUrl": portrait,
+            "tag": "introduction"
+        },        
         {
-            "sketchCaption": "Liens vers les amis",
-            "list": [
-                {
-                    "itemName":"Benjamin Gibert",
-                    "itemUrl":"https://bengibert.com"
-                }
-            ],
             "imageUrl":potes,
-            "isPictureDisplayed":false
+            "tag": "friendsUrl"
         },
         {
-            "sketchCaption": "Diplôme de l'ENSASE",
-            "imageUrl":diplome,
-            "isPictureDisplayed":false
+            "imageUrl":ensase,
+            "tag": "curriculum"
         },
         {
-            "sketchCaption": "Je travaille dans les locaux de SoCo",
-            "imageUrl":trousseau,
-            "isPictureDisplayed":false
+            "imageUrl":collaboratrice,
+            "tag": "collaborations"
         },
         {
-            "sketchCaption": "Mes anciens projets",
-            "imageUrl":crayons,
-            "isPictureDisplayed":false
-        },
-        {
-            "sketchCaption": "Mon actualité",
-            "imageUrl":fleur,
-            "isPictureDisplayed":false
+            "imageUrl":skyline,
+            "tag": "programs"
         }
     ]
     
@@ -66,19 +53,36 @@ function About () {
                 {/* <h2 className='about_title'>À PROPOS</h2> */}
                 {aboutObjects.length > 0 &&
                 <div className='about_datasContainer'>  
-                    <div className='about_datasContainer_grid'> 
+                    <ul className='about_datasContainer_grid'> 
                         {aboutObjects.map((sketch, index)=>(
-                            <div key={`objetApropos${index}`} className={`about_datasContainer_grid_image singleProject_datasContainer_sketches_grid_image_${index}`}
+                            <li key={`objetApropos${index}`} className={`about_datasContainer_grid_image about_datasContainer_sketches_grid_image_${index}`}
                             onClick={() => {
+                                setTagSelected(sketch.tag);
                                 openCaptionBox(index);
                                 // D'autres instructions si nécessaire
                             }}>
                                 <img className={sketch.imageUrl.endsWith('.png')?'about_datasContainer_grid_image_png' : 'about_datasContainer_grid_image_other'} src={sketch.imageUrl}/>
-                            </div>
+                            </li>
                         ))}
-                    </div>
+                    </ul>
                     {handleDisplayCaptionBox===true &&
-                        <CaptionBox sketches={aboutObjects} index={selectedSketchIndex} setHandleDisplayCaptionBox={setHandleDisplayCaptionBox} isPictureDisplayed={aboutObjects[selectedSketchIndex]?.isPictureDisplayed ?? true}/>
+                        <CaptionBox setHandleDisplayCaptionBox={setHandleDisplayCaptionBox}>
+                            {tagSelected === 'introduction' &&
+                                <Introduction/>
+                            }
+                            {tagSelected === 'friendsUrl' &&
+                                <FriendsUrls/>
+                            }
+                            {tagSelected === 'curriculum' &&
+                                <Curriculum/>
+                            }
+                            {tagSelected === 'collaborations' &&
+                                <Collaborations/>
+                            }
+                            {tagSelected === 'programs' &&
+                                <Programs/>
+                            }
+                        </CaptionBox>
                     }
                 </div>
                 }

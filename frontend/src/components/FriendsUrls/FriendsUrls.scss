@@ -1,0 +1,7 @@
+@import '../../utils/mixins';
+
+.friendsUrls {
+    @include Column;
+    @include CaptionBoxCommons;
+    margin: auto;
+}

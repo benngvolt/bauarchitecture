@@ -1,0 +1,8 @@
+@import '../../utils/mixins';
+
+.programs {
+
+    @include Column;
+    @include CaptionBoxCommons;
+    margin: auto;
+}

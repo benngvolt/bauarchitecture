@@ -1,0 +1,80 @@
+@import '../../utils/mixins';
+
+.captionBox {
+
+    .portrait {
+        width: 60%;
+    }
+    
+    &_container {
+
+        &_datas {
+        @include Column;
+        @include AllOverPaddings;
+        animation: apparition 2s ease forwards;
+        width: 90%;
+        overflow-y: auto;
+        box-sizing: border-box;
+        column-gap: 20px;
+
+
+        ul {
+            list-style-type: none;
+            li {
+            a {
+                color:$colorDarkGrey;
+                font-family: $mainFont;
+                text-decoration: none;
+                &:hover {
+                color:$colorLightGrey;
+                }
+            } 
+
+            }
+        }
+
+        @media only screen and (max-width: $padMaxWidth) {
+            width: 100%;
+        }
+
+        &_image {
+            width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            margin: auto;
+        }
+
+        &_caption {
+            color:$colorDarkGrey;
+            font-family: $mainFont;
+            // padding-left: 40px;
+            justify-content: flex-start;
+            width: 100%;
+            margin: auto;
+
+
+            p {
+            // @include Row;
+            margin: 50px 0;
+            font-family: $mainFont;
+            font-size: $fontSize5;
+            font-weight: normal;
+            text-align: justify;
+            height: auto;
+            }
+
+            &_index {
+            justify-content: flex-end;
+            width: auto;
+            }
+
+            &_caption {
+            justify-content: flex-start;
+            width: auto;
+            text-align: left;
+                }
+            }
+        }
+    }
+}
+

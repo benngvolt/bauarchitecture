@@ -4,6 +4,7 @@ import logo from "../../assets/bau_logo.png"
 import { ProjectsContext } from '../../utils/ProjectsContext'
 import { useParams } from 'react-router-dom'
 import CaptionBox from '../../components/CaptionBox/CaptionBox'
+import CaptionTypology from '../../components/CaptionTypology/CaptionTypology'
 import React, { useContext, useState, useEffect } from 'react'
 import { API_URL } from '../../utils/constants'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -88,7 +89,9 @@ function SingleProject () {
                             ))}
                         </div>
                         {handleDisplayCaptionBox===true &&
-                            <CaptionBox sketches={singleProject.sketches} index={selectedSketchIndex} setHandleDisplayCaptionBox={setHandleDisplayCaptionBox} isPictureDisplayed={singleProject.sketches[selectedSketchIndex]?.isPictureDisplayed ?? true}/>
+                            <CaptionBox setHandleDisplayCaptionBox={setHandleDisplayCaptionBox}>
+                                <CaptionTypology sketches={singleProject.sketches} index={selectedSketchIndex} isPictureDisplayed={singleProject.sketches[selectedSketchIndex]?.isPictureDisplayed ?? true}/>
+                            </CaptionBox>
                         }
                     </div>
                     }

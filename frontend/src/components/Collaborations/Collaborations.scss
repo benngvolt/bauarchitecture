@@ -1,0 +1,38 @@
+@import '../../utils/mixins';
+
+.collaborations {
+
+    @include Column;
+    @include CaptionBoxCommons;
+    margin: auto;
+    a {
+        font-size: $fontSize3;
+        @include Row;
+        column-gap: 15px;
+        width: 100%;
+        justify-content: space-between;
+
+        &_hover{
+            img {
+                filter: brightness(2);
+            }
+        }
+    }
+    img:hover {
+        cursor:  pointer;
+    }
+    &_imageBox {
+        @include Column;
+        justify-content: center;
+        
+        width: 80%;
+        margin: auto;
+
+    &_image {
+            object-fit: cover;
+            height: auto;
+            animation: slideCaptionBoxFromLeft 0.3s ease forwards;
+            width: 100%;
+        }
+    }
+}

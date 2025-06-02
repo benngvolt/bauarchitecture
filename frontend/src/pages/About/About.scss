@@ -2,6 +2,7 @@
 
 .about {
   margin-top: $headerHeight;
+  padding: 100px;
 
   &_datasContainer {
     @include Row;
@@ -14,7 +15,7 @@
 
     &_grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: 1fr 1fr 1fr;
       grid-gap: 5px;
       width: 1000px;
       margin: 100px auto;
@@ -89,13 +90,13 @@
         // Grille de positionnement spécifique
         &_0, &_9, &_18 { grid-column: 1 / 3; }
         &_1, &_10, &_19 { grid-column: 3 / 4; }
-        &_2, &_11, &_20 { grid-column: 4 / 5; }
-        &_3, &_12, &_21 { grid-column: 1 / 2; }
-        &_4, &_13, &_22 { grid-column: 2 / 3; }
-        &_5, &_14, &_23 { grid-column: 3 / 5; }
-        &_6, &_15, &_24 { grid-column: 1 / 2; }
-        &_7, &_16, &_25 { grid-column: 2 / 4; }
-        &_8, &_17, &_26 { grid-column: 4 / 5; }
+        &_2, &_11, &_20 { grid-column: 1 / 2; }
+        &_3, &_12, &_21 { grid-column: 2 / 3; }
+        &_4, &_13, &_22 { grid-column: 3 / 4; }
+        &_5, &_14, &_23 { grid-column: 1 / 2; }
+        &_6, &_15, &_24 { grid-column: 2 / 4; }
+        &_7, &_16, &_25 { grid-column: 1 / 2; }
+        &_8, &_17, &_26 { grid-column: 2 / 3; }
       }
 
       // Légendes

@@ -1,0 +1,12 @@
+@import '../../utils/mixins';
+
+.curriculum {
+
+    @include Column;
+    @include CaptionBoxCommons;
+    margin: auto;
+
+    h6 {
+        font-size: $fontSize4;
+    }
+}
