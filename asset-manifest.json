@@ -1,26 +1,36 @@
 {
   "files": {
-    "main.css": "/bauarchitecture/static/css/main.cff57f45.css",
-    "main.js": "/bauarchitecture/static/js/main.ef0f38ae.js",
+    "main.css": "/bauarchitecture/static/css/main.86d4fd3f.css",
+    "main.js": "/bauarchitecture/static/js/main.8bfe927f.js",
     "static/js/453.8ab44547.chunk.js": "/bauarchitecture/static/js/453.8ab44547.chunk.js",
     "static/media/agence_bau.jpg": "/bauarchitecture/static/media/agence_bau.f398108e266c9cb7fcc1.jpg",
+    "static/media/ensase.png": "/bauarchitecture/static/media/ensase.fc229158473bbc7867ec.png",
+    "static/media/roda.webp": "/bauarchitecture/static/media/roda.25b4be9d7e8d816f5fa4.webp",
+    "static/media/skyline.png": "/bauarchitecture/static/media/skyline.f229fd302ef78f75f37e.png",
     "static/media/potes.png": "/bauarchitecture/static/media/potes.6609befa984df636ff08.png",
     "static/media/portrait.webp": "/bauarchitecture/static/media/portrait.94aafd6d01fa7d120355.webp",
-    "static/media/crayons.png": "/bauarchitecture/static/media/crayons.c493c1a598e81cabb4db.png",
-    "static/media/diplome.png": "/bauarchitecture/static/media/diplome.db8ae23caa6e339a2d49.png",
-    "static/media/fleurblanche.png": "/bauarchitecture/static/media/fleurblanche.062ad435aedc34c4871d.png",
-    "static/media/trousseau.png": "/bauarchitecture/static/media/trousseau.40b2906f1cfd5d894009.png",
+    "static/media/nomades.webp": "/bauarchitecture/static/media/nomades.e61d740b1eae504a1de9.webp",
+    "static/media/odileGuzy.webp": "/bauarchitecture/static/media/odileGuzy.a43ad6a24175a1cd4ef2.webp",
+    "static/media/mikou.webp": "/bauarchitecture/static/media/mikou.cbc013731e807e633ce2.webp",
+    "static/media/collaboratrice.png": "/bauarchitecture/static/media/collaboratrice.1f67b6808236d1698a3a.png",
+    "static/media/samba.webp": "/bauarchitecture/static/media/samba.0b5a1b9530ed3b8261c1.webp",
+    "static/media/fp02.webp": "/bauarchitecture/static/media/fp02.b6df6cf99b7419d0484f.webp",
+    "static/media/fp01.webp": "/bauarchitecture/static/media/fp01.ad228c3305196893911f.webp",
+    "static/media/llaa02.webp": "/bauarchitecture/static/media/llaa02.e97448b8f452bff11e5d.webp",
+    "static/media/bcube.webp": "/bauarchitecture/static/media/bcube.99c050c8be4e13a18651.webp",
     "static/media/carteFictive.webp": "/bauarchitecture/static/media/carteFictive.608fc9afffef82f309bd.webp",
+    "static/media/aarun.webp": "/bauarchitecture/static/media/aarun.4b70773aad823a19afc1.webp",
+    "static/media/playtime.webp": "/bauarchitecture/static/media/playtime.3b83cc6f2e6eeb2214e8.webp",
     "static/media/mainDrawing.webp": "/bauarchitecture/static/media/mainDrawing.e1b5137f5226e7265781.webp",
     "static/media/bau_logo.png": "/bauarchitecture/static/media/bau_logo.4fba8a7fa1dd61d7b262.png",
     "static/media/logoOA.png": "/bauarchitecture/static/media/logoOA.5668ed4349ba1d9ec5b1.png",
     "index.html": "/bauarchitecture/index.html",
-    "main.cff57f45.css.map": "/bauarchitecture/static/css/main.cff57f45.css.map",
-    "main.ef0f38ae.js.map": "/bauarchitecture/static/js/main.ef0f38ae.js.map",
+    "main.86d4fd3f.css.map": "/bauarchitecture/static/css/main.86d4fd3f.css.map",
+    "main.8bfe927f.js.map": "/bauarchitecture/static/js/main.8bfe927f.js.map",
     "453.8ab44547.chunk.js.map": "/bauarchitecture/static/js/453.8ab44547.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.cff57f45.css",
-    "static/js/main.ef0f38ae.js"
+    "static/css/main.86d4fd3f.css",
+    "static/js/main.8bfe927f.js"
   ]
 }
