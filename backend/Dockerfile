@@ -14,12 +14,12 @@ RUN npm install
 COPY . .
 
 # Copier le fichier .env si besoin (si pas déjà ignoré)
-COPY env/.env .env
+COPY ./env/.env .env
 
 # 🔧 Créer le dossier /uploads dans le conteneur (au cas où il n’est pas monté)
 RUN mkdir -p /usr/src/app/uploads
 
-# Exposer le port de ton API (ex : 3000)
+# Exposer le port de ton API (ex :  3000)
 EXPOSE 3000
 
 # Lancer l’application
