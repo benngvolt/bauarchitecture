@@ -21,6 +21,8 @@ docker run -d \
   -p 3005:3000 \
   -v $(pwd)/uploads:/usr/src/app/uploads \
   --name bau_backend \
+  --restart unless-stopped \
+  --env-file ./backend/env/.env \
   bau_backend
 
 # Lancer frontend (Nginx) sur port 8080
