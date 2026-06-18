@@ -79,6 +79,8 @@ app.use(express.json());
 ----------------------------------------------------------*/
 
 
+
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use ('/api/projects', projectsRoutes);
 app.use ('/api/trips', tripsRoutes);
 app.use ('/api/drawings', drawingsRoutes);
