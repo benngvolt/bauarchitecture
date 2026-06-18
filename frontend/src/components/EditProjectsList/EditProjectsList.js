@@ -17,7 +17,15 @@ function EditProjectsList ({
     const [confirmBoxEPLState, setConfirmBoxEPLState] = useState(false);
     const [projectToDelete, setProjectToDelete] = useState(null);
 
+    const getMediaUrl = (url) => {
+        if (!url) return "";
     
+        if (url.startsWith("http")) {
+            return url;
+        }
+    
+        return `${API_URL}${url}`;
+    };
 
     function closeConfirmBox () {
         setConfirmBoxEPLState(false);
