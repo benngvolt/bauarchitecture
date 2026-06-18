@@ -17,15 +17,7 @@ function EditProjectsList ({
     const [confirmBoxEPLState, setConfirmBoxEPLState] = useState(false);
     const [projectToDelete, setProjectToDelete] = useState(null);
 
-    const getMediaUrl = (url) => {
-        if (!url) return "";
     
-        if (url.startsWith("http")) {
-            return url;
-        }
-    
-        return `${API_URL}${url}`;
-    };
 
     function closeConfirmBox () {
         setConfirmBoxEPLState(false);
@@ -65,7 +57,7 @@ function EditProjectsList ({
                 {projects.map((project)=>(
                 <li className='editProjectList_list_item' key={project._id}>
                     <img
-                        src={getMediaUrl(project.images?.[project.mainImageIndex]?.imageUrl)}
+                        src={`${API_URL}${project.images?.[project.mainImageIndex]?.imageUrl}`}
                         alt={project.title}
                     />
                    
