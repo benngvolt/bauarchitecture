@@ -55,21 +55,13 @@ import React, { useContext, useState, useEffect } from 'react';
 import { API_URL } from '../../utils/constants';
 
 function Home() {
-
     const {
         projects,
-        loaderDisplay,
         welcomeDisplay,
         setDisplayNavSection
     } = useContext(ProjectsContext);
 
     const [projectsList, setProjectsList] = useState(projects);
-
-    const getMediaUrl = (url) => {
-        if (!url) return '';
-        if (url.startsWith('http')) return url;
-        return `${API_URL}${url}`;
-    };
 
     useEffect(() => {
         setDisplayNavSection(false);
@@ -82,35 +74,31 @@ function Home() {
     return (
         <main>
             <section className='home'>
-                {welcomeDisplay === true && (
+                {welcomeDisplay && (
                     <div className='home_logoContainer'>
                         <img src={logo} alt='BAU Architecture' />
                     </div>
                 )}
 
-                {projectsList?.length > 0 &&
-                    projectsList.map((project) => (
-                        <Link
-                            aria-label={`Accéder à la page du projet ${project.title}`}
-                            to={project._id ? `/projets/${project._id}` : '*'}
-                            key={project._id}
-                        >
-                            <figure className='home_figure'>
-                                <img
-                                    src={getMediaUrl(
-                                        project.images?.[project.mainImageIndex]?.imageUrl
-                                    )}
-                                    alt={project.title}
-                                />
+                {projectsList?.map((project) => (
+                    <Link
+                        key={project._id}
+                        aria-label={`Accéder à la page du projet ${project.title}`}
+                        to={project._id ? `/projets/${project._id}` : '*'}
+                    >
+                        <figure className='home_figure'>
+                            <img
+                                src={`${API_URL}${project.images?.[project.mainImageIndex]?.imageUrl}`}
+                                alt={project.title}
+                            />
 
-                                <figcaption>
-                                    <p>{project.title}</p>
-                                    <p>{project.creationDate}</p>
-                                </figcaption>
-                            </figure>
-                        </Link>
-                    ))
-                }
+                            <figcaption>
+                                <p>{project.title}</p>
+                                <p>{project.creationDate}</p>
+                            </figcaption>
+                        </figure>
+                    </Link>
+                ))}
             </section>
         </main>
     );
