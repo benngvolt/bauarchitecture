@@ -214,7 +214,7 @@ function SingleProject() {
                             </div>
                         </article>
 
-                        {singleProject.sketches?.length > 1 && (
+                        {singleProject.sketches?.length > 0 && (
                             <div className='singleProject_datasContainer_sketches'>
                                 <div className='singleProject_datasContainer_sketches_grid'>
                                     {singleProject.sketches.map((sketch, index) => (
@@ -257,9 +257,9 @@ function SingleProject() {
                         )}
 
                         <div className='singleProject_datasContainer_imagesWowColumn'>
-                            {singleProject.images?.length > 1 && (
+                            {singleProject.images?.length > 0 && (
                                 <div className='singleProject_datasContainer_imagesWowColumn_column'>
-                                    {singleProject.images.map((image, index) => (
+                                    {singleProject.images?.map((image, index) => (
                                         <img
                                             key={image._id || `image_${index}`}
                                             className='singleProject_datasContainer_imagesWowColumn_image'
