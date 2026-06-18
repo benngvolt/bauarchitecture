@@ -105,7 +105,6 @@ function SingleProject () {
                         }   
                     </div>
                 </section>
-                
             </div>
             }
         </main>
