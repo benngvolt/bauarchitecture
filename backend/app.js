@@ -34,11 +34,17 @@ const drawingsRoutes = require('./routes/drawings');
 const path = require ('path');
 
 // Connexion à mongoose avec l'adresse srv donnée lors de la création du cluster contenant le password
-mongoose.connect(SECRET_MONGODBKEY,
-  { useNewUrlParser: true,
-    useUnifiedTopology: true })
-  .then(() => console.log('Connexion à MongoDB réussie !')) // écrit dans la console du terminal
-  .catch(() => console.log('Connexion à MongoDB échouée !'));
+mongoose.connect(SECRET_MONGODBKEY, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
+.then(() => {
+  console.log('Connexion à MongoDB réussie !');
+})
+.catch((error) => {
+  console.error('Connexion à MongoDB échouée !');
+  console.error(error.message);
+});
 
 /*-----------------------------------------------------------
 
