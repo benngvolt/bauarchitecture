@@ -32,7 +32,7 @@ const drawingsRoutes = require('./routes/drawings');
 
 
 const path = require ('path');
-
+console.log('SECRET_MONGODBKEY =', SECRET_MONGODBKEY);
 // Connexion à mongoose avec l'adresse srv donnée lors de la création du cluster contenant le password
 mongoose.connect(SECRET_MONGODBKEY, {
   useNewUrlParser: true,
