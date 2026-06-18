@@ -5,6 +5,7 @@ import React, { useState, useRef, useEffect } from 'react'
 import { API_URL } from '../../utils/constants'
 
 
+
 function EditProjectsList ({
     projects, 
     handleEditProject, 
@@ -15,6 +16,8 @@ function EditProjectsList ({
 
     const [confirmBoxEPLState, setConfirmBoxEPLState] = useState(false);
     const [projectToDelete, setProjectToDelete] = useState(null);
+
+    
 
     function closeConfirmBox () {
         setConfirmBoxEPLState(false);
@@ -53,7 +56,11 @@ function EditProjectsList ({
             <ul className='editProjectList_list'>
                 {projects.map((project)=>(
                 <li className='editProjectList_list_item' key={project._id}>
-                    <img src={project.images[project.mainImageIndex].imageUrl}/>
+                    <img
+                        src={getMediaUrl(project.images?.[project.mainImageIndex]?.imageUrl)}
+                        alt={project.title}
+                    />
+                   
                     <p className='editProjectList_list_item_title'>{project.title}</p>
                     <div className='editProjectList_list_item_buttonsContainer'>
                         <button aria-label="Supprimer le projet" onClick={() => {
