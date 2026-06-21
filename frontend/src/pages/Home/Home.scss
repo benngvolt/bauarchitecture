@@ -2,6 +2,146 @@
 
 .home {
   margin-top: $headerHeight;
+  
+  &_intro {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      row-gap: $minimalSpace;
+      
+      margin-bottom: calc(2 * $minimalSpace);
+    
+    &_imageTitleContainer{
+     
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    
+      row-gap: $minimalSpace;
+      width: 100vw; 
+      margin: auto;
+      
+      &_image {
+        // height: calc(90vh - 100px);
+        aspect-ratio: 16/9;
+        width: 100vw;
+      
+        object-fit:cover;
+        opacity: 1;
+        transition: opacity 0.5s ease-in-out;
+  
+        &.hidden {
+            opacity: 0;
+        }
+  
+        &.visible {
+            opacity: 1;
+        }
+      } 
+
+      h1 {
+        @include h1Text;
+        margin: auto;
+        display: flex;
+        justify-content: center;
+      }
+    }
+
+    &_descriptionContainer {
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      width: 50%;
+      row-gap: $minimalSpace;
+      h2 {
+        @include h2Text;
+        display: flex;
+        justify-content: center;
+      }
+
+      &_descrpition {
+        display: flex;
+        justify-content: center;
+        @include mainText;
+      }
+
+      &_buttonContainer {
+        display: flex;
+        justify-content: center;
+      }
+    }
+    
+  }
+
+  &_services {
+    display: flex;
+    flex-direction: column;
+    row-gap: calc($minimalSpace/2);
+    background-color: $colorDarkGrey;
+    padding: $minimalSpace 0;
+    
+    &_buttonContainer {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      margin-right: $minimalSpace;
+      
+    }
+    
+    &_list {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      gap: $minimalSpace;
+      padding: 0 $minimalSpace;
+      align-items: stretch;
+      box-sizing: border-box;
+
+      &_service {
+        
+        // border: 1px solid $colorDarkGrey;
+        list-style: none;
+        // padding: calc($minimalSpace / 4);
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+       
+
+        &_image {
+          width: 100%;
+          flex: 1;
+          min-height: 120px;
+          object-fit: cover;
+          display: block;
+          margin: calc($minimalSpace/2) 0;
+        }
+
+        h3 {
+          @include h3Text;
+          color: $colorLightGrey!important;
+          text-transform: uppercase;
+        }
+        p {
+          @include mainText;
+          color: $colorLightGrey!important;
+        }
+
+        ul {
+          list-style: none;
+          display: flex;
+          flex-direction: column;
+          row-gap: calc($minimalSpace/2);
+          padding: 0;
+          li {
+            @include mainText;
+            color: $colorLightGrey!important;
+          }
+        }
+        
+      }
+    }
+  }
 
   // Logo plein écran au chargement
   &_logoContainer {
@@ -26,52 +166,52 @@
     text-decoration: none;
   }
 
-  // Figure principale cliquable
-  &_figure {
-    @include Column;
-    margin: 0;
-    width: 100%;
-    aspect-ratio: 1.75;
-    cursor: pointer;
+  // // Figure principale cliquable
+  // &_figure {
+  //   @include Column;
+  //   margin: 0;
+  //   width: 100%;
+  //   aspect-ratio: 1.75;
+  //   cursor: pointer;
 
-    @media only screen and (min-width: $padMinWidth) and (max-width: $padMaxWidth) {
-      aspect-ratio: 1.5;
-    }
+  //   @media only screen and (min-width: $padMinWidth) and (max-width: $padMaxWidth) {
+  //     aspect-ratio: 1.5;
+  //   }
 
-    @media only screen and (max-width: $mobileMaxWidth) {
-      aspect-ratio: 1;
-    }
+  //   @media only screen and (max-width: $mobileMaxWidth) {
+  //     aspect-ratio: 1;
+  //   }
 
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+  //   img {
+  //     width: 100%;
+  //     height: 100%;
+  //     object-fit: cover;
+  //   }
 
-    figcaption {
-      @include Column;
-      justify-content: center;
-      width: 100%;
-      height: 120px;
-      background-color: $colorDarkGrey;
-      text-align: center;
-      margin: auto;
+  //   figcaption {
+  //     @include Column;
+  //     justify-content: center;
+  //     width: 100%;
+  //     height: 120px;
+  //     background-color: $colorDarkGrey;
+  //     text-align: center;
+  //     margin: auto;
 
-      @media only screen and (max-width: $mobileMaxWidth) {
-        height: 80px;
-      }
+  //     @media only screen and (max-width: $mobileMaxWidth) {
+  //       height: 80px;
+  //     }
 
-      p {
-        color: $colorLightGrey;
-        font-size: $fontSize4;
-        font-family: $mainFont;
-        margin: 0 auto;
-        text-decoration: none;
+  //     p {
+  //       color: $colorLightGrey;
+  //       font-size: $fontSize4;
+  //       font-family: $mainFont;
+  //       margin: 0 auto;
+  //       text-decoration: none;
 
-        @media only screen and (max-width: $mobileMaxWidth) {
-          font-size: $fontSize5;
-        }
-      }
-    }
-  }
+  //       @media only screen and (max-width: $mobileMaxWidth) {
+  //         font-size: $fontSize5;
+  //       }
+  //     }
+  //   }
+  // }
 }

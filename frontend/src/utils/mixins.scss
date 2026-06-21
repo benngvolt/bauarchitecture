@@ -6,7 +6,7 @@ $mainFont: 'Carme', sans-serif;
 
 $colorLightGrey: rgb(233, 233, 233);
 $colorLightTransparentGrey: rgba(233, 233, 233, 0.8);
-$colorDarkGrey: rgb(12, 12, 12);
+$colorDarkGrey: rgb(68, 68, 68);
 $color1: rgb(134, 134, 134);
 $color2: rgb(103, 103, 103);
 
@@ -19,6 +19,80 @@ $fontSize2: 30px;
 $fontSize3: 22px;
 $fontSize4: 17px;
 $fontSize5: 15px;
+
+$fontSize1Pad: 30px;
+$fontSize2Pad: 26px;
+$fontSize3Pad: 20px;
+$fontSize4Pad: 16px;
+$fontSize5Pad: 14px;
+
+$fontSize1Mobile: 26px;
+$fontSize2Mobile: 23px;
+$fontSize3Mobile: 19px;
+$fontSize4Mobile: 15px;
+$fontSize5Mobile: 14px;
+
+$minimalSpace: 45px;
+
+@mixin fontSize1 {
+    font-size: $fontSize1;
+
+    @media only screen and (min-width: $padMinWidth) and (max-width: $padMaxWidth) {
+        font-size: $fontSize1Pad;
+    }
+
+    @media only screen and (max-width: $mobileMaxWidth) {
+        font-size: $fontSize1Mobile;
+    }
+}
+
+@mixin fontSize2 {
+    font-size: $fontSize2;
+
+    @media only screen and (min-width: $padMinWidth) and (max-width: $padMaxWidth) {
+        font-size: $fontSize2Pad;
+    }
+
+    @media only screen and (max-width: $mobileMaxWidth) {
+        font-size: $fontSize2Mobile;
+    }
+}
+
+@mixin fontSize3 {
+    font-size: $fontSize3;
+
+    @media only screen and (min-width: $padMinWidth) and (max-width: $padMaxWidth) {
+        font-size: $fontSize3Pad;
+    }
+
+    @media only screen and (max-width: $mobileMaxWidth) {
+        font-size: $fontSize3Mobile;
+    }
+}
+
+@mixin fontSize4 {
+    font-size: $fontSize4;
+
+    @media only screen and (min-width: $padMinWidth) and (max-width: $padMaxWidth) {
+        font-size: $fontSize4Pad;
+    }
+
+    @media only screen and (max-width: $mobileMaxWidth) {
+        font-size: $fontSize4Mobile;
+    }
+}
+
+@mixin fontSize5 {
+    font-size: $fontSize5;
+
+    @media only screen and (min-width: $padMinWidth) and (max-width: $padMaxWidth) {
+        font-size: $fontSize5Pad;
+    }
+
+    @media only screen and (max-width: $mobileMaxWidth) {
+        font-size: $fontSize5Mobile;
+    }
+}
 
 $headerHeight: 100px;
 
@@ -109,6 +183,29 @@ $headerHeight: 100px;
     width: 100%;
     height: 100%;
     background:rgba(0, 0, 0, 0.8);
+}
+
+@mixin h1Text {
+    font-family: $mainFont;
+    color: $colorDarkGrey;
+    @include fontSize2;
+}
+@mixin h2Text {
+    font-family: $mainFont;
+    color: $colorDarkGrey;
+    @include fontSize3;
+}
+@mixin h3Text {
+    font-family: $mainFont;
+    color: $colorDarkGrey;
+    @include fontSize1;
+}
+
+@mixin mainText {
+    font-family: $mainFont;
+    color: $colorDarkGrey;
+    @include fontSize4;
+    text-align: justify;
 }
 
 @media only screen and (min-width: $padMinWidth) and (max-width: $padMaxWidth){

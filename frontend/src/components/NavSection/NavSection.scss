@@ -102,7 +102,9 @@
           @include Column;
           justify-content: flex-start;
           row-gap: 22px;
-
+          a {
+            text-decoration: none;
+          }
           &--faq {
             margin-left: 31px;
 

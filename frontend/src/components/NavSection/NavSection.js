@@ -6,6 +6,7 @@ import React, { useContext, useState } from 'react'
 import Modal from '../Modal/Modal'
 import FaQ from '../FaQ/FaQ'
 import LegalMentions from '../LegalMentions/LegalMentions'
+import Button from '../Button/Button'
 
 function NavSection({ displayNavSection }) {
   const { setDisplayNavSection } = useContext(ProjectsContext);
@@ -31,9 +32,6 @@ function NavSection({ displayNavSection }) {
                 <li>
                   <Link to="/projets" onClick={() => setDisplayNavSection(false)}><h2>Projets</h2></Link>
                 </li>
-                <li>
-                  <Link to="/prestations" onClick={() => setDisplayNavSection(false)}><h2>Prestations</h2></Link>
-                </li>
                 <li className='navSection_navContainer_navGrid_item_content_editSection'>
                   <Link to="/edit" onClick={() => setDisplayNavSection(false)}><p>Edit</p></Link>
                 </li>
@@ -53,15 +51,7 @@ function NavSection({ displayNavSection }) {
           <li className='navSection_navContainer_navGrid_item'>
             <p className='navSection_navContainer_navGrid_item_index'>03</p>
             <div className='navSection_navContainer_navGrid_item_content'>
-              <h2 className='navSection_navContainer_navGrid_item_content_mainTitle'>AILLEURS</h2>
-              <ul>
-                <li>
-                  <Link to="/voyages" onClick={() => setDisplayNavSection(false)}><p>Voyages</p></Link>
-                </li>
-                <li>
-                  <Link to="/dessins" onClick={() => setDisplayNavSection(false)}><p>Dessins</p></Link>
-                </li>
-              </ul>
+              <Link to="/journal" onClick={() => setDisplayNavSection(false)}><h2 className='navSection_navContainer_navGrid_item_content_mainTitle'>JOURNAL</h2></Link>
             </div>
           </li>
 

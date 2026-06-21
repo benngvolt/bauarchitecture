@@ -1,0 +1,386 @@
+/*-------------------
+----- VARIABLES -----
+-------------------*/
+@-webkit-keyframes closeWelcomeLogo {
+  0% {
+    top: 0;
+  }
+  70% {
+    top: 0;
+  }
+  100% {
+    top: -100vh;
+  }
+}
+@keyframes closeWelcomeLogo {
+  0% {
+    top: 0;
+  }
+  70% {
+    top: 0;
+  }
+  100% {
+    top: -100vh;
+  }
+}
+@-webkit-keyframes apparition {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes apparition {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes slideFromRight {
+  0% {
+    max-width: 0%;
+  }
+  100% {
+    max-width: 50%;
+  }
+}
+@keyframes slideFromRight {
+  0% {
+    max-width: 0%;
+  }
+  100% {
+    max-width: 50%;
+  }
+}
+@-webkit-keyframes slideToRight {
+  0% {
+    max-width: 50%;
+  }
+  100% {
+    max-width: 0%;
+  }
+}
+@keyframes slideToRight {
+  0% {
+    max-width: 50%;
+  }
+  100% {
+    max-width: 0%;
+  }
+}
+@-webkit-keyframes slideFromLeft {
+  0% {
+    max-width: 0%;
+  }
+  100% {
+    max-width: 50%;
+  }
+}
+@keyframes slideFromLeft {
+  0% {
+    max-width: 0%;
+  }
+  100% {
+    max-width: 50%;
+  }
+}
+@-webkit-keyframes slideFromLeftPad {
+  0% {
+    max-width: 0%;
+  }
+  100% {
+    max-width: 63%;
+  }
+}
+@keyframes slideFromLeftPad {
+  0% {
+    max-width: 0%;
+  }
+  100% {
+    max-width: 63%;
+  }
+}
+@-webkit-keyframes slideCaptionBoxFromLeft {
+  0% {
+    max-width: 0%;
+  }
+  100% {
+    max-width: 100%;
+  }
+}
+@keyframes slideCaptionBoxFromLeft {
+  0% {
+    max-width: 0%;
+  }
+  100% {
+    max-width: 100%;
+  }
+}
+@-webkit-keyframes slideToLeft {
+  0% {
+    max-width: 50%;
+  }
+  100% {
+    max-width: 0%;
+  }
+}
+@keyframes slideToLeft {
+  0% {
+    max-width: 50%;
+  }
+  100% {
+    max-width: 0%;
+  }
+}
+@-webkit-keyframes slideToLeftPad {
+  0% {
+    max-width: 63%;
+  }
+  100% {
+    max-width: 0%;
+  }
+}
+@keyframes slideToLeftPad {
+  0% {
+    max-width: 63%;
+  }
+  100% {
+    max-width: 0%;
+  }
+}
+@-webkit-keyframes rotateOnHover {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(3deg);
+  }
+}
+@keyframes rotateOnHover {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(3deg);
+  }
+}
+@-webkit-keyframes openCollapse {
+  0% {
+    opacity: 0%;
+    max-height: 0px;
+  }
+  100% {
+    opacity: 100%;
+    max-height: 500px;
+  }
+}
+@keyframes openCollapse {
+  0% {
+    opacity: 0%;
+    max-height: 0px;
+  }
+  100% {
+    opacity: 100%;
+    max-height: 500px;
+  }
+}
+@-webkit-keyframes closeCollapse {
+  0% {
+    opacity: 100%;
+    max-height: 500px;
+  }
+  100% {
+    opacity: 0%;
+    max-height: 0px;
+  }
+}
+@keyframes closeCollapse {
+  0% {
+    opacity: 100%;
+    max-height: 500px;
+  }
+  100% {
+    opacity: 0%;
+    max-height: 0px;
+  }
+}
+@-webkit-keyframes decal {
+  0% {
+    padding-top: 0px;
+  }
+  100% {
+    padding-top: 100px;
+  }
+}
+@keyframes decal {
+  0% {
+    padding-top: 0px;
+  }
+  100% {
+    padding-top: 100px;
+  }
+}
+@-webkit-keyframes appear {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes appear {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes openCollapseChildren {
+  0% {
+    max-height: 0px;
+    opacity: 0;
+  }
+  50% {
+    max-height: 10000px;
+    opacity: 0;
+  }
+  100% {
+    max-height: 10000px;
+    opacity: 1;
+  }
+}
+@keyframes openCollapseChildren {
+  0% {
+    max-height: 0px;
+    opacity: 0;
+  }
+  50% {
+    max-height: 10000px;
+    opacity: 0;
+  }
+  100% {
+    max-height: 10000px;
+    opacity: 1;
+  }
+}
+@-webkit-keyframes closeCollapseChildren {
+  0% {
+    max-height: 10000px;
+    opacity: 1;
+  }
+  50% {
+    max-height: 10000px;
+    opacity: 0;
+  }
+  100% {
+    max-height: 0px;
+    opacity: 0;
+  }
+}
+@keyframes closeCollapseChildren {
+  0% {
+    max-height: 10000px;
+    opacity: 1;
+  }
+  50% {
+    max-height: 10000px;
+    opacity: 0;
+  }
+  100% {
+    max-height: 0px;
+    opacity: 0;
+  }
+}
+@-webkit-keyframes rotateCollapseIcon {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(180deg);
+  }
+}
+@keyframes rotateCollapseIcon {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(180deg);
+  }
+}
+@-webkit-keyframes rotateInvertCollapseIcon {
+  from {
+    transform: rotate(180deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+@keyframes rotateInvertCollapseIcon {
+  from {
+    transform: rotate(180deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+.modal {
+  -webkit-animation: apparition 0.3s ease forwards;
+          animation: apparition 0.3s ease forwards;
+  display: flex;
+  flex-direction: column;
+  z-index: 1;
+  position: fixed;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(233, 233, 233, 0.8);
+  vertical-align: middle;
+}
+.modal_container {
+  -webkit-animation: slideCaptionBoxFromLeft 0.3s ease forwards;
+          animation: slideCaptionBoxFromLeft 0.3s ease forwards;
+  position: relative;
+  display: flex;
+  row-gap: 16px;
+  padding-top: 22px;
+  padding-bottom: 22px;
+  width: 1300px;
+  height: 80%;
+  background-color: white;
+  margin: auto;
+  box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  -moz-column-gap: 45px;
+       column-gap: 45px;
+}
+.modal_container_closeButton {
+  z-index: 2;
+  position: absolute;
+  top: 30px;
+  right: 30px;
+}
+.modal_container_closeButton:hover {
+  cursor: pointer;
+  color: rgb(134, 134, 134);
+}
+.modal_container_datas {
+  display: flex;
+  flex-direction: row;
+  padding: 100px;
+  box-sizing: border-box;
+  -webkit-animation: apparition 2s ease forwards;
+          animation: apparition 2s ease forwards;
+  -moz-column-gap: 20px;
+       column-gap: 20px;
+  width: 100%;
+  box-sizing: border-box;
+}/*# sourceMappingURL=Modal.css.map */

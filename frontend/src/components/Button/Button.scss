@@ -1,0 +1,34 @@
+@import '../../utils/mixins';
+
+.button {
+    button, a {
+        @include mainText;
+        border: 1px solid $colorDarkGrey;
+        padding: 6px 22px;
+        border-radius: 30px;
+
+        
+    }
+
+    &_light {
+        
+        @media (hover: hover) and (pointer: fine) {
+            &:hover {
+                background-color: $colorDarkGrey;
+                color: $colorLightGrey!important;
+            }
+        }
+
+    }
+    &_dark {
+        
+        background-color: $colorDarkGrey;
+        color: $colorLightGrey!important;
+        @media (hover: hover) and (pointer: fine) {
+            &:hover {
+                background-color: $colorLightGrey;
+                color: $colorDarkGrey;
+            }
+        }
+    }
+}

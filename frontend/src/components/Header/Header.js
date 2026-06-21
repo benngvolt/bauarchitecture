@@ -10,6 +10,7 @@ import {
 import React, { useContext, useEffect, useState } from 'react'
 import { ProjectsContext } from '../../utils/ProjectsContext'
 import Loader from '../Loader/Loader'
+import Button from '../Button/Button'
 
 function Header() {
     const {
@@ -21,7 +22,7 @@ function Header() {
     } = useContext(ProjectsContext);
 
     const location = useLocation();
-    const menuTitles = ["projets", "prestations", "voyages", "dessins"];
+    const menuTitles = ["projets", "journal"];
     const [shouldRenderNav, setShouldRenderNav] = useState(false);
 
     // Gérer affichage ou démontage du menu avec délai
@@ -46,17 +47,11 @@ function Header() {
                 case "/projets":
                     setCurrentPage('projets');
                     break;
-                case "/prestations":
-                    setCurrentPage('prestations');
-                    break;
                 case "/edit":
                     setCurrentPage('tableau de bord');
                     break;
-                case "/voyages":
-                    setCurrentPage('voyages');
-                    break;
-                case "/dessins":
-                    setCurrentPage('dessins');
+                case "/journal":
+                    setCurrentPage('journal');
                     break;
                 case "/references":
                     setCurrentPage('références');
@@ -121,6 +116,11 @@ function Header() {
                                     </Link>
                                 </li>
                             ))}
+                            <li>
+                                <Button>
+                                    PRENDRE CONTACT
+                                </Button>
+                            </li>
                         </>
                     }
 

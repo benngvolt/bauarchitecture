@@ -255,7 +255,6 @@ function SingleProject() {
                                 )}
                             </div>
                         )}
-
                         <div className='singleProject_datasContainer_imagesWowColumn'>
                             {singleProject.images?.length > 0 && (
                                 <div className='singleProject_datasContainer_imagesWowColumn_column'>
