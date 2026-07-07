@@ -48,19 +48,19 @@ function ArticleForm({
   }
 
   useEffect(() => {
-    const element = document.getElementById('inputArticleDescription');
-
-    if (element) {
-      element.editor.setSelectedRange([0, 0]);
-      element.editor.loadHTML(articleDescription);
+    const editor = document.querySelector(
+      'trix-editor[input="inputArticleDescription"]'
+    );
+  
+    if (editor?.editor) {
+      editor.editor.setSelectedRange([0, 0]);
+      editor.editor.loadHTML(articleDescription || '');
     }
   }, [articleDescription, articleFormMode]);
-
 
   function handleCaptionChange(index, newCaption) {
     setCaption(newCaption);
   }
-
 
   function openCaptionModal(index) {
     setCaptionIndex(index);
@@ -68,13 +68,11 @@ function ArticleForm({
     setCaptionModalDisplay(true);
   }
 
-
   function closeCaptionModal() {
     setCaptionIndex(null);
     setCaption('');
     setCaptionModalDisplay(false);
   }
-
 
   function captionSubmit(index, value) {
     const updatedImages = [...imageFiles];
@@ -83,87 +81,47 @@ function ArticleForm({
     closeCaptionModal();
   }
 
-
   function articleFormSubmit(event) {
     event.preventDefault();
     setLoaderDisplay(true);
 
-
     const articleFormData = new FormData();
 
+    const descriptionHtml = inputArticleDescriptionRef.current?.value || '';
 
-    // RÉCUPÉRATION DIRECTE DU CONTENU HTML DE L'ÉDITEUR
-    const descriptionHtml =
-      document
-        .getElementById('inputArticleDescription')
-        ?.editor
-        ?.getDocument()
-        .toString() || '';
-
-
-    articleFormData.append(
-      'title',
-      inputArticleTitleRef.current.value
-    );
-
-    articleFormData.append(
-      'description',
-      descriptionHtml
-    );
-
-    articleFormData.append(
-      'mainArticleIndex',
-      mainArticleIndex
-    );
-
+    articleFormData.append('title', inputArticleTitleRef.current.value);
+    articleFormData.append('description', descriptionHtml);
+    articleFormData.append('mainArticleIndex', mainArticleIndex);
 
     const newImageFiles = Array.from(imageFiles);
-
 
     const imagesWithIndex = newImageFiles.map((image, index) => ({
       index,
       image,
     }));
 
-
     imagesWithIndex.forEach(({ index, image }) => {
       if (image instanceof File) {
-
-        articleFormData.append(
-          'articles',
-          image
-        );
-
-        articleFormData.append(
-          'articleFileIndexes',
-          index
-        );
-
+        articleFormData.append('articles', image);
+        articleFormData.append('articleFileIndexes', index);
       } else {
-
         articleFormData.append(
           `existingArticles[${index}]`,
           JSON.stringify(image)
         );
-
       }
     });
 
-
-    // DEBUG FORMDATA
     for (let pair of articleFormData.entries()) {
       console.log(pair[0], pair[1]);
     }
-
 
     if (!inputArticleTitleRef.current.value) {
       setLoaderDisplay(false);
       return;
     }
 
-
     if (articleFormMode === 'add') {
-
       fetch(`${API_URL}/api/articles`, {
         method: 'POST',
         headers: {
@@ -171,69 +129,44 @@ function ArticleForm({
         },
         body: articleFormData,
       })
-
         .then((response) => {
-
           if (!response.ok) {
             return response.text().then((text) => {
-              throw new Error(
-                `Erreur ${response.status}: ${text}`
-              );
+              throw new Error(`Erreur ${response.status}: ${text}`);
             });
           }
 
           return response.json();
-
         })
-
         .then(() => {
           handleLoadArticles();
           setDisplayArticleForm(false);
           setLoaderDisplay(false);
         })
-
         .catch((error) => {
-          console.error(
-            'Erreur lors de la requête :',
-            error
-          );
+          console.error('Erreur lors de la requête :', error);
           setLoaderDisplay(false);
         });
-
-
     } else if (articleFormMode === 'edit') {
-
-
       fetch(`${API_URL}/api/articles/${articleEdit._id}`, {
-
         method: 'PUT',
-
         headers: {
           // Authorization: 'Bearer ' + token,
         },
-
         body: articleFormData,
-
       })
-
         .then((response) => {
-
           if (response.ok) {
             return response;
           }
 
-          throw new Error(
-            'La requête a échoué'
-          );
-
+          throw new Error('La requête a échoué');
         })
-
         .then(() => {
           handleLoadArticles();
           setDisplayArticleForm(false);
           setLoaderDisplay(false);
         })
-
         .catch((error) => {
           console.error(error);
           setLoaderDisplay(false);
@@ -241,31 +174,18 @@ function ArticleForm({
     }
   }
 
-
   return (
     <div className='projectFormContainer'>
-
-      <form
-        className='projectForm'
-        onSubmit={articleFormSubmit}
-        method='post'
-      >
-
+      <form className='projectForm' onSubmit={articleFormSubmit} method='post'>
         {loaderDisplay === true && <Loader />}
 
-
         <div className='projectForm_closeButton'>
-          <button
-            type='button'
-            onClick={() => setDisplayArticleForm(false)}
-          >
+          <button type='button' onClick={() => setDisplayArticleForm(false)}>
             X FERMER
           </button>
         </div>
 
-
         <div className='projectForm_form'>
-
           <FormSimpleField
             htmlFor='inputArticleTitle'
             label='TITRE*'
@@ -275,7 +195,6 @@ function ArticleForm({
             value={articleTitle}
             onChangeFunction={setArticleTitle}
           />
-
 
           <FormRichTextField
             htmlFor='inputArticleDescription'
@@ -287,6 +206,21 @@ function ArticleForm({
             value={articleDescription}
           />
 
+          <div>
+            <p className='projectForm_form_title'>
+              <strong>GALERIE DE PHOTOS DE L’ARTICLE</strong>
+            </p>
+
+            <p className='projectForm_form_text'>
+              <em>
+                Ici tu peux uploader les images de l’article, en haute définition,
+                en ne dépassant pas 1900px pour le côté le plus long. <br />
+                Il est recommandé d'uploader un format <strong>.webp</strong> pour optimiser
+                les performances d'affichage du site. <br />
+                Tu peux également intervertir les positions des images dans la grille.
+              </em>
+            </p>
+          </div>
 
           <DNDGallery
             isCaptionFormAvailable={false}
@@ -297,7 +231,6 @@ function ArticleForm({
             displayClass='articlesGrid'
           />
 
-
           <FormImageField
             htmlFor='inputImage'
             label='TÉLÉCHARGER UNE IMAGE'
@@ -307,21 +240,14 @@ function ArticleForm({
             imageFiles={imageFiles}
             setImageFiles={setImageFiles}
           />
-
         </div>
-
 
         <div className='projectForm_submitButton'>
-          <button type='submit'>
-            ENVOYER
-          </button>
+          <button type='submit'>ENVOYER</button>
         </div>
 
-
         {captionModalDisplay === true && (
-
           <div className='projectForm_imageCaptionFormModal'>
-
             <FormCaptionField
               htmlFor='inputArticleCaption'
               label='LÉGENDE'
@@ -335,13 +261,9 @@ function ArticleForm({
               captionSubmit={captionSubmit}
               imageFiles={imageFiles}
             />
-
           </div>
-
         )}
-
       </form>
-
     </div>
   );
 }
