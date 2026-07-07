@@ -1,0 +1,67 @@
+@import '../../utils/mixins';
+
+.articlesDetail {
+    width: 50%;
+    @include Column;
+    grid-template-columns: repeat(3, 1fr);
+    list-style-type: none;
+    padding: 0;
+    
+    margin: calc(2 * $minimalSpace) auto;
+  
+    @media only screen and (min-width: $padMinWidth) and (max-width: $padMaxWidth),
+    only screen and (max-width: $mobileMaxWidth) {
+     
+    }
+  
+    @media only screen and (max-width: $mobileMaxWidth) {
+      
+    }
+
+    &_date {
+        font-family: $mainFont;
+        font-size: $fontSize4;
+        margin: auto;
+        color: $color1;
+    }
+
+    h5 {
+      width: 90%;
+      font-family: $mainFont;
+      font-size: $fontSize2;
+      text-align: center;
+      margin: $minimalSpace auto;
+    }
+
+    &_description {
+      width: 90%;
+      font-size: $fontSize4;
+      font-family: $mainFont;
+      text-align: justify;
+      margin: $minimalSpace auto;
+    }
+  
+    li {
+      
+  
+      @media only screen and (max-width: $mobileMaxWidth) {
+       
+      }
+    }
+
+    &_images {
+      list-style-type: none;
+      padding: 0;
+
+      img {
+        padding: 0;
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        animation: appear 1s ease forwards;
+      }
+    }
+  
+    
+  }
+  

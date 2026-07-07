@@ -86,11 +86,26 @@ function ProjectForm ({
 
 
     useEffect(() => {
-        const element = document.getElementById("inputProjectDescription");
-        if (element) {
+        const element = document.getElementById('inputProjectDescription');
+    
+        if (!element) return;
+    
+        const loadContent = () => {
+            if (!element.editor) return;
+    
             element.editor.setSelectedRange([0, 0]);
-            element.editor.loadHTML(projectDescription); 
+            element.editor.loadHTML(projectDescription || '');
+        };
+    
+        element.addEventListener('trix-initialize', loadContent);
+    
+        if (element.editor) {
+            loadContent();
         }
+    
+        return () => {
+            element.removeEventListener('trix-initialize', loadContent);
+        };
     }, [projectDescription, projectFormMode]);
 
     function handleCaptionChange(index, newCaption) {

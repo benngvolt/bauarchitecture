@@ -32,11 +32,6 @@ function Edit() {
     const [displayArticleForm, setDisplayArticleForm] = useState(false);
     const [articleEdit, setArticleEdit] = useState(null);
 
-    const [drawingFormMode, setDrawingFormMode] = useState('add');
-    const [drawingsList, setDrawingsList] = useState(drawings);
-    const [displayDrawingForm, setDisplayDrawingForm] = useState(false);
-    const [drawingEdit, setDrawingEdit] = useState(null);
-
     useEffect(() => {
         setDisplayNavSection(false);
     }, []);
@@ -49,10 +44,7 @@ function Edit() {
         setArticlesList(articles);
     }, [articles]);
 
-    useEffect(() => {
-        setDrawingsList(drawings);
-    }, [drawings]);
-
+   
     // OUVERTURE MODE MODIF
     async function handleEditProject(project) {
         try {
@@ -77,17 +69,7 @@ function Edit() {
         }
     }
 
-    // OUVERTURE MODE MODIF
-    async function handleEditDrawing(drawing) {
-        try {
-            setDrawingEdit(drawing);
-            handleLoadDrawings();
-            setDisplayDrawingForm(true);
-            setDrawingFormMode('edit');
-        } catch (error) {
-            console.log(error.message);
-        }
-    }
+ 
 
     return (
         <main className='edit'>
@@ -164,45 +146,6 @@ function Edit() {
                     displayArticleForm={displayArticleForm}
                     articleEdit={articleEdit}
                     setArticleEdit={setArticleEdit}
-                    loaderDisplay={loaderDisplay}
-                    setLoaderDisplay={setLoaderDisplay}
-                />
-            )}
-
-            {/* EDITION DESSINS */}
-            <Collapse title="GÉRER LES DESSINS">
-                <div className='edit_drawingsListContainer'>
-                    <EditDrawingsList
-                        drawings={drawingsList}
-                        handleEditDrawing={handleEditDrawing}
-                        handleLoadDrawings={handleLoadDrawings}
-                        setDisplayDrawingForm={setDisplayDrawingForm}
-                        displayDrawingForm={displayDrawingForm}
-                        loaderDisplay={loaderDisplay}
-                        setLoaderDisplay={setLoaderDisplay}
-                    />
-
-                    <button
-                        className='edit_drawingsListContainer_addButton'
-                        onClick={() => {
-                            setDisplayDrawingForm(true);
-                            setDrawingFormMode('add');
-                        }}
-                    >
-                        + AJOUTER UN CARNET DE DESSINS +
-                    </button>
-                </div>
-            </Collapse>
-
-            {displayDrawingForm === true && (
-                <DrawingForm
-                    drawingFormMode={drawingFormMode}
-                    setDrawingFormMode={setDrawingFormMode}
-                    handleLoadDrawings={handleLoadDrawings}
-                    setDisplayDrawingForm={setDisplayDrawingForm}
-                    displayDrawingForm={displayDrawingForm}
-                    drawingEdit={drawingEdit}
-                    setDrawingEdit={setDrawingEdit}
                     loaderDisplay={loaderDisplay}
                     setLoaderDisplay={setLoaderDisplay}
                 />

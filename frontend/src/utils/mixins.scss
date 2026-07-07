@@ -412,4 +412,21 @@ $headerHeight: 100px;
     }
 }
 
+@keyframes openArticle {
+    from {
+        left: 100vw;
+      }
+    to {
+        left: 0;
+    }
+}
+@keyframes closeArticle {
+    from {
+        left: 0;
+      }
+    to {
+        left: 100vw;
+    }
+}
+
 
