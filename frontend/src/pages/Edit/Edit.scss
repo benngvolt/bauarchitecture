@@ -3,7 +3,7 @@
 .edit {
     margin-top: calc($headerHeight + 100px);
     
-    &_projectsListContainer, &_tripsListContainer, &_drawingsListContainer {
+    &_projectsListContainer, &_articlesListContainer, &_drawingsListContainer {
         width: 100%;
         height: auto;
         @include SidePaddings;

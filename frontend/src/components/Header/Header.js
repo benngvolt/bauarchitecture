@@ -116,7 +116,7 @@ function Header() {
                                     </Link>
                                 </li>
                             ))}
-                            <li>
+                            <li className='header_topBar_menu_item'>
                                 <Button>
                                     PRENDRE CONTACT
                                 </Button>

@@ -1,0 +1,45 @@
+/*-------------------
+----- VARIABLES -----
+-------------------*/
+
+/* ... tout le reste inchangé ... */
+
+.articlesGrid {
+  width: 80%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  list-style-type: none;
+  padding: 0;
+  gap: 4px;
+  margin: auto;
+}
+
+@media only screen and (min-width: 769px) and (max-width: 991px), only screen and (max-width: 768px) {
+  .articlesGrid {
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .articlesGrid {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.articlesGrid li {
+  aspect-ratio: 1;
+}
+
+@media only screen and (max-width: 768px) {
+  .articlesGrid li {
+    aspect-ratio: initial;
+  }
+}
+
+.articlesGrid_img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  animation: appear 1s ease forwards;
+}/*# sourceMappingURL=ArticlesGrid.css.map */

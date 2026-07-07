@@ -399,7 +399,7 @@
   box-sizing: border-box;
   box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.1);
 }
-.item_img_tripsGrid {
+.item_img_articlesGrid {
   width: 100%;
   -o-object-fit: cover;
      object-fit: cover;

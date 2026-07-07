@@ -77,10 +77,14 @@ function Home() {
                         src={`${API_URL}${currentImage?.imageUrl}`}
                         alt={currentProject?.title || ''}
                     />
+                    <img
+                        className='home_intro_imageTitleContainer_logo'
+                        src={logo}
+                        alt='logo Bau Architecture - Amata Zdziobeck'
+                    />
                     <h1>Architecte résidentiel et design sur-mesure à Saint-Etienne</h1>
                 </div>
                 <div className='home_intro_descriptionContainer'>
-                    <h2>Création d'espaces de vie personnalisés à Saint-Etienne : l'alliance de l'esthétique et de la fonctionnalité.</h2>
                     <p className='home_intro_descriptionContainer_description'>Architecte à Saint-Étienne, j’accompagne particuliers et professionnels dans la conception, la rénovation et l'aménagement d'espaces sur mesure. Chaque projet est pensé pour répondre aux usages, valoriser les lieux et créer des environnements durables et harmonieux.
                     </p>
                     <div className='home_intro_descriptionContainer_buttonContainer'>
@@ -102,23 +106,6 @@ function Home() {
                 </div>
             </section>
             <section className='home_services'>
-                {/* <h2>Services d'architecture</h2> */}
-                {/* <div className='home_services_buttonContainer'>
-                    <Button
-                            variant='link'
-                            id=''
-                            className='button_light'
-                            link='https://benjamingibert.com'
-                            target='_blank'
-                            rel='noreferrer'
-                            ariaLabel=''
-                            ariaCurrent=''
-                            ariaDescribedBy=''
-                            title=''
-                        >
-                            TOUS LES SERVICES
-                    </Button>
-                </div> */}
                 <ul className='home_services_list'>
                     {missions.map((mission, missionIndex) => (
                         <li className='home_services_list_service' key={missionIndex}>
@@ -143,9 +130,29 @@ function Home() {
             </section>
             <section className='home_projects'>
                 <h2>Projets architecturaux à Saint-Etienne et ses environs</h2>
-                <ul>
+                <div className='home_projects_descriptionContainer'>
+                    <p className='home_projects_descriptionContainer_description'>Architecte à Saint-Étienne, j’accompagne particuliers et professionnels dans la conception, la rénovation et l'aménagement d'espaces sur mesure. Chaque projet est pensé pour répondre aux usages, valoriser les lieux et créer des environnements durables et harmonieux.
+                    </p>
+                </div>
+                <div className='home_projects_descriptionContainer_buttonContainer'>
+                        <Button
+                            variant='link'
+                            id=''
+                            className='button_light'
+                            link='https://benjamingibert.com'
+                            target='_blank'
+                            rel='noreferrer'
+                            ariaLabel=''
+                            ariaCurrent=''
+                            ariaDescribedBy=''
+                            title=''
+                        >
+                            TOUS LES PROJETS
+                        </Button>
+                    </div>
+                <ul className='home_projects_list'>
                     {projectsList?.map((project) => (
-                        <li>
+                        <li className='home_projects_list_item'>
                             <Link
                                 key={project._id}
                                 aria-label={`Accéder à la page du projet ${project.title}`}
@@ -158,8 +165,7 @@ function Home() {
                                     />
 
                                     <figcaption>
-                                        <p>{project.title}</p>
-                                        <p>{project.creationDate}</p>
+                                        <h3>{project.title}</h3>
                                     </figcaption>
                                 </figure>
                             </Link>
@@ -167,12 +173,55 @@ function Home() {
                     ))}
                 </ul>
 
-                <button>DISCUTONS DE VOTRE PROJET</button>
+                <div className='home_projects_lastButtonContainer'>
+                        <Button
+                            variant='link'
+                            id=''
+                            className='button_dark'
+                            link='https://benjamingibert.com'
+                            target='_blank'
+                            rel='noreferrer'
+                            ariaLabel=''
+                            ariaCurrent=''
+                            ariaDescribedBy=''
+                            title=''
+                        >
+                            DISCUTONS DE VOTRE PROJET
+                        </Button>
+                    </div>
             </section>
             <section className='home_reassurance'>
                 <h2>Bau s'engage à offrir une expérience architecturale sur mesure sur Saint-Etienne et ses environs</h2>
-                <button>PRENDRE RENDEZ-VOUS</button>
-                <button>DEMANDER UN DEVIS</button>
+                <div className='home_reassurance_buttonsContainer'>
+                    <Button
+                            variant='link'
+                            id=''
+                            className='button_dark'
+                            link='https://benjamingibert.com'
+                            target='_blank'
+                            rel='noreferrer'
+                            ariaLabel=''
+                            ariaCurrent=''
+                            ariaDescribedBy=''
+                            title=''
+                        >
+                            PRENDRE RENDEZ-VOUS
+                    </Button>
+                    <Button
+                            variant='link'
+                            id=''
+                            className='button_light'
+                            link='https://benjamingibert.com'
+                            target='_blank'
+                            rel='noreferrer'
+                            ariaLabel=''
+                            ariaCurrent=''
+                            ariaDescribedBy=''
+                            title=''
+                        >
+                            DEMANDER UN DEVIS
+                        </Button>
+                </div>
             </section>
         </main>
     );

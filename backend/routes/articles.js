@@ -1,6 +1,6 @@
-const express = require ('express');
+const express = require('express');
 const router = express.Router();
-const tripsCtrl = require ('../controllers/trips');
+const articlesCtrl = require('../controllers/articles');
 const multer = require('../middlewares/multer-config');
 const auth = require('../middlewares/auth');
 const uploadImages = require('../middlewares/uploadImages').uploadImages;
@@ -15,35 +15,34 @@ const deleteImages = require('../middlewares/deleteImages').deleteImages;
 
 router.post('/',
             // auth,
-            // multer.array('images'), 
             multer.fields([
                 { name: 'images'},
                 { name: 'sketches'},
-                { name: 'trips'}
+                { name: 'articles'}
               ]),
             uploadImages, 
-            tripsCtrl.createTrip);
+            articlesCtrl.createArticle);
             
 router.get('/',
-            tripsCtrl.getAllTrips);
+            articlesCtrl.getAllArticles);
 
 router.get('/:id', 
-            tripsCtrl.getOneTrip);
+            articlesCtrl.getOneArticle);
 
-router.delete ('/:id',
+router.delete('/:id',
             // auth, 
-            tripsCtrl.deleteOneTrip, 
+            articlesCtrl.deleteOneArticle, 
             deleteImages);
 
-router.put ('/:id',
+router.put('/:id',
             // auth, 
             multer.fields([
                 { name: 'images'},
                 { name: 'sketches'},
-                { name: 'trips'}
+                { name: 'articles'}
               ]),
             uploadImages, 
-            tripsCtrl.updateOneTrip, 
+            articlesCtrl.updateOneArticle, 
             deleteImages);
 
 module.exports = router;

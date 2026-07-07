@@ -7,7 +7,7 @@
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
-      row-gap: $minimalSpace;
+      row-gap: calc($minimalSpace/2)s;
       
       margin-bottom: calc(2 * $minimalSpace);
     
@@ -17,7 +17,7 @@
       flex-direction: column;
       justify-content: flex-start;
     
-      row-gap: $minimalSpace;
+      row-gap: calc(2 * $minimalSpace);
       width: 100vw; 
       margin: auto;
       
@@ -39,9 +39,14 @@
         }
       } 
 
+      &_logo {
+        width: 20%;
+        margin: auto;
+      }
+
       h1 {
         @include h1Text;
-        margin: auto;
+        margin: 0 auto;
         display: flex;
         justify-content: center;
       }
@@ -60,7 +65,7 @@
         justify-content: center;
       }
 
-      &_descrpition {
+      &_description {
         display: flex;
         justify-content: center;
         @include mainText;
@@ -92,7 +97,7 @@
     &_list {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr 1fr;
-      gap: $minimalSpace;
+      gap: calc($minimalSpace/2);
       padding: 0 $minimalSpace;
       align-items: stretch;
       box-sizing: border-box;
@@ -118,7 +123,7 @@
         }
 
         h3 {
-          @include h3Text;
+          @include h1Text;
           color: $colorLightGrey!important;
           text-transform: uppercase;
         }
@@ -136,10 +141,91 @@
           li {
             @include mainText;
             color: $colorLightGrey!important;
+            text-align: left;
           }
         }
         
       }
+    }
+  }
+
+  &_projects {
+    width: 100vw;
+    margin: calc(2 * $minimalSpace) 0;
+    h2 {
+      @include h1Text;
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+      
+    }
+
+    &_descriptionContainer {
+      margin: 0 auto $minimalSpace auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      width: 50%;
+      row-gap: $minimalSpace;
+      h2 {
+        @include h2Text;
+        display: flex;
+        justify-content: center;
+      }
+
+      &_description {
+        display: flex;
+        justify-content: center;
+        @include mainText;
+      }
+
+      &_buttonContainer {
+        display: flex;
+        justify-content: flex-end;
+        margin: calc($minimalSpace / 2);
+      }
+    }
+    
+
+    &_list {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      list-style: none;
+      padding: 0;
+
+      &_item {
+        width: 100%;
+        a {
+          width: 100%;
+          figure {
+            width: 100%;
+            margin: 0;
+            img {
+              width:100%;
+              aspect-ratio: 1;
+              box-sizing: border-box;
+              object-fit: cover;
+            }
+          }
+          figcaption {
+            h3 {
+              @include h1Text;
+              margin: 0;
+              padding: 0 calc($minimalSpace / 2);
+              color: $colorDarkGrey;
+            }
+          }
+          
+        }
+      }
+    }
+
+    &_lastButtonContainer {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      margin: calc(2 * $minimalSpace) auto;
+      width: 100%;
     }
   }
 
@@ -166,52 +252,18 @@
     text-decoration: none;
   }
 
-  // // Figure principale cliquable
-  // &_figure {
-  //   @include Column;
-  //   margin: 0;
-  //   width: 100%;
-  //   aspect-ratio: 1.75;
-  //   cursor: pointer;
+  &_reassurance {
+    h2 {
+      @include h2Text;
+      display: flex;
+      justify-content: center;
+    }
 
-  //   @media only screen and (min-width: $padMinWidth) and (max-width: $padMaxWidth) {
-  //     aspect-ratio: 1.5;
-  //   }
-
-  //   @media only screen and (max-width: $mobileMaxWidth) {
-  //     aspect-ratio: 1;
-  //   }
-
-  //   img {
-  //     width: 100%;
-  //     height: 100%;
-  //     object-fit: cover;
-  //   }
-
-  //   figcaption {
-  //     @include Column;
-  //     justify-content: center;
-  //     width: 100%;
-  //     height: 120px;
-  //     background-color: $colorDarkGrey;
-  //     text-align: center;
-  //     margin: auto;
-
-  //     @media only screen and (max-width: $mobileMaxWidth) {
-  //       height: 80px;
-  //     }
-
-  //     p {
-  //       color: $colorLightGrey;
-  //       font-size: $fontSize4;
-  //       font-family: $mainFont;
-  //       margin: 0 auto;
-  //       text-decoration: none;
-
-  //       @media only screen and (max-width: $mobileMaxWidth) {
-  //         font-size: $fontSize5;
-  //       }
-  //     }
-  //   }
-  // }
+    &_buttonsContainer {
+      @include Row;
+      margin: $minimalSpace auto;
+      justify-content: center;
+      column-gap: $minimalSpace;
+    }
+  }
 }

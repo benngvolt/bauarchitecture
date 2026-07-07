@@ -205,6 +205,7 @@ $headerHeight: 100px;
     font-family: $mainFont;
     color: $colorDarkGrey;
     @include fontSize4;
+    
     text-align: justify;
 }
 

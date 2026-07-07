@@ -7,6 +7,7 @@
 
 
     &--fixed {
+
         z-index: 1;
         position: fixed;
         top: 0;
@@ -14,13 +15,16 @@
     }
 
     &_topBar {
+
         z-index: 1;
         @include Row;
         justify-content: space-between;
         height: $headerHeight;
         @include SidePaddings;
         background-color: $colorLightGrey;
-        &_leftElements{
+
+        &_leftElements {
+
             display: flex;
             flex-direction: row;
             column-gap: 50px;
@@ -30,13 +34,13 @@
                     @include Column;
                     justify-content: center;
                     vertical-align: middle;
+
                 img {
                     height: 85px;
                     object-fit: cover;
                     @media only screen and (min-width: $padMinWidth) and (max-width: $padMaxWidth){
                         height: 60px;
                     }
-                    
                     @media only screen and (max-width:$mobileMaxWidth){
                         height: 60px;
                     }  
@@ -53,6 +57,7 @@
         }
 
         &_menu {
+
             list-style-type: none;
             @include Row;
             width: auto;
@@ -63,6 +68,7 @@
                 margin: auto 0;
                 width: auto;
                 padding-left: 50px;
+                display: flex;
                 @media only screen and (min-width: $padMinWidth) and (max-width: $padMaxWidth){
                     padding-left: 30px;
                 }
@@ -76,10 +82,12 @@
                         display: none;
                     } 
                 }
+
                 &_title {
                     font-family: $mainFont;
                     font-size: $fontSize4;
                     text-transform: uppercase;
+
                     @media only screen and (min-width: $padMinWidth) and (max-width: $padMaxWidth){
                         font-size: $fontSize5;
                     }

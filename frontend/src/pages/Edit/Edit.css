@@ -330,7 +330,10 @@
 .edit {
   margin-top: 200px;
 }
-.edit_projectsListContainer, .edit_tripsListContainer, .edit_drawingsListContainer {
+
+.edit_projectsListContainer,
+.edit_articlesListContainer,
+.edit_drawingsListContainer {
   width: 100%;
   height: auto;
   padding-left: 45px;
@@ -338,7 +341,10 @@
   box-sizing: border-box;
   z-index: 1;
 }
-.edit_projectsListContainer_addButton, .edit_tripsListContainer_addButton, .edit_drawingsListContainer_addButton {
+
+.edit_projectsListContainer_addButton,
+.edit_articlesListContainer_addButton,
+.edit_drawingsListContainer_addButton {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -348,7 +354,10 @@
   font-size: 22px;
   background: none;
 }
-.edit_projectsListContainer_addButton:hover, .edit_tripsListContainer_addButton:hover, .edit_drawingsListContainer_addButton:hover {
+
+.edit_projectsListContainer_addButton:hover,
+.edit_articlesListContainer_addButton:hover,
+.edit_drawingsListContainer_addButton:hover {
   color: rgb(134, 134, 134);
   cursor: pointer;
 }/*# sourceMappingURL=Edit.css.map */
