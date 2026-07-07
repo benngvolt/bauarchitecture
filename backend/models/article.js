@@ -1,8 +1,13 @@
 const mongoose = require('mongoose');
-const validator = require('validator');
+
 
 const articleSchema = mongoose.Schema({
   title: { type: String, required: true },
+  date: { 
+    type: Date, 
+    required: true,
+    default: Date.now 
+  },
   description: { type: String, required: false },
   mainArticleIndex: { type: Number, required: false },
   articles: [
