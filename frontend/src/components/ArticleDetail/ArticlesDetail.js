@@ -2,8 +2,7 @@ import './ArticlesDetail.scss';
 import React from 'react';
 import { API_URL } from '../../utils/constants';
 import DOMPurify from 'dompurify';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faArrowLeft} from '@fortawesome/free-solid-svg-icons'
+
 
 function ArticlesDetail({ article }) {
     const getMediaUrl = (url) => {

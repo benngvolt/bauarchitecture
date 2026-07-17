@@ -1,69 +1,107 @@
 import './FormImageField.scss';
-import React, { useState, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { API_URL } from '../../utils/constants';
 
-const FormImageField = ({ htmlFor, label, type, id, name, imageFiles, setImageFiles }) => {
-    const [isImageLoaded, setIsImageLoaded] = useState(false);
+const FormImageField = ({
+    htmlFor,
+    label,
+    type = 'file',
+    id,
+    name,
+    imageFiles,
+    setImageFiles,
+}) => {
     const [newImage, setNewImage] = useState(null);
 
     const inputImageRef = useRef(null);
-    const inputSampleImageRef = useRef(null);
 
-    function displaySample() {
-        const image = inputImageRef.current.files[0];
+    const isImageLoaded = Boolean(newImage);
 
-        if (image) {
-            const imageId = uuidv4();
+    function displaySample(event) {
+        const image = event.target.files?.[0];
 
-            image._id = imageId;
-            image.sampleImageUrl = URL.createObjectURL(image);
-
-            setNewImage(image);
-            setIsImageLoaded(true);
-
-            
-            inputSampleImageRef.current.src = image.sampleImageUrl;
-            inputSampleImageRef.current.alt = '';
-        } else {
-            setIsImageLoaded(false);
+        if (!image) {
+            setNewImage(null);
+            return;
         }
-    }
 
-    function cancelAddImageFile() {
+        // On détruit uniquement l’ancienne prévisualisation
+        // qui n’a pas encore été ajoutée à imageFiles.
         if (newImage?.sampleImageUrl) {
             URL.revokeObjectURL(newImage.sampleImageUrl);
         }
 
+        const imageWithPreview = image;
+
+        imageWithPreview._id = uuidv4();
+        imageWithPreview.sampleImageUrl = URL.createObjectURL(image);
+
+        setNewImage(imageWithPreview);
+    }
+
+    function resetInput() {
         setNewImage(null);
-        setIsImageLoaded(false);
 
         if (inputImageRef.current) {
             inputImageRef.current.value = '';
         }
+    }
 
-        if (inputSampleImageRef.current) {
-            inputSampleImageRef.current.src = '';
-            inputSampleImageRef.current.alt = '';
+    function cancelAddImageFile() {
+        // Ici, l’image n’est pas conservée : son URL peut être détruite.
+        if (newImage?.sampleImageUrl) {
+            URL.revokeObjectURL(newImage.sampleImageUrl);
         }
+
+        resetInput();
     }
 
     function handleAddImageFile() {
-        if (newImage) {
-            setImageFiles([...(imageFiles || []), newImage]);
+        if (!newImage) {
+            return;
         }
 
-        setIsImageLoaded(false);
-        cancelAddImageFile();
+        setImageFiles((currentImageFiles) => [
+            ...(currentImageFiles || []),
+            newImage,
+        ]);
+
+        /*
+         * Important :
+         * on ne révoque pas sampleImageUrl ici, car l’image ajoutée
+         * peut encore être affichée ailleurs dans le formulaire.
+         */
+        resetInput();
     }
+
+    /*
+     * Nettoyage si le composant disparaît alors qu’une image
+     * est encore en attente de validation.
+     */
+    useEffect(() => {
+        return () => {
+            if (newImage?.sampleImageUrl) {
+                /*
+                 * Attention : cette URL ne doit être détruite ici que si
+                 * l’image n’a pas été transférée dans imageFiles.
+                 *
+                 * Avec l’organisation actuelle, le cleanup peut conserver
+                 * une ancienne valeur de newImage. On évite donc de baser
+                 * la durée de vie des images ajoutées sur ce composant.
+                 */
+            }
+        };
+    }, [newImage]);
 
     return (
         <div className='formImageField'>
             <label
-                htmlFor={htmlFor}
+                htmlFor={htmlFor || id}
                 className='formImageField_label'
             >
-                {isImageLoaded ? "CHANGER D'IMAGE" : '+ AJOUTER UNE IMAGE'}
+                {isImageLoaded
+                    ? "CHANGER D'IMAGE"
+                    : label || '+ AJOUTER UNE IMAGE'}
             </label>
 
             <input
@@ -71,21 +109,22 @@ const FormImageField = ({ htmlFor, label, type, id, name, imageFiles, setImageFi
                 id={id}
                 name={name}
                 ref={inputImageRef}
+                accept='image/*'
                 onChange={displaySample}
-                style={{ display: 'none' }}
                 className='formImageField_input'
+                hidden
             />
 
             <div className='formImageField_sampleContainer'>
-                <img
-                    className='formImageField_sampleContainer_image'
-                    ref={inputSampleImageRef}
-                    id='sample'
-                    src=''
-                    alt=''
-                />
+                {newImage?.sampleImageUrl && (
+                    <img
+                        className='formImageField_sampleContainer_image'
+                        src={newImage.sampleImageUrl}
+                        alt="Prévisualisation de l'image sélectionnée"
+                    />
+                )}
 
-                {isImageLoaded === true && (
+                {isImageLoaded && (
                     <div className='formImageField_sampleContainer_buttonsContainer'>
                         <button
                             aria-label="Ajouter l'image"
@@ -96,7 +135,7 @@ const FormImageField = ({ htmlFor, label, type, id, name, imageFiles, setImageFi
                         </button>
 
                         <button
-                            aria-label='Annuler'
+                            aria-label="Annuler l'ajout de l'image"
                             onClick={cancelAddImageFile}
                             type='button'
                         >

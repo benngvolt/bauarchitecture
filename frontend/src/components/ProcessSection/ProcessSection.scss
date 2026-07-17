@@ -1,0 +1,79 @@
+@import '../../utils/mixins';
+
+.process {
+    @include Column;
+    margin: $minimalSpace auto;
+    row-gap: calc($minimalSpace / 2);
+    padding: 0 $minimalSpace;
+    // background-color: $colorDarkGrey;
+    h2 {
+        @include mainText;
+        @include fontSize2;
+    }
+
+    &_list {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: $minimalSpace;
+        align-items: stretch;
+        // gap: calc($minimalSpace / 2);
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        height: calc(6*$minimalSpace);
+
+        &_item {
+            @include Row;
+            box-sizing: border-box;
+            height: calc(6*$minimalSpace);
+            position: relative;
+
+            @include Row;
+            box-sizing: border-box;
+            height: calc(6 * $minimalSpace);
+
+            &:not(:last-child)::after {
+                content: "";
+                position: absolute;
+
+                top: 15%;
+                right: calc(-#{$minimalSpace} / 2);
+
+                width: 1px;
+                height: 70%;
+
+                background-color: $colorDarkGrey;
+            }
+            
+            &_content {
+                width: 100%;
+                margin: 0 auto;
+                @include Column;
+
+                &_index {
+                    
+                    @include fontSize3;
+                    @include mainText;
+                    line-height: 0.75;
+                    margin: 0 auto calc($minimalSpace/2) auto;
+                    display: flex;
+                }
+    
+
+                h3 {
+                    @include h1Text;
+                    @include fontSize1;
+                    margin: 0 auto calc($minimalSpace/2) auto;
+                    text-transform: uppercase;
+                }
+
+                &_text {
+                    @include mainText;
+                    @include fontSize5;
+                }
+
+            }
+        }
+    }
+}

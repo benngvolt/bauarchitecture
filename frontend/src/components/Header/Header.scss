@@ -68,7 +68,10 @@
                 margin: auto 0;
                 width: auto;
                 padding-left: 50px;
+             
                 display: flex;
+                @include mainText;
+                @include fontSize3;
                 @media only screen and (min-width: $padMinWidth) and (max-width: $padMaxWidth){
                     padding-left: 30px;
                 }
@@ -109,6 +112,9 @@
                 }
 
                 &_link {
+                    @include mainText;
+                    @include fontSize3;
+                    
                     text-decoration: none;
                 }
             }

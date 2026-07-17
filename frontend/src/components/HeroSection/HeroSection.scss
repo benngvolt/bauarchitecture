@@ -1,0 +1,152 @@
+@import '../../utils/mixins';
+
+.hero {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    row-gap: calc($minimalSpace / 2);
+    margin-top: $headerHeight;
+    // margin-bottom: calc(2 * $minimalSpace);
+
+    &_imageTitleContainer {
+        
+        position: relative;
+        width: 100vw;
+
+        &_image {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+            opacity: 1;
+            transition: opacity 0.5s ease-in-out;
+
+            &.hidden {
+                opacity: 0;
+            }
+
+            &.visible {
+                opacity: 1;
+            }
+        }
+
+       
+
+        h1 {
+            @include h1Text;
+
+            display: flex;
+            justify-content: center;
+            margin: 0 auto;
+        }
+    }
+    &_mainContainer {
+        position: absolute;
+        width: 52%;
+        height: calc(100% - 2*($headerHeight));
+        margin: auto;
+        @include Column;
+        justify-content: space-between;
+        bottom: $minimalSpace;
+        left: $minimalSpace;
+        &_logoContainer {
+        
+            &_logo {
+                width: 40%;
+                margin: 0;
+            }
+            &_role {
+                margin: $minimalSpace 0 $minimalSpace 7px;
+                @include mainText;
+                @include fontSize3;
+            }
+        }
+        &_descriptionContainer {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            row-gap: calc($minimalSpace/2);
+            background-color: $colorLightGrey;
+            padding: calc($minimalSpace);
+            border-radius: 8px;
+           
+    
+            &_description {
+                @include mainText;
+                display: flex;
+                justify-content: flex-start;
+                margin: 0;
+            }
+    
+            &_buttonContainer {
+                margin: calc($minimalSpace/2) 0;
+                display: flex;
+                justify-content: flex-start;
+                column-gap: calc($minimalSpace/2);
+            }
+
+            h1 {
+                @include mainText;
+                @include fontSize2;
+            }
+            
+        }
+ 
+    }
+
+    
+
+    
+
+    // Logo affiché en plein écran au chargement
+    &_logoContainer {
+        @include Column;
+
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 10;
+
+        width: 100vw;
+        height: 100vh;
+
+        background: $colorLightGrey;
+        animation: closeWelcomeLogo 3s ease forwards;
+
+        img {
+            width: 30%;
+            height: auto;
+            margin: auto;
+            object-fit: contain;
+        }
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    &_reassuranceContainer {
+        @include mainText;
+        @include Column;
+        @include fontSize3;
+        margin: $minimalSpace auto;
+        align-items: center;
+        gap: 1.5rem;
+        &_item {
+            position: relative;
+            text-align: center;
+    
+            &:not(:last-child)::after {
+                content: '';
+                position: absolute;
+                left: 50%;
+                bottom: -1rem;
+                transform: translateX(-50%);
+    
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                background: $colorDarkGrey;
+            }
+        }
+    }
+}

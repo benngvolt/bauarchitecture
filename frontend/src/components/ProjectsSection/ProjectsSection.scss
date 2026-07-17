@@ -1,0 +1,91 @@
+@import '../../utils/mixins';
+
+.projects {
+    width: 100vw;
+    margin: calc(2 * $minimalSpace) 0;
+
+    h2 {
+        @include h1Text;
+
+        display: flex;
+        justify-content: center;
+        margin: 0 auto;
+    }
+
+    &_descriptionContainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        row-gap: $minimalSpace;
+
+        width: 50%;
+        margin: 0 auto $minimalSpace;
+
+        &_description {
+            @include mainText;
+
+            display: flex;
+            justify-content: center;
+        }
+
+        &_buttonContainer {
+            display: flex;
+            justify-content: flex-end;
+            margin: calc($minimalSpace / 2);
+        }
+    }
+
+    &_list {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+
+        margin: 0;
+        padding: 0;
+
+        list-style: none;
+
+        &_item {
+            width: 100%;
+
+            a {
+                display: block;
+                width: 100%;
+                text-decoration: none;
+            }
+
+            &_figure {
+                width: 100%;
+                margin: 0;
+
+                img {
+                    display: block;
+
+                    box-sizing: border-box;
+                    width: 100%;
+                    aspect-ratio: 1;
+
+                    object-fit: cover;
+                }
+
+                figcaption {
+                    h3 {
+                        @include h1Text;
+
+                        margin: 0;
+                        padding: 0 calc($minimalSpace / 2);
+
+                        color: $colorDarkGrey;
+                    }
+                }
+            }
+        }
+    }
+
+    &_lastButtonContainer {
+        display: flex;
+        justify-content: center;
+
+        width: 100%;
+        margin: calc(2 * $minimalSpace) auto;
+    }
+}

@@ -48,6 +48,17 @@ function ProjectForm ({
     const inputImageCaptionRef = useRef(null);
     
     const projectStates = ['en chantier', 'construit', 'esquisse']
+    const PROJECT_TYPES = [
+        'LOGEMENTS INDIVIDUELS',
+        'LOGEMENTS COLLECTIFS',
+        'RÉSIDENCES DE TOURISME',
+        'ÉQUIPEMENTS TECHNIQUES',
+        'ÉTABLISSEMENTS SCOLAIRES',
+        'ÉTABLISSEMENTS DE SANTÉ',
+        'ÉQUIPEMENTS CULTURELS ET SPORTIFS',
+        'BUREAUX ET LOCAUX ASSOCIATIFS',
+        'URBANISME ET TERRITOIRE',
+    ];
 
 
     useEffect(() => {
@@ -286,7 +297,7 @@ function ProjectForm ({
                     />
                     <FormSimpleField
                         htmlFor={'inputDate'}
-                        label={'DATE DE LIVRAISON'}
+                        label={'DATE DE LIVRAISON*'}
                         type={'date'}
                         id={'inputDate'}
                         ref={inputProjectDateRef}
@@ -312,13 +323,13 @@ function ProjectForm ({
                         onChangeFunction={setProjectSurface}
                     />
                     <FormSimpleField
-                        htmlFor={'inputProjectType'}
-                        label={'TYPE DE PROGRAMME*'}
-                        type={'text'}
-                        id={'inputProjectType'}
+                        htmlFor='inputProjectType'
+                        label='TYPE DE PROGRAMME*'
+                        id='inputProjectType'
                         ref={inputProjectTypeRef}
                         value={projectType}
                         onChangeFunction={setProjectType}
+                        options={PROJECT_TYPES}
                     />
                     <FormSelectionField
                         htmlFor={'inputProjectState'}

@@ -204,8 +204,6 @@ $headerHeight: 100px;
 @mixin mainText {
     font-family: $mainFont;
     color: $colorDarkGrey;
-    @include fontSize4;
-    
     text-align: justify;
 }
 

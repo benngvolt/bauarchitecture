@@ -76,7 +76,7 @@ function Header() {
                         to="/"
                         onClick={() => setDisplayNavSection(false)}
                     >
-                        <img src={logo} alt="Logo Bau" />
+                        {/* <img src={logo} alt="Logo Bau" /> */}
                     </Link>
                 </div>
 
@@ -87,15 +87,15 @@ function Header() {
                                 <Link
                                     className='header_topBar_menu_item_link'
                                     aria-label="Accéder à la page À propos"
-                                    to="/about"
+                                    to="/"
                                     onClick={() => setDisplayNavSection(false)}
                                 >
-                                    <h2 className={currentPage === "about"
+                                    <p className={currentPage === "about"
                                         ? 'header_topBar_menu_item_title header_topBar_menu_item_title--bold'
                                         : 'header_topBar_menu_item_title header_topBar_menu_item_title--regular'}
                                     >
-                                        À PROPOS
-                                    </h2>
+                                        ACCUEIL
+                                    </p>
                                 </Link>
                             </li>
 

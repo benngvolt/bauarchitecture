@@ -1,269 +1,269 @@
 @import '../../utils/mixins';
 
-.home {
-  margin-top: $headerHeight;
+// .home {
+//   margin-top: $headerHeight;
   
-  &_intro {
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      row-gap: calc($minimalSpace/2)s;
+//   &_intro {
+//       display: flex;
+//       flex-direction: column;
+//       justify-content: flex-start;
+//       row-gap: calc($minimalSpace/2)s;
       
-      margin-bottom: calc(2 * $minimalSpace);
+//       margin-bottom: calc(2 * $minimalSpace);
     
-    &_imageTitleContainer{
+//     &_imageTitleContainer{
      
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
+//       display: flex;
+//       flex-direction: column;
+//       justify-content: flex-start;
     
-      row-gap: calc(2 * $minimalSpace);
-      width: 100vw; 
-      margin: auto;
+//       row-gap: calc(2 * $minimalSpace);
+//       width: 100vw; 
+//       margin: auto;
       
-      &_image {
-        // height: calc(90vh - 100px);
-        aspect-ratio: 16/9;
-        width: 100vw;
+//       &_image {
+//         // height: calc(90vh - 100px);
+//         aspect-ratio: 16/9;
+//         width: 100vw;
       
-        object-fit:cover;
-        opacity: 1;
-        transition: opacity 0.5s ease-in-out;
+//         object-fit:cover;
+//         opacity: 1;
+//         transition: opacity 0.5s ease-in-out;
   
-        &.hidden {
-            opacity: 0;
-        }
+//         &.hidden {
+//             opacity: 0;
+//         }
   
-        &.visible {
-            opacity: 1;
-        }
-      } 
+//         &.visible {
+//             opacity: 1;
+//         }
+//       } 
 
-      &_logo {
-        width: 20%;
-        margin: auto;
-      }
+//       &_logo {
+//         width: 20%;
+//         margin: auto;
+//       }
 
-      h1 {
-        @include h1Text;
-        margin: 0 auto;
-        display: flex;
-        justify-content: center;
-      }
-    }
+//       h1 {
+//         @include h1Text;
+//         margin: 0 auto;
+//         display: flex;
+//         justify-content: center;
+//       }
+//     }
 
-    &_descriptionContainer {
-      margin: auto;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      width: 50%;
-      row-gap: $minimalSpace;
-      h2 {
-        @include h2Text;
-        display: flex;
-        justify-content: center;
-      }
+//     &_descriptionContainer {
+//       margin: auto;
+//       display: flex;
+//       flex-direction: column;
+//       justify-content: center;
+//       width: 50%;
+//       row-gap: $minimalSpace;
+//       h2 {
+//         @include h2Text;
+//         display: flex;
+//         justify-content: center;
+//       }
 
-      &_description {
-        display: flex;
-        justify-content: center;
-        @include mainText;
-      }
+//       &_description {
+//         display: flex;
+//         justify-content: center;
+//         @include mainText;
+//       }
 
-      &_buttonContainer {
-        display: flex;
-        justify-content: center;
-      }
-    }
+//       &_buttonContainer {
+//         display: flex;
+//         justify-content: center;
+//       }
+//     }
     
-  }
+//   }
 
-  &_services {
-    display: flex;
-    flex-direction: column;
-    row-gap: calc($minimalSpace/2);
-    background-color: $colorDarkGrey;
-    padding: $minimalSpace 0;
+//   &_services {
+//     display: flex;
+//     flex-direction: column;
+//     row-gap: calc($minimalSpace/2);
+//     background-color: $colorDarkGrey;
+//     padding: $minimalSpace 0;
     
-    &_buttonContainer {
-      display: flex;
-      flex-direction: row;
-      justify-content: flex-end;
-      margin-right: $minimalSpace;
+//     &_buttonContainer {
+//       display: flex;
+//       flex-direction: row;
+//       justify-content: flex-end;
+//       margin-right: $minimalSpace;
       
-    }
+//     }
     
-    &_list {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr 1fr;
-      gap: calc($minimalSpace/2);
-      padding: 0 $minimalSpace;
-      align-items: stretch;
-      box-sizing: border-box;
+//     &_list {
+//       display: grid;
+//       grid-template-columns: 1fr 1fr 1fr 1fr;
+//       gap: calc($minimalSpace/2);
+//       padding: 0 $minimalSpace;
+//       align-items: stretch;
+//       box-sizing: border-box;
 
-      &_service {
+//       &_service {
         
-        // border: 1px solid $colorDarkGrey;
-        list-style: none;
-        // padding: calc($minimalSpace / 4);
-        box-sizing: border-box;
-        display: flex;
-        flex-direction: column;
-        height: 100%;
+//         // border: 1px solid $colorDarkGrey;
+//         list-style: none;
+//         // padding: calc($minimalSpace / 4);
+//         box-sizing: border-box;
+//         display: flex;
+//         flex-direction: column;
+//         height: 100%;
        
 
-        &_image {
-          width: 100%;
-          flex: 1;
-          min-height: 120px;
-          object-fit: cover;
-          display: block;
-          margin: calc($minimalSpace/2) 0;
-        }
+//         &_image {
+//           width: 100%;
+//           flex: 1;
+//           min-height: 120px;
+//           object-fit: cover;
+//           display: block;
+//           margin: calc($minimalSpace/2) 0;
+//         }
 
-        h3 {
-          @include h1Text;
-          color: $colorLightGrey!important;
-          text-transform: uppercase;
-        }
-        p {
-          @include mainText;
-          color: $colorLightGrey!important;
-        }
+//         h3 {
+//           @include h1Text;
+//           color: $colorLightGrey!important;
+//           text-transform: uppercase;
+//         }
+//         p {
+//           @include mainText;
+//           color: $colorLightGrey!important;
+//         }
 
-        ul {
-          list-style: none;
-          display: flex;
-          flex-direction: column;
-          row-gap: calc($minimalSpace/2);
-          padding: 0;
-          li {
-            @include mainText;
-            color: $colorLightGrey!important;
-            text-align: left;
-          }
-        }
+//         ul {
+//           list-style: none;
+//           display: flex;
+//           flex-direction: column;
+//           row-gap: calc($minimalSpace/2);
+//           padding: 0;
+//           li {
+//             @include mainText;
+//             color: $colorLightGrey!important;
+//             text-align: left;
+//           }
+//         }
         
-      }
-    }
-  }
+//       }
+//     }
+//   }
 
-  &_projects {
-    width: 100vw;
-    margin: calc(2 * $minimalSpace) 0;
-    h2 {
-      @include h1Text;
-        margin: 0 auto;
-        display: flex;
-        justify-content: center;
+//   &_projects {
+//     width: 100vw;
+//     margin: calc(2 * $minimalSpace) 0;
+//     h2 {
+//       @include h1Text;
+//         margin: 0 auto;
+//         display: flex;
+//         justify-content: center;
       
-    }
+//     }
 
-    &_descriptionContainer {
-      margin: 0 auto $minimalSpace auto;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      width: 50%;
-      row-gap: $minimalSpace;
-      h2 {
-        @include h2Text;
-        display: flex;
-        justify-content: center;
-      }
+//     &_descriptionContainer {
+//       margin: 0 auto $minimalSpace auto;
+//       display: flex;
+//       flex-direction: column;
+//       justify-content: center;
+//       width: 50%;
+//       row-gap: $minimalSpace;
+//       h2 {
+//         @include h2Text;
+//         display: flex;
+//         justify-content: center;
+//       }
 
-      &_description {
-        display: flex;
-        justify-content: center;
-        @include mainText;
-      }
+//       &_description {
+//         display: flex;
+//         justify-content: center;
+//         @include mainText;
+//       }
 
-      &_buttonContainer {
-        display: flex;
-        justify-content: flex-end;
-        margin: calc($minimalSpace / 2);
-      }
-    }
+//       &_buttonContainer {
+//         display: flex;
+//         justify-content: flex-end;
+//         margin: calc($minimalSpace / 2);
+//       }
+//     }
     
 
-    &_list {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      list-style: none;
-      padding: 0;
+//     &_list {
+//       display: grid;
+//       grid-template-columns: 1fr 1fr 1fr;
+//       list-style: none;
+//       padding: 0;
 
-      &_item {
-        width: 100%;
-        a {
-          width: 100%;
-          figure {
-            width: 100%;
-            margin: 0;
-            img {
-              width:100%;
-              aspect-ratio: 1;
-              box-sizing: border-box;
-              object-fit: cover;
-            }
-          }
-          figcaption {
-            h3 {
-              @include h1Text;
-              margin: 0;
-              padding: 0 calc($minimalSpace / 2);
-              color: $colorDarkGrey;
-            }
-          }
+//       &_item {
+//         width: 100%;
+//         a {
+//           width: 100%;
+//           figure {
+//             width: 100%;
+//             margin: 0;
+//             img {
+//               width:100%;
+//               aspect-ratio: 1;
+//               box-sizing: border-box;
+//               object-fit: cover;
+//             }
+//           }
+//           figcaption {
+//             h3 {
+//               @include h1Text;
+//               margin: 0;
+//               padding: 0 calc($minimalSpace / 2);
+//               color: $colorDarkGrey;
+//             }
+//           }
           
-        }
-      }
-    }
+//         }
+//       }
+//     }
 
-    &_lastButtonContainer {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      margin: calc(2 * $minimalSpace) auto;
-      width: 100%;
-    }
-  }
+//     &_lastButtonContainer {
+//       display: flex;
+//       flex-direction: row;
+//       justify-content: center;
+//       margin: calc(2 * $minimalSpace) auto;
+//       width: 100%;
+//     }
+//   }
 
-  // Logo plein écran au chargement
-  &_logoContainer {
-    @include Column;
-    position: fixed;
-    top: 0;
-    width: 100vw;
-    height: 100vh;
-    background: $colorLightGrey;
-    animation: closeWelcomeLogo 3s ease forwards;
+//   // Logo plein écran au chargement
+//   &_logoContainer {
+//     @include Column;
+//     position: fixed;
+//     top: 0;
+//     width: 100vw;
+//     height: 100vh;
+//     background: $colorLightGrey;
+//     animation: closeWelcomeLogo 3s ease forwards;
 
-    img {
-      width: 30%;
-      height: auto;
-      object-fit: cover;
-      margin: auto;
-    }
-  }
+//     img {
+//       width: 30%;
+//       height: auto;
+//       object-fit: cover;
+//       margin: auto;
+//     }
+//   }
 
-  // Supprime soulignement global
-  a {
-    text-decoration: none;
-  }
+//   // Supprime soulignement global
+//   a {
+//     text-decoration: none;
+//   }
 
-  &_reassurance {
-    h2 {
-      @include h2Text;
-      display: flex;
-      justify-content: center;
-    }
+//   &_reassurance {
+//     h2 {
+//       @include h2Text;
+//       display: flex;
+//       justify-content: center;
+//     }
 
-    &_buttonsContainer {
-      @include Row;
-      margin: $minimalSpace auto;
-      justify-content: center;
-      column-gap: $minimalSpace;
-    }
-  }
-}
+//     &_buttonsContainer {
+//       @include Row;
+//       margin: $minimalSpace auto;
+//       justify-content: center;
+//       column-gap: $minimalSpace;
+//     }
+//   }
+// }
