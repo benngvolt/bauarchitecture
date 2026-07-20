@@ -12,33 +12,17 @@ function ProjectsSection() {
 
     return (
         <section className='projects'>
-            <h2>Projets architecturaux à Saint-Étienne et ses environs</h2>
+            <h2>Quelques réalisations</h2>
 
             <div className='projects_descriptionContainer'>
                 <p className='projects_descriptionContainer_description'>
-                    Architecte à Saint-Étienne, j’accompagne particuliers et
-                    professionnels dans la conception, la rénovation et
-                    l’aménagement d’espaces sur mesure. Chaque projet est pensé
-                    pour répondre aux usages, valoriser les lieux et créer des
-                    environnements durables et harmonieux.
+                Chaque projet est une réponse singulière à un lieu, à un programme
+    et à des usages. En voici un aperçu.
                 </p>
-
-                <div className='projects_descriptionContainer_buttonContainer'>
-                    <Button
-                        variant='link'
-                        className='button_light'
-                        link='https://benjamingibert.com'
-                        target='_blank'
-                        rel='noreferrer'
-                        ariaLabel='Découvrir tous les projets'
-                    >
-                        TOUS LES PROJETS
-                    </Button>
-                </div>
             </div>
 
             <ul className='projects_list'>
-                {projects.map((project) => {
+                {projects.slice(0, 3).map((project) => {
                     const mainImage =
                         project.images?.[project.mainImageIndex];
 
@@ -77,12 +61,12 @@ function ProjectsSection() {
                 <Button
                     variant='link'
                     className='button_dark'
-                    link='https://benjamingibert.com'
+                    link=''
                     target='_blank'
                     rel='noreferrer'
                     ariaLabel='Discuter de votre projet avec BAU Architecture'
                 >
-                    DISCUTONS DE VOTRE PROJET
+                    TOUS LES PROJETS
                 </Button>
             </div>
         </section>

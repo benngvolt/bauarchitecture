@@ -1,0 +1,115 @@
+@import '../../utils/mixins';
+
+.philosophy {
+    box-sizing: border-box;
+    width: 100%;
+    margin: calc(2 * $minimalSpace) 0;
+    padding: 0 $minimalSpace;
+
+    h2 {
+        @include h1Text;
+
+        width: 100%;
+        margin: 0 auto calc(2 * $minimalSpace);
+
+        color: $colorDarkGrey;
+        text-align: center;
+    }
+
+    &_content {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        align-items: stretch;
+        column-gap: calc(2 * $minimalSpace);
+
+        width: 100%;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    &_text {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        row-gap: $minimalSpace;
+
+        box-sizing: border-box;
+        padding: $minimalSpace 0;
+
+        p {
+            @include mainText;
+
+            margin: 0;
+
+            color: $colorDarkGrey;
+        }
+    }
+
+    &_figure {
+        width: 100%;
+        min-height: 600px;
+        margin: 0;
+
+        overflow: hidden;
+
+        img {
+            display: block;
+
+            width: 100%;
+            height: 100%;
+            min-height: 600px;
+
+            object-fit: cover;
+        }
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .philosophy {
+        &_content {
+            column-gap: $minimalSpace;
+        }
+
+        &_figure {
+            min-height: 500px;
+
+            img {
+                min-height: 500px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .philosophy {
+        margin: $minimalSpace 0;
+        padding: 0 $minimalSpace;
+
+        h2 {
+            margin-bottom: $minimalSpace;
+        }
+
+        &_content {
+            grid-template-columns: 1fr;
+            row-gap: $minimalSpace;
+        }
+
+        &_text {
+            order: 2;
+
+            padding: 0;
+        }
+
+        &_figure {
+            order: 1;
+
+            min-height: initial;
+            aspect-ratio: 4 / 3;
+
+            img {
+                height: 100%;
+                min-height: initial;
+            }
+        }
+    }
+}

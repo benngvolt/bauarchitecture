@@ -116,11 +116,18 @@ function Header() {
                                     </Link>
                                 </li>
                             ))}
-                            <li className='header_topBar_menu_item'>
-                                <Button>
+                            <div className='header_topBar_buttonContainer'>
+                                <Button
+                                    variant='link'
+                                    className='button_dark'
+                                    link=''
+                                    target='_blank'
+                                    rel='noreferrer'
+                                    ariaLabel='Discuter de votre projet avec BAU Architecture'
+                                >
                                     PRENDRE CONTACT
                                 </Button>
-                            </li>
+                            </div>
                         </>
                     }
 

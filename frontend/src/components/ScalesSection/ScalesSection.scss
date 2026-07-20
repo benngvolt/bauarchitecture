@@ -1,7 +1,8 @@
 @import '../../utils/mixins';
 
 .scales {
-    width: 100vw;
+    box-sizing: border-box;
+    width: 100%;
     margin: calc(2 * $minimalSpace) 0;
 
     h2 {
@@ -9,7 +10,13 @@
 
         display: flex;
         justify-content: center;
+
+        width: 100%;
         margin: 0 auto;
+        padding: 0 $minimalSpace;
+
+        text-align: center;
+        color: $colorDarkGrey;
     }
 
     &_descriptionContainer {
@@ -19,61 +26,128 @@
         row-gap: $minimalSpace;
 
         width: 50%;
-        margin: 0 auto $minimalSpace;
+        margin: 0 auto calc(2 * $minimalSpace);
 
         &_description {
             @include mainText;
 
             display: flex;
             justify-content: center;
+
+            margin: 0;
+
+            text-align: center;
+            color: $colorDarkGrey;
         }
 
         &_buttonContainer {
             display: flex;
             justify-content: flex-end;
-            margin: calc($minimalSpace / 2);
+
+            margin: calc($minimalSpace / 2) 0 0;
         }
     }
 
     &_list {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 5px;
+        @include Column;
+
+        width: 100%;
         margin: 0;
         padding: 0;
 
         list-style: none;
 
         &_item {
+            position: relative;
+
+            box-sizing: border-box;
             width: 100%;
+            padding: calc($minimalSpace/3) 0;
+
+            /*
+             * Séparateur horizontal entre les éléments,
+             * selon la même logique que les sections précédentes.
+             */
+            &::after {
+                content: '';
+
+                position: absolute;
+                right: $minimalSpace;
+                bottom: 0;
+                left: $minimalSpace;
+
+                height: 1px;
+
+                background-color: rgba($colorDarkGrey, 1);
+            }
+
+            /*
+             * Pas de séparateur après le dernier élément.
+             */
+            &:last-child::after {
+                display: none;
+            }
 
             a {
                 display: block;
+
                 width: 100%;
+
+                color: inherit;
                 text-decoration: none;
             }
 
             &_figure {
-                width: 100%;
-                margin: 0;
+                @include Row;
 
-                img {
-                    display: block;
-                    box-sizing: border-box;
-                    width: 100%;
-                    aspect-ratio: 2/1;
-                    object-fit: cover;
-                }
+                align-items: stretch;
+
+                box-sizing: border-box;
+                width: 100%;
+                height: calc(2*$minimalSpace);
+                margin: 0;
+                padding: 0 $minimalSpace;
 
                 figcaption {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: flex-start;
+                    column-gap: $minimalSpace;
+                    box-sizing: border-box;
+                    width: 70%;
+                    padding: 0 $minimalSpace;
+
+                    svg {
+                        margin: auto 0;
+                        color: $colorDarkGrey;
+                    }
+
                     h3 {
                         @include h1Text;
 
-                        margin: calc($minimalSpace/3) 0;
-                        padding: 0 $minimalSpace;
+                        margin: auto 0;
+                        padding: 0;
 
                         color: $colorDarkGrey;
                     }
+
+                    p {
+                        @include mainText;
+
+                        margin: 0;
+
+                        color: $colorDarkGrey;
+                    }
+                }
+
+                img {
+                    display: block;
+
+                    box-sizing: border-box;
+                    width: 60%;
+                    height: calc(2*$minimalSpace);
+                    padding: 0;
+                    object-fit: cover;
                 }
             }
         }
@@ -84,6 +158,95 @@
         justify-content: center;
 
         width: 100%;
-        margin: calc(2 * $minimalSpace) auto;
+        margin: calc(2 * $minimalSpace) auto 0;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .scales {
+        &_descriptionContainer {
+            width: 70%;
+        }
+
+        &_list {
+            &_item {
+                &_figure {
+                    figcaption {
+                        width: 45%;
+                    }
+
+                    img {
+                        width: 55%;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .scales {
+        margin: $minimalSpace 0;
+
+        h2 {
+            padding: 0 calc($minimalSpace / 2);
+        }
+
+        &_descriptionContainer {
+            width: auto;
+            margin: 0 $minimalSpace calc(2 * $minimalSpace);
+
+            &_buttonContainer {
+                justify-content: center;
+            }
+        }
+
+        &_list {
+            &_item {
+                padding: $minimalSpace 0;
+
+                &::after {
+                    right: $minimalSpace;
+                    left: $minimalSpace;
+                }
+
+                &_figure {
+                    flex-direction: column;
+
+                    min-height: initial;
+                    padding: 0 $minimalSpace;
+
+                    figcaption {
+                        order: 2;
+
+                        width: 100%;
+                        padding: $minimalSpace 0;
+
+                        h3 {
+                            margin: 0;
+                        }
+                    }
+
+                    img {
+                        order: 1;
+
+                        width: 100%;
+                        height: auto;
+                        aspect-ratio: 16 / 9;
+                    }
+                }
+
+                &:nth-child(even) {
+                    .scales_list_item_figure {
+                        flex-direction: column;
+                    }
+                }
+            }
+        }
+
+        &_lastButtonContainer {
+            box-sizing: border-box;
+            padding: 0 $minimalSpace;
+        }
     }
 }

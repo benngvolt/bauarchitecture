@@ -120,6 +120,10 @@
             }
         }
 
+        &_buttonContainer {
+            margin: auto 0 auto $minimalSpace;
+            
+        }
         button {
             @include Column;
             border: none;
@@ -136,5 +140,7 @@
                 }
             }
         }
+
+        
     }
 }

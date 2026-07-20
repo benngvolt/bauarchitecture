@@ -1,0 +1,38 @@
+@import '../../utils/mixins';
+
+.last {
+    width: 100vw;
+    margin: calc(2 * $minimalSpace) 0;
+    background-color: $colorDarkGrey;
+    padding: calc(2*$minimalSpace) 0;
+    h2 {
+        @include h1Text;
+        color: $colorLightGrey;
+        display: flex;
+        justify-content: center;
+        margin: 0 auto;
+    }
+
+    &_descriptionContainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        row-gap: $minimalSpace;
+
+        width: 50%;
+        margin: 0 auto $minimalSpace;
+
+        &_description {
+            @include mainText;
+            color: $colorLightGrey;
+            display: flex;
+            justify-content: center;
+        }
+
+        &_buttonContainer {
+            display: flex;
+            justify-content: center;
+            margin: calc($minimalSpace / 2);
+        }
+    }
+}

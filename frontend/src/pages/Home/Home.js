@@ -15,7 +15,8 @@ import ProcessSection from '../../components/ProcessSection/ProcessSection';
 import ArgumentsSection from '../../components/ArgumentsSection/ArgumentsSection';
 import ProjectsSection from '../../components/ProjectsSection/ProjectsSection';
 import ScalesSection from '../../components/ScalesSection/ScalesSection';
-
+import PhilosophySection from '../../components/PhilosophySection/PhilosophySection';
+import LastSection from '../../components/LastSection/LastSection';
 
 function Home() {
     const {
@@ -71,7 +72,9 @@ function Home() {
             <ProcessSection/>
             <ArgumentsSection/>
             <ScalesSection/>
-            {/* <ProjectsSection/> */}
+            <ProjectsSection/>
+            <PhilosophySection/>
+            <LastSection/>
         </main>
     );
 }

@@ -3,15 +3,17 @@
 .button {
     button, a {
         @include mainText;
-        border: 1px solid $colorDarkGrey;
         padding: 6px 22px;
         border-radius: 30px;
-
+        
         
     }
 
     &_light {
-        
+        text-decoration: none;
+        background-color: $colorLightGrey;
+        border: 1px solid $colorDarkGrey !important;
+        color: $colorDarkGrey!important;
         @media (hover: hover) and (pointer: fine) {
             &:hover {
                 background-color: $colorDarkGrey;
@@ -23,7 +25,9 @@
     &_dark {
         
         background-color: $colorDarkGrey;
+        border: 1px solid $colorLightGrey;
         color: $colorLightGrey!important;
+        text-decoration: none;
         @media (hover: hover) and (pointer: fine) {
             &:hover {
                 background-color: $colorLightGrey;
