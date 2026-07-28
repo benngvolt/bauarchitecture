@@ -3,7 +3,7 @@
 .edit {
     margin-top: calc($headerHeight + 100px);
     
-    &_projectsListContainer, &_articlesListContainer, &_drawingsListContainer {
+    &_projectsListContainer, &_articlesListContainer, &_drawingsListContainer, &_reassuranceItemsListContainer {
         width: 100%;
         height: auto;
         @include SidePaddings;
@@ -20,6 +20,13 @@
                 color: $color1;
                 cursor: pointer;
             }
+        }
+        &_maxReached {
+            text-align: center;
+            margin: 50px auto;
+            font-family: $mainFont;
+            font-size: $fontSize4;
+            color: $color1;
         }
     }
 }

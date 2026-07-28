@@ -127,25 +127,37 @@
     &_reassuranceContainer {
         @include mainText;
         @include Row;
-        @include fontSize3;
         margin: $minimalSpace auto;
-        align-items: center;
+        align-items: flex-start;
         gap: 1.5rem;
         &_item {
+            @include Column;
             position: relative;
             text-align: center;
-    
+            row-gap: 0.5rem;
+
             &:not(:last-child)::after {
                 content: '';
                 position: absolute;
                 left: 50%;
                 bottom: -1rem;
                 transform: translateX(-50%);
-    
+
                 width: 6px;
                 height: 6px;
                 border-radius: 50%;
                 background: $colorDarkGrey;
+            }
+
+            &_title {
+                @include fontSize4;
+                margin: 0;
+            }
+
+            &_subtitle {
+                @include fontSize5;
+                margin: 0;
+                color: $color2;
             }
         }
     }

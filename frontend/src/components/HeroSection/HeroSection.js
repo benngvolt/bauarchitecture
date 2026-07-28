@@ -10,6 +10,7 @@ import { ProjectsContext } from '../../utils/ProjectsContext';
 function HeroSection() {
     const {
         projects,
+        reassuranceItems,
         welcomeDisplay,
         setDisplayNavSection,
     } = useContext(ProjectsContext);
@@ -89,15 +90,14 @@ function HeroSection() {
             </div>
 
             <div className='hero_reassuranceContainer'>
-                <div className='hero_reassuranceContainer_item'>  
-                    <p>Accompagnement de la première idée jusqu'à la livraison</p>
-                </div>
-                <div className='hero_reassuranceContainer_item'>  
-                    <p>Chaque mission s'adapte à votre budget et à vos besoins</p>
-                </div>
-                <div className='hero_reassuranceContainer_item'>  
-                    <p>Une architecte indépendante, expérimentée et engagée</p>
-                </div>
+                {reassuranceItems.slice(0, 3).map((reassuranceItem) => (
+                    <div className='hero_reassuranceContainer_item' key={reassuranceItem._id}>
+                        <p className='hero_reassuranceContainer_item_title'>{reassuranceItem.title}</p>
+                        {reassuranceItem.subtitle && (
+                            <p className='hero_reassuranceContainer_item_subtitle'>{reassuranceItem.subtitle}</p>
+                        )}
+                    </div>
+                ))}
             </div>
         </section>
     );

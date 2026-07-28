@@ -22,6 +22,7 @@ const SECRET_MONGODBKEY = process.env.SECRET_MONGODBKEY;
 const projectsRoutes = require('./routes/projects');
 const articlesRoutes = require('./routes/articles');
 const drawingsRoutes = require('./routes/drawings');
+const reassuranceItemsRoutes = require('./routes/reassuranceItems');
 
 
 /* --------------------------------------------------------
@@ -91,6 +92,7 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use('/api/projects', projectsRoutes);
 app.use('/api/articles', articlesRoutes);
 app.use('/api/drawings', drawingsRoutes);
+app.use('/api/reassurance-items', reassuranceItemsRoutes);
 
 
 /* --------------------------------------------------------

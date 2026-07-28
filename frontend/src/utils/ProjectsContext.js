@@ -7,10 +7,12 @@ export const ProjectsProvider = ({ children }) => {
     const [projects, setProjects] = useState([]);
     const [articles, setArticles] = useState([]);
     const [drawings, setDrawings] = useState([]);
+    const [reassuranceItems, setReassuranceItems] = useState([]);
 
     const [loadProjects, setLoadProjects] = useState(false);
     const [loadArticles, setLoadArticles] = useState(false);
     const [loadDrawings, setLoadDrawings] = useState(false);
+    const [loadReassuranceItems, setLoadReassuranceItems] = useState(false);
 
     const [displayNavSection, setDisplayNavSection] = useState(false);
     const [loaderDisplay, setLoaderDisplay] = useState(false);
@@ -67,6 +69,21 @@ export const ProjectsProvider = ({ children }) => {
     }, [loadDrawings]);
 
     useEffect(() => {
+        setLoaderDisplay(true);
+
+        fetch(`${API_URL}/api/reassurance-items`)
+            .then((res) => res.json())
+            .then((data) => {
+                setReassuranceItems(data);
+                setLoaderDisplay(false);
+            })
+            .catch((error) => {
+                console.log(error.message);
+                setLoaderDisplay(false);
+            });
+    }, [loadReassuranceItems]);
+
+    useEffect(() => {
         setWelcomeDisplay(true);
 
         setTimeout(function () {
@@ -86,6 +103,10 @@ export const ProjectsProvider = ({ children }) => {
         setLoadDrawings(loadDrawings === false ? true : false);
     };
 
+    const handleLoadReassuranceItems = () => {
+        setLoadReassuranceItems(loadReassuranceItems === false ? true : false);
+    };
+
     return (
         <ProjectsContext.Provider
             value={{
@@ -93,8 +114,10 @@ export const ProjectsProvider = ({ children }) => {
                 projects,
                 handleLoadArticles,
                 handleLoadDrawings,
+                handleLoadReassuranceItems,
                 articles,
                 drawings,
+                reassuranceItems,
                 displayNavSection,
                 setDisplayNavSection,
                 loaderDisplay,
