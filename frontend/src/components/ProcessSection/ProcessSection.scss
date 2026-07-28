@@ -16,22 +16,16 @@
         grid-template-columns: repeat(4, 1fr);
         gap: $minimalSpace;
         align-items: stretch;
-        // gap: calc($minimalSpace / 2);
         box-sizing: border-box;
         margin: 0;
         padding: 0;
         list-style: none;
-        height: calc(6*$minimalSpace);
+        min-height: calc(6*$minimalSpace);
 
         &_item {
             @include Row;
             box-sizing: border-box;
-            height: calc(6*$minimalSpace);
             position: relative;
-
-            @include Row;
-            box-sizing: border-box;
-            height: calc(6 * $minimalSpace);
 
             &:not(:last-child)::after {
                 content: "";
@@ -45,21 +39,22 @@
 
                 background-color: $colorDarkGrey;
             }
-            
+
             &_content {
                 width: 100%;
                 margin: 0 auto;
                 @include Column;
+                align-items: flex-start;
 
                 &_index {
-                    
+
                     @include fontSize3;
                     @include mainText;
                     line-height: 0.75;
                     margin: 0 auto calc($minimalSpace/2) auto;
                     display: flex;
                 }
-    
+
 
                 h3 {
                     @include h1Text;
@@ -71,6 +66,42 @@
                 &_text {
                     @include mainText;
                     @include fontSize5;
+                    margin: 0 auto;
+                }
+
+                &_toggle {
+                    margin: calc($minimalSpace/3) auto 0 0;
+                    padding: 0;
+                    border: none;
+                    background: none;
+                    font-family: $mainFont;
+                    font-size: $fontSize5;
+                    color: $color1;
+                    text-decoration: underline;
+
+                    &:hover {
+                        cursor: pointer;
+                        color: $colorDarkGrey;
+                    }
+                }
+
+                &_details {
+                    max-height: 0;
+                    overflow: hidden;
+                    opacity: 0;
+                    transition: max-height 0.3s ease, opacity 0.3s ease, margin 0.3s ease;
+
+                    p {
+                        @include mainText;
+                        @include fontSize5;
+                        margin: 0;
+                    }
+
+                    &--open {
+                        max-height: 1000px;
+                        opacity: 1;
+                        margin-top: calc($minimalSpace/3);
+                    }
                 }
 
             }

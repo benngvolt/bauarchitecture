@@ -93,6 +93,13 @@
                 font-size: $fontSize4;
                 color: $color1;
             }
+
+            &_helperText {
+                margin: 0 0 30px;
+                font-family: $mainFont;
+                font-size: $fontSize5;
+                color: $color1;
+            }
         }
     }
 }

@@ -7,7 +7,7 @@ import FormSelectionField from '../FormSelectionField/FormSelectionField'
 import FormRichTextField from '../FormRichTextField/FormRichTextField'
 import FormImageField from '../FormImageField/FormImageField'
 import DNDGallery from '../DNDGallery/DNDGallery'
-import { API_URL } from '../../utils/constants'
+import { API_URL, PROJECT_TYPES } from '../../utils/constants'
 
 
 function ProjectForm ({
@@ -48,17 +48,6 @@ function ProjectForm ({
     const inputImageCaptionRef = useRef(null);
     
     const projectStates = ['en chantier', 'construit', 'esquisse']
-    const PROJECT_TYPES = [
-        'LOGEMENTS INDIVIDUELS',
-        'LOGEMENTS COLLECTIFS',
-        'RÉSIDENCES DE TOURISME',
-        'ÉQUIPEMENTS TECHNIQUES',
-        'ÉTABLISSEMENTS SCOLAIRES',
-        'ÉTABLISSEMENTS DE SANTÉ',
-        'ÉQUIPEMENTS CULTURELS ET SPORTIFS',
-        'BUREAUX ET LOCAUX ASSOCIATIFS',
-        'URBANISME ET TERRITOIRE',
-    ];
 
 
     useEffect(() => {

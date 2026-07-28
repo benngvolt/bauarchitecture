@@ -9,12 +9,14 @@ export const ProjectsProvider = ({ children }) => {
     const [drawings, setDrawings] = useState([]);
     const [reassuranceItems, setReassuranceItems] = useState([]);
     const [heroSettings, setHeroSettings] = useState(null);
+    const [processSteps, setProcessSteps] = useState([]);
 
     const [loadProjects, setLoadProjects] = useState(false);
     const [loadArticles, setLoadArticles] = useState(false);
     const [loadDrawings, setLoadDrawings] = useState(false);
     const [loadReassuranceItems, setLoadReassuranceItems] = useState(false);
     const [loadHeroSettings, setLoadHeroSettings] = useState(false);
+    const [loadProcessSteps, setLoadProcessSteps] = useState(false);
 
     const [displayNavSection, setDisplayNavSection] = useState(false);
     const [loaderDisplay, setLoaderDisplay] = useState(false);
@@ -101,6 +103,21 @@ export const ProjectsProvider = ({ children }) => {
     }, [loadHeroSettings]);
 
     useEffect(() => {
+        setLoaderDisplay(true);
+
+        fetch(`${API_URL}/api/process-steps`)
+            .then((res) => res.json())
+            .then((data) => {
+                setProcessSteps(data);
+                setLoaderDisplay(false);
+            })
+            .catch((error) => {
+                console.log(error.message);
+                setLoaderDisplay(false);
+            });
+    }, [loadProcessSteps]);
+
+    useEffect(() => {
         setWelcomeDisplay(true);
 
         setTimeout(function () {
@@ -128,6 +145,10 @@ export const ProjectsProvider = ({ children }) => {
         setLoadHeroSettings(loadHeroSettings === false ? true : false);
     };
 
+    const handleLoadProcessSteps = () => {
+        setLoadProcessSteps(loadProcessSteps === false ? true : false);
+    };
+
     return (
         <ProjectsContext.Provider
             value={{
@@ -137,10 +158,12 @@ export const ProjectsProvider = ({ children }) => {
                 handleLoadDrawings,
                 handleLoadReassuranceItems,
                 handleLoadHeroSettings,
+                handleLoadProcessSteps,
                 articles,
                 drawings,
                 reassuranceItems,
                 heroSettings,
+                processSteps,
                 displayNavSection,
                 setDisplayNavSection,
                 loaderDisplay,

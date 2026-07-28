@@ -1,25 +1,69 @@
 import './ProcessSection.scss';
 
-import process from '../../assets/process.json';
+import { useContext, useState } from 'react';
+import DOMPurify from 'dompurify';
 
+import { ProjectsContext } from '../../utils/ProjectsContext';
+
+function hasRichTextContent(richText) {
+    if (!richText) {
+        return false;
+    }
+
+    return richText.replace(/<[^>]*>/g, '').trim().length > 0;
+}
+
+function ProcessStepItem({ step, index }) {
+    const [isExpanded, setIsExpanded] = useState(false);
+    const showToggle = hasRichTextContent(step.richText);
+
+    return (
+        <li className='process_list_item'>
+            <div className='process_list_item_content'>
+                <p className='process_list_item_content_index'>0{index + 1}</p>
+                <h3>{step.title}</h3>
+                <p className='process_list_item_content_text'>{step.tagline}</p>
+
+                {showToggle && (
+                    <>
+                        <button
+                            type='button'
+                            className='process_list_item_content_toggle'
+                            aria-expanded={isExpanded}
+                            onClick={() => setIsExpanded((current) => !current)}
+                        >
+                            {isExpanded ? '— RÉDUIRE' : '+ EN SAVOIR PLUS'}
+                        </button>
+
+                        <div
+                            className={
+                                isExpanded
+                                    ? 'process_list_item_content_details process_list_item_content_details--open'
+                                    : 'process_list_item_content_details'
+                            }
+                            dangerouslySetInnerHTML={{
+                                __html: DOMPurify.sanitize(step.richText || ''),
+                            }}
+                        />
+                    </>
+                )}
+            </div>
+        </li>
+    );
+}
 
 function ProcessSection() {
+    const { processSteps } = useContext(ProjectsContext);
+
     return (
         <section className='process'>
-            {/* <h2>Une architecture qui commence par comprendre</h2> */}
             <ul className='process_list'>
-                {process.map((process, processIndex) => (
-                    <li
-                        className='process_list_item'
-                        key={process.title}
-                    >
-                        <div className='process_list_item_content'>
-                            <p className='process_list_item_content_index'>0{processIndex+1}</p>
-                            <h3>{process.title}</h3>
-                            <p className='process_list_item_content_text'>{process.text}</p>
-                        </div>
-                        {/* Faire un collapse pour révéler/déployer le descriptif. Mais on garde la petite phrase d'accroche visible*/}
-                    </li>
+                {processSteps.map((step, index) => (
+                    <ProcessStepItem
+                        key={step._id}
+                        step={step}
+                        index={index}
+                    />
                 ))}
             </ul>
         </section>

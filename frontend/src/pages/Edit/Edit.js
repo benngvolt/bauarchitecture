@@ -3,10 +3,12 @@ import ProjectForm from '../../components/ProjectForm/ProjectForm';
 import ArticleForm from '../../components/ArticleForm/ArticleForm';
 import ReassuranceItemForm from '../../components/ReassuranceItemForm/ReassuranceItemForm';
 import HeroImageForm from '../../components/HeroImageForm/HeroImageForm';
+import ProcessStepForm from '../../components/ProcessStepForm/ProcessStepForm';
 import { ProjectsContext } from '../../utils/ProjectsContext';
 import EditProjectsList from '../../components/EditProjectsList/EditProjectsList';
 import EditArticlesList from '../../components/EditArticlesList/EditArticlesList';
 import EditReassuranceItemsList from '../../components/EditReassuranceItemsList/EditReassuranceItemsList';
+import EditProcessStepsList from '../../components/EditProcessStepsList/EditProcessStepsList';
 import React, { useContext, useState, useEffect } from 'react';
 
 const MAX_REASSURANCE_ITEMS = 3;
@@ -16,6 +18,7 @@ const SECTIONS = [
     { key: 'articles', label: 'ARTICLES' },
     { key: 'reassurance', label: 'ARGUMENTS DE RÉASSURANCE' },
     { key: 'hero', label: 'IMAGE DU HERO' },
+    { key: 'process', label: 'ÉTAPES DU PROCESSUS' },
 ];
 
 function Edit() {
@@ -24,10 +27,12 @@ function Edit() {
         handleLoadArticles,
         handleLoadReassuranceItems,
         handleLoadHeroSettings,
+        handleLoadProcessSteps,
         projects,
         articles,
         reassuranceItems,
         heroSettings,
+        processSteps,
         loaderDisplay,
         setLoaderDisplay,
         setDisplayNavSection,
@@ -54,6 +59,10 @@ function Edit() {
     const [displayReassuranceItemForm, setDisplayReassuranceItemForm] = useState(false);
     const [reassuranceItemEdit, setReassuranceItemEdit] = useState(null);
 
+    const [processStepsList, setProcessStepsList] = useState(processSteps);
+    const [displayProcessStepForm, setDisplayProcessStepForm] = useState(false);
+    const [processStepEdit, setProcessStepEdit] = useState(null);
+
     useEffect(() => {
         setDisplayNavSection(false);
     }, []);
@@ -69,6 +78,10 @@ function Edit() {
     useEffect(() => {
         setReassuranceItemsList(reassuranceItems);
     }, [reassuranceItems]);
+
+    useEffect(() => {
+        setProcessStepsList(processSteps);
+    }, [processSteps]);
 
 
     // OUVERTURE MODE MODIF
@@ -102,6 +115,17 @@ function Edit() {
             handleLoadReassuranceItems();
             setDisplayReassuranceItemForm(true);
             setReassuranceItemFormMode('edit');
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
+    // OUVERTURE MODE MODIF
+    async function handleEditProcessStep(processStep) {
+        try {
+            setProcessStepEdit(processStep);
+            handleLoadProcessSteps();
+            setDisplayProcessStepForm(true);
         } catch (error) {
             console.log(error.message);
         }
@@ -229,6 +253,22 @@ function Edit() {
                         />
                     </section>
                 )}
+
+                {/* EDITION ÉTAPES DU PROCESSUS */}
+                {activeSection === 'process' && (
+                    <section className='edit_content_section'>
+                        <h2 className='edit_content_section_title'>Étapes du processus</h2>
+
+                        <p className='edit_content_section_helperText'>
+                            Il y a toujours exactement 4 étapes (Observer, Diagnostiquer, Concevoir, Construire) : elles ne peuvent être ni ajoutées ni supprimées, seulement modifiées.
+                        </p>
+
+                        <EditProcessStepsList
+                            processSteps={processStepsList}
+                            handleEditProcessStep={handleEditProcessStep}
+                        />
+                    </section>
+                )}
             </div>
 
             {displayProjectForm === true && (
@@ -268,6 +308,17 @@ function Edit() {
                     displayReassuranceItemForm={displayReassuranceItemForm}
                     reassuranceItemEdit={reassuranceItemEdit}
                     setReassuranceItemEdit={setReassuranceItemEdit}
+                    loaderDisplay={loaderDisplay}
+                    setLoaderDisplay={setLoaderDisplay}
+                />
+            )}
+
+            {displayProcessStepForm === true && (
+                <ProcessStepForm
+                    handleLoadProcessSteps={handleLoadProcessSteps}
+                    setDisplayProcessStepForm={setDisplayProcessStepForm}
+                    processStepEdit={processStepEdit}
+                    setProcessStepEdit={setProcessStepEdit}
                     loaderDisplay={loaderDisplay}
                     setLoaderDisplay={setLoaderDisplay}
                 />

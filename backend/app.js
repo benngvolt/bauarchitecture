@@ -24,6 +24,7 @@ const articlesRoutes = require('./routes/articles');
 const drawingsRoutes = require('./routes/drawings');
 const reassuranceItemsRoutes = require('./routes/reassuranceItems');
 const heroSettingsRoutes = require('./routes/heroSettings');
+const processStepsRoutes = require('./routes/processSteps');
 
 
 /* --------------------------------------------------------
@@ -95,6 +96,7 @@ app.use('/api/articles', articlesRoutes);
 app.use('/api/drawings', drawingsRoutes);
 app.use('/api/reassurance-items', reassuranceItemsRoutes);
 app.use('/api/hero-settings', heroSettingsRoutes);
+app.use('/api/process-steps', processStepsRoutes);
 
 
 /* --------------------------------------------------------

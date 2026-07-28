@@ -1,39 +1,124 @@
 @import '../../utils/mixins';
 
 .allProjects {
-  margin-top: $headerHeight;
-  @include SidePaddings;
-  @include Column;
-  height: calc(100vh - $headerHeight);
-
-  &_list {
-    @include Column;
+    box-sizing: border-box;
     width: 100%;
-    justify-content: center;
-    margin: auto 0;
-    padding: 0;
+    margin-top: $headerHeight;
+    padding: calc(2 * $minimalSpace) $minimalSpace;
 
-    &_link {
-      @include Row;
-      width: 100%;
-      margin: 0 auto;
-      text-decoration: none;
+    &_title {
+        @include h1Text;
 
-      h3 {
-        width: 100%;
-        margin: 0;
-        color: $colorDarkGrey;
-        font-family: $mainFont;
-        font-size: clamp(2rem, 8vw, 120px);
-        text-align: left;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        overflow: hidden;
+        display: flex;
+        justify-content: center;
 
-        &:hover {
-          color: $color1;
-        }
-      }
+        margin: 0 auto $minimalSpace;
+
+        text-align: center;
     }
-  }
+
+    &_filters {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        column-gap: 12px;
+        row-gap: 12px;
+
+        margin: 0 auto calc(2 * $minimalSpace);
+
+        &_button {
+            border: solid 1px $colorDarkGrey;
+            border-radius: 999px;
+            background: none;
+            padding: 10px 20px;
+
+            font-family: $mainFont;
+            font-size: $fontSize5;
+            color: $colorDarkGrey;
+
+            &:hover {
+                cursor: pointer;
+                background-color: $colorLightGrey;
+            }
+
+            &--active {
+                border: solid 1px transparent;
+                background-color: $colorDarkGrey;
+                color: $colorLightGrey;
+
+                &:hover {
+                    background-color: $colorDarkGrey;
+                    color: $colorLightGrey;
+                }
+            }
+        }
+    }
+
+    &_list {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 6px;
+        margin: 0;
+        padding: 0;
+
+        list-style: none;
+
+        &_item {
+            width: 100%;
+
+            a {
+                display: block;
+                width: 100%;
+                text-decoration: none;
+            }
+
+            &_figure {
+                width: 100%;
+                margin: 0;
+
+                img {
+                    display: block;
+
+                    box-sizing: border-box;
+                    width: 100%;
+                    aspect-ratio: 1;
+
+                    object-fit: cover;
+                }
+
+                figcaption {
+                    h3 {
+                        @include h1Text;
+
+                        margin: 0;
+                        padding: 0 calc($minimalSpace / 2);
+
+                        color: $colorDarkGrey;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .allProjects {
+        &_list {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .allProjects {
+        padding: $minimalSpace calc($minimalSpace / 2);
+
+        &_filters {
+            margin-bottom: $minimalSpace;
+        }
+
+        &_list {
+            grid-template-columns: 1fr;
+        }
+    }
 }
