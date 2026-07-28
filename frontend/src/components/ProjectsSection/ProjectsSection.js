@@ -12,14 +12,14 @@ function ProjectsSection() {
 
     return (
         <section className='projects'>
-            <h2>Quelques réalisations</h2>
+            {/* <h2>Quelques réalisations</h2> */}
 
-            <div className='projects_descriptionContainer'>
+            {/* <div className='projects_descriptionContainer'>
                 <p className='projects_descriptionContainer_description'>
                 Chaque projet est une réponse singulière à un lieu, à un programme
     et à des usages. En voici un aperçu.
                 </p>
-            </div>
+            </div> */}
 
             <ul className='projects_list'>
                 {projects.slice(0, 3).map((project) => {

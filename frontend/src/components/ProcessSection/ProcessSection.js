@@ -18,6 +18,7 @@ function ProcessSection() {
                             <h3>{process.title}</h3>
                             <p className='process_list_item_content_text'>{process.text}</p>
                         </div>
+                        {/* Faire un collapse pour révéler/déployer le descriptif. Mais on garde la petite phrase d'accroche visible*/}
                     </li>
                 ))}
             </ul>

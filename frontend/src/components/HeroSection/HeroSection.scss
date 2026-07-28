@@ -126,7 +126,7 @@
 
     &_reassuranceContainer {
         @include mainText;
-        @include Column;
+        @include Row;
         @include fontSize3;
         margin: $minimalSpace auto;
         align-items: center;

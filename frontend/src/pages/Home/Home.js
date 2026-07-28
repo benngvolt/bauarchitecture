@@ -69,10 +69,11 @@ function Home() {
     return (
         <main className='home'>
             <HeroSection/>
+            <ProjectsSection/>
             <ProcessSection/>
             <ArgumentsSection/>
             <ScalesSection/>
-            <ProjectsSection/>
+            
             <PhilosophySection/>
             <LastSection/>
         </main>

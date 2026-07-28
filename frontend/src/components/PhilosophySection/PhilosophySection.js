@@ -4,8 +4,6 @@ import portrait from '../../assets/portrait.webp'
 function PhilosophySection() {
     return (
         <section className='philosophy'>
-            <h2>Un parcours, une manière de faire</h2>
-
             <div className='philosophy_content'>
                 <div className='philosophy_text'>
                     <p>
