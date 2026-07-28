@@ -2,40 +2,97 @@
 
 .edit {
     margin-top: calc($headerHeight + 100px);
-    
-    &_projectsListContainer, &_articlesListContainer, &_drawingsListContainer, &_reassuranceItemsListContainer {
-        width: 100%;
-        height: auto;
-        @include SidePaddings;
-        z-index: 1;
-        &_addButton {
-            @include Row;
-            justify-content: center;
-            margin: 100px auto;
-            border: none;
-            font-family: $mainFont;
-            font-size: $fontSize3;
-            background: none;
-            &:hover {
-                color: $color1;
-                cursor: pointer;
-            }
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    min-height: calc(100vh - $headerHeight - 100px);
+
+    @media only screen and (max-width: $mobileMaxWidth) {
+        flex-direction: column;
+    }
+
+    &_sidebar {
+        width: 25%;
+        flex-shrink: 0;
+        position: sticky;
+        top: calc($headerHeight + 20px);
+        border-right: 1px solid $colorLightGrey;
+
+        @media only screen and (max-width: $mobileMaxWidth) {
+            width: 100%;
+            position: static;
+            border-right: none;
+            border-bottom: 1px solid $colorLightGrey;
         }
-        &_maxReached {
-            text-align: center;
-            margin: 50px auto;
-            font-family: $mainFont;
-            font-size: $fontSize4;
-            color: $color1;
+
+        &_list {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            @include Column;
+
+            &_button {
+                width: 100%;
+                text-align: left;
+                padding: 25px calc($minimalSpace / 2);
+                border: none;
+                background: none;
+                font-family: $mainFont;
+                font-size: $fontSize4;
+                color: $colorDarkGrey;
+                box-sizing: border-box;
+
+                &:hover {
+                    cursor: pointer;
+                    background-color: $colorLightGrey;
+                }
+
+                &--active {
+                    background-color: $colorLightGrey;
+                    font-weight: bold;
+                }
+            }
         }
     }
 
-    &_heroImageContainer {
-        width: 100%;
-        height: auto;
+    &_content {
+        width: 75%;
         @include SidePaddings;
-        padding-top: 50px;
-        padding-bottom: 50px;
-        z-index: 1;
+
+        @media only screen and (max-width: $mobileMaxWidth) {
+            width: 100%;
+        }
+
+        &_section {
+            width: 100%;
+
+            &_title {
+                @include mainText;
+                @include fontSize2;
+                margin: 50px 0;
+            }
+
+            &_addButton {
+                @include Row;
+                justify-content: center;
+                margin: 100px auto;
+                border: none;
+                font-family: $mainFont;
+                font-size: $fontSize3;
+                background: none;
+                &:hover {
+                    color: $color1;
+                    cursor: pointer;
+                }
+            }
+
+            &_maxReached {
+                text-align: center;
+                margin: 50px auto;
+                font-family: $mainFont;
+                font-size: $fontSize4;
+                color: $color1;
+            }
+        }
     }
 }
