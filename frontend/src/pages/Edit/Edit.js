@@ -4,6 +4,7 @@ import ArticleForm from '../../components/ArticleForm/ArticleForm';
 import Collapse from '../../components/Collapse/Collapse';
 import DrawingForm from '../../components/DrawingForm/DrawingForm';
 import ReassuranceItemForm from '../../components/ReassuranceItemForm/ReassuranceItemForm';
+import HeroImageForm from '../../components/HeroImageForm/HeroImageForm';
 import { ProjectsContext } from '../../utils/ProjectsContext';
 import EditProjectsList from '../../components/EditProjectsList/EditProjectsList';
 import EditArticlesList from '../../components/EditArticlesList/EditArticlesList';
@@ -19,14 +20,20 @@ function Edit() {
         handleLoadArticles,
         handleLoadDrawings,
         handleLoadReassuranceItems,
+        handleLoadHeroSettings,
         drawings,
         projects,
         articles,
         reassuranceItems,
+        heroSettings,
         loaderDisplay,
         setLoaderDisplay,
         setDisplayNavSection,
     } = useContext(ProjectsContext);
+
+    const defaultHeroProject = projects[0];
+    const defaultHeroImageUrl =
+        defaultHeroProject?.images?.[defaultHeroProject.mainImageIndex]?.imageUrl;
 
     const [projectFormMode, setProjectFormMode] = useState('add');
     const [projectsList, setProjectsList] = useState(projects);
@@ -218,6 +225,19 @@ function Edit() {
                     setLoaderDisplay={setLoaderDisplay}
                 />
             )}
+
+            {/* EDITION IMAGE DE FOND DU HERO */}
+            <Collapse title="GÉRER L'IMAGE DU HERO">
+                <div className='edit_heroImageContainer'>
+                    <HeroImageForm
+                        heroSettings={heroSettings}
+                        defaultHeroImageUrl={defaultHeroImageUrl}
+                        handleLoadHeroSettings={handleLoadHeroSettings}
+                        loaderDisplay={loaderDisplay}
+                        setLoaderDisplay={setLoaderDisplay}
+                    />
+                </div>
+            </Collapse>
         </main>
     );
 }

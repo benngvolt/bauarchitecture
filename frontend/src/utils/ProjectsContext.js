@@ -8,11 +8,13 @@ export const ProjectsProvider = ({ children }) => {
     const [articles, setArticles] = useState([]);
     const [drawings, setDrawings] = useState([]);
     const [reassuranceItems, setReassuranceItems] = useState([]);
+    const [heroSettings, setHeroSettings] = useState(null);
 
     const [loadProjects, setLoadProjects] = useState(false);
     const [loadArticles, setLoadArticles] = useState(false);
     const [loadDrawings, setLoadDrawings] = useState(false);
     const [loadReassuranceItems, setLoadReassuranceItems] = useState(false);
+    const [loadHeroSettings, setLoadHeroSettings] = useState(false);
 
     const [displayNavSection, setDisplayNavSection] = useState(false);
     const [loaderDisplay, setLoaderDisplay] = useState(false);
@@ -84,6 +86,21 @@ export const ProjectsProvider = ({ children }) => {
     }, [loadReassuranceItems]);
 
     useEffect(() => {
+        setLoaderDisplay(true);
+
+        fetch(`${API_URL}/api/hero-settings`)
+            .then((res) => res.json())
+            .then((data) => {
+                setHeroSettings(data);
+                setLoaderDisplay(false);
+            })
+            .catch((error) => {
+                console.log(error.message);
+                setLoaderDisplay(false);
+            });
+    }, [loadHeroSettings]);
+
+    useEffect(() => {
         setWelcomeDisplay(true);
 
         setTimeout(function () {
@@ -107,6 +124,10 @@ export const ProjectsProvider = ({ children }) => {
         setLoadReassuranceItems(loadReassuranceItems === false ? true : false);
     };
 
+    const handleLoadHeroSettings = () => {
+        setLoadHeroSettings(loadHeroSettings === false ? true : false);
+    };
+
     return (
         <ProjectsContext.Provider
             value={{
@@ -115,9 +136,11 @@ export const ProjectsProvider = ({ children }) => {
                 handleLoadArticles,
                 handleLoadDrawings,
                 handleLoadReassuranceItems,
+                handleLoadHeroSettings,
                 articles,
                 drawings,
                 reassuranceItems,
+                heroSettings,
                 displayNavSection,
                 setDisplayNavSection,
                 loaderDisplay,

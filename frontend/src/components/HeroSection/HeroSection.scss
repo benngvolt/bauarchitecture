@@ -139,10 +139,9 @@
             &:not(:last-child)::after {
                 content: '';
                 position: absolute;
-                left: 50%;
-                bottom: -1rem;
-                transform: translateX(-50%);
-
+                top: 50%;
+                right: calc(-1.5rem / 2 - 3px);
+                transform: translateY(-50%);
                 width: 6px;
                 height: 6px;
                 border-radius: 50%;
@@ -150,13 +149,14 @@
             }
 
             &_title {
-                @include fontSize4;
-                margin: 0;
+                @include fontSize3;
+                font-weight: 800;
+                margin: 0 2rem;
             }
 
             &_subtitle {
-                @include fontSize5;
-                margin: 0;
+                @include fontSize4;
+                margin: 0 2rem;
                 color: $color2;
             }
         }

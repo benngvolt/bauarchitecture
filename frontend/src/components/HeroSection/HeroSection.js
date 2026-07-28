@@ -11,13 +11,15 @@ function HeroSection() {
     const {
         projects,
         reassuranceItems,
+        heroSettings,
         welcomeDisplay,
         setDisplayNavSection,
     } = useContext(ProjectsContext);
 
     const heroProject = projects[0];
-    const heroImage =
+    const defaultHeroImage =
         heroProject?.images?.[heroProject.mainImageIndex];
+    const heroImageUrl = heroSettings?.imageUrl || defaultHeroImage?.imageUrl;
 
     useEffect(() => {
         setDisplayNavSection(false);
@@ -32,12 +34,14 @@ function HeroSection() {
             )}
 
             <div className='hero_imageTitleContainer'>
-                {heroImage?.imageUrl && (
+                {heroImageUrl && (
                     <img
                         className='hero_imageTitleContainer_image'
-                        src={`${API_URL}${heroImage.imageUrl}`}
+                        src={`${API_URL}${heroImageUrl}`}
                         alt={
-                            heroProject?.title
+                            heroSettings?.imageUrl
+                                ? 'BAU Architecture'
+                                : heroProject?.title
                                 ? `Projet ${heroProject.title} par BAU Architecture`
                                 : 'Réalisation de BAU Architecture'
                         }

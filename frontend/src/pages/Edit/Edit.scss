@@ -29,4 +29,13 @@
             color: $color1;
         }
     }
+
+    &_heroImageContainer {
+        width: 100%;
+        height: auto;
+        @include SidePaddings;
+        padding-top: 50px;
+        padding-bottom: 50px;
+        z-index: 1;
+    }
 }

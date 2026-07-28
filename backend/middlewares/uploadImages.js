@@ -10,6 +10,7 @@ const folders = {
   sketches: "projects_sketches",
   articles: "articles",
   drawings: "drawings",
+  hero: "hero",
 };
 
 async function ensureDir(dir) {
@@ -72,12 +73,14 @@ async function uploadImages(req, res, next) {
     const sketches = req.files?.sketches || [];
     const articles = req.files?.articles || [];
     const drawings = req.files?.drawings || [];
+    const hero = req.files?.hero || [];
 
     if (
       images.length === 0 &&
       sketches.length === 0 &&
       articles.length === 0 &&
-      drawings.length === 0
+      drawings.length === 0 &&
+      hero.length === 0
     ) {
       return next();
     }
@@ -87,6 +90,7 @@ async function uploadImages(req, res, next) {
       newSketchesObjects,
       newArticlesObjects,
       newDrawingsObjects,
+      newHeroObjects,
     ] = await Promise.all([
       Promise.all(
         images.map((file, index) =>
@@ -123,12 +127,16 @@ async function uploadImages(req, res, next) {
           )
         )
       ),
+      Promise.all(
+        hero.map((file) => processAndSaveImage(file, folders.hero))
+      ),
     ]);
 
     req.newImagesObjects = newImagesObjects;
     req.newSketchesObjects = newSketchesObjects;
     req.newArticlesObjects = newArticlesObjects;
     req.newDrawingsObjects = newDrawingsObjects;
+    req.newHeroObjects = newHeroObjects;
 
     next();
   } catch (error) {
