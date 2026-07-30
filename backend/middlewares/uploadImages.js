@@ -11,6 +11,7 @@ const folders = {
   articles: "articles",
   drawings: "drawings",
   hero: "hero",
+  philosophy: "philosophy",
 };
 
 async function ensureDir(dir) {
@@ -74,13 +75,15 @@ async function uploadImages(req, res, next) {
     const articles = req.files?.articles || [];
     const drawings = req.files?.drawings || [];
     const hero = req.files?.hero || [];
+    const philosophy = req.files?.philosophy || [];
 
     if (
       images.length === 0 &&
       sketches.length === 0 &&
       articles.length === 0 &&
       drawings.length === 0 &&
-      hero.length === 0
+      hero.length === 0 &&
+      philosophy.length === 0
     ) {
       return next();
     }
@@ -91,6 +94,7 @@ async function uploadImages(req, res, next) {
       newArticlesObjects,
       newDrawingsObjects,
       newHeroObjects,
+      newPhilosophyObjects,
     ] = await Promise.all([
       Promise.all(
         images.map((file, index) =>
@@ -130,6 +134,9 @@ async function uploadImages(req, res, next) {
       Promise.all(
         hero.map((file) => processAndSaveImage(file, folders.hero))
       ),
+      Promise.all(
+        philosophy.map((file) => processAndSaveImage(file, folders.philosophy))
+      ),
     ]);
 
     req.newImagesObjects = newImagesObjects;
@@ -137,6 +144,7 @@ async function uploadImages(req, res, next) {
     req.newArticlesObjects = newArticlesObjects;
     req.newDrawingsObjects = newDrawingsObjects;
     req.newHeroObjects = newHeroObjects;
+    req.newPhilosophyObjects = newPhilosophyObjects;
 
     next();
   } catch (error) {

@@ -22,7 +22,11 @@ function Header() {
     } = useContext(ProjectsContext);
 
     const location = useLocation();
-    const menuTitles = ["projets", "journal"];
+    const menuTitles = [
+        { slug: 'projets', label: 'projets', path: '/projets' },
+        { slug: 'about', label: 'à propos', path: '/about' },
+        { slug: 'journal', label: 'journal', path: '/journal' },
+    ];
     const [shouldRenderNav, setShouldRenderNav] = useState(false);
 
     // Gérer affichage ou démontage du menu avec délai
@@ -76,7 +80,7 @@ function Header() {
                         to="/"
                         onClick={() => setDisplayNavSection(false)}
                     >
-                        {/* <img src={logo} alt="Logo Bau" /> */}
+                        <img src={logo} alt="BAU Architecture" />
                     </Link>
                 </div>
 
@@ -99,19 +103,19 @@ function Header() {
                                 </Link>
                             </li>
 
-                            {menuTitles.map((title) => (
-                                <li className='header_topBar_menu_item header_topBar_menu_item--notDisplayedMobile' key={title}>
+                            {menuTitles.map((item) => (
+                                <li className='header_topBar_menu_item header_topBar_menu_item--notDisplayedMobile' key={item.slug}>
                                     <Link
                                         className='header_topBar_menu_item_link'
-                                        aria-label={`Accéder à la page ${title}`}
-                                        to={`/${title}`}
+                                        aria-label={`Accéder à la page ${item.label}`}
+                                        to={item.path}
                                         onClick={() => setDisplayNavSection(false)}
                                     >
-                                        <h2 className={title === currentPage
+                                        <h2 className={item.slug === currentPage
                                             ? 'header_topBar_menu_item_title header_topBar_menu_item_title--bold'
                                             : 'header_topBar_menu_item_title header_topBar_menu_item_title--regular'}
                                         >
-                                            {title}
+                                            {item.label}
                                         </h2>
                                     </Link>
                                 </li>

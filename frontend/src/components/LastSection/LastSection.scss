@@ -2,9 +2,9 @@
 
 .last {
     width: 100vw;
-    margin: calc(2 * $minimalSpace) 0;
+    margin: 0;
     background-color: $colorDarkGrey;
-    padding: calc(2*$minimalSpace) 0;
+    padding: calc(3*$minimalSpace) 0;
     h2 {
         @include h1Text;
         color: $colorLightGrey;

@@ -41,56 +41,92 @@
     }
     &_mainContainer {
         position: absolute;
-        width: 52%;
+        width: 67%;
         height: calc(100% - 2*($headerHeight));
         margin: auto;
         @include Column;
-        justify-content: space-between;
+        justify-content: flex-end;
         bottom: $minimalSpace;
         left: $minimalSpace;
-        &_logoContainer {
-        
-            &_logo {
-                width: 40%;
-                margin: 0;
-            }
-            &_role {
-                margin: $minimalSpace 0 $minimalSpace 7px;
-                @include mainText;
-                @include fontSize3;
-            }
-        }
+
         &_descriptionContainer {
             display: flex;
-            flex-direction: column;
-            justify-content: center;
-            row-gap: calc($minimalSpace/2);
+            flex-direction: row;
+            align-items: center;
+            column-gap: calc($minimalSpace * 2 / 3);
             background-color: $colorLightGrey;
-            padding: calc($minimalSpace);
+            padding: calc($minimalSpace/3) calc($minimalSpace);
             border-radius: 8px;
-           
-    
-            &_description {
-                @include mainText;
-                display: flex;
-                justify-content: flex-start;
-                margin: 0;
+
+            &_logoContainer {
+                @include Column;
+                flex-shrink: 0;
+                align-items: flex-start;
+                row-gap: calc($minimalSpace / 4);
+                padding-right: calc($minimalSpace * 2 / 3);
+                border-right: 1px solid rgba($colorDarkGrey, 0.15);
+
+                &_logo {
+                    height: 120px;
+                    margin: 0;
+                }
+                &_role {
+                    margin: 0 auto;
+                    @include mainText;
+                    @include fontSize5;
+                    white-space: nowrap;
+                }
             }
-    
-            &_buttonContainer {
-                margin: calc($minimalSpace/2) 0;
+
+            &_content {
                 display: flex;
-                justify-content: flex-start;
-                column-gap: calc($minimalSpace/2);
+                flex-direction: column;
+                justify-content: center;
+                row-gap: calc($minimalSpace/3);
+
+                &_description {
+                    @include mainText;
+                    display: flex;
+                    justify-content: flex-start;
+                    margin: 0;
+                }
+
+                &_buttonContainer {
+                    margin: calc($minimalSpace/2) 0;
+                    display: flex;
+                    flex-wrap: wrap;
+                    justify-content: flex-start;
+                    column-gap: calc($minimalSpace/2);
+                    row-gap: calc($minimalSpace/4);
+
+                    .button_container {
+                        white-space: nowrap;
+                    }
+                }
             }
 
             h1 {
                 @include mainText;
-                @include fontSize2;
+                @include fontSize3;
             }
-            
+
         }
- 
+
+        @media only screen and (max-width: $mobileMaxWidth) {
+            &_descriptionContainer {
+                flex-direction: column;
+                align-items: flex-start;
+                row-gap: calc($minimalSpace/2);
+
+                &_logoContainer {
+                    padding-right: 0;
+                    padding-bottom: calc($minimalSpace/2);
+                    border-right: none;
+                    border-bottom: 1px solid rgba($colorDarkGrey, 0.15);
+                    width: 100%;
+                }
+            }
+        }
     }
 
     
@@ -125,11 +161,13 @@
     }
 
     &_reassuranceContainer {
+
         @include mainText;
         @include Row;
-        margin: $minimalSpace auto;
+        margin: calc(2*$minimalSpace) auto;
         align-items: flex-start;
         gap: 1.5rem;
+
         &_item {
             @include Column;
             position: relative;

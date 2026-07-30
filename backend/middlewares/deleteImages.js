@@ -5,6 +5,7 @@ const Project = require("../models/project");
 const Article = require("../models/article");
 const Drawing = require("../models/drawing");
 const HeroSettings = require("../models/heroSettings");
+const PhilosophyContent = require("../models/philosophyContent");
 
 const uploadRoot = path.join(__dirname, "../uploads");
 
@@ -14,6 +15,7 @@ const folders = {
   articles: "articles",
   drawings: "drawings",
   hero: "hero",
+  philosophy: "philosophy",
 };
 
 async function getLocalUrls(folder) {
@@ -100,6 +102,18 @@ async function deleteImages() {
     await deleteUnusedFiles(folders.hero, dbHeroUrls);
   } catch (error) {
     console.error("Erreur nettoyage hero :", error.message);
+  }
+
+  try {
+    const philosophyContent = await PhilosophyContent.findOne();
+
+    const dbPhilosophyUrls = philosophyContent?.imageUrl
+      ? [normalizeUrl(philosophyContent.imageUrl)]
+      : [];
+
+    await deleteUnusedFiles(folders.philosophy, dbPhilosophyUrls);
+  } catch (error) {
+    console.error("Erreur nettoyage philosophy :", error.message);
   }
 }
 

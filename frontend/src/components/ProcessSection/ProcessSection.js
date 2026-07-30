@@ -30,9 +30,10 @@ function ProcessStepItem({ step, index }) {
                             type='button'
                             className='process_list_item_content_toggle'
                             aria-expanded={isExpanded}
+                            aria-label={isExpanded ? 'Réduire le paragraphe' : 'En savoir plus'}
                             onClick={() => setIsExpanded((current) => !current)}
                         >
-                            {isExpanded ? '— RÉDUIRE' : '+ EN SAVOIR PLUS'}
+                            {isExpanded ? '−' : '+'}
                         </button>
 
                         <div

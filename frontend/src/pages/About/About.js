@@ -11,6 +11,7 @@ import FriendsUrls from '../../components/FriendsUrls/FriendsUrls'
 import Curriculum from '../../components/Curriculum/Curriculum'
 import Collaborations from '../../components/Collaborations/Collaborations'
 import Programs from '../../components/Programs/Programs'
+import PhilosophySection from '../../components/PhilosophySection/PhilosophySection'
 
 
 function About () {
@@ -49,6 +50,7 @@ function About () {
 
     return (
         <main>
+             <PhilosophySection/>
             <section className='about'>
                 {/* <h2 className='about_title'>À PROPOS</h2> */}
                 {aboutObjects.length > 0 &&

@@ -36,7 +36,7 @@
                     vertical-align: middle;
 
                 img {
-                    height: 85px;
+                    height: 70px;
                     object-fit: cover;
                     @media only screen and (min-width: $padMinWidth) and (max-width: $padMaxWidth){
                         height: 60px;

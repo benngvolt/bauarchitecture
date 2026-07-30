@@ -38,16 +38,14 @@ function AllProjects () {
 
     return (
         <main className='allProjects'>
-            <h1 className='allProjects_title'>Tous les projets</h1>
-
             <div className='allProjects_filters'>
                 <button
                     type='button'
                     aria-label='Afficher tous les projets'
                     className={
                         activeType === ''
-                            ? 'allProjects_filters_button allProjects_filters_button--active'
-                            : 'allProjects_filters_button'
+                            ? 'allProjects_filters_item allProjects_filters_item--active'
+                            : 'allProjects_filters_item'
                     }
                     onClick={() => handleFilterClick('')}
                 >
@@ -61,8 +59,8 @@ function AllProjects () {
                         aria-label={`Filtrer les projets de type ${type}`}
                         className={
                             activeType === type
-                                ? 'allProjects_filters_button allProjects_filters_button--active'
-                                : 'allProjects_filters_button'
+                                ? 'allProjects_filters_item allProjects_filters_item--active'
+                                : 'allProjects_filters_item'
                         }
                         onClick={() => handleFilterClick(type)}
                     >

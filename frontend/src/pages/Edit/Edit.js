@@ -4,11 +4,13 @@ import ArticleForm from '../../components/ArticleForm/ArticleForm';
 import ReassuranceItemForm from '../../components/ReassuranceItemForm/ReassuranceItemForm';
 import HeroImageForm from '../../components/HeroImageForm/HeroImageForm';
 import ProcessStepForm from '../../components/ProcessStepForm/ProcessStepForm';
+import PhilosophyContentForm from '../../components/PhilosophyContentForm/PhilosophyContentForm';
 import { ProjectsContext } from '../../utils/ProjectsContext';
 import EditProjectsList from '../../components/EditProjectsList/EditProjectsList';
 import EditArticlesList from '../../components/EditArticlesList/EditArticlesList';
 import EditReassuranceItemsList from '../../components/EditReassuranceItemsList/EditReassuranceItemsList';
 import EditProcessStepsList from '../../components/EditProcessStepsList/EditProcessStepsList';
+import portrait from '../../assets/portrait.webp';
 import React, { useContext, useState, useEffect } from 'react';
 
 const MAX_REASSURANCE_ITEMS = 3;
@@ -19,6 +21,7 @@ const SECTIONS = [
     { key: 'reassurance', label: 'ARGUMENTS DE RÉASSURANCE' },
     { key: 'hero', label: 'IMAGE DU HERO' },
     { key: 'process', label: 'ÉTAPES DU PROCESSUS' },
+    { key: 'philosophy', label: 'PAGE À PROPOS' },
 ];
 
 function Edit() {
@@ -28,11 +31,13 @@ function Edit() {
         handleLoadReassuranceItems,
         handleLoadHeroSettings,
         handleLoadProcessSteps,
+        handleLoadPhilosophyContent,
         projects,
         articles,
         reassuranceItems,
         heroSettings,
         processSteps,
+        philosophyContent,
         loaderDisplay,
         setLoaderDisplay,
         setDisplayNavSection,
@@ -266,6 +271,25 @@ function Edit() {
                         <EditProcessStepsList
                             processSteps={processStepsList}
                             handleEditProcessStep={handleEditProcessStep}
+                        />
+                    </section>
+                )}
+
+                {/* EDITION PAGE À PROPOS (SECTION PHILOSOPHIE) */}
+                {activeSection === 'philosophy' && (
+                    <section className='edit_content_section'>
+                        <h2 className='edit_content_section_title'>Page à propos</h2>
+
+                        <p className='edit_content_section_helperText'>
+                            Texte et photo de la section présentée sur la page À propos.
+                        </p>
+
+                        <PhilosophyContentForm
+                            philosophyContent={philosophyContent}
+                            defaultImageUrl={portrait}
+                            handleLoadPhilosophyContent={handleLoadPhilosophyContent}
+                            loaderDisplay={loaderDisplay}
+                            setLoaderDisplay={setLoaderDisplay}
                         />
                     </section>
                 )}

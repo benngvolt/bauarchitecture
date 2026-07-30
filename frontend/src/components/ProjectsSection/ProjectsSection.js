@@ -21,6 +21,7 @@ function ProjectsSection() {
                 </p>
             </div> */}
 
+            
             <ul className='projects_list'>
                 {projects.slice(0, 3).map((project) => {
                     const mainImage =
@@ -56,17 +57,14 @@ function ProjectsSection() {
                     );
                 })}
             </ul>
-
             <div className='projects_lastButtonContainer'>
                 <Button
                     variant='link'
                     className='button_dark'
-                    link=''
-                    target='_blank'
-                    rel='noreferrer'
-                    ariaLabel='Discuter de votre projet avec BAU Architecture'
+                    link='/projets'
+                    ariaLabel='Voir tous les projets de BAU Architecture'
                 >
-                    TOUS LES PROJETS
+                    VOIR TOUS LES PROJETS
                 </Button>
             </div>
         </section>

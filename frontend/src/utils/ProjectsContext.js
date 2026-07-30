@@ -10,6 +10,7 @@ export const ProjectsProvider = ({ children }) => {
     const [reassuranceItems, setReassuranceItems] = useState([]);
     const [heroSettings, setHeroSettings] = useState(null);
     const [processSteps, setProcessSteps] = useState([]);
+    const [philosophyContent, setPhilosophyContent] = useState(null);
 
     const [loadProjects, setLoadProjects] = useState(false);
     const [loadArticles, setLoadArticles] = useState(false);
@@ -17,6 +18,7 @@ export const ProjectsProvider = ({ children }) => {
     const [loadReassuranceItems, setLoadReassuranceItems] = useState(false);
     const [loadHeroSettings, setLoadHeroSettings] = useState(false);
     const [loadProcessSteps, setLoadProcessSteps] = useState(false);
+    const [loadPhilosophyContent, setLoadPhilosophyContent] = useState(false);
 
     const [displayNavSection, setDisplayNavSection] = useState(false);
     const [loaderDisplay, setLoaderDisplay] = useState(false);
@@ -118,6 +120,21 @@ export const ProjectsProvider = ({ children }) => {
     }, [loadProcessSteps]);
 
     useEffect(() => {
+        setLoaderDisplay(true);
+
+        fetch(`${API_URL}/api/philosophy-content`)
+            .then((res) => res.json())
+            .then((data) => {
+                setPhilosophyContent(data);
+                setLoaderDisplay(false);
+            })
+            .catch((error) => {
+                console.log(error.message);
+                setLoaderDisplay(false);
+            });
+    }, [loadPhilosophyContent]);
+
+    useEffect(() => {
         setWelcomeDisplay(true);
 
         setTimeout(function () {
@@ -149,6 +166,10 @@ export const ProjectsProvider = ({ children }) => {
         setLoadProcessSteps(loadProcessSteps === false ? true : false);
     };
 
+    const handleLoadPhilosophyContent = () => {
+        setLoadPhilosophyContent(loadPhilosophyContent === false ? true : false);
+    };
+
     return (
         <ProjectsContext.Provider
             value={{
@@ -159,11 +180,13 @@ export const ProjectsProvider = ({ children }) => {
                 handleLoadReassuranceItems,
                 handleLoadHeroSettings,
                 handleLoadProcessSteps,
+                handleLoadPhilosophyContent,
                 articles,
                 drawings,
                 reassuranceItems,
                 heroSettings,
                 processSteps,
+                philosophyContent,
                 displayNavSection,
                 setDisplayNavSection,
                 loaderDisplay,

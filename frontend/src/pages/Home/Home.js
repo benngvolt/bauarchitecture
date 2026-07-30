@@ -69,7 +69,6 @@ function Home() {
             <HeroSection/>
             <ProjectsSection/>
             <ProcessSection/>
-            <PhilosophySection/>
             <LastSection/>
         </main>
     );
