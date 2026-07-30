@@ -25,7 +25,8 @@ const drawingsRoutes = require('./routes/drawings');
 const reassuranceItemsRoutes = require('./routes/reassuranceItems');
 const heroSettingsRoutes = require('./routes/heroSettings');
 const processStepsRoutes = require('./routes/processSteps');
-const philosophyContentRoutes = require('./routes/philosophyContent');
+const aboutPageContentRoutes = require('./routes/aboutPageContent');
+const friendUrlsRoutes = require('./routes/friendUrls');
 
 
 /* --------------------------------------------------------
@@ -98,7 +99,8 @@ app.use('/api/drawings', drawingsRoutes);
 app.use('/api/reassurance-items', reassuranceItemsRoutes);
 app.use('/api/hero-settings', heroSettingsRoutes);
 app.use('/api/process-steps', processStepsRoutes);
-app.use('/api/philosophy-content', philosophyContentRoutes);
+app.use('/api/about-page-content', aboutPageContentRoutes);
+app.use('/api/friend-urls', friendUrlsRoutes);
 
 
 /* --------------------------------------------------------

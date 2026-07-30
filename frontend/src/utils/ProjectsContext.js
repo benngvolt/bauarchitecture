@@ -10,7 +10,8 @@ export const ProjectsProvider = ({ children }) => {
     const [reassuranceItems, setReassuranceItems] = useState([]);
     const [heroSettings, setHeroSettings] = useState(null);
     const [processSteps, setProcessSteps] = useState([]);
-    const [philosophyContent, setPhilosophyContent] = useState(null);
+    const [aboutPageContent, setAboutPageContent] = useState(null);
+    const [friendUrls, setFriendUrls] = useState([]);
 
     const [loadProjects, setLoadProjects] = useState(false);
     const [loadArticles, setLoadArticles] = useState(false);
@@ -18,7 +19,8 @@ export const ProjectsProvider = ({ children }) => {
     const [loadReassuranceItems, setLoadReassuranceItems] = useState(false);
     const [loadHeroSettings, setLoadHeroSettings] = useState(false);
     const [loadProcessSteps, setLoadProcessSteps] = useState(false);
-    const [loadPhilosophyContent, setLoadPhilosophyContent] = useState(false);
+    const [loadAboutPageContent, setLoadAboutPageContent] = useState(false);
+    const [loadFriendUrls, setLoadFriendUrls] = useState(false);
 
     const [displayNavSection, setDisplayNavSection] = useState(false);
     const [loaderDisplay, setLoaderDisplay] = useState(false);
@@ -122,17 +124,32 @@ export const ProjectsProvider = ({ children }) => {
     useEffect(() => {
         setLoaderDisplay(true);
 
-        fetch(`${API_URL}/api/philosophy-content`)
+        fetch(`${API_URL}/api/about-page-content`)
             .then((res) => res.json())
             .then((data) => {
-                setPhilosophyContent(data);
+                setAboutPageContent(data);
                 setLoaderDisplay(false);
             })
             .catch((error) => {
                 console.log(error.message);
                 setLoaderDisplay(false);
             });
-    }, [loadPhilosophyContent]);
+    }, [loadAboutPageContent]);
+
+    useEffect(() => {
+        setLoaderDisplay(true);
+
+        fetch(`${API_URL}/api/friend-urls`)
+            .then((res) => res.json())
+            .then((data) => {
+                setFriendUrls(data);
+                setLoaderDisplay(false);
+            })
+            .catch((error) => {
+                console.log(error.message);
+                setLoaderDisplay(false);
+            });
+    }, [loadFriendUrls]);
 
     useEffect(() => {
         setWelcomeDisplay(true);
@@ -166,8 +183,12 @@ export const ProjectsProvider = ({ children }) => {
         setLoadProcessSteps(loadProcessSteps === false ? true : false);
     };
 
-    const handleLoadPhilosophyContent = () => {
-        setLoadPhilosophyContent(loadPhilosophyContent === false ? true : false);
+    const handleLoadAboutPageContent = () => {
+        setLoadAboutPageContent(loadAboutPageContent === false ? true : false);
+    };
+
+    const handleLoadFriendUrls = () => {
+        setLoadFriendUrls(loadFriendUrls === false ? true : false);
     };
 
     return (
@@ -180,13 +201,15 @@ export const ProjectsProvider = ({ children }) => {
                 handleLoadReassuranceItems,
                 handleLoadHeroSettings,
                 handleLoadProcessSteps,
-                handleLoadPhilosophyContent,
+                handleLoadAboutPageContent,
+                handleLoadFriendUrls,
                 articles,
                 drawings,
                 reassuranceItems,
                 heroSettings,
                 processSteps,
-                philosophyContent,
+                aboutPageContent,
+                friendUrls,
                 displayNavSection,
                 setDisplayNavSection,
                 loaderDisplay,

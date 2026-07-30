@@ -1,43 +1,19 @@
 import './FriendsUrls.scss';
+import { useContext } from 'react';
+import { ProjectsContext } from '../../utils/ProjectsContext';
 
 function FriendsUrls() {
+    const { friendUrls } = useContext(ProjectsContext);
 
-    const friendsUrls = [
-        {
-            "itemName":"Benjamin Gibert - Développement web.",
-            "itemUrl":"https://bengibert.com"
-        },
-        {
-            "itemName":"3dinside - Architecture",
-            "itemUrl":"https://3dinside.tumblr.com/"
-        },
-        {
-            "itemName":"Le son du crayon - Architecture",
-            "itemUrl":"https://www.lesonducrayon.fr/"
-        },
-        {
-            "itemName":"Mathilde Cognet - Architecture",
-            "itemUrl":"https://www.mathildecognet-architecte.com/"
-        },
-        {
-            "itemName":"Vivement Bientôt - Architecture",
-            "itemUrl":"https://vivement-bientot-architecture.fr/"
-        },
-        {
-            "itemName":"Un autre espace - Architecture",
-            "itemUrl":"https://www.unautreespace.fr/"
-        },
-        {
-            "itemName":"François Maisonnasse - Photographie",
-            "itemUrl":"https://divisare.com/authors/2144787241-francois-maisonnasse"
-        }
-    ]
+    if (!friendUrls || friendUrls.length === 0) {
+        return null;
+    }
 
     return (
         <div className='friendsUrls'>
             <ul>
-                {friendsUrls.map((item, idx) => (
-                    <li key={idx}>
+                {friendUrls.map((item) => (
+                    <li key={item._id}>
                         <a href={item.itemUrl} target="_blank" rel="noreferrer">{item.itemName}</a>
                     </li>
                 ))}

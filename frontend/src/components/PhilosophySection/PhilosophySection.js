@@ -14,20 +14,20 @@ const DEFAULT_PARAGRAPHS = [
 ];
 
 function PhilosophySection() {
-    const { philosophyContent } = useContext(ProjectsContext);
+    const { aboutPageContent } = useContext(ProjectsContext);
 
-    const imageUrl = philosophyContent?.imageUrl
-        ? `${API_URL}${philosophyContent.imageUrl}`
+    const imageUrl = aboutPageContent?.philosophyImageUrl
+        ? `${API_URL}${aboutPageContent.philosophyImageUrl}`
         : portrait;
 
     return (
         <section className='philosophy'>
             <div className='philosophy_content'>
-                {philosophyContent?.text ? (
+                {aboutPageContent?.philosophyText ? (
                     <div
                         className='philosophy_text'
                         dangerouslySetInnerHTML={{
-                            __html: DOMPurify.sanitize(philosophyContent.text),
+                            __html: DOMPurify.sanitize(aboutPageContent.philosophyText, { ADD_ATTR: ['target'] }),
                         }}
                     />
                 ) : (

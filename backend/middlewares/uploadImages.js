@@ -12,7 +12,11 @@ const folders = {
   drawings: "drawings",
   hero: "hero",
   philosophy: "philosophy",
+  photo1: "about",
+  photo2: "about",
 };
+
+const SINGLE_FILE_FIELDS = ["hero", "philosophy", "photo1", "photo2"];
 
 async function ensureDir(dir) {
   await fs.mkdir(dir, { recursive: true });
@@ -74,17 +78,16 @@ async function uploadImages(req, res, next) {
     const sketches = req.files?.sketches || [];
     const articles = req.files?.articles || [];
     const drawings = req.files?.drawings || [];
-    const hero = req.files?.hero || [];
-    const philosophy = req.files?.philosophy || [];
+    const singleFiles = SINGLE_FILE_FIELDS.map((field) => req.files?.[field] || []);
 
-    if (
-      images.length === 0 &&
-      sketches.length === 0 &&
-      articles.length === 0 &&
-      drawings.length === 0 &&
-      hero.length === 0 &&
-      philosophy.length === 0
-    ) {
+    const hasAnyFile =
+      images.length > 0 ||
+      sketches.length > 0 ||
+      articles.length > 0 ||
+      drawings.length > 0 ||
+      singleFiles.some((files) => files.length > 0);
+
+    if (!hasAnyFile) {
       return next();
     }
 
@@ -93,8 +96,7 @@ async function uploadImages(req, res, next) {
       newSketchesObjects,
       newArticlesObjects,
       newDrawingsObjects,
-      newHeroObjects,
-      newPhilosophyObjects,
+      ...singleFileResults
     ] = await Promise.all([
       Promise.all(
         images.map((file, index) =>
@@ -131,11 +133,10 @@ async function uploadImages(req, res, next) {
           )
         )
       ),
-      Promise.all(
-        hero.map((file) => processAndSaveImage(file, folders.hero))
-      ),
-      Promise.all(
-        philosophy.map((file) => processAndSaveImage(file, folders.philosophy))
+      ...SINGLE_FILE_FIELDS.map((field, i) =>
+        Promise.all(
+          singleFiles[i].map((file) => processAndSaveImage(file, folders[field]))
+        )
       ),
     ]);
 
@@ -143,8 +144,11 @@ async function uploadImages(req, res, next) {
     req.newSketchesObjects = newSketchesObjects;
     req.newArticlesObjects = newArticlesObjects;
     req.newDrawingsObjects = newDrawingsObjects;
-    req.newHeroObjects = newHeroObjects;
-    req.newPhilosophyObjects = newPhilosophyObjects;
+
+    SINGLE_FILE_FIELDS.forEach((field, i) => {
+      const capitalized = field.charAt(0).toUpperCase() + field.slice(1);
+      req[`new${capitalized}Objects`] = singleFileResults[i];
+    });
 
     next();
   } catch (error) {

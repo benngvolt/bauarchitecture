@@ -6,9 +6,9 @@ import { API_URL } from '../../utils/constants'
 
 
 function PhilosophyContentForm ({
-    philosophyContent,
+    aboutPageContent,
     defaultImageUrl,
-    handleLoadPhilosophyContent,
+    handleLoadAboutPageContent,
     loaderDisplay,
     setLoaderDisplay
     }) {
@@ -21,8 +21,8 @@ function PhilosophyContentForm ({
     const inputImageRef = useRef(null);
 
     useEffect(() => {
-        setText(philosophyContent?.text || '');
-    }, [philosophyContent]);
+        setText(aboutPageContent?.philosophyText || '');
+    }, [aboutPageContent]);
 
     useEffect(() => {
         const editor = document.querySelector(
@@ -66,7 +66,7 @@ function PhilosophyContentForm ({
     function resetImage() {
         setLoaderDisplay(true);
 
-        fetch(`${API_URL}/api/philosophy-content/image`, {
+        fetch(`${API_URL}/api/about-page-content/philosophy-image`, {
             method: 'DELETE',
             headers: {
                 // Authorization: `Bearer ${sessionStorage.getItem('1')}`,
@@ -79,7 +79,7 @@ function PhilosophyContentForm ({
             return response.json();
         })
         .then(() => {
-            handleLoadPhilosophyContent();
+            handleLoadAboutPageContent();
             setLoaderDisplay(false);
         })
         .catch((error) => {
@@ -100,13 +100,13 @@ function PhilosophyContentForm ({
         }
 
         const philosophyFormData = new FormData();
-        philosophyFormData.append('text', richTextHtml);
+        philosophyFormData.append('philosophyText', richTextHtml);
 
         if (newImageFile) {
             philosophyFormData.append('philosophy', newImageFile);
         }
 
-        fetch(`${API_URL}/api/philosophy-content`, {
+        fetch(`${API_URL}/api/about-page-content`, {
             method: 'PUT',
             headers: {
                 // Authorization: `Bearer ${sessionStorage.getItem('1')}`,
@@ -123,7 +123,7 @@ function PhilosophyContentForm ({
         })
         .then(() => {
             cancelNewImageFile();
-            handleLoadPhilosophyContent();
+            handleLoadAboutPageContent();
             setLoaderDisplay(false);
         })
         .catch((error) => {
@@ -133,7 +133,7 @@ function PhilosophyContentForm ({
     }
 
     const displayedImageUrl = previewUrl
-        || (philosophyContent?.imageUrl ? `${API_URL}${philosophyContent.imageUrl}` : null)
+        || (aboutPageContent?.philosophyImageUrl ? `${API_URL}${aboutPageContent.philosophyImageUrl}` : null)
         || defaultImageUrl;
 
     return (
@@ -157,7 +157,7 @@ function PhilosophyContentForm ({
                     <div className='philosophyContentForm_imageField'>
                         <p className='philosophyContentForm_imageField_text'>
                             <em>
-                                {philosophyContent?.imageUrl
+                                {aboutPageContent?.philosophyImageUrl
                                     ? "Cette image remplace la photo par défaut."
                                     : "Aucune image personnalisée : la photo par défaut est utilisée."}
                             </em>
@@ -195,7 +195,7 @@ function PhilosophyContentForm ({
                                 </button>
                             )}
 
-                            {!newImageFile && philosophyContent?.imageUrl && (
+                            {!newImageFile && aboutPageContent?.philosophyImageUrl && (
                                 <button aria-label="Réinitialiser l'image par défaut" type='button' onClick={resetImage}>
                                     RÉINITIALISER L'IMAGE PAR DÉFAUT
                                 </button>

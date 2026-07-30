@@ -1,0 +1,59 @@
+@import '../../utils/mixins';
+
+.aboutPhotoForm {
+    width: 100%;
+    @include Column;
+    align-items: center;
+    row-gap: 22px;
+
+    &_text {
+        width: 50%;
+        margin: auto;
+        text-align: center;
+        font-family: $mainFont;
+        font-size: $fontSize4;
+        color: $color2;
+    }
+
+    &_sampleContainer {
+        width: 50%;
+        margin: auto;
+
+        &_image {
+            width: 100%;
+            aspect-ratio: 5 / 3;
+            object-fit: cover;
+        }
+    }
+
+    &_buttonsContainer {
+        @include Row;
+        column-gap: 22px;
+        justify-content: center;
+
+        &_uploadLabel {
+            font-family: $mainFont;
+            font-size: $fontSize4;
+            border: solid 1px $colorDarkGrey;
+            padding: 20px;
+            &:hover {
+                color: $colorLightGrey;
+                border: solid 1px transparent;
+                background-color: $colorDarkGrey;
+                cursor: pointer;
+            }
+        }
+
+        button {
+            border: none;
+            font-weight: bold;
+            background: none;
+            font-family: $mainFont;
+            font-size: $fontSize5;
+            &:hover {
+                color: $color1;
+                cursor: pointer;
+            }
+        }
+    }
+}

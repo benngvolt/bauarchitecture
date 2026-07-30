@@ -5,12 +5,18 @@ import ReassuranceItemForm from '../../components/ReassuranceItemForm/Reassuranc
 import HeroImageForm from '../../components/HeroImageForm/HeroImageForm';
 import ProcessStepForm from '../../components/ProcessStepForm/ProcessStepForm';
 import PhilosophyContentForm from '../../components/PhilosophyContentForm/PhilosophyContentForm';
+import AboutPhotoForm from '../../components/AboutPhotoForm/AboutPhotoForm';
+import CurriculumContentForm from '../../components/CurriculumContentForm/CurriculumContentForm';
+import FriendUrlForm from '../../components/FriendUrlForm/FriendUrlForm';
 import { ProjectsContext } from '../../utils/ProjectsContext';
 import EditProjectsList from '../../components/EditProjectsList/EditProjectsList';
 import EditArticlesList from '../../components/EditArticlesList/EditArticlesList';
 import EditReassuranceItemsList from '../../components/EditReassuranceItemsList/EditReassuranceItemsList';
 import EditProcessStepsList from '../../components/EditProcessStepsList/EditProcessStepsList';
+import EditFriendUrlsList from '../../components/EditFriendUrlsList/EditFriendUrlsList';
 import portrait from '../../assets/portrait.webp';
+import skyline from '../../assets/skyline.png';
+import ensase from '../../assets/ensase.png';
 import React, { useContext, useState, useEffect } from 'react';
 
 const MAX_REASSURANCE_ITEMS = 3;
@@ -21,7 +27,7 @@ const SECTIONS = [
     { key: 'reassurance', label: 'ARGUMENTS DE RÉASSURANCE' },
     { key: 'hero', label: 'IMAGE DU HERO' },
     { key: 'process', label: 'ÉTAPES DU PROCESSUS' },
-    { key: 'philosophy', label: 'PAGE À PROPOS' },
+    { key: 'about', label: 'PAGE À PROPOS' },
 ];
 
 function Edit() {
@@ -31,13 +37,15 @@ function Edit() {
         handleLoadReassuranceItems,
         handleLoadHeroSettings,
         handleLoadProcessSteps,
-        handleLoadPhilosophyContent,
+        handleLoadAboutPageContent,
+        handleLoadFriendUrls,
         projects,
         articles,
         reassuranceItems,
         heroSettings,
         processSteps,
-        philosophyContent,
+        aboutPageContent,
+        friendUrls,
         loaderDisplay,
         setLoaderDisplay,
         setDisplayNavSection,
@@ -68,6 +76,11 @@ function Edit() {
     const [displayProcessStepForm, setDisplayProcessStepForm] = useState(false);
     const [processStepEdit, setProcessStepEdit] = useState(null);
 
+    const [friendUrlFormMode, setFriendUrlFormMode] = useState('add');
+    const [friendUrlsList, setFriendUrlsList] = useState(friendUrls);
+    const [displayFriendUrlForm, setDisplayFriendUrlForm] = useState(false);
+    const [friendUrlEdit, setFriendUrlEdit] = useState(null);
+
     useEffect(() => {
         setDisplayNavSection(false);
     }, []);
@@ -87,6 +100,10 @@ function Edit() {
     useEffect(() => {
         setProcessStepsList(processSteps);
     }, [processSteps]);
+
+    useEffect(() => {
+        setFriendUrlsList(friendUrls);
+    }, [friendUrls]);
 
 
     // OUVERTURE MODE MODIF
@@ -131,6 +148,18 @@ function Edit() {
             setProcessStepEdit(processStep);
             handleLoadProcessSteps();
             setDisplayProcessStepForm(true);
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
+    // OUVERTURE MODE MODIF
+    async function handleEditFriendUrl(friendUrl) {
+        try {
+            setFriendUrlEdit(friendUrl);
+            handleLoadFriendUrls();
+            setDisplayFriendUrlForm(true);
+            setFriendUrlFormMode('edit');
         } catch (error) {
             console.log(error.message);
         }
@@ -275,22 +304,78 @@ function Edit() {
                     </section>
                 )}
 
-                {/* EDITION PAGE À PROPOS (SECTION PHILOSOPHIE) */}
-                {activeSection === 'philosophy' && (
+                {/* EDITION PAGE À PROPOS */}
+                {activeSection === 'about' && (
                     <section className='edit_content_section'>
                         <h2 className='edit_content_section_title'>Page à propos</h2>
 
-                        <p className='edit_content_section_helperText'>
-                            Texte et photo de la section présentée sur la page À propos.
-                        </p>
+                        <div className='edit_content_section_subSection'>
+                            <h3 className='edit_content_section_subSection_title'>Texte de présentation</h3>
+                            <PhilosophyContentForm
+                                aboutPageContent={aboutPageContent}
+                                defaultImageUrl={portrait}
+                                handleLoadAboutPageContent={handleLoadAboutPageContent}
+                                loaderDisplay={loaderDisplay}
+                                setLoaderDisplay={setLoaderDisplay}
+                            />
+                        </div>
 
-                        <PhilosophyContentForm
-                            philosophyContent={philosophyContent}
-                            defaultImageUrl={portrait}
-                            handleLoadPhilosophyContent={handleLoadPhilosophyContent}
-                            loaderDisplay={loaderDisplay}
-                            setLoaderDisplay={setLoaderDisplay}
-                        />
+                        <div className='edit_content_section_subSection'>
+                            <h3 className='edit_content_section_subSection_title'>Photo pleine largeur 1</h3>
+                            <AboutPhotoForm
+                                label='la photo 1'
+                                fieldName='photo1'
+                                currentImageUrl={aboutPageContent?.photo1Url}
+                                defaultImageUrl={skyline}
+                                handleLoadAboutPageContent={handleLoadAboutPageContent}
+                                loaderDisplay={loaderDisplay}
+                                setLoaderDisplay={setLoaderDisplay}
+                            />
+                        </div>
+
+                        <div className='edit_content_section_subSection'>
+                            <h3 className='edit_content_section_subSection_title'>CV</h3>
+                            <CurriculumContentForm
+                                aboutPageContent={aboutPageContent}
+                                handleLoadAboutPageContent={handleLoadAboutPageContent}
+                                loaderDisplay={loaderDisplay}
+                                setLoaderDisplay={setLoaderDisplay}
+                            />
+                        </div>
+
+                        <div className='edit_content_section_subSection'>
+                            <h3 className='edit_content_section_subSection_title'>Photo pleine largeur 2</h3>
+                            <AboutPhotoForm
+                                label='la photo 2'
+                                fieldName='photo2'
+                                currentImageUrl={aboutPageContent?.photo2Url}
+                                defaultImageUrl={ensase}
+                                handleLoadAboutPageContent={handleLoadAboutPageContent}
+                                loaderDisplay={loaderDisplay}
+                                setLoaderDisplay={setLoaderDisplay}
+                            />
+                        </div>
+
+                        <div className='edit_content_section_subSection'>
+                            <h3 className='edit_content_section_subSection_title'>Liens amis</h3>
+                            <EditFriendUrlsList
+                                friendUrls={friendUrlsList}
+                                handleEditFriendUrl={handleEditFriendUrl}
+                                handleLoadFriendUrls={handleLoadFriendUrls}
+                                loaderDisplay={loaderDisplay}
+                                setLoaderDisplay={setLoaderDisplay}
+                            />
+
+                            <button
+                                className='edit_content_section_addButton'
+                                onClick={() => {
+                                    setDisplayFriendUrlForm(true);
+                                    setFriendUrlFormMode('add');
+                                }}
+                            >
+                                + AJOUTER UN LIEN +
+                            </button>
+                        </div>
                     </section>
                 )}
             </div>
@@ -343,6 +428,20 @@ function Edit() {
                     setDisplayProcessStepForm={setDisplayProcessStepForm}
                     processStepEdit={processStepEdit}
                     setProcessStepEdit={setProcessStepEdit}
+                    loaderDisplay={loaderDisplay}
+                    setLoaderDisplay={setLoaderDisplay}
+                />
+            )}
+
+            {displayFriendUrlForm === true && (
+                <FriendUrlForm
+                    friendUrlFormMode={friendUrlFormMode}
+                    setFriendUrlFormMode={setFriendUrlFormMode}
+                    handleLoadFriendUrls={handleLoadFriendUrls}
+                    setDisplayFriendUrlForm={setDisplayFriendUrlForm}
+                    displayFriendUrlForm={displayFriendUrlForm}
+                    friendUrlEdit={friendUrlEdit}
+                    setFriendUrlEdit={setFriendUrlEdit}
                     loaderDisplay={loaderDisplay}
                     setLoaderDisplay={setLoaderDisplay}
                 />
