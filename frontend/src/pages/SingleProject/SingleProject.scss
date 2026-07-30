@@ -19,7 +19,7 @@
       &_title {
         @include Column;
         justify-content: center;
-        margin: auto;
+        margin: auto auto 0;
         width: auto;
         font-family: $mainFont;
         text-align: justify;
@@ -31,6 +31,14 @@
         }
       }
 
+      &_subtitle {
+        margin: $minimalSpace auto 0;
+        width: auto;
+        font-family: $mainFont;
+        font-size: $fontSize5;
+        color: $color1;
+      }
+
       &_maindatas {
         @include Column;
         justify-content: flex-start;
@@ -40,9 +48,6 @@
         font-size: $fontSize4;
         color: $colorDarkGrey;
 
-        &_type,
-        &_date,
-        &_state,
         &_price,
         &_surface {
           margin: 0;
@@ -184,13 +189,21 @@
 
       &_image {
         z-index: 0;
-        width: 100%;
-        object-fit: cover;
+        width: auto;
+        max-width: 100%;
+        height: 80vh;
+        object-fit: contain;
+        margin: 0 auto;
+
+        &:hover {
+          cursor: pointer;
+        }
       }
 
       &_column {
         @include Column;
         justify-content: center;
+        align-items: center;
         row-gap: 5px;
         width: 80%;
         margin: auto;
@@ -225,6 +238,12 @@
         }
       }
     }
+  }
+
+  &_imageBoxImage {
+    max-width: 90vw;
+    max-height: 90vh;
+    object-fit: contain;
   }
 }
 

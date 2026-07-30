@@ -1,0 +1,75 @@
+@import '../../utils/mixins';
+
+.missions {
+    @include Column;
+    margin: $minimalSpace auto;
+    row-gap: calc($minimalSpace / 2);
+    padding: 0 $minimalSpace;
+
+    &_list {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: $minimalSpace;
+        align-items: stretch;
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+
+        &_item {
+            @include Row;
+            box-sizing: border-box;
+            position: relative;
+
+            &:not(:last-child)::after {
+                content: "";
+                position: absolute;
+
+                top: 15%;
+                right: calc(-#{$minimalSpace} / 2);
+
+                width: 1px;
+                height: 70%;
+
+                background-color: $colorDarkGrey;
+            }
+
+            &_content {
+                width: 100%;
+                margin: 0 auto;
+                @include Column;
+                align-items: center;
+
+                &_icon {
+                    width: 40px;
+                    height: 40px;
+                    margin: 0 auto calc($minimalSpace/2) auto;
+                    color: $colorDarkGrey;
+                }
+
+                h3 {
+                    @include h1Text;
+                    @include fontSize1;
+                    margin: 0 auto;
+                    text-align: center;
+                    text-transform: uppercase;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .missions {
+        &_list {
+            grid-template-columns: repeat(2, 1fr);
+            row-gap: $minimalSpace;
+
+            &_item {
+                &:nth-child(2)::after {
+                    display: none;
+                }
+            }
+        }
+    }
+}

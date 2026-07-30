@@ -6,6 +6,7 @@ const projectSchema = mongoose.Schema({
     subtitle: {type: String, required: false},
     projectState: {type: String, required: false},
     projectType: {type: String, required: true},
+    location: {type: String, required: false},
     creationDate: {type: String, required: false},
     description: {type: String, required: false},
     surface: {type: String, required: false},

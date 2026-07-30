@@ -24,6 +24,7 @@ function ProjectForm ({
     const [projectTitle, setProjectTitle] = useState('')
     const [projectSubtitle, setProjectSubtitle] = useState('')
     const [projectType, setProjectType] = useState('')
+    const [projectLocation, setProjectLocation] = useState('')
     const [projectState, setProjectState] = useState('')
     const [projectDate, setProjectDate] = useState('')
     const [projectDescription, setProjectDescription] = useState('')
@@ -40,6 +41,7 @@ function ProjectForm ({
     const inputProjectTitleRef = useRef('');
     const inputProjectSubtitleRef = useRef(null);
     const inputProjectTypeRef = useRef(null);
+    const inputProjectLocationRef = useRef(null);
     const inputProjectStateRef = useRef(null);
     const inputProjectDateRef = useRef(null);
     const inputProjectDescriptionRef = useRef(null)
@@ -61,6 +63,7 @@ function ProjectForm ({
             setProjectSubtitle('');
             setProjectDate('');
             setProjectType('');
+            setProjectLocation('');
             setProjectState('');
             setProjectDescription('');
             setProjectPrice('');
@@ -73,6 +76,7 @@ function ProjectForm ({
             setProjectSubtitle(projectEdit.subtitle);
             setProjectDate(projectEdit.creationDate);
             setProjectType(projectEdit.projectType);
+            setProjectLocation(projectEdit.location);
             setProjectState(projectEdit.projectState);
             setProjectDescription(projectEdit.description);
             setProjectPrice(projectEdit.price);
@@ -149,6 +153,7 @@ function ProjectForm ({
         projectFormData.append('subtitle', inputProjectSubtitleRef.current.value);
         projectFormData.append('creationDate', inputProjectDateRef.current.value);
         projectFormData.append('projectType', inputProjectTypeRef.current.value);
+        projectFormData.append('location', inputProjectLocationRef.current.value);
         projectFormData.append('projectState', inputProjectStateRef.current.value);
         projectFormData.append('description', inputProjectDescriptionRef.current.value);
         projectFormData.append('price', inputProjectPriceRef.current.value);
@@ -319,6 +324,15 @@ function ProjectForm ({
                         value={projectType}
                         onChangeFunction={setProjectType}
                         options={PROJECT_TYPES}
+                    />
+                    <FormSimpleField
+                        htmlFor={'inputProjectLocation'}
+                        label={'LOCALISATION'}
+                        type={'text'}
+                        id={'inputProjectLocation'}
+                        ref={inputProjectLocationRef}
+                        value={projectLocation}
+                        onChangeFunction={setProjectLocation}
                     />
                     <FormSelectionField
                         htmlFor={'inputProjectState'}

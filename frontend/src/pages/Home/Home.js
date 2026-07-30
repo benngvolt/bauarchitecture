@@ -11,6 +11,7 @@ import conseillerImage from '../../assets/missions/conseiller.webp';
 import preparerImage from '../../assets/missions/preparer.webp';
 import superviserImage from '../../assets/missions/superviser.webp';
 import HeroSection from '../../components/HeroSection/HeroSection'
+import MissionsSection from '../../components/MissionsSection/MissionsSection';
 import ProcessSection from '../../components/ProcessSection/ProcessSection';
 import ProjectsSection from '../../components/ProjectsSection/ProjectsSection';
 import PhilosophySection from '../../components/PhilosophySection/PhilosophySection';
@@ -67,6 +68,7 @@ function Home() {
     return (
         <main className='home'>
             <HeroSection/>
+            <MissionsSection/>
             <ProjectsSection/>
             <ProcessSection/>
             <LastSection/>

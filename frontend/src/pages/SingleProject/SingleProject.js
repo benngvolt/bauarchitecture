@@ -120,6 +120,7 @@ import { ProjectsContext } from '../../utils/ProjectsContext';
 import { useParams } from 'react-router-dom';
 import CaptionBox from '../../components/CaptionBox/CaptionBox';
 import CaptionTypology from '../../components/CaptionTypology/CaptionTypology';
+import ImageBox from '../../components/ImageBox/ImageBox';
 import React, { useContext, useState, useEffect } from 'react';
 import { API_URL } from '../../utils/constants';
 
@@ -131,6 +132,8 @@ function SingleProject() {
     const [singleProject, setSingleProject] = useState(null);
     const [selectedSketchIndex, setSelectedSketchIndex] = useState(0);
     const [handleDisplayCaptionBox, setHandleDisplayCaptionBox] = useState(false);
+    const [handleDisplayImageBox, setHandleDisplayImageBox] = useState(false);
+    const [selectedImageUrl, setSelectedImageUrl] = useState(null);
 
     const { id } = useParams();
 
@@ -171,25 +174,15 @@ function SingleProject() {
                                 {singleProject.title}
                             </h3>
 
+                            {(singleProject.projectType || singleProject.location) && (
+                                <p className='singleProject_datasContainer_datasBox_subtitle'>
+                                    {[singleProject.projectType, singleProject.location]
+                                        .filter(Boolean)
+                                        .join(' · ')}
+                                </p>
+                            )}
+
                             <div className='singleProject_datasContainer_datasBox_maindatas'>
-                                {singleProject.projectType && (
-                                    <p className='singleProject_datasContainer_datasBox_maindatas_type'>
-                                        Type de projet : {singleProject.projectType}
-                                    </p>
-                                )}
-
-                                {singleProject.projectState && (
-                                    <p className='singleProject_datasContainer_datasBox_maindatas_state'>
-                                        État du projet : {singleProject.projectState}
-                                    </p>
-                                )}
-
-                                {singleProject.creationDate && (
-                                    <p className='singleProject_datasContainer_datasBox_maindatas_date'>
-                                        Date de fin des travaux : {singleProject.creationDate}
-                                    </p>
-                                )}
-
                                 {singleProject.price && (
                                     <p className='singleProject_datasContainer_datasBox_maindatas_price'>
                                         Montant des travaux : {singleProject.price}
@@ -264,12 +257,27 @@ function SingleProject() {
                                             className='singleProject_datasContainer_imagesWowColumn_image'
                                             src={getMediaUrl(image.imageUrl)}
                                             alt={`${singleProject.title} ${index + 1}`}
+                                            onClick={() => {
+                                                setSelectedImageUrl(getMediaUrl(image.imageUrl));
+                                                setHandleDisplayImageBox(true);
+                                            }}
                                         />
                                     ))}
                                 </div>
                             )}
                         </div>
                     </section>
+
+                    {handleDisplayImageBox && selectedImageUrl && (
+                        <ImageBox setHandleDisplayImageBox={setHandleDisplayImageBox}>
+                            <img
+                                className='singleProject_imageBoxImage'
+                                src={selectedImageUrl}
+                                alt={singleProject.title}
+                                onClick={(event) => event.stopPropagation()}
+                            />
+                        </ImageBox>
+                    )}
                 </div>
             )}
         </main>
