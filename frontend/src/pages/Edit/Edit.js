@@ -8,12 +8,14 @@ import PhilosophyContentForm from '../../components/PhilosophyContentForm/Philos
 import AboutPhotoForm from '../../components/AboutPhotoForm/AboutPhotoForm';
 import CurriculumContentForm from '../../components/CurriculumContentForm/CurriculumContentForm';
 import FriendUrlForm from '../../components/FriendUrlForm/FriendUrlForm';
+import FaqItemForm from '../../components/FaqItemForm/FaqItemForm';
 import { ProjectsContext } from '../../utils/ProjectsContext';
 import EditProjectsList from '../../components/EditProjectsList/EditProjectsList';
 import EditArticlesList from '../../components/EditArticlesList/EditArticlesList';
 import EditReassuranceItemsList from '../../components/EditReassuranceItemsList/EditReassuranceItemsList';
 import EditProcessStepsList from '../../components/EditProcessStepsList/EditProcessStepsList';
 import EditFriendUrlsList from '../../components/EditFriendUrlsList/EditFriendUrlsList';
+import EditFaqItemsList from '../../components/EditFaqItemsList/EditFaqItemsList';
 import portrait from '../../assets/portrait.webp';
 import skyline from '../../assets/skyline.png';
 import ensase from '../../assets/ensase.png';
@@ -28,6 +30,7 @@ const SECTIONS = [
     { key: 'hero', label: 'IMAGE DU HERO' },
     { key: 'process', label: 'ÉTAPES DU PROCESSUS' },
     { key: 'about', label: 'PAGE À PROPOS' },
+    { key: 'faq', label: 'FAQ' },
 ];
 
 function Edit() {
@@ -39,6 +42,7 @@ function Edit() {
         handleLoadProcessSteps,
         handleLoadAboutPageContent,
         handleLoadFriendUrls,
+        handleLoadFaqItems,
         projects,
         articles,
         reassuranceItems,
@@ -46,6 +50,7 @@ function Edit() {
         processSteps,
         aboutPageContent,
         friendUrls,
+        faqItems,
         loaderDisplay,
         setLoaderDisplay,
         setDisplayNavSection,
@@ -81,6 +86,11 @@ function Edit() {
     const [displayFriendUrlForm, setDisplayFriendUrlForm] = useState(false);
     const [friendUrlEdit, setFriendUrlEdit] = useState(null);
 
+    const [faqItemFormMode, setFaqItemFormMode] = useState('add');
+    const [faqItemsList, setFaqItemsList] = useState(faqItems);
+    const [displayFaqItemForm, setDisplayFaqItemForm] = useState(false);
+    const [faqItemEdit, setFaqItemEdit] = useState(null);
+
     useEffect(() => {
         setDisplayNavSection(false);
     }, []);
@@ -104,6 +114,10 @@ function Edit() {
     useEffect(() => {
         setFriendUrlsList(friendUrls);
     }, [friendUrls]);
+
+    useEffect(() => {
+        setFaqItemsList(faqItems);
+    }, [faqItems]);
 
 
     // OUVERTURE MODE MODIF
@@ -160,6 +174,18 @@ function Edit() {
             handleLoadFriendUrls();
             setDisplayFriendUrlForm(true);
             setFriendUrlFormMode('edit');
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
+    // OUVERTURE MODE MODIF
+    async function handleEditFaqItem(faqItem) {
+        try {
+            setFaqItemEdit(faqItem);
+            handleLoadFaqItems();
+            setDisplayFaqItemForm(true);
+            setFaqItemFormMode('edit');
         } catch (error) {
             console.log(error.message);
         }
@@ -378,6 +404,31 @@ function Edit() {
                         </div>
                     </section>
                 )}
+
+                {/* EDITION FAQ */}
+                {activeSection === 'faq' && (
+                    <section className='edit_content_section'>
+                        <h2 className='edit_content_section_title'>FAQ</h2>
+
+                        <EditFaqItemsList
+                            faqItems={faqItemsList}
+                            handleEditFaqItem={handleEditFaqItem}
+                            handleLoadFaqItems={handleLoadFaqItems}
+                            loaderDisplay={loaderDisplay}
+                            setLoaderDisplay={setLoaderDisplay}
+                        />
+
+                        <button
+                            className='edit_content_section_addButton'
+                            onClick={() => {
+                                setDisplayFaqItemForm(true);
+                                setFaqItemFormMode('add');
+                            }}
+                        >
+                            + AJOUTER UNE QUESTION +
+                        </button>
+                    </section>
+                )}
             </div>
 
             {displayProjectForm === true && (
@@ -442,6 +493,20 @@ function Edit() {
                     displayFriendUrlForm={displayFriendUrlForm}
                     friendUrlEdit={friendUrlEdit}
                     setFriendUrlEdit={setFriendUrlEdit}
+                    loaderDisplay={loaderDisplay}
+                    setLoaderDisplay={setLoaderDisplay}
+                />
+            )}
+
+            {displayFaqItemForm === true && (
+                <FaqItemForm
+                    faqItemFormMode={faqItemFormMode}
+                    setFaqItemFormMode={setFaqItemFormMode}
+                    handleLoadFaqItems={handleLoadFaqItems}
+                    setDisplayFaqItemForm={setDisplayFaqItemForm}
+                    displayFaqItemForm={displayFaqItemForm}
+                    faqItemEdit={faqItemEdit}
+                    setFaqItemEdit={setFaqItemEdit}
                     loaderDisplay={loaderDisplay}
                     setLoaderDisplay={setLoaderDisplay}
                 />

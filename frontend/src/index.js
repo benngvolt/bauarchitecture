@@ -11,6 +11,7 @@ import SingleProject from './pages/SingleProject/SingleProject';
 import Home from './pages/Home/Home';
 import About from './pages/About/About';
 import Articles from './pages/Articles/Articles';
+import PageTransition from './components/PageTransition/PageTransition';
 
 // import Error404 from './pages/Error404/Error404';
 
@@ -26,14 +27,16 @@ root.render(
       <ProjectsProvider>
         <Header />
 
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/edit" element={<Edit />} />
-          <Route path="/projets" element={<AllProjects />} />
-          <Route path="/journal" element={<Articles />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/projets/:id" element={<SingleProject />} />
-        </Routes>
+        <PageTransition>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/edit" element={<Edit />} />
+            <Route path="/projets" element={<AllProjects />} />
+            <Route path="/journal" element={<Articles />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/projets/:id" element={<SingleProject />} />
+          </Routes>
+        </PageTransition>
 
         {/* <Footer/> */}
       </ProjectsProvider>

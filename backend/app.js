@@ -27,6 +27,7 @@ const heroSettingsRoutes = require('./routes/heroSettings');
 const processStepsRoutes = require('./routes/processSteps');
 const aboutPageContentRoutes = require('./routes/aboutPageContent');
 const friendUrlsRoutes = require('./routes/friendUrls');
+const faqItemsRoutes = require('./routes/faqItems');
 
 
 /* --------------------------------------------------------
@@ -101,6 +102,7 @@ app.use('/api/hero-settings', heroSettingsRoutes);
 app.use('/api/process-steps', processStepsRoutes);
 app.use('/api/about-page-content', aboutPageContentRoutes);
 app.use('/api/friend-urls', friendUrlsRoutes);
+app.use('/api/faq-items', faqItemsRoutes);
 
 
 /* --------------------------------------------------------

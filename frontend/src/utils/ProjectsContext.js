@@ -12,6 +12,7 @@ export const ProjectsProvider = ({ children }) => {
     const [processSteps, setProcessSteps] = useState([]);
     const [aboutPageContent, setAboutPageContent] = useState(null);
     const [friendUrls, setFriendUrls] = useState([]);
+    const [faqItems, setFaqItems] = useState([]);
 
     const [loadProjects, setLoadProjects] = useState(false);
     const [loadArticles, setLoadArticles] = useState(false);
@@ -21,6 +22,7 @@ export const ProjectsProvider = ({ children }) => {
     const [loadProcessSteps, setLoadProcessSteps] = useState(false);
     const [loadAboutPageContent, setLoadAboutPageContent] = useState(false);
     const [loadFriendUrls, setLoadFriendUrls] = useState(false);
+    const [loadFaqItems, setLoadFaqItems] = useState(false);
 
     const [displayNavSection, setDisplayNavSection] = useState(false);
     const [loaderDisplay, setLoaderDisplay] = useState(false);
@@ -152,6 +154,21 @@ export const ProjectsProvider = ({ children }) => {
     }, [loadFriendUrls]);
 
     useEffect(() => {
+        setLoaderDisplay(true);
+
+        fetch(`${API_URL}/api/faq-items`)
+            .then((res) => res.json())
+            .then((data) => {
+                setFaqItems(data);
+                setLoaderDisplay(false);
+            })
+            .catch((error) => {
+                console.log(error.message);
+                setLoaderDisplay(false);
+            });
+    }, [loadFaqItems]);
+
+    useEffect(() => {
         setWelcomeDisplay(true);
 
         setTimeout(function () {
@@ -191,6 +208,10 @@ export const ProjectsProvider = ({ children }) => {
         setLoadFriendUrls(loadFriendUrls === false ? true : false);
     };
 
+    const handleLoadFaqItems = () => {
+        setLoadFaqItems(loadFaqItems === false ? true : false);
+    };
+
     return (
         <ProjectsContext.Provider
             value={{
@@ -203,6 +224,7 @@ export const ProjectsProvider = ({ children }) => {
                 handleLoadProcessSteps,
                 handleLoadAboutPageContent,
                 handleLoadFriendUrls,
+                handleLoadFaqItems,
                 articles,
                 drawings,
                 reassuranceItems,
@@ -210,6 +232,7 @@ export const ProjectsProvider = ({ children }) => {
                 processSteps,
                 aboutPageContent,
                 friendUrls,
+                faqItems,
                 displayNavSection,
                 setDisplayNavSection,
                 loaderDisplay,

@@ -1,0 +1,5 @@
+@import '../../utils/mixins';
+
+.pageTransition {
+    animation: apparition 0.5s ease forwards;
+}

@@ -3,7 +3,7 @@
 .philosophy {
     box-sizing: border-box;
     width: 100%;
-    margin: calc(2 * $minimalSpace) 0;
+    margin: calc(4 * $minimalSpace) 0 calc(2 * $minimalSpace) 0;
     padding: 0 $minimalSpace;
 
     h2 {

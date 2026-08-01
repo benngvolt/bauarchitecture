@@ -11,6 +11,8 @@ import React, { useContext, useEffect, useState } from 'react'
 import { ProjectsContext } from '../../utils/ProjectsContext'
 import Loader from '../Loader/Loader'
 import Button from '../Button/Button'
+import Modal from '../Modal/Modal'
+import FaQ from '../FaQ/FaQ'
 
 function Header() {
     const {
@@ -28,6 +30,7 @@ function Header() {
         { slug: 'journal', label: 'journal', path: '/journal' },
     ];
     const [shouldRenderNav, setShouldRenderNav] = useState(false);
+    const [displayFaqModal, setDisplayFaqModal] = useState(false);
 
     // Gérer affichage ou démontage du menu avec délai
     useEffect(() => {
@@ -120,6 +123,20 @@ function Header() {
                                     </Link>
                                 </li>
                             ))}
+
+                            <li className='header_topBar_menu_item header_topBar_menu_item--notDisplayedMobile'>
+                                <button
+                                    type='button'
+                                    className='header_topBar_menu_item_link header_topBar_menu_item_link--button'
+                                    aria-label='Ouvrir la foire aux questions'
+                                    onClick={() => setDisplayFaqModal(true)}
+                                >
+                                    <h2 className='header_topBar_menu_item_title header_topBar_menu_item_title--regular'>
+                                        faq
+                                    </h2>
+                                </button>
+                            </li>
+
                             <div className='header_topBar_buttonContainer'>
                                 <Button
                                     variant='link'
@@ -144,6 +161,12 @@ function Header() {
             </div>
             {shouldRenderNav && (
                 <NavSection displayNavSection={displayNavSection} />
+            )}
+
+            {displayFaqModal && (
+                <Modal setDisplayModal={setDisplayFaqModal}>
+                    <FaQ />
+                </Modal>
             )}
         </header>
     );

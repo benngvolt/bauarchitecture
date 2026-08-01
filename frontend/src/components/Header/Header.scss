@@ -114,8 +114,16 @@
                 &_link {
                     @include mainText;
                     @include fontSize3;
-                    
+
                     text-decoration: none;
+
+                    &--button {
+                        border: none;
+                        background: none;
+                        padding: 0;
+                        font: inherit;
+                        cursor: pointer;
+                    }
                 }
             }
         }
