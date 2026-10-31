@@ -9,27 +9,60 @@
     // margin-bottom: calc(2 * $minimalSpace);
 
     &_imageTitleContainer {
-        
+
         position: relative;
         width: 100vw;
 
-        &_image {
-            width: 100%;
+        &--filled {
             aspect-ratio: 16 / 9;
+            overflow: hidden;
+        }
+
+        // Les images sont superposées : seule l'image active est visible (fondu enchaîné).
+        &_image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             object-fit: cover;
-            opacity: 1;
-            transition: opacity 0.5s ease-in-out;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
 
-            &.hidden {
-                opacity: 0;
-            }
-
-            &.visible {
+            &--active {
                 opacity: 1;
             }
         }
 
-       
+        // Pastilles de navigation du diaporama (en bas à droite, hors du bloc de texte).
+        &_dots {
+            position: absolute;
+            right: $minimalSpace;
+            bottom: $minimalSpace;
+            display: flex;
+            column-gap: 10px;
+
+            &_dot {
+                width: 12px;
+                height: 12px;
+                padding: 0;
+                border: 1px solid $colorLightGrey;
+                border-radius: 50%;
+                background: transparent;
+                transition: background-color 0.3s ease;
+
+                &:hover {
+                    cursor: pointer;
+                    background-color: $colorLightTransparentGrey;
+                }
+
+                &--active {
+                    background-color: $colorLightGrey;
+                }
+            }
+        }
+
+
 
         h1 {
             @include h1Text;
@@ -39,15 +72,16 @@
             margin: 0 auto;
         }
     }
+
+    // Le bloc de texte est placé sous l'image et ne la recouvre que sur son bord inférieur
+    // (recouvrement = 2 x $minimalSpace, le row-gap du hero s'ajoutant en plus).
+    // Pour le placer entièrement sous l'image, sans la recouvrir : margin-top: 0.
     &_mainContainer {
-        position: absolute;
+        position: relative;
         width: 67%;
-        height: calc(100% - 2*($headerHeight));
-        margin: auto;
+        margin-top: -($minimalSpace * 2.5);
+        margin-left: $minimalSpace;
         @include Column;
-        justify-content: flex-end;
-        bottom: $minimalSpace;
-        left: $minimalSpace;
 
         &_descriptionContainer {
             display: flex;
@@ -113,6 +147,9 @@
         }
 
         @media only screen and (max-width: $mobileMaxWidth) {
+            width: auto;
+            margin-right: $minimalSpace;
+
             &_descriptionContainer {
                 flex-direction: column;
                 align-items: flex-start;

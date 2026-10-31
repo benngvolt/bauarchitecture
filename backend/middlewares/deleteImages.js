@@ -96,9 +96,10 @@ async function deleteImages() {
   try {
     const heroSettings = await HeroSettings.findOne();
 
-    const dbHeroUrls = heroSettings?.imageUrl
-      ? [normalizeUrl(heroSettings.imageUrl)]
-      : [];
+    const dbHeroUrls = [
+      ...(heroSettings?.images || []).map((image) => normalizeUrl(image.imageUrl)),
+      ...(heroSettings?.imageUrl ? [normalizeUrl(heroSettings.imageUrl)] : []),
+    ];
 
     await deleteUnusedFiles(folders.hero, dbHeroUrls);
   } catch (error) {

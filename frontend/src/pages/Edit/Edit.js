@@ -27,7 +27,7 @@ const SECTIONS = [
     { key: 'projects', label: 'PROJETS' },
     { key: 'articles', label: 'ARTICLES' },
     { key: 'reassurance', label: 'ARGUMENTS DE RÉASSURANCE' },
-    { key: 'hero', label: 'IMAGE DU HERO' },
+    { key: 'hero', label: 'IMAGES DU HERO' },
     { key: 'process', label: 'ÉTAPES DU PROCESSUS' },
     { key: 'about', label: 'PAGE À PROPOS' },
     { key: 'faq', label: 'FAQ' },
@@ -302,7 +302,7 @@ function Edit() {
                 {/* EDITION IMAGE DE FOND DU HERO */}
                 {activeSection === 'hero' && (
                     <section className='edit_content_section'>
-                        <h2 className='edit_content_section_title'>Image du hero</h2>
+                        <h2 className='edit_content_section_title'>Images du hero</h2>
 
                         <HeroImageForm
                             heroSettings={heroSettings}

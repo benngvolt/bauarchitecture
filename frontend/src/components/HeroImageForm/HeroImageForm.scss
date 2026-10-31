@@ -7,7 +7,7 @@
     row-gap: 22px;
 
     &_text {
-        width: 50%;
+        width: 60%;
         margin: auto;
         text-align: center;
         font-family: $mainFont;
@@ -23,6 +23,59 @@
             width: 100%;
             aspect-ratio: 16 / 9;
             object-fit: cover;
+        }
+    }
+
+    &_list {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 22px;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+
+        &_item {
+            @include Column;
+            row-gap: 8px;
+
+            &_image {
+                width: 100%;
+                aspect-ratio: 16 / 9;
+                object-fit: cover;
+            }
+
+            &_index {
+                margin: 0;
+                font-family: $mainFont;
+                font-size: $fontSize5;
+                color: $color1;
+            }
+
+            &_buttonsContainer {
+                @include Row;
+                column-gap: 18px;
+
+                button {
+                    padding: 0;
+                    border: none;
+                    background: none;
+                    color: $colorDarkGrey;
+                    font-family: $mainFont;
+                    font-size: $fontSize5;
+
+                    &:hover {
+                        color: $color1;
+                        cursor: pointer;
+                    }
+
+                    &:disabled {
+                        color: $color1;
+                        opacity: 0.35;
+                        cursor: default;
+                    }
+                }
+            }
         }
     }
 

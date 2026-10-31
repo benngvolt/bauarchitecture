@@ -1,11 +1,14 @@
 import './HeroSection.scss';
 
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 import logo from '../../assets/bau_logo.png';
 import Button from '../../components/Button/Button';
 import { API_URL } from '../../utils/constants';
 import { ProjectsContext } from '../../utils/ProjectsContext';
+
+// Durée d'affichage de chaque image du hero avant de passer à la suivante (ms).
+const HERO_SLIDE_DURATION = 5000;
 
 function HeroSection() {
     const {
@@ -16,14 +19,48 @@ function HeroSection() {
         setDisplayNavSection,
     } = useContext(ProjectsContext);
 
+    const [activeSlide, setActiveSlide] = useState(0);
+
     const heroProject = projects[0];
     const defaultHeroImage =
         heroProject?.images?.[heroProject.mainImageIndex];
-    const heroImageUrl = heroSettings?.imageUrl || defaultHeroImage?.imageUrl;
+
+    // Images choisies en backoffice (ou, à défaut, l'image principale du premier projet).
+    const customImageUrls = heroSettings?.images?.length
+        ? heroSettings.images.map((image) => image.imageUrl)
+        : heroSettings?.imageUrl
+        ? [heroSettings.imageUrl]
+        : [];
+    const hasCustomImages = customImageUrls.length > 0;
+    const heroImageUrls = hasCustomImages
+        ? customImageUrls
+        : defaultHeroImage?.imageUrl
+        ? [defaultHeroImage.imageUrl]
+        : [];
+
+    const slidesCount = heroImageUrls.length;
+    const currentSlide = activeSlide < slidesCount ? activeSlide : 0;
 
     useEffect(() => {
         setDisplayNavSection(false);
     }, [setDisplayNavSection]);
+
+    // Défilement automatique (désactivé s'il n'y a qu'une image ou si l'utilisateur limite les animations).
+    useEffect(() => {
+        if (slidesCount < 2) {
+            return undefined;
+        }
+
+        if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) {
+            return undefined;
+        }
+
+        const timeout = setTimeout(() => {
+            setActiveSlide((currentSlide + 1) % slidesCount);
+        }, HERO_SLIDE_DURATION);
+
+        return () => clearTimeout(timeout);
+    }, [currentSlide, slidesCount]);
 
     return (
         <section className='hero'>
@@ -33,19 +70,50 @@ function HeroSection() {
                 </div>
             )}
 
-            <div className='hero_imageTitleContainer'>
-                {heroImageUrl && (
+            <div
+                className={
+                    slidesCount > 0
+                        ? 'hero_imageTitleContainer hero_imageTitleContainer--filled'
+                        : 'hero_imageTitleContainer'
+                }
+            >
+                {heroImageUrls.map((imageUrl, index) => (
                     <img
-                        className='hero_imageTitleContainer_image'
-                        src={`${API_URL}${heroImageUrl}`}
+                        key={imageUrl}
+                        className={
+                            index === currentSlide
+                                ? 'hero_imageTitleContainer_image hero_imageTitleContainer_image--active'
+                                : 'hero_imageTitleContainer_image'
+                        }
+                        src={`${API_URL}${imageUrl}`}
                         alt={
-                            heroSettings?.imageUrl
+                            hasCustomImages
                                 ? 'BAU Architecture'
                                 : heroProject?.title
                                 ? `Projet ${heroProject.title} par BAU Architecture`
                                 : 'Réalisation de BAU Architecture'
                         }
+                        aria-hidden={index === currentSlide ? undefined : 'true'}
                     />
+                ))}
+
+                {slidesCount > 1 && (
+                    <div className='hero_imageTitleContainer_dots'>
+                        {heroImageUrls.map((imageUrl, index) => (
+                            <button
+                                key={imageUrl}
+                                type='button'
+                                className={
+                                    index === currentSlide
+                                        ? 'hero_imageTitleContainer_dots_dot hero_imageTitleContainer_dots_dot--active'
+                                        : 'hero_imageTitleContainer_dots_dot'
+                                }
+                                aria-label={`Afficher l'image ${index + 1} sur ${slidesCount}`}
+                                aria-current={index === currentSlide ? 'true' : undefined}
+                                onClick={() => setActiveSlide(index)}
+                            />
+                        ))}
+                    </div>
                 )}
             </div>
             <div className='hero_mainContainer'>
