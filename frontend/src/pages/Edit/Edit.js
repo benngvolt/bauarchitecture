@@ -26,17 +26,57 @@ import React, { useContext, useState, useEffect } from 'react';
 
 const MAX_REASSURANCE_ITEMS = 3;
 
+// Navigation du tableau de bord : une entrée peut regrouper plusieurs sous-parties.
+// Les clés des sous-parties (ou de l'entrée sans sous-partie) sont uniques : elles servent d'identifiant du panneau affiché.
 const SECTIONS = [
-    { key: 'projects', label: 'PROJETS' },
-    { key: 'featured', label: 'PROJETS À LA UNE' },
-    { key: 'articles', label: 'ARTICLES' },
-    { key: 'reassurance', label: 'ARGUMENTS DE RÉASSURANCE' },
-    { key: 'hero', label: 'HERO' },
-    { key: 'approach', label: 'APPROCHE' },
-    { key: 'process', label: 'ÉTAPES DU PROCESSUS' },
-    { key: 'about', label: 'PAGE À PROPOS' },
-    { key: 'faq', label: 'FAQ' },
+    {
+        key: 'home',
+        label: "PAGE D'ACCUEIL",
+        subSections: [
+            { key: 'hero-texts', label: 'Hero : textes', description: "Titre principal et texte d'accroche, en haut de la page d'accueil." },
+            { key: 'hero-images', label: 'Hero : images de fond', description: "Images qui défilent derrière le titre, en haut de la page d'accueil." },
+            { key: 'reassurance', label: 'Hero : arguments de réassurance', description: "Courts arguments affichés sous le texte d'accroche." },
+            { key: 'featured', label: 'Projets à la une', description: "Les trois projets présentés sur la page d'accueil." },
+            { key: 'approach', label: 'Approche', description: "Section sombre de la page d'accueil : titre et blocs de texte." },
+            { key: 'process', label: 'Étapes du processus', description: "Les quatre étapes présentées sur la page d'accueil." },
+        ],
+    },
+    { key: 'projects', label: 'PROJETS', description: 'Tous les projets du site.' },
+    { key: 'articles', label: 'ARTICLES', description: 'Les articles du journal.' },
+    {
+        key: 'about',
+        label: 'PAGE À PROPOS',
+        subSections: [
+            { key: 'about-text', label: 'Texte de présentation', description: 'Portrait et texte de présentation.' },
+            { key: 'about-photo1', label: 'Photo pleine largeur 1', description: 'Première grande photo de la page.' },
+            { key: 'about-cv', label: 'CV', description: 'Parcours et formations.' },
+            { key: 'about-photo2', label: 'Photo pleine largeur 2', description: 'Seconde grande photo de la page.' },
+            { key: 'about-links', label: 'Liens amis', description: 'Liens vers des sites amis.' },
+        ],
+    },
+    { key: 'faq', label: 'FAQ', description: 'Questions fréquentes.' },
 ];
+
+const ACTIVE_SECTION_STORAGE_KEY = 'editActiveSection';
+
+// Panneaux (sous-parties ou entrées simples) avec leur entrée parente.
+const PANELS = SECTIONS.flatMap((section) =>
+    section.subSections
+        ? section.subSections.map((subSection) => ({ ...subSection, parent: section }))
+        : [{ key: section.key, label: section.label, description: section.description, parent: section }]
+);
+
+function getInitialPanelKey() {
+    try {
+        const storedKey = sessionStorage.getItem(ACTIVE_SECTION_STORAGE_KEY);
+        if (PANELS.some((panel) => panel.key === storedKey)) {
+            return storedKey;
+        }
+    } catch (error) {
+        // Stockage indisponible : on démarre sur le premier panneau.
+    }
+    return PANELS[0].key;
+}
 
 function Edit() {
     const {
@@ -69,7 +109,18 @@ function Edit() {
     const defaultHeroImageUrl =
         defaultHeroProject?.images?.[defaultHeroProject.mainImageIndex]?.imageUrl;
 
-    const [activeSection, setActiveSection] = useState(SECTIONS[0].key);
+    const [activeSection, setActiveSection] = useState(getInitialPanelKey);
+    const activePanel = PANELS.find((panel) => panel.key === activeSection);
+    const activeGroup = activePanel.parent;
+
+    function selectSection(panelKey) {
+        setActiveSection(panelKey);
+        try {
+            sessionStorage.setItem(ACTIVE_SECTION_STORAGE_KEY, panelKey);
+        } catch (error) {
+            // Sans stockage, la sélection n'est simplement pas mémorisée.
+        }
+    }
 
     const [projectFormMode, setProjectFormMode] = useState('add');
     const [projectsList, setProjectsList] = useState(projects);
@@ -202,117 +253,171 @@ function Edit() {
 
     return (
         <main className='edit'>
-            <nav className='edit_sidebar'>
+            <nav className='edit_sidebar' aria-label='Sections du tableau de bord'>
                 <ul className='edit_sidebar_list'>
-                    {SECTIONS.map((section) => (
-                        <li key={section.key}>
-                            <button
-                                type='button'
-                                className={
-                                    activeSection === section.key
-                                        ? 'edit_sidebar_list_button edit_sidebar_list_button--active'
-                                        : 'edit_sidebar_list_button'
-                                }
-                                onClick={() => setActiveSection(section.key)}
+                    {SECTIONS.map((section) => {
+                        const isActiveGroup = section === activeGroup;
+                        const firstPanelKey = section.subSections ? section.subSections[0].key : section.key;
+
+                        return (
+                            <li
+                                key={section.key}
+                                className={isActiveGroup ? 'edit_sidebar_list_item edit_sidebar_list_item--open' : 'edit_sidebar_list_item'}
                             >
-                                {section.label}
-                            </button>
-                        </li>
-                    ))}
+                                <button
+                                    type='button'
+                                    className={
+                                        isActiveGroup
+                                            ? 'edit_sidebar_list_item_button edit_sidebar_list_item_button--active'
+                                            : 'edit_sidebar_list_item_button'
+                                    }
+                                    aria-expanded={section.subSections ? isActiveGroup : undefined}
+                                    aria-current={!section.subSections && isActiveGroup ? 'page' : undefined}
+                                    onClick={() => selectSection(isActiveGroup ? activeSection : firstPanelKey)}
+                                >
+                                    {section.label}
+                                </button>
+
+                                {section.subSections && isActiveGroup && (
+                                    <ul className='edit_sidebar_list_item_subList'>
+                                        {section.subSections.map((subSection) => (
+                                            <li key={subSection.key}>
+                                                <button
+                                                    type='button'
+                                                    className={
+                                                        activeSection === subSection.key
+                                                            ? 'edit_sidebar_list_item_subList_button edit_sidebar_list_item_subList_button--active'
+                                                            : 'edit_sidebar_list_item_subList_button'
+                                                    }
+                                                    aria-current={activeSection === subSection.key ? 'page' : undefined}
+                                                    onClick={() => selectSection(subSection.key)}
+                                                >
+                                                    {subSection.label}
+                                                </button>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                )}
+                            </li>
+                        );
+                    })}
                 </ul>
             </nav>
 
             <div className='edit_content'>
-                {/* EDITION PROJETS */}
-                {activeSection === 'projects' && (
-                    <section className='edit_content_section'>
-                        <h2 className='edit_content_section_title'>Projets</h2>
+                <section className='edit_content_section'>
+                    <header className='edit_content_section_header'>
+                        {activeGroup.subSections && (
+                            <p className='edit_content_section_header_kicker'>{activeGroup.label}</p>
+                        )}
+                        <h2 className='edit_content_section_title'>{activePanel.label}</h2>
+                        {activePanel.description && (
+                            <p className='edit_content_section_header_description'>{activePanel.description}</p>
+                        )}
+                    </header>
 
-                        <EditProjectsList
-                            projects={projectsList}
-                            handleEditProject={handleEditProject}
-                            handleLoadProjects={handleLoadProjects}
-                            setDisplayProjectForm={setDisplayProjectForm}
-                            displayProjectForm={displayProjectForm}
-                            loaderDisplay={loaderDisplay}
-                            setLoaderDisplay={setLoaderDisplay}
-                        />
+                    {/* EDITION PROJETS */}
+                    {activeSection === 'projects' && (
+                        <>
+                            <EditProjectsList
+                                projects={projectsList}
+                                handleEditProject={handleEditProject}
+                                handleLoadProjects={handleLoadProjects}
+                                setDisplayProjectForm={setDisplayProjectForm}
+                                displayProjectForm={displayProjectForm}
+                                loaderDisplay={loaderDisplay}
+                                setLoaderDisplay={setLoaderDisplay}
+                            />
 
-                        <button
-                            className='edit_content_section_addButton'
-                            onClick={() => {
-                                setDisplayProjectForm(true);
-                                setProjectFormMode('add');
-                            }}
-                        >
-                            + AJOUTER UN PROJET +
-                        </button>
-                    </section>
-                )}
-
-                {/* EDITION ARTICLES */}
-                {activeSection === 'articles' && (
-                    <section className='edit_content_section'>
-                        <h2 className='edit_content_section_title'>Articles</h2>
-
-                        <EditArticlesList
-                            articles={articlesList}
-                            handleEditArticle={handleEditArticle}
-                            handleLoadArticles={handleLoadArticles}
-                            setDisplayArticleForm={setDisplayArticleForm}
-                            displayArticleForm={displayArticleForm}
-                            loaderDisplay={loaderDisplay}
-                            setLoaderDisplay={setLoaderDisplay}
-                        />
-
-                        <button
-                            className='edit_content_section_addButton'
-                            onClick={() => {
-                                setDisplayArticleForm(true);
-                                setArticleFormMode('add');
-                            }}
-                        >
-                            + AJOUTER UN ARTICLE +
-                        </button>
-                    </section>
-                )}
-
-                {/* EDITION ARGUMENTS DE RÉASSURANCE (HERO) */}
-                {activeSection === 'reassurance' && (
-                    <section className='edit_content_section'>
-                        <h2 className='edit_content_section_title'>Arguments de réassurance</h2>
-
-                        <EditReassuranceItemsList
-                            reassuranceItems={reassuranceItemsList}
-                            handleEditReassuranceItem={handleEditReassuranceItem}
-                            handleLoadReassuranceItems={handleLoadReassuranceItems}
-                            loaderDisplay={loaderDisplay}
-                            setLoaderDisplay={setLoaderDisplay}
-                        />
-
-                        {reassuranceItemsList.length >= MAX_REASSURANCE_ITEMS ? (
-                            <p className='edit_content_section_maxReached'>
-                                Le maximum de {MAX_REASSURANCE_ITEMS} arguments est atteint. Supprimez-en un pour en ajouter un nouveau.
-                            </p>
-                        ) : (
                             <button
                                 className='edit_content_section_addButton'
                                 onClick={() => {
-                                    setDisplayReassuranceItemForm(true);
-                                    setReassuranceItemFormMode('add');
+                                    setDisplayProjectForm(true);
+                                    setProjectFormMode('add');
                                 }}
                             >
-                                + AJOUTER UN ARGUMENT +
+                                + AJOUTER UN PROJET +
                             </button>
-                        )}
-                    </section>
-                )}
+                        </>
+                    )}
 
-                {/* EDITION PROJETS À LA UNE (PAGE D'ACCUEIL) */}
-                {activeSection === 'featured' && (
-                    <section className='edit_content_section'>
-                        <h2 className='edit_content_section_title'>Projets à la une</h2>
+                    {/* EDITION ARTICLES */}
+                    {activeSection === 'articles' && (
+                        <>
+                            <EditArticlesList
+                                articles={articlesList}
+                                handleEditArticle={handleEditArticle}
+                                handleLoadArticles={handleLoadArticles}
+                                setDisplayArticleForm={setDisplayArticleForm}
+                                displayArticleForm={displayArticleForm}
+                                loaderDisplay={loaderDisplay}
+                                setLoaderDisplay={setLoaderDisplay}
+                            />
 
+                            <button
+                                className='edit_content_section_addButton'
+                                onClick={() => {
+                                    setDisplayArticleForm(true);
+                                    setArticleFormMode('add');
+                                }}
+                            >
+                                + AJOUTER UN ARTICLE +
+                            </button>
+                        </>
+                    )}
+
+                    {/* PAGE D'ACCUEIL : HERO, TEXTES */}
+                    {activeSection === 'hero-texts' && (
+                        <HeroTextsForm
+                            heroSettings={heroSettings}
+                            handleLoadHeroSettings={handleLoadHeroSettings}
+                            loaderDisplay={loaderDisplay}
+                            setLoaderDisplay={setLoaderDisplay}
+                        />
+                    )}
+
+                    {/* PAGE D'ACCUEIL : HERO, IMAGES DE FOND */}
+                    {activeSection === 'hero-images' && (
+                        <HeroImageForm
+                            heroSettings={heroSettings}
+                            defaultHeroImageUrl={defaultHeroImageUrl}
+                            handleLoadHeroSettings={handleLoadHeroSettings}
+                            loaderDisplay={loaderDisplay}
+                            setLoaderDisplay={setLoaderDisplay}
+                        />
+                    )}
+
+                    {/* PAGE D'ACCUEIL : ARGUMENTS DE RÉASSURANCE (HERO) */}
+                    {activeSection === 'reassurance' && (
+                        <>
+                            <EditReassuranceItemsList
+                                reassuranceItems={reassuranceItemsList}
+                                handleEditReassuranceItem={handleEditReassuranceItem}
+                                handleLoadReassuranceItems={handleLoadReassuranceItems}
+                                loaderDisplay={loaderDisplay}
+                                setLoaderDisplay={setLoaderDisplay}
+                            />
+
+                            {reassuranceItemsList.length >= MAX_REASSURANCE_ITEMS ? (
+                                <p className='edit_content_section_maxReached'>
+                                    Le maximum de {MAX_REASSURANCE_ITEMS} arguments est atteint. Supprimez-en un pour en ajouter un nouveau.
+                                </p>
+                            ) : (
+                                <button
+                                    className='edit_content_section_addButton'
+                                    onClick={() => {
+                                        setDisplayReassuranceItemForm(true);
+                                        setReassuranceItemFormMode('add');
+                                    }}
+                                >
+                                    + AJOUTER UN ARGUMENT +
+                                </button>
+                            )}
+                        </>
+                    )}
+
+                    {/* PAGE D'ACCUEIL : PROJETS À LA UNE */}
+                    {activeSection === 'featured' && (
                         <FeaturedProjectsForm
                             projects={projects}
                             featuredProjects={featuredProjects}
@@ -320,121 +425,78 @@ function Edit() {
                             loaderDisplay={loaderDisplay}
                             setLoaderDisplay={setLoaderDisplay}
                         />
-                    </section>
-                )}
+                    )}
 
-                {/* EDITION DU HERO : TEXTES ET IMAGES DE FOND */}
-                {activeSection === 'hero' && (
-                    <section className='edit_content_section'>
-                        <h2 className='edit_content_section_title'>Hero</h2>
-
-                        <div className='edit_content_section_subSection'>
-                            <h3 className='edit_content_section_subSection_title'>Textes</h3>
-                            <HeroTextsForm
-                                heroSettings={heroSettings}
-                                handleLoadHeroSettings={handleLoadHeroSettings}
-                                loaderDisplay={loaderDisplay}
-                                setLoaderDisplay={setLoaderDisplay}
-                            />
-                        </div>
-
-                        <div className='edit_content_section_subSection'>
-                            <h3 className='edit_content_section_subSection_title'>Images de fond</h3>
-                            <HeroImageForm
-                                heroSettings={heroSettings}
-                                defaultHeroImageUrl={defaultHeroImageUrl}
-                                handleLoadHeroSettings={handleLoadHeroSettings}
-                                loaderDisplay={loaderDisplay}
-                                setLoaderDisplay={setLoaderDisplay}
-                            />
-                        </div>
-                    </section>
-                )}
-
-                {/* EDITION DE LA SECTION APPROCHE (PAGE D'ACCUEIL) */}
-                {activeSection === 'approach' && (
-                    <section className='edit_content_section'>
-                        <h2 className='edit_content_section_title'>Approche</h2>
-
+                    {/* PAGE D'ACCUEIL : APPROCHE */}
+                    {activeSection === 'approach' && (
                         <ApproachForm
                             approachSettings={approachSettings}
                             handleLoadApproachSettings={handleLoadApproachSettings}
                             loaderDisplay={loaderDisplay}
                             setLoaderDisplay={setLoaderDisplay}
                         />
-                    </section>
-                )}
+                    )}
 
-                {/* EDITION ÉTAPES DU PROCESSUS */}
-                {activeSection === 'process' && (
-                    <section className='edit_content_section'>
-                        <h2 className='edit_content_section_title'>Étapes du processus</h2>
+                    {/* PAGE D'ACCUEIL : ÉTAPES DU PROCESSUS */}
+                    {activeSection === 'process' && (
+                        <>
+                            <p className='edit_content_section_helperText'>
+                                Il y a toujours exactement 4 étapes (Observer, Diagnostiquer, Concevoir, Construire) : elles ne peuvent être ni ajoutées ni supprimées, seulement modifiées.
+                            </p>
 
-                        <p className='edit_content_section_helperText'>
-                            Il y a toujours exactement 4 étapes (Observer, Diagnostiquer, Concevoir, Construire) : elles ne peuvent être ni ajoutées ni supprimées, seulement modifiées.
-                        </p>
+                            <EditProcessStepsList
+                                processSteps={processStepsList}
+                                handleEditProcessStep={handleEditProcessStep}
+                            />
+                        </>
+                    )}
 
-                        <EditProcessStepsList
-                            processSteps={processStepsList}
-                            handleEditProcessStep={handleEditProcessStep}
+                    {/* PAGE À PROPOS */}
+                    {activeSection === 'about-text' && (
+                        <PhilosophyContentForm
+                            aboutPageContent={aboutPageContent}
+                            defaultImageUrl={portrait}
+                            handleLoadAboutPageContent={handleLoadAboutPageContent}
+                            loaderDisplay={loaderDisplay}
+                            setLoaderDisplay={setLoaderDisplay}
                         />
-                    </section>
-                )}
+                    )}
 
-                {/* EDITION PAGE À PROPOS */}
-                {activeSection === 'about' && (
-                    <section className='edit_content_section'>
-                        <h2 className='edit_content_section_title'>Page à propos</h2>
+                    {activeSection === 'about-photo1' && (
+                        <AboutPhotoForm
+                            label='la photo 1'
+                            fieldName='photo1'
+                            currentImageUrl={aboutPageContent?.photo1Url}
+                            defaultImageUrl={skyline}
+                            handleLoadAboutPageContent={handleLoadAboutPageContent}
+                            loaderDisplay={loaderDisplay}
+                            setLoaderDisplay={setLoaderDisplay}
+                        />
+                    )}
 
-                        <div className='edit_content_section_subSection'>
-                            <h3 className='edit_content_section_subSection_title'>Texte de présentation</h3>
-                            <PhilosophyContentForm
-                                aboutPageContent={aboutPageContent}
-                                defaultImageUrl={portrait}
-                                handleLoadAboutPageContent={handleLoadAboutPageContent}
-                                loaderDisplay={loaderDisplay}
-                                setLoaderDisplay={setLoaderDisplay}
-                            />
-                        </div>
+                    {activeSection === 'about-cv' && (
+                        <CurriculumContentForm
+                            aboutPageContent={aboutPageContent}
+                            handleLoadAboutPageContent={handleLoadAboutPageContent}
+                            loaderDisplay={loaderDisplay}
+                            setLoaderDisplay={setLoaderDisplay}
+                        />
+                    )}
 
-                        <div className='edit_content_section_subSection'>
-                            <h3 className='edit_content_section_subSection_title'>Photo pleine largeur 1</h3>
-                            <AboutPhotoForm
-                                label='la photo 1'
-                                fieldName='photo1'
-                                currentImageUrl={aboutPageContent?.photo1Url}
-                                defaultImageUrl={skyline}
-                                handleLoadAboutPageContent={handleLoadAboutPageContent}
-                                loaderDisplay={loaderDisplay}
-                                setLoaderDisplay={setLoaderDisplay}
-                            />
-                        </div>
+                    {activeSection === 'about-photo2' && (
+                        <AboutPhotoForm
+                            label='la photo 2'
+                            fieldName='photo2'
+                            currentImageUrl={aboutPageContent?.photo2Url}
+                            defaultImageUrl={ensase}
+                            handleLoadAboutPageContent={handleLoadAboutPageContent}
+                            loaderDisplay={loaderDisplay}
+                            setLoaderDisplay={setLoaderDisplay}
+                        />
+                    )}
 
-                        <div className='edit_content_section_subSection'>
-                            <h3 className='edit_content_section_subSection_title'>CV</h3>
-                            <CurriculumContentForm
-                                aboutPageContent={aboutPageContent}
-                                handleLoadAboutPageContent={handleLoadAboutPageContent}
-                                loaderDisplay={loaderDisplay}
-                                setLoaderDisplay={setLoaderDisplay}
-                            />
-                        </div>
-
-                        <div className='edit_content_section_subSection'>
-                            <h3 className='edit_content_section_subSection_title'>Photo pleine largeur 2</h3>
-                            <AboutPhotoForm
-                                label='la photo 2'
-                                fieldName='photo2'
-                                currentImageUrl={aboutPageContent?.photo2Url}
-                                defaultImageUrl={ensase}
-                                handleLoadAboutPageContent={handleLoadAboutPageContent}
-                                loaderDisplay={loaderDisplay}
-                                setLoaderDisplay={setLoaderDisplay}
-                            />
-                        </div>
-
-                        <div className='edit_content_section_subSection'>
-                            <h3 className='edit_content_section_subSection_title'>Liens amis</h3>
+                    {activeSection === 'about-links' && (
+                        <>
                             <EditFriendUrlsList
                                 friendUrls={friendUrlsList}
                                 handleEditFriendUrl={handleEditFriendUrl}
@@ -452,34 +514,32 @@ function Edit() {
                             >
                                 + AJOUTER UN LIEN +
                             </button>
-                        </div>
-                    </section>
-                )}
+                        </>
+                    )}
 
-                {/* EDITION FAQ */}
-                {activeSection === 'faq' && (
-                    <section className='edit_content_section'>
-                        <h2 className='edit_content_section_title'>FAQ</h2>
+                    {/* EDITION FAQ */}
+                    {activeSection === 'faq' && (
+                        <>
+                            <EditFaqItemsList
+                                faqItems={faqItemsList}
+                                handleEditFaqItem={handleEditFaqItem}
+                                handleLoadFaqItems={handleLoadFaqItems}
+                                loaderDisplay={loaderDisplay}
+                                setLoaderDisplay={setLoaderDisplay}
+                            />
 
-                        <EditFaqItemsList
-                            faqItems={faqItemsList}
-                            handleEditFaqItem={handleEditFaqItem}
-                            handleLoadFaqItems={handleLoadFaqItems}
-                            loaderDisplay={loaderDisplay}
-                            setLoaderDisplay={setLoaderDisplay}
-                        />
-
-                        <button
-                            className='edit_content_section_addButton'
-                            onClick={() => {
-                                setDisplayFaqItemForm(true);
-                                setFaqItemFormMode('add');
-                            }}
-                        >
-                            + AJOUTER UNE QUESTION +
-                        </button>
-                    </section>
-                )}
+                            <button
+                                className='edit_content_section_addButton'
+                                onClick={() => {
+                                    setDisplayFaqItemForm(true);
+                                    setFaqItemFormMode('add');
+                                }}
+                            >
+                                + AJOUTER UNE QUESTION +
+                            </button>
+                        </>
+                    )}
+                </section>
             </div>
 
             {displayProjectForm === true && (

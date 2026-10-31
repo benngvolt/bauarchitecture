@@ -22,6 +22,15 @@
         width: 50%;
         margin: 0 auto $minimalSpace;
 
+        @media only screen and (min-width: $padMinWidth) and (max-width: $padMaxWidth) {
+            width: 70%;
+        }
+
+        @media only screen and (max-width: $mobileMaxWidth) {
+            width: auto;
+            margin: 0 $minimalSpace $minimalSpace;
+        }
+
         &_description {
             @include mainText;
             color: $colorLightGrey;

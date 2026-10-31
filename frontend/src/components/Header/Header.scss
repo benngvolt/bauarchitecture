@@ -90,6 +90,7 @@
                     font-family: $mainFont;
                     font-size: $fontSize4;
                     text-transform: uppercase;
+                    white-space: nowrap;
 
                     @media only screen and (min-width: $padMinWidth) and (max-width: $padMaxWidth){
                         font-size: $fontSize5;
@@ -130,7 +131,13 @@
 
         &_buttonContainer {
             margin: auto 0 auto $minimalSpace;
-            
+            white-space: nowrap;
+
+            // En dessous de 1150 px (tablette, mobile, petits portables), le bouton ne tient pas avec le menu ;
+            // le contact reste accessible par le bouton du hero et la section finale.
+            @media only screen and (max-width: 1150px) {
+                display: none;
+            }
         }
         button {
             @include Column;

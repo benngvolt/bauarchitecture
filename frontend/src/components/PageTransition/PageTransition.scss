@@ -1,5 +1,8 @@
 @import '../../utils/mixins';
 
+// `backwards` et non `forwards` : une fois le fondu terminé, l'animation ne maintient plus
+// de contexte d'empilement, sinon les fenêtres modales (formulaires du tableau de bord)
+// restent coincées sous l'en-tête fixe, bouton « fermer » compris.
 .pageTransition {
-    animation: apparition 0.5s ease forwards;
+    animation: apparition 0.5s ease backwards;
 }

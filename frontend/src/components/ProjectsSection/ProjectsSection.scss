@@ -21,6 +21,15 @@
         width: 50%;
         margin: 0 auto $minimalSpace;
 
+        @media only screen and (min-width: $padMinWidth) and (max-width: $padMaxWidth) {
+            width: 70%;
+        }
+
+        @media only screen and (max-width: $mobileMaxWidth) {
+            width: auto;
+            margin: 0 $minimalSpace $minimalSpace;
+        }
+
         &_description {
             @include mainText;
 
@@ -43,6 +52,11 @@
         padding: 0;
 
         list-style: none;
+
+        // Mobile : un projet par ligne, sinon les vignettes et leurs titres sont trop étroits.
+        @media only screen and (max-width: $mobileMaxWidth) {
+            grid-template-columns: minmax(0, 1fr);
+        }
 
         &_item {
             width: 100%;
@@ -83,6 +97,10 @@
                         text-transform: uppercase;
                         color: $colorLightGrey;
                         transition: color 0.3s ease;
+
+                        @media only screen and (min-width: $padMinWidth) and (max-width: $padMaxWidth) {
+                            @include fontSize4;
+                        }
                     }
                 }
             }

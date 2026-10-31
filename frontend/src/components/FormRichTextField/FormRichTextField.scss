@@ -1,7 +1,8 @@
 @import '../../utils/mixins';
 
 .formRichtextField {
-    width: 800px;
+    width: 100%;
+    max-width: 800px;
     margin: 45px auto;
     @include Column;
     row-gap: 22px;

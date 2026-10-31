@@ -85,3 +85,39 @@
         }
     }
 }
+
+
+@media only screen and (min-width: $padMinWidth) and (max-width: $padMaxWidth) {
+    .approach {
+        padding: $minimalSpace calc($minimalSpace / 2);
+
+        &_list_item {
+            padding: calc($minimalSpace / 2);
+        }
+    }
+}
+
+// Mobile : une seule colonne, séparée par des filets horizontaux.
+@media only screen and (max-width: $mobileMaxWidth) {
+    .approach {
+        gap: $minimalSpace;
+        padding: $minimalSpace calc($minimalSpace / 2);
+
+        &_list {
+            grid-template-columns: minmax(0, 1fr);
+
+            &_item {
+                min-height: 0;
+                padding: calc($minimalSpace / 2);
+
+                &:not(:nth-child(3n)):not(:last-child) {
+                    border-right: none;
+                }
+
+                &:nth-child(n + 2) {
+                    border-top: 1px solid rgba($colorLightGrey, 0.5);
+                }
+            }
+        }
+    }
+}

@@ -110,6 +110,11 @@ $headerHeight: 100px;
     padding-left: 45px;
     padding-right: 45px;
     box-sizing: border-box;
+
+    @media only screen and (max-width: $mobileMaxWidth) {
+        padding-left: 22px;
+        padding-right: 22px;
+    }
 }
 
 @mixin CaptionBoxCommons {
@@ -136,7 +141,11 @@ $headerHeight: 100px;
     p {
         text-align: justify;
         font-family: $mainFont;
-        font-size: $fontSize4
+        font-size: $fontSize4;
+
+        @media only screen and (max-width: $mobileMaxWidth) {
+            text-align: left;
+        }
     }
 
     ul {
@@ -171,6 +180,14 @@ $headerHeight: 100px;
 @mixin AllOverPaddings {
     padding: 100px;
     box-sizing: border-box;
+
+    @media only screen and (min-width: $padMinWidth) and (max-width: $padMaxWidth) {
+        padding: 45px;
+    }
+
+    @media only screen and (max-width: $mobileMaxWidth) {
+        padding: 22px;
+    }
 }
 
 @mixin ModalBase {
@@ -205,6 +222,11 @@ $headerHeight: 100px;
     font-family: $mainFont;
     color: $colorDarkGrey;
     text-align: justify;
+
+    // Sur écran étroit, le texte justifié crée de grands blancs entre les mots.
+    @media only screen and (max-width: $mobileMaxWidth) {
+        text-align: left;
+    }
 }
 
 @media only screen and (min-width: $padMinWidth) and (max-width: $padMaxWidth){

@@ -10,6 +10,10 @@
         width: 50%;
         margin: auto;
         text-align: center;
+
+        @media only screen and (max-width: $mobileMaxWidth) {
+            width: 100%;
+        }
         font-family: $mainFont;
         font-size: $fontSize4;
         color: $color2;
@@ -18,6 +22,10 @@
     &_sampleContainer {
         width: 50%;
         margin: auto;
+
+        @media only screen and (max-width: $mobileMaxWidth) {
+            width: 100%;
+        }
 
         &_image {
             width: 100%;

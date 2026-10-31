@@ -6,6 +6,10 @@
     row-gap: calc($minimalSpace / 2);
     padding: calc(2*$minimalSpace) $minimalSpace;
     // background-color: $colorDarkGrey;
+
+    @media only screen and (max-width: $mobileMaxWidth) {
+        padding: $minimalSpace calc($minimalSpace / 2);
+    }
     h2 {
         @include mainText;
         @include fontSize2;
@@ -22,10 +26,30 @@
         list-style: none;
         min-height: calc(6*$minimalSpace);
 
+        // Tablette : deux colonnes ; mobile : une seule, séparée par des filets horizontaux.
+        @media only screen and (min-width: $padMinWidth) and (max-width: $padMaxWidth) {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            row-gap: $minimalSpace;
+            min-height: 0;
+        }
+
+        @media only screen and (max-width: $mobileMaxWidth) {
+            grid-template-columns: minmax(0, 1fr);
+            row-gap: $minimalSpace;
+            min-height: 0;
+        }
+
         &_item {
             @include Row;
             box-sizing: border-box;
             position: relative;
+
+            // Tablette : pas de séparateur après la 2e colonne.
+            @media only screen and (min-width: $padMinWidth) and (max-width: $padMaxWidth) {
+                &:nth-child(2n)::after {
+                    display: none;
+                }
+            }
 
             &:not(:last-child)::after {
                 content: "";
@@ -38,6 +62,15 @@
                 height: 70%;
 
                 background-color: $colorDarkGrey;
+
+                // Les séparateurs verticaux n'ont plus de sens une fois les étapes empilées.
+                @media only screen and (max-width: $mobileMaxWidth) {
+                    top: auto;
+                    bottom: calc(-#{$minimalSpace} / 2);
+                    right: 0;
+                    width: 100%;
+                    height: 1px;
+                }
             }
 
             &_content {

@@ -9,6 +9,7 @@
 
     @media only screen and (max-width: $mobileMaxWidth) {
         flex-direction: column;
+        margin-top: calc($headerHeight + 20px);
     }
 
     &_sidebar {
@@ -16,13 +17,15 @@
         flex-shrink: 0;
         position: sticky;
         top: calc($headerHeight + 20px);
-        border-right: 1px solid $colorLightGrey;
+        border-right: 1px solid rgba($colorDarkGrey, 0.25);
 
         @media only screen and (max-width: $mobileMaxWidth) {
             width: 100%;
             position: static;
             border-right: none;
-            border-bottom: 1px solid $colorLightGrey;
+            border-bottom: 1px solid rgba($colorDarkGrey, 0.25);
+            padding: 0 calc($minimalSpace / 2) calc($minimalSpace / 2);
+            box-sizing: border-box;
         }
 
         &_list {
@@ -31,25 +34,104 @@
             padding: 0;
             @include Column;
 
-            &_button {
-                width: 100%;
-                text-align: left;
-                padding: 25px calc($minimalSpace / 2);
-                border: none;
-                background: none;
-                font-family: $mainFont;
-                font-size: $fontSize4;
-                color: $colorDarkGrey;
-                box-sizing: border-box;
+            // Mobile : les entrées deviennent des pastilles sur plusieurs lignes,
+            // et les sous-parties de l'entrée ouverte s'affichent sur leur propre ligne, en dessous.
+            @media only screen and (max-width: $mobileMaxWidth) {
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 8px;
+            }
 
-                &:hover {
-                    cursor: pointer;
-                    background-color: $colorLightGrey;
+            &_item {
+                @media only screen and (max-width: $mobileMaxWidth) {
+                    display: contents;
                 }
 
-                &--active {
-                    background-color: $colorLightGrey;
-                    font-weight: bold;
+                &_button {
+                    width: 100%;
+                    text-align: left;
+                    padding: 22px calc($minimalSpace / 2);
+                    border: none;
+                    background: none;
+                    font-family: $mainFont;
+                    font-size: $fontSize4;
+                    color: $colorDarkGrey;
+                    box-sizing: border-box;
+
+                    &:hover {
+                        cursor: pointer;
+                        background-color: rgba($colorDarkGrey, 0.06);
+                    }
+
+                    &--active {
+                        background-color: rgba($colorDarkGrey, 0.12);
+                        font-weight: bold;
+                    }
+
+                    @media only screen and (max-width: $mobileMaxWidth) {
+                        width: auto;
+                        padding: 10px 14px;
+                        border: 1px solid rgba($colorDarkGrey, 0.25);
+                        border-radius: 20px;
+                        font-size: $fontSize5;
+
+                        &--active {
+                            border-color: $colorDarkGrey;
+                        }
+                    }
+                }
+
+                &_subList {
+                    list-style-type: none;
+                    margin: 0;
+                    padding: 0 0 10px;
+                    background-color: rgba($colorDarkGrey, 0.06);
+                    @include Column;
+
+                    @media only screen and (max-width: $mobileMaxWidth) {
+                        order: 1;
+                        flex: 1 1 100%;
+                        flex-direction: row;
+                        flex-wrap: wrap;
+                        gap: 8px;
+                        padding: 8px 0 0;
+                        background: none;
+                        border-top: 1px solid rgba($colorDarkGrey, 0.25);
+                    }
+
+                    &_button {
+                        width: 100%;
+                        text-align: left;
+                        padding: 10px calc($minimalSpace / 2) 10px calc($minimalSpace);
+                        border: none;
+                        border-left: 3px solid transparent;
+                        background: none;
+                        font-family: $mainFont;
+                        font-size: $fontSize5;
+                        color: $colorDarkGrey;
+                        box-sizing: border-box;
+
+                        &:hover {
+                            cursor: pointer;
+                            color: $color1;
+                        }
+
+                        &--active {
+                            border-left-color: $colorDarkGrey;
+                            font-weight: bold;
+                        }
+
+                        @media only screen and (max-width: $mobileMaxWidth) {
+                            width: auto;
+                            padding: 6px 12px;
+                            border: none;
+                            border-bottom: 2px solid transparent;
+
+                            &--active {
+                                border-bottom-color: $colorDarkGrey;
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -66,16 +148,43 @@
         &_section {
             width: 100%;
 
+            &_header {
+                margin: 50px 0 40px;
+
+                @media only screen and (max-width: $mobileMaxWidth) {
+                    margin: 30px 0 30px;
+                }
+
+                &_kicker {
+                    margin: 0 0 6px;
+                    font-family: $mainFont;
+                    font-size: $fontSize5;
+                    letter-spacing: 0.08em;
+                    color: $color1;
+                }
+
+                &_description {
+                    margin: 10px 0 0;
+                    font-family: $mainFont;
+                    font-size: $fontSize4;
+                    color: $color1;
+                }
+            }
+
             &_title {
                 @include mainText;
                 @include fontSize2;
-                margin: 50px 0;
+                margin: 0;
             }
 
             &_addButton {
                 @include Row;
                 justify-content: center;
                 margin: 100px auto;
+
+                @media only screen and (max-width: $mobileMaxWidth) {
+                    margin: $minimalSpace auto;
+                }
                 border: none;
                 font-family: $mainFont;
                 font-size: $fontSize3;
@@ -99,22 +208,6 @@
                 font-family: $mainFont;
                 font-size: $fontSize5;
                 color: $color1;
-            }
-
-            &_subSection {
-                margin: 0 0 80px;
-                padding-bottom: 60px;
-                border-bottom: 1px solid $colorLightGrey;
-
-                &:last-child {
-                    border-bottom: none;
-                }
-
-                &_title {
-                    @include mainText;
-                    @include fontSize3;
-                    margin: 0 0 30px;
-                }
             }
         }
     }

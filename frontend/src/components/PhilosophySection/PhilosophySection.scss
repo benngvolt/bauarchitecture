@@ -72,8 +72,9 @@
 
 @media screen and (max-width: 768px) {
     .philosophy {
-        margin: $minimalSpace 0;
-        padding: 0 $minimalSpace;
+        // Le haut de la page doit passer sous l'en-tête fixe.
+        margin: calc($headerHeight + $minimalSpace / 2) 0 $minimalSpace;
+        padding: 0 calc($minimalSpace / 2);
 
         h2 {
             margin-bottom: $minimalSpace;

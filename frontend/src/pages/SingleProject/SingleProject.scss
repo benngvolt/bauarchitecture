@@ -16,6 +16,11 @@
       width: 100%;
       min-height: calc(100vh - 250px);
 
+      @media only screen and (max-width: $mobileMaxWidth) {
+        min-height: 0;
+        margin: $minimalSpace 0;
+      }
+
       &_title {
         @include Column;
         justify-content: center;
@@ -96,6 +101,11 @@
       margin: 100px auto;
       min-height: 100vh;
       width: 100%;
+
+      @media only screen and (max-width: $mobileMaxWidth) {
+        margin: $minimalSpace auto;
+        min-height: 0;
+      }
 
       &_grid {
         display: grid;
@@ -194,6 +204,12 @@
         height: 80vh;
         object-fit: contain;
         margin: 0 auto;
+
+        // Mobile : l'image garde ses proportions plutôt que d'être centrée dans 80 % de la hauteur d'écran.
+        @media only screen and (max-width: $mobileMaxWidth) {
+          height: auto;
+          max-height: 80vh;
+        }
 
         &:hover {
           cursor: pointer;

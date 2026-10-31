@@ -29,6 +29,14 @@
         width: 100%;
         @include Row;
         justify-content: flex-end;
+
+        // Mobile : le bouton se cale dans l'angle du formulaire (qui occupe 90 % de l'écran).
+        @media only screen and (max-width: $mobileMaxWidth) {
+            top: 52px;
+            right: 32px;
+            width: auto;
+        }
+
         button {
             font-family: $mainFont;
             font-size: $fontSize4;
