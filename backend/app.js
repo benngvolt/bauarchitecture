@@ -28,6 +28,8 @@ const processStepsRoutes = require('./routes/processSteps');
 const aboutPageContentRoutes = require('./routes/aboutPageContent');
 const friendUrlsRoutes = require('./routes/friendUrls');
 const faqItemsRoutes = require('./routes/faqItems');
+const featuredProjectsRoutes = require('./routes/featuredProjects');
+const approachSettingsRoutes = require('./routes/approachSettings');
 
 
 /* --------------------------------------------------------
@@ -103,6 +105,8 @@ app.use('/api/process-steps', processStepsRoutes);
 app.use('/api/about-page-content', aboutPageContentRoutes);
 app.use('/api/friend-urls', friendUrlsRoutes);
 app.use('/api/faq-items', faqItemsRoutes);
+app.use('/api/featured-projects', featuredProjectsRoutes);
+app.use('/api/approach-settings', approachSettingsRoutes);
 
 
 /* --------------------------------------------------------

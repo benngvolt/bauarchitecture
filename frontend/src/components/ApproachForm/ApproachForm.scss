@@ -1,0 +1,100 @@
+@import '../../utils/mixins';
+
+.approachForm {
+    width: 100%;
+    @include Column;
+    align-items: center;
+    row-gap: 22px;
+
+    &_text {
+        width: 60%;
+        margin: auto;
+        text-align: center;
+        font-family: $mainFont;
+        font-size: $fontSize4;
+        color: $color2;
+    }
+
+    &_items {
+        @include Column;
+        row-gap: 22px;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+
+        &_item {
+            @include Column;
+            align-items: center;
+            row-gap: 14px;
+            padding: 14px 0;
+            border-top: 1px solid $color1;
+
+            &_header {
+                @include Row;
+                align-items: center;
+                justify-content: space-between;
+                width: 100%;
+                max-width: 560px;
+
+                span {
+                    font-family: $mainFont;
+                    font-size: $fontSize5;
+                    font-weight: bold;
+                    color: $color2;
+                }
+
+                &_actions {
+                    @include Row;
+                    column-gap: 14px;
+
+                    button {
+                        border: none;
+                        background: none;
+                        font-family: $mainFont;
+                        font-size: $fontSize5;
+                        font-weight: bold;
+                        color: $colorDarkGrey;
+
+                        &:hover:not(:disabled) {
+                            color: $color1;
+                            cursor: pointer;
+                        }
+
+                        &:disabled {
+                            color: $color1;
+                            opacity: 0.35;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    &_buttonsContainer {
+        @include Row;
+        column-gap: 22px;
+        justify-content: center;
+
+        button {
+            border: none;
+            font-weight: bold;
+            background: none;
+            font-family: $mainFont;
+            font-size: $fontSize5;
+            color: $colorDarkGrey;
+
+            &:hover {
+                color: $color1;
+                cursor: pointer;
+            }
+        }
+    }
+
+    &_status {
+        margin: 0;
+        font-family: $mainFont;
+        font-size: $fontSize5;
+        color: $color2;
+    }
+}

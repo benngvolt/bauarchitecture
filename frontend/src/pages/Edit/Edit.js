@@ -3,6 +3,9 @@ import ProjectForm from '../../components/ProjectForm/ProjectForm';
 import ArticleForm from '../../components/ArticleForm/ArticleForm';
 import ReassuranceItemForm from '../../components/ReassuranceItemForm/ReassuranceItemForm';
 import HeroImageForm from '../../components/HeroImageForm/HeroImageForm';
+import HeroTextsForm from '../../components/HeroTextsForm/HeroTextsForm';
+import FeaturedProjectsForm from '../../components/FeaturedProjectsForm/FeaturedProjectsForm';
+import ApproachForm from '../../components/ApproachForm/ApproachForm';
 import ProcessStepForm from '../../components/ProcessStepForm/ProcessStepForm';
 import PhilosophyContentForm from '../../components/PhilosophyContentForm/PhilosophyContentForm';
 import AboutPhotoForm from '../../components/AboutPhotoForm/AboutPhotoForm';
@@ -25,9 +28,11 @@ const MAX_REASSURANCE_ITEMS = 3;
 
 const SECTIONS = [
     { key: 'projects', label: 'PROJETS' },
+    { key: 'featured', label: 'PROJETS À LA UNE' },
     { key: 'articles', label: 'ARTICLES' },
     { key: 'reassurance', label: 'ARGUMENTS DE RÉASSURANCE' },
-    { key: 'hero', label: 'IMAGES DU HERO' },
+    { key: 'hero', label: 'HERO' },
+    { key: 'approach', label: 'APPROCHE' },
     { key: 'process', label: 'ÉTAPES DU PROCESSUS' },
     { key: 'about', label: 'PAGE À PROPOS' },
     { key: 'faq', label: 'FAQ' },
@@ -43,6 +48,8 @@ function Edit() {
         handleLoadAboutPageContent,
         handleLoadFriendUrls,
         handleLoadFaqItems,
+        handleLoadFeaturedProjects,
+        handleLoadApproachSettings,
         projects,
         articles,
         reassuranceItems,
@@ -51,6 +58,8 @@ function Edit() {
         aboutPageContent,
         friendUrls,
         faqItems,
+        featuredProjects,
+        approachSettings,
         loaderDisplay,
         setLoaderDisplay,
         setDisplayNavSection,
@@ -299,15 +308,57 @@ function Edit() {
                     </section>
                 )}
 
-                {/* EDITION IMAGE DE FOND DU HERO */}
+                {/* EDITION PROJETS À LA UNE (PAGE D'ACCUEIL) */}
+                {activeSection === 'featured' && (
+                    <section className='edit_content_section'>
+                        <h2 className='edit_content_section_title'>Projets à la une</h2>
+
+                        <FeaturedProjectsForm
+                            projects={projects}
+                            featuredProjects={featuredProjects}
+                            handleLoadFeaturedProjects={handleLoadFeaturedProjects}
+                            loaderDisplay={loaderDisplay}
+                            setLoaderDisplay={setLoaderDisplay}
+                        />
+                    </section>
+                )}
+
+                {/* EDITION DU HERO : TEXTES ET IMAGES DE FOND */}
                 {activeSection === 'hero' && (
                     <section className='edit_content_section'>
-                        <h2 className='edit_content_section_title'>Images du hero</h2>
+                        <h2 className='edit_content_section_title'>Hero</h2>
 
-                        <HeroImageForm
-                            heroSettings={heroSettings}
-                            defaultHeroImageUrl={defaultHeroImageUrl}
-                            handleLoadHeroSettings={handleLoadHeroSettings}
+                        <div className='edit_content_section_subSection'>
+                            <h3 className='edit_content_section_subSection_title'>Textes</h3>
+                            <HeroTextsForm
+                                heroSettings={heroSettings}
+                                handleLoadHeroSettings={handleLoadHeroSettings}
+                                loaderDisplay={loaderDisplay}
+                                setLoaderDisplay={setLoaderDisplay}
+                            />
+                        </div>
+
+                        <div className='edit_content_section_subSection'>
+                            <h3 className='edit_content_section_subSection_title'>Images de fond</h3>
+                            <HeroImageForm
+                                heroSettings={heroSettings}
+                                defaultHeroImageUrl={defaultHeroImageUrl}
+                                handleLoadHeroSettings={handleLoadHeroSettings}
+                                loaderDisplay={loaderDisplay}
+                                setLoaderDisplay={setLoaderDisplay}
+                            />
+                        </div>
+                    </section>
+                )}
+
+                {/* EDITION DE LA SECTION APPROCHE (PAGE D'ACCUEIL) */}
+                {activeSection === 'approach' && (
+                    <section className='edit_content_section'>
+                        <h2 className='edit_content_section_title'>Approche</h2>
+
+                        <ApproachForm
+                            approachSettings={approachSettings}
+                            handleLoadApproachSettings={handleLoadApproachSettings}
                             loaderDisplay={loaderDisplay}
                             setLoaderDisplay={setLoaderDisplay}
                         />

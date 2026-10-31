@@ -24,4 +24,26 @@
         font-family: $mainFont;
         font-size: $fontSize4;
     }
+
+    // Variante multiligne (textarea) : plus large, libellé aligné en haut.
+    &--multiline {
+        width: 100%;
+        max-width: 760px;
+        align-items: flex-start;
+
+        label {
+            flex-shrink: 0;
+        }
+
+        textarea {
+            flex: 1;
+            min-width: 0;
+            padding: 6px 8px;
+            border: 1px solid $color1;
+            background-color: $colorLightGrey;
+            font-family: $mainFont;
+            font-size: $fontSize4;
+            resize: vertical;
+        }
+    }
 }

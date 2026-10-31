@@ -11,11 +11,14 @@ const FormSimpleField = forwardRef(
             value,
             onChangeFunction,
             options,
+            multiline = false,
+            rows = 4,
+            maxLength,
         },
         ref
     ) => {
         return (
-            <div className='formSimpleField'>
+            <div className={multiline ? 'formSimpleField formSimpleField--multiline' : 'formSimpleField'}>
                 <label htmlFor={htmlFor}>{label}</label>
 
                 {options ? (
@@ -40,6 +43,17 @@ const FormSimpleField = forwardRef(
                             </option>
                         ))}
                     </select>
+                ) : multiline ? (
+                    <textarea
+                        id={id}
+                        ref={ref}
+                        rows={rows}
+                        maxLength={maxLength}
+                        value={value}
+                        onChange={(e) =>
+                            onChangeFunction(e.target.value)
+                        }
+                    />
                 ) : (
                     <input
                         type={type}

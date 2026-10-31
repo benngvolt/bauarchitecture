@@ -13,6 +13,8 @@ export const ProjectsProvider = ({ children }) => {
     const [aboutPageContent, setAboutPageContent] = useState(null);
     const [friendUrls, setFriendUrls] = useState([]);
     const [faqItems, setFaqItems] = useState([]);
+    const [featuredProjects, setFeaturedProjects] = useState(null);
+    const [approachSettings, setApproachSettings] = useState(null);
 
     const [loadProjects, setLoadProjects] = useState(false);
     const [loadArticles, setLoadArticles] = useState(false);
@@ -23,6 +25,8 @@ export const ProjectsProvider = ({ children }) => {
     const [loadAboutPageContent, setLoadAboutPageContent] = useState(false);
     const [loadFriendUrls, setLoadFriendUrls] = useState(false);
     const [loadFaqItems, setLoadFaqItems] = useState(false);
+    const [loadFeaturedProjects, setLoadFeaturedProjects] = useState(false);
+    const [loadApproachSettings, setLoadApproachSettings] = useState(false);
 
     const [displayNavSection, setDisplayNavSection] = useState(false);
     const [loaderDisplay, setLoaderDisplay] = useState(false);
@@ -111,6 +115,21 @@ export const ProjectsProvider = ({ children }) => {
     useEffect(() => {
         setLoaderDisplay(true);
 
+        fetch(`${API_URL}/api/approach-settings`)
+            .then((res) => res.json())
+            .then((data) => {
+                setApproachSettings(data);
+                setLoaderDisplay(false);
+            })
+            .catch((error) => {
+                console.log(error.message);
+                setLoaderDisplay(false);
+            });
+    }, [loadApproachSettings]);
+
+    useEffect(() => {
+        setLoaderDisplay(true);
+
         fetch(`${API_URL}/api/process-steps`)
             .then((res) => res.json())
             .then((data) => {
@@ -169,6 +188,21 @@ export const ProjectsProvider = ({ children }) => {
     }, [loadFaqItems]);
 
     useEffect(() => {
+        setLoaderDisplay(true);
+
+        fetch(`${API_URL}/api/featured-projects`)
+            .then((res) => res.json())
+            .then((data) => {
+                setFeaturedProjects(data);
+                setLoaderDisplay(false);
+            })
+            .catch((error) => {
+                console.log(error.message);
+                setLoaderDisplay(false);
+            });
+    }, [loadFeaturedProjects]);
+
+    useEffect(() => {
         setWelcomeDisplay(true);
 
         setTimeout(function () {
@@ -212,6 +246,14 @@ export const ProjectsProvider = ({ children }) => {
         setLoadFaqItems(loadFaqItems === false ? true : false);
     };
 
+    const handleLoadFeaturedProjects = () => {
+        setLoadFeaturedProjects(loadFeaturedProjects === false ? true : false);
+    };
+
+    const handleLoadApproachSettings = () => {
+        setLoadApproachSettings(loadApproachSettings === false ? true : false);
+    };
+
     return (
         <ProjectsContext.Provider
             value={{
@@ -225,6 +267,8 @@ export const ProjectsProvider = ({ children }) => {
                 handleLoadAboutPageContent,
                 handleLoadFriendUrls,
                 handleLoadFaqItems,
+                handleLoadFeaturedProjects,
+                handleLoadApproachSettings,
                 articles,
                 drawings,
                 reassuranceItems,
@@ -233,6 +277,8 @@ export const ProjectsProvider = ({ children }) => {
                 aboutPageContent,
                 friendUrls,
                 faqItems,
+                featuredProjects,
+                approachSettings,
                 displayNavSection,
                 setDisplayNavSection,
                 loaderDisplay,

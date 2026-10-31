@@ -8,6 +8,10 @@ const deleteImages = require('../middlewares/deleteImages').deleteImages;
 router.get('/',
             heroSettingsCtrl.getHeroSettings);
 
+router.put('/texts',
+            // auth,
+            heroSettingsCtrl.updateHeroTexts);
+
 router.post('/images',
             // auth,
             multer.fields([

@@ -1,0 +1,76 @@
+@import '../../utils/mixins';
+
+.featuredProjectsForm {
+    width: 100%;
+    @include Column;
+    align-items: center;
+    row-gap: 22px;
+
+    &_text {
+        width: 60%;
+        margin: auto;
+        text-align: center;
+        font-family: $mainFont;
+        font-size: $fontSize4;
+        color: $color2;
+    }
+
+    &_slots {
+        @include Column;
+        row-gap: 14px;
+        width: 100%;
+        max-width: 560px;
+
+        &_slot {
+            @include Row;
+            align-items: center;
+            column-gap: 22px;
+
+            label {
+                flex-shrink: 0;
+                width: 120px;
+                text-align: right;
+                font-family: $mainFont;
+                font-size: $fontSize4;
+            }
+
+            select {
+                flex: 1;
+                min-width: 0;
+                padding: 6px 8px;
+                border: 1px solid $color1;
+                background-color: $colorLightGrey;
+                font-family: $mainFont;
+                font-size: $fontSize4;
+                color: $colorDarkGrey;
+            }
+        }
+    }
+
+    &_buttonsContainer {
+        @include Row;
+        column-gap: 22px;
+        justify-content: center;
+
+        button {
+            border: none;
+            font-weight: bold;
+            background: none;
+            font-family: $mainFont;
+            font-size: $fontSize5;
+            color: $colorDarkGrey;
+
+            &:hover {
+                color: $color1;
+                cursor: pointer;
+            }
+        }
+    }
+
+    &_status {
+        margin: 0;
+        font-family: $mainFont;
+        font-size: $fontSize5;
+        color: $color2;
+    }
+}

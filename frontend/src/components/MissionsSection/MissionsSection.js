@@ -1,38 +1,31 @@
 import './MissionsSection.scss';
 
-const MISSIONS = [
-    { key: 'construction', label: 'CONSTRUCTION' },
-    { key: 'renovation', label: 'RÉNOVATION' },
-    { key: 'extension', label: 'EXTENSION' },
-    { key: 'amenagements', label: 'AMÉNAGEMENTS' },
-];
+// Pictogrammes : remplacer les fichiers de src/assets (logo_*.svg) suffit à les changer.
+import { ReactComponent as LogoConstruction } from '../../assets/logo_construction.svg';
+import { ReactComponent as LogoRenovation } from '../../assets/logo_renovation.svg';
+import { ReactComponent as LogoExtension } from '../../assets/logo_extension.svg';
+import { ReactComponent as LogoAmenagements } from '../../assets/logo_amenagements.svg';
 
-// Icône leurre en attendant les SVG définitifs.
-function PlaceholderIcon({ className }) {
-    return (
-        <svg
-            className={className}
-            viewBox='0 0 24 24'
-            fill='none'
-            stroke='currentColor'
-            strokeWidth='1.5'
-            aria-hidden='true'
-        >
-            <rect x='3' y='3' width='18' height='18' rx='2' />
-            <path d='M3 15l4.5-4.5 3 3 6-6 4.5 4.5' />
-        </svg>
-    );
-}
+const MISSIONS = [
+    { key: 'construction', label: 'CONSTRUCTION', Icon: LogoConstruction },
+    { key: 'renovation', label: 'RÉNOVATION', Icon: LogoRenovation },
+    { key: 'extension', label: 'EXTENSION', Icon: LogoExtension },
+    { key: 'amenagements', label: 'AMÉNAGEMENTS', Icon: LogoAmenagements },
+];
 
 function MissionsSection() {
     return (
         <section className='missions'>
             <ul className='missions_list'>
-                {MISSIONS.map((mission) => (
-                    <li className='missions_list_item' key={mission.key}>
+                {MISSIONS.map(({ key, label, Icon }) => (
+                    <li className='missions_list_item' key={key}>
                         <div className='missions_list_item_content'>
-                            <PlaceholderIcon className='missions_list_item_content_icon' />
-                            <h3>{mission.label}</h3>
+                            <Icon
+                                className='missions_list_item_content_icon'
+                                aria-hidden='true'
+                                focusable='false'
+                            />
+                            <h3>{label}</h3>
                         </div>
                     </li>
                 ))}

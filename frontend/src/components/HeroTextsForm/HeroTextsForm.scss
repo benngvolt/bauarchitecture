@@ -1,0 +1,44 @@
+@import '../../utils/mixins';
+
+.heroTextsForm {
+    width: 100%;
+    @include Column;
+    align-items: center;
+    row-gap: 22px;
+
+    &_text {
+        width: 60%;
+        margin: auto;
+        text-align: center;
+        font-family: $mainFont;
+        font-size: $fontSize4;
+        color: $color2;
+    }
+
+    &_buttonsContainer {
+        @include Row;
+        column-gap: 22px;
+        justify-content: center;
+
+        button {
+            border: none;
+            font-weight: bold;
+            background: none;
+            font-family: $mainFont;
+            font-size: $fontSize5;
+            color: $colorDarkGrey;
+
+            &:hover {
+                color: $color1;
+                cursor: pointer;
+            }
+        }
+    }
+
+    &_status {
+        margin: 0;
+        font-family: $mainFont;
+        font-size: $fontSize5;
+        color: $color2;
+    }
+}

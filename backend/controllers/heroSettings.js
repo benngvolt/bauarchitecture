@@ -30,7 +30,12 @@ function formatHeroSettings(settings) {
     imageUrl: image.imageUrl,
   }));
 
-  return { images, imageUrl: images[0]?.imageUrl || null };
+  return {
+    images,
+    imageUrl: images[0]?.imageUrl || null,
+    title: settings?.title || '',
+    description: settings?.description || '',
+  };
 }
 
 /*----------------------------
@@ -151,12 +156,52 @@ exports.reorderHeroImages = async (req, res) => {
 };
 
 /*-------------------------------
+----- UPDATE HERO TEXTS ---------
+-------------------------------*/
+
+const MAX_HERO_TITLE_LENGTH = 300;
+const MAX_HERO_DESCRIPTION_LENGTH = 1500;
+
+exports.updateHeroTexts = async (req, res) => {
+  const { title, description } = req.body;
+
+  if (typeof title !== 'string' || typeof description !== 'string') {
+    return res.status(400).json({ error: 'Les champs "title" et "description" sont requis.' });
+  }
+
+  if (title.length > MAX_HERO_TITLE_LENGTH || description.length > MAX_HERO_DESCRIPTION_LENGTH) {
+    return res.status(400).json({ error: 'Texte trop long.' });
+  }
+
+  try {
+    const settings = await getOrCreateSettings();
+
+    settings.title = title.trim();
+    settings.description = description.trim();
+    await settings.save();
+
+    res.status(200).json({ message: 'Textes du hero mis à jour !' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Erreur lors de la mise à jour des textes du hero.' });
+  }
+};
+
+/*-------------------------------
 ----- RESET HERO IMAGES ---------
 -------------------------------*/
 
+// Ne réinitialise que les images : les textes du hero sont conservés.
 exports.deleteHeroSettings = async (req, res, next) => {
   try {
-    await HeroSettings.deleteMany({});
+    const settings = await HeroSettings.findOne();
+
+    if (settings) {
+      settings.images = [];
+      settings.imageUrl = undefined;
+      await settings.save();
+    }
+
     res.status(200).json({ message: 'Images du hero réinitialisées.' });
     next();
   } catch (error) {

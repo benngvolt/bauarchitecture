@@ -4,7 +4,7 @@ import { useContext, useEffect, useState } from 'react';
 
 import logo from '../../assets/bau_logo.png';
 import Button from '../../components/Button/Button';
-import { API_URL } from '../../utils/constants';
+import { API_URL, DEFAULT_HERO_TITLE, DEFAULT_HERO_DESCRIPTION } from '../../utils/constants';
 import { ProjectsContext } from '../../utils/ProjectsContext';
 
 // Durée d'affichage de chaque image du hero avant de passer à la suivante (ms).
@@ -131,14 +131,10 @@ function HeroSection() {
                     </div>
 
                     <div className='hero_mainContainer_descriptionContainer_content'>
-                        <h1>
-                            Réhabilitation, rénovation, extension et architecture sur
-                            mesure.
-                        </h1>
+                        <h1>{heroSettings?.title || DEFAULT_HERO_TITLE}</h1>
 
                         <p className='hero_mainContainer_descriptionContainer_content_description'>
-                            J’accompagne particuliers, entreprises et collectivités de
-                            la première réflexion jusqu’au chantier.
+                            {heroSettings?.description || DEFAULT_HERO_DESCRIPTION}
                         </p>
 
                         <div className='hero_mainContainer_descriptionContainer_content_buttonContainer'>

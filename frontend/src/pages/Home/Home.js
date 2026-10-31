@@ -12,6 +12,7 @@ import preparerImage from '../../assets/missions/preparer.webp';
 import superviserImage from '../../assets/missions/superviser.webp';
 import HeroSection from '../../components/HeroSection/HeroSection'
 import MissionsSection from '../../components/MissionsSection/MissionsSection';
+import ApproachSection from '../../components/ApproachSection/ApproachSection';
 import ProcessSection from '../../components/ProcessSection/ProcessSection';
 import ProjectsSection from '../../components/ProjectsSection/ProjectsSection';
 import PhilosophySection from '../../components/PhilosophySection/PhilosophySection';
@@ -70,6 +71,7 @@ function Home() {
             <HeroSection/>
             <MissionsSection/>
             <ProjectsSection/>
+            <ApproachSection/>
             <ProcessSection/>
             <LastSection/>
         </main>

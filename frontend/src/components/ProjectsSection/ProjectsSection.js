@@ -6,9 +6,11 @@ import { Link } from 'react-router-dom';
 import Button from '../../components/Button/Button';
 import { API_URL } from '../../utils/constants';
 import { ProjectsContext } from '../../utils/ProjectsContext';
+import { getDisplayedFeaturedProjects } from '../../utils/featuredProjects';
 
 function ProjectsSection() {
-    const { projects } = useContext(ProjectsContext);
+    const { projects, featuredProjects } = useContext(ProjectsContext);
+    const displayedProjects = getDisplayedFeaturedProjects(projects, featuredProjects);
 
     return (
         <section className='projects'>
@@ -23,7 +25,7 @@ function ProjectsSection() {
 
             
             <ul className='projects_list'>
-                {projects.slice(0, 3).map((project) => {
+                {displayedProjects.map((project) => {
                     const mainImage =
                         project.images?.[project.mainImageIndex];
 
