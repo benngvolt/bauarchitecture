@@ -52,7 +52,7 @@
                 text-transform: uppercase;
                 font-family: $mainFont;
                 font-weight: normal;
-                font-size: $fontSize4;
+                @include typeText;
             }
         }
 
@@ -71,7 +71,7 @@
              
                 display: flex;
                 @include mainText;
-                @include fontSize3;
+                @include typeTitle;
                 @media only screen and (min-width: $padMinWidth) and (max-width: $padMaxWidth){
                     padding-left: 30px;
                 }
@@ -88,16 +88,16 @@
 
                 &_title {
                     font-family: $mainFont;
-                    font-size: $fontSize4;
+                    @include typeText;
                     text-transform: uppercase;
                     white-space: nowrap;
 
                     @media only screen and (min-width: $padMinWidth) and (max-width: $padMaxWidth){
-                        font-size: $fontSize5;
+                        @include typeText;
                     }
                     
                     @media only screen and (max-width:$mobileMaxWidth){
-                        font-size: $fontSize5;
+                        @include typeText;
                     }  
                     &--bold {
                         font-weight: bold;
@@ -114,7 +114,7 @@
 
                 &_link {
                     @include mainText;
-                    @include fontSize3;
+                    @include typeTitle;
 
                     text-decoration: none;
 

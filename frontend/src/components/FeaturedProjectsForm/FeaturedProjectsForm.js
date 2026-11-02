@@ -1,4 +1,5 @@
 import './FeaturedProjectsForm.scss'
+import AdminField from '../AdminUI/AdminField'
 import Loader from '../Loader/Loader'
 import React, { useState, useEffect } from 'react'
 import { API_URL } from '../../utils/constants'
@@ -79,58 +80,78 @@ function FeaturedProjectsForm ({
         saveSelection([], 'Sélection automatique rétablie.');
     }
 
+    const savedIds = savedProjectIds.split(',').filter((projectId) =>
+        projects.some((project) => project._id === projectId)
+    );
+    const isModified = JSON.stringify(selectedIds.filter(Boolean)) !== JSON.stringify(savedIds);
+
     return (
-        <form className='featuredProjectsForm' onSubmit={handleSubmit}>
+        <form className='adminForm' onSubmit={handleSubmit}>
             {loaderDisplay === true &&
                 <Loader />
             }
 
-            <p className='featuredProjectsForm_text'>
-                <em>
-                    Choisissez les {FEATURED_PROJECTS_COUNT} projets présentés sur la page d'accueil, dans l'ordre d'affichage.
-                    Un emplacement laissé sur « Automatique » est complété avec les premiers projets de la liste.
-                </em>
+            <p className='adminIntro'>
+                Choisissez les {FEATURED_PROJECTS_COUNT} projets présentés sur la page d'accueil, dans l'ordre d'affichage.
+                Un emplacement laissé sur « Automatique » est complété avec les premiers projets de la liste.
             </p>
 
-            <div className='featuredProjectsForm_slots'>
-                {selectedIds.map((selectedId, slotIndex) => (
-                    <div className='featuredProjectsForm_slots_slot' key={slotIndex}>
-                        <label htmlFor={`inputFeaturedProject${slotIndex}`}>
-                            PROJET {slotIndex + 1}
-                        </label>
-                        <select
-                            id={`inputFeaturedProject${slotIndex}`}
-                            value={selectedId}
-                            onChange={(event) => handleSelectChange(slotIndex, event.target.value)}
-                        >
-                            <option value=''>Automatique</option>
-                            {projects.map((project) => (
-                                <option
-                                    key={project._id}
-                                    value={project._id}
-                                    disabled={selectedIds.includes(project._id) && selectedId !== project._id}
-                                >
-                                    {project.title}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
-                ))}
+            <div className='adminCard'>
+                {selectedIds.map((selectedId, slotIndex) => {
+                    const selectedProject = projects.find((project) => project._id === selectedId);
+                    const mainImage = selectedProject?.images?.[selectedProject.mainImageIndex] || selectedProject?.images?.[0];
+
+                    return (
+                        <div className='adminProjectSlot' key={slotIndex}>
+                            <div className='adminProjectSlot_thumb'>
+                                {mainImage?.imageUrl
+                                    ? <img src={`${API_URL}${mainImage.imageUrl}`} alt='' />
+                                    : <span aria-hidden='true'>{slotIndex + 1}</span>}
+                            </div>
+
+                            <AdminField
+                                id={`inputFeaturedProject${slotIndex}`}
+                                label={`Projet ${slotIndex + 1}`}
+                                as='select'
+                                value={selectedId}
+                                onChange={(projectId) => handleSelectChange(slotIndex, projectId)}
+                            >
+                                <option value=''>Automatique</option>
+                                {projects.map((project) => (
+                                    <option
+                                        key={project._id}
+                                        value={project._id}
+                                        disabled={selectedIds.includes(project._id) && selectedId !== project._id}
+                                    >
+                                        {project.title}
+                                    </option>
+                                ))}
+                            </AdminField>
+                        </div>
+                    );
+                })}
             </div>
 
-            <div className='featuredProjectsForm_buttonsContainer'>
-                <button type='submit'>ENREGISTRER</button>
+            <div className='adminActions'>
+                <button type='submit' className='adminButton' disabled={!isModified}>
+                    Enregistrer
+                </button>
 
                 {savedProjectIds && (
-                    <button type='button' onClick={resetSelection}>
-                        RÉTABLIR LA SÉLECTION AUTOMATIQUE
+                    <button type='button' className='adminButton adminButton--text' onClick={resetSelection}>
+                        Rétablir la sélection automatique
                     </button>
                 )}
-            </div>
 
-            {statusMessage && (
-                <p className='featuredProjectsForm_status' role='status'>{statusMessage}</p>
-            )}
+                {statusMessage && (
+                    <p
+                        className={statusMessage.startsWith('Erreur') ? 'adminStatus adminStatus--error' : 'adminStatus'}
+                        role='status'
+                    >
+                        {statusMessage}
+                    </p>
+                )}
+            </div>
         </form>
     )
 }

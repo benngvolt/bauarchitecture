@@ -46,7 +46,7 @@
       object-fit: cover;
       animation: appear 1s ease forwards;
       font-family: $mainFont;
-      font-size: $fontSize1;
+      @include typeConcept;
       text-transform: uppercase;
       margin: 0;
       cursor: pointer;

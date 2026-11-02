@@ -1,5 +1,4 @@
-import './ReassuranceItemForm.scss'
-import FormSimpleField from '../FormSimpleField/FormSimpleField'
+import AdminField from '../AdminUI/AdminField'
 import Loader from '../Loader/Loader'
 import React, { useState, useRef, useEffect } from 'react'
 import { API_URL } from '../../utils/constants'
@@ -107,35 +106,52 @@ function ReassuranceItemForm ({
 
     return (
         <div className='projectFormContainer'>
-            <form className='projectForm' onSubmit={reassuranceItemFormSubmit} method='post'>
+            <form className='adminModal' onSubmit={reassuranceItemFormSubmit} method='post'>
                 {loaderDisplay === true &&
                     <Loader />
                 }
-                <div className='projectForm_closeButton'>
-                    <button type='button' onClick={() => setDisplayReassuranceItemForm(false)}>X FERMER</button>
+
+                <div className='adminModal_header'>
+                    <h3>{reassuranceItemFormMode === 'add' ? 'Nouvel argument' : "Modifier l'argument"}</h3>
+                    <button
+                        type='button'
+                        className='adminButton adminButton--icon'
+                        onClick={() => setDisplayReassuranceItemForm(false)}
+                        aria-label='Fermer'
+                        title='Fermer'
+                    >
+                        ✕
+                    </button>
                 </div>
-                <div className='projectForm_form'>
-                    <FormSimpleField
-                        htmlFor={'inputReassuranceItemTitle'}
-                        label={'PHRASE TITRE*'}
-                        type={'text'}
-                        id={'inputReassuranceItemTitle'}
-                        ref={inputReassuranceItemTitleRef}
-                        value={reassuranceItemTitle}
-                        onChangeFunction={setReassuranceItemTitle}
-                    />
-                    <FormSimpleField
-                        htmlFor={'inputReassuranceItemSubtitle'}
-                        label={'PHRASE SECONDAIRE (SOUS-TITRE)'}
-                        type={'text'}
-                        id={'inputReassuranceItemSubtitle'}
-                        ref={inputReassuranceItemSubtitleRef}
-                        value={reassuranceItemSubtitle}
-                        onChangeFunction={setReassuranceItemSubtitle}
-                    />
-                </div>
-                <div className='projectForm_submitButton'>
-                    <button type='submit'>ENVOYER</button>
+
+                <AdminField
+                    id='inputReassuranceItemTitle'
+                    ref={inputReassuranceItemTitleRef}
+                    label='Phrase titre'
+                    hint='Courte et en gras, par exemple « Un accompagnement sur-mesure ».'
+                    value={reassuranceItemTitle}
+                    onChange={setReassuranceItemTitle}
+                    maxLength={120}
+                    required
+                />
+
+                <AdminField
+                    id='inputReassuranceItemSubtitle'
+                    ref={inputReassuranceItemSubtitleRef}
+                    label='Phrase secondaire (sous-titre)'
+                    hint='Une à trois phrases qui précisent le titre. Facultatif.'
+                    value={reassuranceItemSubtitle}
+                    onChange={setReassuranceItemSubtitle}
+                    multiline
+                    rows={4}
+                    maxLength={400}
+                />
+
+                <div className='adminActions'>
+                    <button type='submit' className='adminButton'>Enregistrer</button>
+                    <button type='button' className='adminButton adminButton--text' onClick={() => setDisplayReassuranceItemForm(false)}>
+                        Annuler
+                    </button>
                 </div>
             </form>
         </div>

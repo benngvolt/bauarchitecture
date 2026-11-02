@@ -1,4 +1,3 @@
-import './HeroImageForm.scss'
 import Loader from '../Loader/Loader'
 import ConfirmBox from '../ConfirmBox/ConfirmBox'
 import React, { useState, useRef, useEffect } from 'react'
@@ -115,94 +114,90 @@ function HeroImageForm ({
     const defaultImagePreviewUrl = defaultHeroImageUrl ? `${API_URL}${defaultHeroImageUrl}` : null;
 
     return (
-        <div className='heroImageForm'>
+        <div className='adminForm'>
             {loaderDisplay === true &&
                 <Loader />
             }
 
-            <p className='heroImageForm_text'>
-                <em>
-                    {heroImages.length > 0
-                        ? "Ces images remplacent l'image du premier projet en fond du hero. Si vous en mettez plusieurs, elles défilent automatiquement dans l'ordre ci-dessous. Conseil : 3 à 5 images maximum pour garder une page d'accueil rapide."
-                        : "Aucune image personnalisée : l'image principale du premier projet est utilisée par défaut."}
-                </em>
+            <p className='adminIntro'>
+                {heroImages.length > 0
+                    ? "Ces images remplacent l'image du premier projet en fond du hero. Si vous en mettez plusieurs, elles défilent automatiquement dans l'ordre ci-dessous. Conseil : 3 à 5 images maximum pour garder une page d'accueil rapide."
+                    : "Aucune image personnalisée : l'image principale du premier projet est utilisée par défaut."}
             </p>
 
             {heroImages.length > 0 ? (
-                <ul className='heroImageForm_list'>
+                <ul className='adminThumbs'>
                     {heroImages.map((heroImage, index) => (
-                        <li className='heroImageForm_list_item' key={heroImage._id}>
+                        <li className='adminThumbs_item' key={heroImage._id}>
                             <img
-                                className='heroImageForm_list_item_image'
                                 src={`${API_URL}${heroImage.imageUrl}`}
                                 alt={`Image ${index + 1} du hero`}
                             />
-                            <p className='heroImageForm_list_item_index'>{index + 1} / {heroImages.length}</p>
-                            <div className='heroImageForm_list_item_buttonsContainer'>
-                                <button
-                                    type='button'
-                                    aria-label={`Déplacer l'image ${index + 1} vers le début`}
-                                    disabled={index === 0}
-                                    onClick={() => moveHeroImage(index, -1)}
-                                >
-                                    ←
-                                </button>
-                                <button
-                                    type='button'
-                                    aria-label={`Déplacer l'image ${index + 1} vers la fin`}
-                                    disabled={index === heroImages.length - 1}
-                                    onClick={() => moveHeroImage(index, 1)}
-                                >
-                                    →
-                                </button>
-                                <button
-                                    type='button'
-                                    aria-label={`Supprimer l'image ${index + 1}`}
-                                    onClick={() => askDeletion({ type: 'one', imageId: heroImage._id })}
-                                >
-                                    Supprimer
-                                </button>
+                            <div className='adminThumbs_item_footer'>
+                                <p>{index + 1} / {heroImages.length}</p>
+
+                                <div className='adminThumbs_item_buttons'>
+                                    <button
+                                        type='button'
+                                        className='adminButton adminButton--icon'
+                                        aria-label={`Déplacer l'image ${index + 1} vers le début`}
+                                        title='Avancer'
+                                        disabled={index === 0}
+                                        onClick={() => moveHeroImage(index, -1)}
+                                    >
+                                        ←
+                                    </button>
+                                    <button
+                                        type='button'
+                                        className='adminButton adminButton--icon'
+                                        aria-label={`Déplacer l'image ${index + 1} vers la fin`}
+                                        title='Reculer'
+                                        disabled={index === heroImages.length - 1}
+                                        onClick={() => moveHeroImage(index, 1)}
+                                    >
+                                        →
+                                    </button>
+                                    <button
+                                        type='button'
+                                        className='adminButton adminButton--icon'
+                                        aria-label={`Supprimer l'image ${index + 1}`}
+                                        title='Supprimer'
+                                        onClick={() => askDeletion({ type: 'one', imageId: heroImage._id })}
+                                    >
+                                        ✕
+                                    </button>
+                                </div>
                             </div>
                         </li>
                     ))}
                 </ul>
             ) : (
                 defaultImagePreviewUrl && (
-                    <div className='heroImageForm_sampleContainer'>
-                        <img
-                            className='heroImageForm_sampleContainer_image'
-                            src={defaultImagePreviewUrl}
-                            alt="Image du hero utilisée par défaut"
-                        />
+                    <div className='adminPreview'>
+                        <img src={defaultImagePreviewUrl} alt="Image du hero utilisée par défaut" />
                     </div>
                 )
             )}
 
             {previewUrls.length > 0 && (
                 <>
-                    <p className='heroImageForm_text'>
-                        <em>Images sélectionnées, pas encore enregistrées :</em>
-                    </p>
-                    <ul className='heroImageForm_list'>
+                    <p className='adminIntro'>Images sélectionnées, pas encore enregistrées :</p>
+                    <ul className='adminThumbs'>
                         {previewUrls.map((previewUrl, index) => (
-                            <li className='heroImageForm_list_item' key={previewUrl}>
-                                <img
-                                    className='heroImageForm_list_item_image'
-                                    src={previewUrl}
-                                    alt={`Aperçu de l'image sélectionnée ${index + 1}`}
-                                />
+                            <li className='adminThumbs_item adminThumbs_item--pending' key={previewUrl}>
+                                <img src={previewUrl} alt={`Aperçu de l'image sélectionnée ${index + 1}`} />
                             </li>
                         ))}
                     </ul>
                 </>
             )}
 
-            <div className='heroImageForm_buttonsContainer'>
+            <div className='adminActions'>
                 <label
                     htmlFor='inputHeroImages'
-                    className='heroImageForm_buttonsContainer_uploadLabel'
+                    className='adminButton adminButton--secondary adminUpload'
                 >
-                    {newHeroFiles.length > 0 ? 'CHANGER LA SÉLECTION' : '+ AJOUTER DES IMAGES'}
+                    {newHeroFiles.length > 0 ? 'Changer la sélection' : '+ Ajouter des images'}
                 </label>
                 <input
                     type='file'
@@ -216,11 +211,11 @@ function HeroImageForm ({
 
                 {newHeroFiles.length > 0 && (
                     <>
-                        <button aria-label="Enregistrer les images du hero" type='button' onClick={submitHeroImages}>
-                            ENREGISTRER
+                        <button aria-label="Enregistrer les images du hero" type='button' className='adminButton' onClick={submitHeroImages}>
+                            Enregistrer
                         </button>
-                        <button aria-label="Annuler la sélection d'images du hero" type='button' onClick={cancelNewHeroFiles}>
-                            ANNULER
+                        <button aria-label="Annuler la sélection d'images du hero" type='button' className='adminButton adminButton--text' onClick={cancelNewHeroFiles}>
+                            Annuler
                         </button>
                     </>
                 )}
@@ -229,9 +224,10 @@ function HeroImageForm ({
                     <button
                         aria-label="Supprimer toutes les images du hero et revenir à l'image par défaut"
                         type='button'
+                        className='adminButton adminButton--text'
                         onClick={() => askDeletion({ type: 'all' })}
                     >
-                        RÉINITIALISER PAR DÉFAUT
+                        Réinitialiser par défaut
                     </button>
                 )}
             </div>

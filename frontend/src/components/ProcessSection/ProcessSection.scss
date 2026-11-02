@@ -11,8 +11,9 @@
         padding: $minimalSpace calc($minimalSpace / 2);
     }
     h2 {
-        @include mainText;
-        @include fontSize2;
+        @include typeTitle;
+        margin: 0 auto calc($minimalSpace / 2);
+        text-align: center;
     }
 
     &_list {
@@ -40,9 +41,15 @@
         }
 
         &_item {
-            @include Row;
             box-sizing: border-box;
             position: relative;
+
+            // Chaque étape occupe cinq rangées de la liste (numéro, mot-concept, résumé, bouton, détails),
+            // partagées avec les autres étapes de la même ligne : les éléments de même rang sont alignés.
+            display: grid;
+            grid-row: span 5;
+            grid-template-rows: subgrid;
+            row-gap: 0;
 
             // Tablette : pas de séparateur après la 2e colonne.
             @media only screen and (min-width: $padMinWidth) and (max-width: $padMaxWidth) {
@@ -74,75 +81,81 @@
             }
 
             &_content {
-                width: 100%;
-                margin: 0 auto;
-                @include Column;
-                align-items: flex-start;
+                // Disparaît de la mise en page : ses enfants deviennent les cellules de la grille de l'étape.
+                display: contents;
 
                 &_index {
-
-                    @include fontSize3;
+                    @include typeText;
                     @include mainText;
                     line-height: 0.75;
                     margin: 0 auto calc($minimalSpace/2) auto;
                     display: flex;
                 }
 
-
                 h3 {
-                    @include h1Text;
-                    @include fontSize1;
+                    @include typeConcept;
+                    color: $colorDarkGrey;
                     margin: 0 auto calc($minimalSpace/2) auto;
                     text-transform: uppercase;
                 }
 
                 &_text {
                     @include mainText;
-                    @include fontSize5;
+                    @include typeText;
+                    // Colonnes étroites : l'alignement à gauche évite les grands blancs du texte justifié.
+                    text-align: left;
                     margin: 0 auto;
                 }
 
                 &_toggle {
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    margin: calc($minimalSpace/3) auto 0 auto;
-                    width: 28px;
-                    height: 28px;
+                    @include typeText;
+                    font-weight: 700;
+                    font-style: italic;
+                    justify-self: center;
+                    align-self: start;
+                    margin: calc($minimalSpace / 2) auto 0;
                     padding: 0;
                     border: none;
-                    // border-radius: 50%;
-                    background-color: $colorLightGrey;
-                    font-family: $mainFont;
-                    font-size: $fontSize2;
-                    line-height: 1;
+                    background: none;
                     color: $colorDarkGrey;
+                    cursor: pointer;
 
                     &:hover {
-                        cursor: pointer;
-                        // background-color: $colorDarkGrey;
                         color: $color1;
+                        text-decoration: underline;
                     }
                 }
 
+                // Colonnes côte à côte (desktop, tablette) : la place du texte détaillé est toujours réservée
+                // (le plus long des quatre fixe la hauteur de la rangée commune), donc déplier ne décale rien en dessous.
                 &_details {
-                    max-height: 0;
-                    overflow: hidden;
-                    opacity: 0;
-                    transition: max-height 0.3s ease, opacity 0.3s ease, margin 0.3s ease;
                     @include mainText;
-                    @include fontSize5;
-                    margin: 0 auto;
-
-                   
+                    @include typeText;
+                    text-align: left;
+                    margin: calc($minimalSpace / 3) auto 0;
+                    opacity: 0;
+                    visibility: hidden;
+                    transition: opacity 0.3s ease, visibility 0.3s;
 
                     &--open {
-                        max-height: 1000px;
                         opacity: 1;
-                        margin-top: calc($minimalSpace/3);
+                        visibility: visible;
+                    }
+
+                    // Mobile : les étapes sont empilées, réserver leur texte créerait de grands vides ;
+                    // le texte se déplie donc en poussant la suite.
+                    @media only screen and (max-width: $mobileMaxWidth) {
+                        overflow: hidden;
+                        max-height: 0;
+                        margin-top: 0;
+                        transition: max-height 0.3s ease, opacity 0.3s ease, margin 0.3s ease, visibility 0.3s;
+
+                        &--open {
+                            max-height: 1000px;
+                            margin-top: calc($minimalSpace / 3);
+                        }
                     }
                 }
-
             }
         }
     }

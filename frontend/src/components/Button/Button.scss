@@ -3,6 +3,7 @@
 .button {
     button, a {
         @include mainText;
+        @include typeText;
         padding: 6px 22px;
         border-radius: 30px;
         

@@ -6,7 +6,7 @@
     background-color: $colorDarkGrey;
     padding: calc(3*$minimalSpace) 0;
     h2 {
-        @include h1Text;
+        @include typeTitle;
         color: $colorLightGrey;
         display: flex;
         justify-content: center;
@@ -33,6 +33,7 @@
 
         &_description {
             @include mainText;
+            @include typeText;
             color: $colorLightGrey;
             display: flex;
             justify-content: center;

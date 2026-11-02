@@ -1,5 +1,4 @@
-import './HeroTextsForm.scss'
-import FormSimpleField from '../FormSimpleField/FormSimpleField'
+import AdminField from '../AdminUI/AdminField'
 import Loader from '../Loader/Loader'
 import React, { useState, useEffect } from 'react'
 import { API_URL, DEFAULT_HERO_TITLE, DEFAULT_HERO_DESCRIPTION } from '../../utils/constants'
@@ -63,7 +62,12 @@ function HeroTextsForm ({
 
     function handleSubmit(event) {
         event.preventDefault();
-        saveTexts(heroTitle, heroDescription, 'Textes enregistrés.');
+        // Un texte resté identique au texte par défaut n'est pas enregistré : il suivra les futures évolutions du site.
+        saveTexts(
+            heroTitle.trim() === DEFAULT_HERO_TITLE ? '' : heroTitle,
+            heroDescription.trim() === DEFAULT_HERO_DESCRIPTION ? '' : heroDescription,
+            'Textes enregistrés.'
+        );
     }
 
     function resetTexts() {
@@ -71,55 +75,65 @@ function HeroTextsForm ({
     }
 
     const hasCustomTexts = Boolean(savedTitle || savedDescription);
+    const isModified =
+        heroTitle !== (savedTitle || DEFAULT_HERO_TITLE) ||
+        heroDescription !== (savedDescription || DEFAULT_HERO_DESCRIPTION);
 
     return (
-        <form className='heroTextsForm' onSubmit={handleSubmit}>
+        <form className='adminForm' onSubmit={handleSubmit}>
             {loaderDisplay === true &&
                 <Loader />
             }
 
-            <p className='heroTextsForm_text'>
-                <em>
-                    Titre principal (H1) et texte d'accroche affichés dans le bloc du hero, sur la page d'accueil.
-                    Un champ laissé vide retrouve son texte par défaut.
-                </em>
+            <p className='adminIntro'>
+                Textes du bloc de présentation du hero, en haut de la page d'accueil.
+                Un champ vidé retrouve son texte par défaut.
             </p>
 
-            <FormSimpleField
-                htmlFor='inputHeroTitle'
-                label='TITRE (H1)'
-                id='inputHeroTitle'
-                value={heroTitle}
-                onChangeFunction={setHeroTitle}
-                multiline
-                rows={2}
-                maxLength={MAX_TITLE_LENGTH}
-            />
+            <div className='adminCard'>
+                <AdminField
+                    id='inputHeroTitle'
+                    label='Titre principal (H1)'
+                    hint='Une à deux phrases courtes, affichées en gras.'
+                    value={heroTitle}
+                    onChange={(value) => { setHeroTitle(value); setStatusMessage(''); }}
+                    multiline
+                    rows={3}
+                    maxLength={MAX_TITLE_LENGTH}
+                />
 
-            <FormSimpleField
-                htmlFor='inputHeroDescription'
-                label="TEXTE D'ACCROCHE"
-                id='inputHeroDescription'
-                value={heroDescription}
-                onChangeFunction={setHeroDescription}
-                multiline
-                rows={6}
-                maxLength={MAX_DESCRIPTION_LENGTH}
-            />
-
-            <div className='heroTextsForm_buttonsContainer'>
-                <button type='submit'>ENREGISTRER</button>
-
-                {hasCustomTexts && (
-                    <button type='button' onClick={resetTexts}>
-                        RÉTABLIR LES TEXTES PAR DÉFAUT
-                    </button>
-                )}
+                <AdminField
+                    id='inputHeroDescription'
+                    label="Texte d'accroche"
+                    hint='Paragraphe sous le titre : à qui vous vous adressez, ce que vous proposez, où.'
+                    value={heroDescription}
+                    onChange={(value) => { setHeroDescription(value); setStatusMessage(''); }}
+                    multiline
+                    rows={9}
+                    maxLength={MAX_DESCRIPTION_LENGTH}
+                />
             </div>
 
-            {statusMessage && (
-                <p className='heroTextsForm_status' role='status'>{statusMessage}</p>
-            )}
+            <div className='adminActions'>
+                <button type='submit' className='adminButton' disabled={!isModified}>
+                    Enregistrer
+                </button>
+
+                {hasCustomTexts && (
+                    <button type='button' className='adminButton adminButton--text' onClick={resetTexts}>
+                        Rétablir les textes par défaut
+                    </button>
+                )}
+
+                {statusMessage && (
+                    <p
+                        className={statusMessage.startsWith('Erreur') ? 'adminStatus adminStatus--error' : 'adminStatus'}
+                        role='status'
+                    >
+                        {statusMessage}
+                    </p>
+                )}
+            </div>
         </form>
     )
 }

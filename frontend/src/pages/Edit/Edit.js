@@ -1,4 +1,5 @@
 import './Edit.scss';
+import '../../components/AdminUI/AdminUI.scss';
 import ProjectForm from '../../components/ProjectForm/ProjectForm';
 import ArticleForm from '../../components/ArticleForm/ArticleForm';
 import ReassuranceItemForm from '../../components/ReassuranceItemForm/ReassuranceItemForm';
@@ -6,6 +7,8 @@ import HeroImageForm from '../../components/HeroImageForm/HeroImageForm';
 import HeroTextsForm from '../../components/HeroTextsForm/HeroTextsForm';
 import FeaturedProjectsForm from '../../components/FeaturedProjectsForm/FeaturedProjectsForm';
 import ApproachForm from '../../components/ApproachForm/ApproachForm';
+import ProcessHeadingForm from '../../components/ProcessHeadingForm/ProcessHeadingForm';
+import MissionsForm from '../../components/MissionsForm/MissionsForm';
 import ProcessStepForm from '../../components/ProcessStepForm/ProcessStepForm';
 import PhilosophyContentForm from '../../components/PhilosophyContentForm/PhilosophyContentForm';
 import AboutPhotoForm from '../../components/AboutPhotoForm/AboutPhotoForm';
@@ -35,12 +38,13 @@ const SECTIONS = [
         key: 'home',
         label: "PAGE D'ACCUEIL",
         subSections: [
-            { key: 'hero-texts', label: 'Hero : textes', description: "Titre principal et texte d'accroche, en haut de la page d'accueil." },
-            { key: 'reassurance', label: 'Hero : arguments de réassurance', description: "Courts arguments affichés sous le texte d'accroche." },
+            { key: 'hero', label: 'HERO', description: "Titre, texte d'accroche et images de fond, en haut de la page d'accueil." },
+            { key: 'missions', label: 'SERVICES', description: "Petit texte sous chacun des quatre pictogrammes (Construction, Rénovation, Extension, Aménagements)." },
+            { key: 'reassurance', label: 'BLOC DE RÉASSURANCE', description: "Courts arguments affichés sous les pictogrammes." },
             { key: 'featured', label: 'Projets à la une', description: "Les trois projets présentés sur la page d'accueil." },
             { key: 'approach', label: 'Approche', description: "Section sombre de la page d'accueil : titre et blocs de texte." },
-            { key: 'process', label: 'Étapes du processus', description: "Les quatre étapes présentées sur la page d'accueil." },
-            { key: 'home-images', label: 'Images', description: "Images fixes de la page d'accueil : fond du hero et image pleine largeur." },
+            { key: 'process', label: 'Étapes du processus', description: "Phrase d'accroche et quatre étapes présentées sur la page d'accueil." },
+            { key: 'banner', label: 'Image du bas', description: "Image pleine largeur, entre « Approche » et « Étapes du processus »." },
         ],
     },
     { key: 'projects', label: 'PROJETS', description: 'Tous les projets du site.' },
@@ -93,6 +97,8 @@ function Edit() {
         handleLoadFeaturedProjects,
         handleLoadApproachSettings,
         handleLoadHomeBanner,
+        handleLoadProcessSettings,
+        handleLoadMissionsSettings,
         projects,
         articles,
         reassuranceItems,
@@ -104,6 +110,8 @@ function Edit() {
         featuredProjects,
         approachSettings,
         homeBanner,
+        processSettings,
+        missionsSettings,
         loaderDisplay,
         setLoaderDisplay,
         setDisplayNavSection,
@@ -371,21 +379,21 @@ function Edit() {
                         </>
                     )}
 
-                    {/* PAGE D'ACCUEIL : HERO, TEXTES */}
-                    {activeSection === 'hero-texts' && (
-                        <HeroTextsForm
-                            heroSettings={heroSettings}
-                            handleLoadHeroSettings={handleLoadHeroSettings}
-                            loaderDisplay={loaderDisplay}
-                            setLoaderDisplay={setLoaderDisplay}
-                        />
-                    )}
-
-                    {/* PAGE D'ACCUEIL : IMAGES FIXES (HERO ET IMAGE PLEINE LARGEUR) */}
-                    {activeSection === 'home-images' && (
+                    {/* PAGE D'ACCUEIL : HERO (TEXTES ET IMAGES DE FOND) */}
+                    {activeSection === 'hero' && (
                         <>
                             <div className='edit_content_section_subSection'>
-                                <h3 className='edit_content_section_subSection_title'>Hero : images de fond</h3>
+                                <h3 className='edit_content_section_subSection_title'>Textes</h3>
+                                <HeroTextsForm
+                                    heroSettings={heroSettings}
+                                    handleLoadHeroSettings={handleLoadHeroSettings}
+                                    loaderDisplay={loaderDisplay}
+                                    setLoaderDisplay={setLoaderDisplay}
+                                />
+                            </div>
+
+                            <div className='edit_content_section_subSection'>
+                                <h3 className='edit_content_section_subSection_title'>Images de fond</h3>
                                 <HeroImageForm
                                     heroSettings={heroSettings}
                                     defaultHeroImageUrl={defaultHeroImageUrl}
@@ -394,31 +402,41 @@ function Edit() {
                                     setLoaderDisplay={setLoaderDisplay}
                                 />
                             </div>
-
-                            <div className='edit_content_section_subSection'>
-                                <h3 className='edit_content_section_subSection_title'>Image pleine largeur</h3>
-                                <AboutPhotoForm
-                                    label="l'image pleine largeur"
-                                    fieldName='banner'
-                                    currentImageUrl={homeBanner?.imageUrl}
-                                    defaultImageUrl={
-                                        defaultBannerImage ? `${API_URL}${defaultBannerImage.imageUrl}` : undefined
-                                    }
-                                    uploadUrl={`${API_URL}/api/home-banner`}
-                                    resetUrl={`${API_URL}/api/home-banner`}
-                                    previewAspectRatio='16 / 9'
-                                    hint="Affichée entre « Approche » et « Étapes du processus », au format 16:9 horizontal (l'image est recadrée si besoin)."
-                                    onUpdated={handleLoadHomeBanner}
-                                    loaderDisplay={loaderDisplay}
-                                    setLoaderDisplay={setLoaderDisplay}
-                                />
-                            </div>
                         </>
+                    )}
+
+                    {/* PAGE D'ACCUEIL : IMAGE DU BAS (PLEINE LARGEUR) */}
+                    {activeSection === 'banner' && (
+                        <AboutPhotoForm
+                            label="l'image du bas"
+                            fieldName='banner'
+                            currentImageUrl={homeBanner?.imageUrl}
+                            defaultImageUrl={
+                                defaultBannerImage ? `${API_URL}${defaultBannerImage.imageUrl}` : undefined
+                            }
+                            uploadUrl={`${API_URL}/api/home-banner`}
+                            resetUrl={`${API_URL}/api/home-banner`}
+                            previewAspectRatio='16 / 9'
+                            hint="Elle s'affiche en pleine largeur au format 16:9 horizontal : l'image est recadrée si besoin."
+                            onUpdated={handleLoadHomeBanner}
+                            loaderDisplay={loaderDisplay}
+                            setLoaderDisplay={setLoaderDisplay}
+                        />
+                    )}
+
+                    {/* PAGE D'ACCUEIL : DESCRIPTIFS SOUS LES PICTOGRAMMES */}
+                    {activeSection === 'missions' && (
+                        <MissionsForm
+                            missionsSettings={missionsSettings}
+                            handleLoadMissionsSettings={handleLoadMissionsSettings}
+                            loaderDisplay={loaderDisplay}
+                            setLoaderDisplay={setLoaderDisplay}
+                        />
                     )}
 
                     {/* PAGE D'ACCUEIL : ARGUMENTS DE RÉASSURANCE (HERO) */}
                     {activeSection === 'reassurance' && (
-                        <>
+                        <div className='adminForm'>
                             <EditReassuranceItemsList
                                 reassuranceItems={reassuranceItemsList}
                                 handleEditReassuranceItem={handleEditReassuranceItem}
@@ -428,21 +446,24 @@ function Edit() {
                             />
 
                             {reassuranceItemsList.length >= MAX_REASSURANCE_ITEMS ? (
-                                <p className='edit_content_section_maxReached'>
-                                    Le maximum de {MAX_REASSURANCE_ITEMS} arguments est atteint. Supprimez-en un pour en ajouter un nouveau.
+                                <p className='adminIntro'>
+                                    Le maximum de {MAX_REASSURANCE_ITEMS} arguments est atteint : supprimez-en un pour en ajouter un nouveau.
                                 </p>
                             ) : (
-                                <button
-                                    className='edit_content_section_addButton'
-                                    onClick={() => {
-                                        setDisplayReassuranceItemForm(true);
-                                        setReassuranceItemFormMode('add');
-                                    }}
-                                >
-                                    + AJOUTER UN ARGUMENT +
-                                </button>
+                                <div className='adminActions'>
+                                    <button
+                                        type='button'
+                                        className='adminButton adminButton--secondary'
+                                        onClick={() => {
+                                            setDisplayReassuranceItemForm(true);
+                                            setReassuranceItemFormMode('add');
+                                        }}
+                                    >
+                                        + Ajouter un argument
+                                    </button>
+                                </div>
                             )}
-                        </>
+                        </div>
                     )}
 
                     {/* PAGE D'ACCUEIL : PROJETS À LA UNE */}
@@ -469,14 +490,27 @@ function Edit() {
                     {/* PAGE D'ACCUEIL : ÉTAPES DU PROCESSUS */}
                     {activeSection === 'process' && (
                         <>
-                            <p className='edit_content_section_helperText'>
-                                Il y a toujours exactement 4 étapes (Observer, Diagnostiquer, Concevoir, Construire) : elles ne peuvent être ni ajoutées ni supprimées, seulement modifiées.
-                            </p>
+                            <div className='edit_content_section_subSection'>
+                                <h3 className='edit_content_section_subSection_title'>Phrase d'accroche</h3>
+                                <ProcessHeadingForm
+                                    processSettings={processSettings}
+                                    handleLoadProcessSettings={handleLoadProcessSettings}
+                                    loaderDisplay={loaderDisplay}
+                                    setLoaderDisplay={setLoaderDisplay}
+                                />
+                            </div>
 
-                            <EditProcessStepsList
-                                processSteps={processStepsList}
-                                handleEditProcessStep={handleEditProcessStep}
-                            />
+                            <div className='edit_content_section_subSection'>
+                                <h3 className='edit_content_section_subSection_title'>Les quatre étapes</h3>
+                                <p className='adminIntro' style={{ marginBottom: 16 }}>
+                                    Il y a toujours exactement 4 étapes : elles ne peuvent être ni ajoutées ni supprimées, seulement modifiées.
+                                </p>
+
+                                <EditProcessStepsList
+                                    processSteps={processStepsList}
+                                    handleEditProcessStep={handleEditProcessStep}
+                                />
+                            </div>
                         </>
                     )}
 
@@ -494,6 +528,7 @@ function Edit() {
                     {activeSection === 'about-photo1' && (
                         <AboutPhotoForm
                             label='la photo 1'
+                            previewAspectRatio='5 / 3'
                             fieldName='photo1'
                             currentImageUrl={aboutPageContent?.photo1Url}
                             defaultImageUrl={skyline}
@@ -515,6 +550,7 @@ function Edit() {
                     {activeSection === 'about-photo2' && (
                         <AboutPhotoForm
                             label='la photo 2'
+                            previewAspectRatio='5 / 3'
                             fieldName='photo2'
                             currentImageUrl={aboutPageContent?.photo2Url}
                             defaultImageUrl={ensase}

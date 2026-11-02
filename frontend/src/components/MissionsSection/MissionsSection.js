@@ -1,4 +1,7 @@
 import './MissionsSection.scss';
+import { useContext } from 'react';
+import { ProjectsContext } from '../../utils/ProjectsContext';
+import { DEFAULT_MISSION_DESCRIPTIONS } from '../../utils/constants';
 
 // Pictogrammes : remplacer les fichiers de src/assets (logo_*.svg) suffit à les changer.
 import { ReactComponent as LogoConstruction } from '../../assets/logo_construction.svg';
@@ -14,6 +17,8 @@ const MISSIONS = [
 ];
 
 function MissionsSection() {
+    const { missionsSettings } = useContext(ProjectsContext);
+
     return (
         <section className='missions'>
             <ul className='missions_list'>
@@ -26,6 +31,9 @@ function MissionsSection() {
                                 focusable='false'
                             />
                             <h3>{label}</h3>
+                            <p className='missions_list_item_content_text'>
+                                {missionsSettings?.[key] || DEFAULT_MISSION_DESCRIPTIONS[key]}
+                            </p>
                         </div>
                     </li>
                 ))}

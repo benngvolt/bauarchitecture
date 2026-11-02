@@ -1,5 +1,4 @@
-import './ProcessStepForm.scss'
-import FormSimpleField from '../FormSimpleField/FormSimpleField'
+import AdminField from '../AdminUI/AdminField'
 import FormRichTextField from '../FormRichTextField/FormRichTextField'
 import Loader from '../Loader/Loader'
 import React, { useState, useRef, useEffect } from 'react'
@@ -93,44 +92,65 @@ function ProcessStepForm ({
 
     return (
         <div className='projectFormContainer'>
-            <form className='projectForm' onSubmit={processStepFormSubmit} method='post'>
+            <form className='adminModal adminModal--wide' onSubmit={processStepFormSubmit} method='post'>
                 {loaderDisplay === true &&
                     <Loader />
                 }
-                <div className='projectForm_closeButton'>
-                    <button type='button' onClick={() => setDisplayProcessStepForm(false)}>X FERMER</button>
+
+                <div className='adminModal_header'>
+                    <h3>Modifier l'étape</h3>
+                    <button
+                        type='button'
+                        className='adminButton adminButton--icon'
+                        onClick={() => setDisplayProcessStepForm(false)}
+                        aria-label='Fermer'
+                        title='Fermer'
+                    >
+                        ✕
+                    </button>
                 </div>
-                <div className='projectForm_form'>
-                    <FormSimpleField
-                        htmlFor={'inputProcessStepTitle'}
-                        label={'TITRE*'}
-                        type={'text'}
-                        id={'inputProcessStepTitle'}
-                        ref={inputProcessStepTitleRef}
-                        value={processStepTitle}
-                        onChangeFunction={setProcessStepTitle}
-                    />
-                    <FormSimpleField
-                        htmlFor={'inputProcessStepTagline'}
-                        label={"PHRASE D'ACCROCHE*"}
-                        type={'text'}
-                        id={'inputProcessStepTagline'}
-                        ref={inputProcessStepTaglineRef}
-                        value={processStepTagline}
-                        onChangeFunction={setProcessStepTagline}
-                    />
-                    <FormRichTextField
-                        htmlFor={'inputProcessStepRichText'}
-                        label={'PARAGRAPHE COMPLÉMENTAIRE (optionnel, affiché dans un bloc dépliable)'}
-                        type={'hidden'}
-                        id={'inputProcessStepRichText'}
-                        ref={inputProcessStepRichTextRef}
-                        name={'processStepRichText'}
-                        value={processStepRichText}
-                    />
-                </div>
-                <div className='projectForm_submitButton'>
-                    <button type='submit'>ENVOYER</button>
+
+                <AdminField
+                    id='inputProcessStepTitle'
+                    ref={inputProcessStepTitleRef}
+                    label='Titre'
+                    hint='Le mot-concept affiché en grand (Conseiller, Concevoir...).'
+                    value={processStepTitle}
+                    onChange={setProcessStepTitle}
+                    maxLength={40}
+                    required
+                />
+
+                <AdminField
+                    id='inputProcessStepTagline'
+                    ref={inputProcessStepTaglineRef}
+                    label="Phrase d'accroche"
+                    hint="Résumé de l'étape, toujours visible."
+                    value={processStepTagline}
+                    onChange={setProcessStepTagline}
+                    multiline
+                    rows={3}
+                    maxLength={400}
+                    required
+                />
+
+                <FormRichTextField
+                    variant='admin'
+                    htmlFor='inputProcessStepRichText'
+                    label='Texte détaillé'
+                    hint='Facultatif : affiché sous « + de détails ». Vide, le texte par défaut du site est utilisé.'
+                    type='hidden'
+                    id='inputProcessStepRichText'
+                    ref={inputProcessStepRichTextRef}
+                    name='processStepRichText'
+                    value={processStepRichText}
+                />
+
+                <div className='adminActions'>
+                    <button type='submit' className='adminButton'>Enregistrer</button>
+                    <button type='button' className='adminButton adminButton--text' onClick={() => setDisplayProcessStepForm(false)}>
+                        Annuler
+                    </button>
                 </div>
             </form>
         </div>

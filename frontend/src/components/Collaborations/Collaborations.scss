@@ -6,7 +6,7 @@
     @include CaptionBoxCommons;
     margin: auto;
     a {
-        font-size: $fontSize3;
+        @include typeTitle;
         @include Row;
         column-gap: 15px;
         width: 100%;

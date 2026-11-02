@@ -1,5 +1,3 @@
-import './EditProcessStepsList.scss'
-
 import React from 'react'
 
 
@@ -10,16 +8,21 @@ function EditProcessStepsList ({
 
     return (
         <div className='editProcessStepsList'>
-            <ul className='editProcessStepsList_list'>
+            <ul className='adminCardList adminCardList--compact'>
                 {processSteps.map((processStep, index)=>(
-                <li className='editProcessStepsList_list_item' key={processStep._id}>
-                    <p className='editProcessStepsList_list_item_index'>0{index + 1}</p>
-                    <p className='editProcessStepsList_list_item_title'>{processStep.title}</p>
-                    <p className='editProcessStepsList_list_item_tagline'>{processStep.tagline}</p>
-                    <div className='editProcessStepsList_list_item_buttonsContainer'>
-                        <button aria-label={`Modifier l'étape ${processStep.title}`} onClick={() => {
-                            handleEditProcessStep(processStep);
-                            }}>
+                <li key={processStep._id}>
+                    <p className='adminCardList_index'>Étape 0{index + 1}</p>
+                    <p className='adminCardList_title'>{processStep.title}</p>
+                    <p className='adminCardList_text'>{processStep.tagline}</p>
+                    <div className='adminCardList_actions'>
+                        <button
+                            type='button'
+                            className='adminButton adminButton--secondary adminButton--small'
+                            aria-label={`Modifier l'étape ${processStep.title}`}
+                            onClick={() => {
+                                handleEditProcessStep(processStep);
+                            }}
+                        >
                             Modifier
                         </button>
                     </div>

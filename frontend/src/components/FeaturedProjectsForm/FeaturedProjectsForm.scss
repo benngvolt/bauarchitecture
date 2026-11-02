@@ -1,80 +1,30 @@
 @import '../../utils/mixins';
 
-.featuredProjectsForm {
-    width: 100%;
-    @include Column;
-    align-items: center;
-    row-gap: 22px;
+// Emplacement d'un projet à la une : vignette du projet choisi + liste déroulante.
+.adminProjectSlot {
+    display: grid;
+    grid-template-columns: 96px minmax(0, 1fr);
+    align-items: end;
+    gap: 16px;
 
-    &_text {
-        width: 60%;
-        margin: auto;
-        text-align: center;
-
-        @media only screen and (max-width: $mobileMaxWidth) {
-            width: 100%;
-        }
-        font-family: $mainFont;
-        font-size: $fontSize4;
-        color: $color2;
-    }
-
-    &_slots {
-        @include Column;
-        row-gap: 14px;
-        width: 100%;
-        max-width: 560px;
-
-        &_slot {
-            @include Row;
-            align-items: center;
-            column-gap: 22px;
-
-            label {
-                flex-shrink: 0;
-                width: 120px;
-                text-align: right;
-                font-family: $mainFont;
-                font-size: $fontSize4;
-            }
-
-            select {
-                flex: 1;
-                min-width: 0;
-                padding: 6px 8px;
-                border: 1px solid $color1;
-                background-color: $colorLightGrey;
-                font-family: $mainFont;
-                font-size: $fontSize4;
-                color: $colorDarkGrey;
-            }
-        }
-    }
-
-    &_buttonsContainer {
-        @include Row;
-        column-gap: 22px;
+    &_thumb {
+        display: flex;
+        align-items: center;
         justify-content: center;
-
-        button {
-            border: none;
-            font-weight: bold;
-            background: none;
-            font-family: $mainFont;
-            font-size: $fontSize5;
-            color: $colorDarkGrey;
-
-            &:hover {
-                color: $color1;
-                cursor: pointer;
-            }
-        }
-    }
-
-    &_status {
-        margin: 0;
+        width: 96px;
+        aspect-ratio: 4 / 3;
+        overflow: hidden;
+        color: $color1;
         font-family: $mainFont;
-        font-size: $fontSize5;
-        color: $color2;
+        font-size: 22px;
+        background-color: rgba($colorDarkGrey, 0.06);
+        border-radius: 6px;
+
+        img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
     }
 }

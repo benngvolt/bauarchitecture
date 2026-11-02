@@ -20,7 +20,7 @@
 
     &_date {
         font-family: $mainFont;
-        font-size: $fontSize4;
+        @include typeText;
         margin: auto;
         color: $color1;
     }
@@ -28,14 +28,14 @@
     h5 {
       width: 90%;
       font-family: $mainFont;
-      font-size: $fontSize2;
+      @include typeTitle;
       text-align: center;
       margin: $minimalSpace auto;
     }
 
     &_description {
       width: 90%;
-      font-size: $fontSize4;
+      @include typeText;
       font-family: $mainFont;
       text-align: justify;
       margin: $minimalSpace auto;

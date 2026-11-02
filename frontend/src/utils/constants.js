@@ -49,3 +49,23 @@ export const DEFAULT_APPROACH_ITEMS = [
         text: 'Je coordonne les échanges avec les bureaux d’études et les artisans mobilisés selon les besoins du projet.',
     },
 ];
+
+// Phrase d'accroche au-dessus des étapes du processus, affichée tant qu'aucune n'a été saisie dans le backoffice.
+export const DEFAULT_PROCESS_TITLE = 'Mes prestations : un service adapté à chaque besoin';
+
+// Petits descriptifs sous les pictogrammes de la page d'accueil, affichés tant qu'aucun n'a été saisi dans le backoffice.
+export const DEFAULT_MISSION_DESCRIPTIONS = {
+    construction: "Concevoir un bâtiment neuf, de l'esquisse au suivi de chantier.",
+    renovation: "Transformer l'existant en révélant ses qualités et son caractère.",
+    extension: "Agrandir ou surélever avec justesse, en dialogue avec le bâti d'origine.",
+    amenagements: "Repenser les espaces intérieurs selon vos usages et votre budget.",
+};
+
+// Textes détaillés des quatre étapes (dans l'ordre : Conseiller, Concevoir, Préparer, Construire),
+// affichés sous le résumé de l'étape tant qu'aucun texte n'a été saisi dans le backoffice.
+export const DEFAULT_PROCESS_DETAILS = [
+    "<p>Visite du site et échanges sur vos besoins, vos envies et votre budget. Je recense les contraintes réglementaires, techniques et de calendrier pour définir avec vous le périmètre de ma mission et les premières orientations du projet.</p>",
+    "<p>Relevé de l'existant, analyse du bâti, du terrain et du contexte réglementaire. Ce diagnostic révèle le potentiel du lieu, signale les points de vigilance et débouche sur des pistes d'intervention chiffrées, avant tout engagement.</p>",
+    "<p>Esquisses, plans, volumes et choix des matériaux : le projet prend forme avec vous. Je constitue les dossiers d'autorisation, puis prépare la consultation des entreprises (pièces écrites, plans d'exécution, analyse des offres).</p>",
+    "<p>Réunions de chantier régulières, contrôle de la qualité d'exécution, respect des délais et du budget. Je reste votre interlocutrice auprès des entreprises, jusqu'à la réception des travaux et la levée des réserves.</p>",
+];

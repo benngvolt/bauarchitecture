@@ -16,6 +16,8 @@ export const ProjectsProvider = ({ children }) => {
     const [featuredProjects, setFeaturedProjects] = useState(null);
     const [approachSettings, setApproachSettings] = useState(null);
     const [homeBanner, setHomeBanner] = useState(null);
+    const [processSettings, setProcessSettings] = useState(null);
+    const [missionsSettings, setMissionsSettings] = useState(null);
 
     const [loadProjects, setLoadProjects] = useState(false);
     const [loadArticles, setLoadArticles] = useState(false);
@@ -29,6 +31,8 @@ export const ProjectsProvider = ({ children }) => {
     const [loadFeaturedProjects, setLoadFeaturedProjects] = useState(false);
     const [loadApproachSettings, setLoadApproachSettings] = useState(false);
     const [loadHomeBanner, setLoadHomeBanner] = useState(false);
+    const [loadProcessSettings, setLoadProcessSettings] = useState(false);
+    const [loadMissionsSettings, setLoadMissionsSettings] = useState(false);
 
     const [displayNavSection, setDisplayNavSection] = useState(false);
     const [loaderDisplay, setLoaderDisplay] = useState(false);
@@ -143,6 +147,36 @@ export const ProjectsProvider = ({ children }) => {
                 setLoaderDisplay(false);
             });
     }, [loadHomeBanner]);
+
+    useEffect(() => {
+        setLoaderDisplay(true);
+
+        fetch(`${API_URL}/api/process-settings`)
+            .then((res) => res.json())
+            .then((data) => {
+                setProcessSettings(data);
+                setLoaderDisplay(false);
+            })
+            .catch((error) => {
+                console.log(error.message);
+                setLoaderDisplay(false);
+            });
+    }, [loadProcessSettings]);
+
+    useEffect(() => {
+        setLoaderDisplay(true);
+
+        fetch(`${API_URL}/api/missions-settings`)
+            .then((res) => res.json())
+            .then((data) => {
+                setMissionsSettings(data);
+                setLoaderDisplay(false);
+            })
+            .catch((error) => {
+                console.log(error.message);
+                setLoaderDisplay(false);
+            });
+    }, [loadMissionsSettings]);
 
     useEffect(() => {
         setLoaderDisplay(true);
@@ -275,6 +309,14 @@ export const ProjectsProvider = ({ children }) => {
         setLoadHomeBanner(loadHomeBanner === false ? true : false);
     };
 
+    const handleLoadProcessSettings = () => {
+        setLoadProcessSettings(loadProcessSettings === false ? true : false);
+    };
+
+    const handleLoadMissionsSettings = () => {
+        setLoadMissionsSettings(loadMissionsSettings === false ? true : false);
+    };
+
     return (
         <ProjectsContext.Provider
             value={{
@@ -291,6 +333,8 @@ export const ProjectsProvider = ({ children }) => {
                 handleLoadFeaturedProjects,
                 handleLoadApproachSettings,
                 handleLoadHomeBanner,
+                handleLoadProcessSettings,
+                handleLoadMissionsSettings,
                 articles,
                 drawings,
                 reassuranceItems,
@@ -302,6 +346,8 @@ export const ProjectsProvider = ({ children }) => {
                 featuredProjects,
                 approachSettings,
                 homeBanner,
+                processSettings,
+                missionsSettings,
                 displayNavSection,
                 setDisplayNavSection,
                 loaderDisplay,

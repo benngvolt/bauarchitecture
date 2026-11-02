@@ -13,7 +13,7 @@
         margin: 0 auto;
 
         @include mainText;
-        @include fontSize2;
+        @include typeTitle;
 
         color: $colorLightGrey;
         text-align: center;
@@ -64,8 +64,8 @@
                 width: 100%;
                 margin: 0;
 
-                @include h1Text;
-                @include fontSize2;
+                @include typeTitle;
+                @include typeTitle;
 
                 color: $colorLightGrey;
                 text-align: left;
@@ -76,7 +76,7 @@
                 margin: 0;
 
                 @include mainText;
-                @include fontSize4;
+                @include typeText;
 
                 color: rgba($colorLightGrey, 0.82);
                 text-align: left;

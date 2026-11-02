@@ -1,4 +1,3 @@
-import './AboutPhotoForm.scss'
 import Loader from '../Loader/Loader'
 import React, { useState, useRef } from 'react'
 import { API_URL } from '../../utils/constants'
@@ -119,37 +118,34 @@ function AboutPhotoForm ({
         || defaultImageUrl;
 
     return (
-        <div className='aboutPhotoForm'>
+        <div className='adminForm'>
             {loaderDisplay === true &&
                 <Loader />
             }
 
-            <p className='aboutPhotoForm_text'>
-                <em>
-                    {currentImageUrl
-                        ? "Cette image remplace la photo par défaut."
-                        : "Aucune image personnalisée : la photo par défaut est utilisée."}
-                    {hint && ` ${hint}`}
-                </em>
+            <p className='adminIntro'>
+                {currentImageUrl
+                    ? "Cette image remplace l'image par défaut."
+                    : "Aucune image personnalisée : l'image par défaut est utilisée."}
+                {hint && ` ${hint}`}
             </p>
 
-            <div className='aboutPhotoForm_sampleContainer'>
-                {displayedImageUrl && (
+            {displayedImageUrl && (
+                <div className='adminPreview'>
                     <img
-                        className='aboutPhotoForm_sampleContainer_image'
                         style={previewAspectRatio ? { aspectRatio: previewAspectRatio } : undefined}
                         src={displayedImageUrl}
                         alt={`Prévisualisation de ${label}`}
                     />
-                )}
-            </div>
+                </div>
+            )}
 
-            <div className='aboutPhotoForm_buttonsContainer'>
+            <div className='adminActions'>
                 <label
                     htmlFor={`input${fieldName}`}
-                    className='aboutPhotoForm_buttonsContainer_uploadLabel'
+                    className='adminButton adminButton--secondary adminUpload'
                 >
-                    {newImageFile ? "CHANGER D'IMAGE" : '+ CHOISIR UNE IMAGE'}
+                    {newImageFile ? "Changer d'image" : '+ Choisir une image'}
                 </label>
                 <input
                     type='file'
@@ -162,18 +158,18 @@ function AboutPhotoForm ({
 
                 {newImageFile && (
                     <>
-                        <button aria-label={`Enregistrer ${label}`} type='button' onClick={submitImage}>
-                            ENREGISTRER
+                        <button aria-label={`Enregistrer ${label}`} type='button' className='adminButton' onClick={submitImage}>
+                            Enregistrer
                         </button>
-                        <button aria-label="Annuler la nouvelle image" type='button' onClick={cancelNewImageFile}>
-                            ANNULER
+                        <button aria-label="Annuler la nouvelle image" type='button' className='adminButton adminButton--text' onClick={cancelNewImageFile}>
+                            Annuler
                         </button>
                     </>
                 )}
 
                 {!newImageFile && currentImageUrl && (
-                    <button aria-label={`Réinitialiser ${label} par défaut`} type='button' onClick={resetImage}>
-                        RÉINITIALISER PAR DÉFAUT
+                    <button aria-label={`Réinitialiser ${label} par défaut`} type='button' className='adminButton adminButton--text' onClick={resetImage}>
+                        Réinitialiser par défaut
                     </button>
                 )}
             </div>

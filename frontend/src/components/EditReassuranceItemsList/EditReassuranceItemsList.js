@@ -1,4 +1,3 @@
-import './EditReassuranceItemsList.scss'
 import ConfirmBox from '../../components/ConfirmBox/ConfirmBox'
 
 import React, { useState } from 'react'
@@ -47,25 +46,39 @@ function EditReassuranceItemsList ({
 
     return (
         <div className='editReassuranceItemList'>
-            <ul className='editReassuranceItemList_list'>
-                {reassuranceItems.map((reassuranceItem)=>(
-                <li className='editReassuranceItemList_list_item' key={reassuranceItem._id}>
-                    <p className='editReassuranceItemList_list_item_title'>{reassuranceItem.title}</p>
+            {reassuranceItems.length === 0 && (
+                <p className='adminIntro'>Aucun argument pour l'instant : le bloc n'est pas affiché sur la page d'accueil.</p>
+            )}
+
+            <ul className='adminCardList'>
+                {reassuranceItems.map((reassuranceItem, index)=>(
+                <li key={reassuranceItem._id}>
+                    <p className='adminCardList_index'>Argument {index + 1}</p>
+                    <p className='adminCardList_title' style={{ textTransform: 'none' }}>{reassuranceItem.title}</p>
                     {reassuranceItem.subtitle && (
-                        <p className='editReassuranceItemList_list_item_subtitle'>{reassuranceItem.subtitle}</p>
+                        <p className='adminCardList_text'>{reassuranceItem.subtitle}</p>
                     )}
-                    <div className='editReassuranceItemList_list_item_buttonsContainer'>
-                        <button aria-label="Supprimer l'élément de réassurance" onClick={() => {
-                            setReassuranceItemToDelete (reassuranceItem)
-                            openConfirmBox()
+                    <div className='adminCardList_actions'>
+                        <button
+                            type='button'
+                            className='adminButton adminButton--secondary adminButton--small'
+                            aria-label="Modifier l'élément de réassurance"
+                            onClick={() => {
+                                handleEditReassuranceItem(reassuranceItem);
                             }}
-                            type='button'>
-                            Supprimer
-                        </button>
-                        <button aria-label="Modifier l'élément de réassurance" onClick={() => {
-                            handleEditReassuranceItem(reassuranceItem);
-                            }}>
+                        >
                             Modifier
+                        </button>
+                        <button
+                            type='button'
+                            className='adminButton adminButton--text adminButton--danger'
+                            aria-label="Supprimer l'élément de réassurance"
+                            onClick={() => {
+                                setReassuranceItemToDelete (reassuranceItem)
+                                openConfirmBox()
+                            }}
+                        >
+                            Supprimer
                         </button>
                     </div>
                 </li>

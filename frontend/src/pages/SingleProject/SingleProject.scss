@@ -40,7 +40,7 @@
         margin: $minimalSpace auto 0;
         width: auto;
         font-family: $mainFont;
-        font-size: $fontSize5;
+        @include typeText;
         color: $color1;
       }
 
@@ -50,7 +50,7 @@
         width: 50%;
         margin: 45px 0;
         font-family: $mainFont;
-        font-size: $fontSize4;
+        @include typeText;
         color: $colorDarkGrey;
 
         &_price,
@@ -60,7 +60,7 @@
 
         @media only screen and (max-width: $mobileMaxWidth) {
           width: 100%;
-          font-size: $fontSize5;
+          @include typeText;
         }
       }
 
@@ -78,7 +78,7 @@
         p {
           width: 50%;
           text-align: justify;
-          font-size: $fontSize4;
+          @include typeText;
 
           @media only screen and (min-width: $padMinWidth) and (max-width: $padMaxWidth) {
             width: 80%;
@@ -86,7 +86,7 @@
 
           @media only screen and (max-width: $mobileMaxWidth) {
             width: 100%;
-            font-size: $fontSize5;
+            @include typeText;
           }
         }
       }
@@ -157,7 +157,7 @@
 
           p {
             font-family: $mainFont;
-            font-size: $fontSize5;
+            @include typeText;
             font-weight: bold;
             width: 90%;
             margin: 10px 0;
@@ -185,7 +185,7 @@
           @include Row;
           column-gap: 20px;
           font-family: $mainFont;
-          font-size: $fontSize5;
+          @include typeText;
           font-weight: bold;
           text-align: justify;
         }
@@ -243,13 +243,14 @@
 
         &_indexBar {
           font-family: $mainFont;
-          font-size: 30px;
+          @include typeTitle;
+          font-weight: 400;
           color: $colorDarkGrey;
           margin: auto 2px;
           padding: 0;
 
           &--bold {
-            font-size: 40px;
+            font-weight: 700;
           }
         }
       }

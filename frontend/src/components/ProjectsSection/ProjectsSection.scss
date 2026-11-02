@@ -5,7 +5,7 @@
     margin: $minimalSpace 0;
 
     h2 {
-        @include h1Text;
+        @include typeTitle;
 
         display: flex;
         justify-content: center;
@@ -89,7 +89,7 @@
                     transition: background-color 0.3s ease;
 
                     h3 {
-                        @include h1Text;
+                        @include typeTitle;
 
                         margin: 0;
                         padding: 12px calc($minimalSpace / 2);
@@ -99,7 +99,7 @@
                         transition: color 0.3s ease;
 
                         @media only screen and (min-width: $padMinWidth) and (max-width: $padMaxWidth) {
-                            @include fontSize4;
+                            @include typeText;
                         }
                     }
                 }

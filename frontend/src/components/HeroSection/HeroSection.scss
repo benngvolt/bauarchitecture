@@ -69,7 +69,7 @@
 
 
         h1 {
-            @include h1Text;
+            @include typeTitle;
 
             display: flex;
             justify-content: center;
@@ -129,7 +129,7 @@
                 &_role {
                     margin: 0 auto;
                     @include mainText;
-                    @include fontSize5;
+                    @include typeText;
                     white-space: nowrap;
                 }
             }
@@ -142,6 +142,7 @@
 
                 &_description {
                     @include mainText;
+                    @include typeText;
                     display: flex;
                     justify-content: flex-start;
                     margin: 0;
@@ -163,7 +164,7 @@
 
             h1 {
                 @include mainText;
-                @include fontSize3;
+                @include typeTitle;
             }
 
         }

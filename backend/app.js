@@ -31,6 +31,8 @@ const faqItemsRoutes = require('./routes/faqItems');
 const featuredProjectsRoutes = require('./routes/featuredProjects');
 const approachSettingsRoutes = require('./routes/approachSettings');
 const homeBannerRoutes = require('./routes/homeBanner');
+const processSettingsRoutes = require('./routes/processSettings');
+const missionsSettingsRoutes = require('./routes/missionsSettings');
 
 
 /* --------------------------------------------------------
@@ -109,6 +111,8 @@ app.use('/api/faq-items', faqItemsRoutes);
 app.use('/api/featured-projects', featuredProjectsRoutes);
 app.use('/api/approach-settings', approachSettingsRoutes);
 app.use('/api/home-banner', homeBannerRoutes);
+app.use('/api/process-settings', processSettingsRoutes);
+app.use('/api/missions-settings', missionsSettingsRoutes);
 
 
 /* --------------------------------------------------------

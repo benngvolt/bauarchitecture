@@ -55,14 +55,14 @@
           font-family: $mainFont;
           color: $color1;
    
-          font-size: $fontSize5;
+          @include typeText;
         }
 
         &_shortSummary {
           @include Row;
           justify-content: center;
           font-family: $mainFont;
-          font-size: $fontSize5;
+          @include typeText;
           color: $colorDarkGrey;
         }
 
@@ -74,16 +74,8 @@
           text-align: center;
           // text-transform: uppercase;
           font-family: $mainFont;
-          font-size: $fontSize3;
+          @include typeTitle;
           cursor: pointer;
-
-          @media only screen and (min-width: $padMinWidth) and (max-width: $padMaxWidth) {
-            font-size: clamp(1rem, 2.5vw, 120px);
-          }
-
-          @media only screen and (max-width: $mobileMaxWidth) {
-            font-size: clamp(1.3rem, 2.5vw, 120px);
-          }
 
           &--notSelected {
             color: $colorDarkGrey;
@@ -120,13 +112,13 @@
         width: 80%;
         padding-right: 8px;
         font-family: $mainFont;
-        font-size: $fontSize4;
+        @include typeText;
         text-align: justify;
 
         @media only screen and (min-width: $padMinWidth) and (max-width: $padMaxWidth),
         only screen and (max-width: $mobileMaxWidth) {
           width: 100%;
-          font-size: $fontSize5;
+          @include typeText;
         }
       }
     }
@@ -180,7 +172,7 @@
     button {
       width: auto;
       margin: calc(2*$minimalSpace) auto 0 auto;
-      font-size: 20px;
+      @include typeText;
       border: none;
       background: none;
       @media (hover: hover) and (pointer: fine) {

@@ -57,7 +57,7 @@
             // @include Row;
             margin: 50px 0;
             font-family: $mainFont;
-            font-size: $fontSize5;
+            @include typeText;
             font-weight: normal;
             text-align: justify;
             height: auto;

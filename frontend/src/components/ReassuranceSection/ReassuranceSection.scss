@@ -51,13 +51,12 @@
         }
 
         &_title {
-            @include fontSize3;
-            font-weight: 800;
+            @include typeTitle;
             margin: 0 1rem;
         }
 
         &_subtitle {
-            @include fontSize4;
+            @include typeText;
             margin: 0 1rem;
             color: $color2;
         }

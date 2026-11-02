@@ -90,7 +90,7 @@
           justify-content: flex-start;
           font-family: $mainFont;
           color: $colorDarkGrey;
-          font-size: $fontSize5;
+          @include typeText;
           margin: 0;
 
           @media only screen and (max-width: $mobileMaxWidth) {
@@ -116,7 +116,7 @@
             p {
               color: $colorDarkGrey;
               font-family: $mainFont;
-              font-size: $fontSize5;
+              @include typeText;
               margin: 10px 0;
               cursor: pointer;
 
@@ -129,15 +129,14 @@
           &_mainTitle {
             font-family: $mainFont;
             color: $colorDarkGrey;
-            font-size: $fontSize2;
-            font-weight: 200;
+            @include typeTitle;
             margin: 0;
           }
 
           p {
             color: $colorDarkGrey;
             font-family: $mainFont;
-            font-size: $fontSize5;
+            @include typeText;
             margin: 0;
           }
 
@@ -156,7 +155,7 @@
                 p {
                   color: $colorDarkGrey;
                   font-family: $mainFont;
-                  font-size: $fontSize5;
+                  @include typeText;
                   margin: 0;
                   font-weight: normal;
 

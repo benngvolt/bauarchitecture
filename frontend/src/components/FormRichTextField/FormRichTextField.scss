@@ -25,3 +25,32 @@
         font-size: $fontSize5;
     }
 }
+
+// Variante tableau de bord : pas de largeur fixe, libellé sobre aligné à gauche.
+.formRichtextField--admin {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    row-gap: 6px;
+    align-items: stretch;
+
+    label {
+        margin: 0;
+        font-size: $typeTextSize;
+    }
+
+    trix-editor {
+        font-family: $mainFont;
+        font-size: 16px;
+        line-height: 1.5;
+        color: $colorDarkGrey;
+        min-height: 12em;
+        background-color: #fff;
+        border: 1px solid rgba($colorDarkGrey, 0.3);
+        border-radius: 8px;
+    }
+
+    trix-toolbar {
+        margin-bottom: 6px;
+    }
+}

@@ -1,0 +1,442 @@
+@import '../../utils/mixins';
+
+// Kit d'interface du tableau de bord : formulaires, cartes, boutons et messages d'état.
+// Chargé une fois (par la page Edit) ; les composants l'utilisent par leurs noms de classes (admin…).
+
+$adminBorder: rgba($colorDarkGrey, 0.3);
+$adminBorderSoft: rgba($colorDarkGrey, 0.12);
+$adminError: #9b2c2c;
+$adminCardPadding: calc($minimalSpace * 0.75);
+
+/*-------------------------------------
+  Formulaire : colonne alignée à gauche
+-------------------------------------*/
+
+.adminForm {
+    @include Column;
+    gap: 22px;
+    width: 100%;
+    // Occupe toute la zone éditable ; plafonné seulement sur très grands écrans pour garder des lignes lisibles.
+    max-width: 1200px;
+    position: relative;
+
+    &_intro {
+        margin: 0;
+        @include typeText;
+        font-family: $mainFont;
+        color: $color2;
+        max-width: 62ch;
+    }
+}
+
+.adminIntro {
+    margin: 0;
+    @include typeText;
+    font-family: $mainFont;
+    color: $color2;
+    max-width: 62ch;
+}
+
+/*-------------------------------------
+  Carte
+-------------------------------------*/
+
+.adminCard {
+    @include Column;
+    gap: 22px;
+    box-sizing: border-box;
+    padding: $adminCardPadding;
+    background-color: #fff;
+    border: 1px solid $adminBorderSoft;
+    border-radius: 10px;
+
+    @media only screen and (max-width: $mobileMaxWidth) {
+        padding: 18px;
+    }
+
+    &_header {
+        @include Row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+
+        h4,
+        p {
+            margin: 0;
+            @include typeText;
+            font-family: $mainFont;
+            font-weight: 700;
+            color: $colorDarkGrey;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+    }
+}
+
+.adminCardList--compact {
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+}
+
+.adminCardList {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 16px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    > li {
+        @include Column;
+        gap: 6px;
+        box-sizing: border-box;
+        padding: 18px;
+        background-color: #fff;
+        border: 1px solid $adminBorderSoft;
+        border-radius: 10px;
+    }
+
+    &_index,
+    &_meta {
+        margin: 0;
+        @include typeText;
+        font-family: $mainFont;
+        color: $color1;
+    }
+
+    &_title {
+        margin: 0;
+        @include typeText;
+        font-family: $mainFont;
+        font-weight: 700;
+        color: $colorDarkGrey;
+        text-transform: uppercase;
+    }
+
+    &_text {
+        margin: 0;
+        @include typeText;
+        font-family: $mainFont;
+        color: $color2;
+    }
+
+    &_actions {
+        @include Row;
+        align-items: center;
+        gap: 14px;
+        margin-top: auto;
+        padding-top: 10px;
+    }
+}
+
+/*-------------------------------------
+  Champ
+-------------------------------------*/
+
+.adminField {
+    @include Column;
+    gap: 6px;
+    width: 100%;
+
+    &_label {
+        font-family: $mainFont;
+        @include typeText;
+        font-weight: 700;
+        color: $colorDarkGrey;
+    }
+
+    &_required {
+        color: $adminError;
+    }
+
+    &_hint {
+        margin: 0;
+        font-family: $mainFont;
+        @include typeText;
+        color: $color2;
+    }
+
+    &_control {
+        box-sizing: border-box;
+        width: 100%;
+        padding: 11px 14px;
+        font-family: $mainFont;
+        font-size: 16px; // ≥ 16 px : évite le zoom automatique de iOS dans les champs
+        line-height: 1.5;
+        color: $colorDarkGrey;
+        background-color: #fff;
+        border: 1px solid $adminBorder;
+        border-radius: 8px;
+        transition: border-color 0.15s ease, box-shadow 0.15s ease;
+
+        &:hover {
+            border-color: rgba($colorDarkGrey, 0.55);
+        }
+
+        &:focus {
+            outline: none;
+            border-color: $colorDarkGrey;
+            box-shadow: 0 0 0 3px rgba($colorDarkGrey, 0.15);
+        }
+
+        &--multiline {
+            resize: vertical;
+            min-height: 6.5em;
+            overflow: hidden;
+        }
+    }
+
+    &_counter {
+        align-self: flex-end;
+        margin: 0;
+        font-family: $mainFont;
+        font-size: 13px;
+        color: $color1;
+    }
+}
+
+/*-------------------------------------
+  Boutons
+-------------------------------------*/
+
+.adminActions {
+    @include Row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px 14px;
+}
+
+.adminButton {
+    font-family: $mainFont;
+    @include typeText;
+    font-weight: 700;
+    padding: 9px 24px;
+    color: $colorLightGrey;
+    background-color: $colorDarkGrey;
+    border: 1px solid $colorDarkGrey;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease, opacity 0.15s ease;
+
+    &:hover:not(:disabled) {
+        color: $colorDarkGrey;
+        background-color: transparent;
+    }
+
+    &:focus-visible {
+        outline: 3px solid rgba($colorDarkGrey, 0.35);
+        outline-offset: 2px;
+    }
+
+    &:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+    }
+
+    &--secondary {
+        color: $colorDarkGrey;
+        background-color: transparent;
+
+        &:hover:not(:disabled) {
+            color: $colorLightGrey;
+            background-color: $colorDarkGrey;
+        }
+    }
+
+    // Action discrète (supprimer, rétablir...) : un simple texte souligné au survol.
+    &--text {
+        padding: 4px 2px;
+        color: $colorDarkGrey;
+        background: none;
+        border-color: transparent;
+        border-radius: 4px;
+        font-weight: 400;
+
+        &:hover:not(:disabled) {
+            color: $color1;
+            background: none;
+            text-decoration: underline;
+        }
+    }
+
+    &--danger {
+        color: $adminError;
+
+        &:hover:not(:disabled) {
+            color: $adminError;
+        }
+    }
+
+    &--small {
+        padding: 5px 16px;
+    }
+
+    // Bouton carré (↑ ↓ ✕)
+    &--icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 34px;
+        height: 34px;
+        padding: 0;
+        font-size: 17px;
+        line-height: 1;
+        color: $colorDarkGrey;
+        background-color: transparent;
+        border-color: $adminBorder;
+        border-radius: 8px;
+
+        &:hover:not(:disabled) {
+            color: $colorLightGrey;
+            background-color: $colorDarkGrey;
+        }
+    }
+}
+
+// Libellé d'un champ « fichier » présenté comme un bouton.
+.adminUpload {
+    display: inline-block;
+    cursor: pointer;
+}
+
+/*-------------------------------------
+  Messages d'état
+-------------------------------------*/
+
+.adminStatus {
+    margin: 0;
+    font-family: $mainFont;
+    @include typeText;
+    color: $color2;
+
+    &::before {
+        content: '✓ ';
+        font-weight: 700;
+    }
+
+    &--error {
+        color: $adminError;
+
+        &::before {
+            content: '! ';
+        }
+    }
+
+    &--info {
+        &::before {
+            content: '';
+        }
+    }
+}
+
+/*-------------------------------------
+  Fenêtre (modale) de formulaire
+-------------------------------------*/
+
+.adminModal {
+    @include Column;
+    gap: 22px;
+    box-sizing: border-box;
+    width: min(920px, 94%);
+    max-height: 90%;
+    margin: auto;
+    padding: calc($minimalSpace * 0.75);
+    overflow-y: auto;
+    background-color: #fff;
+    border-radius: 12px;
+
+    @media only screen and (max-width: $mobileMaxWidth) {
+        padding: 18px;
+    }
+
+    &_header {
+        @include Row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+
+        h3 {
+            margin: 0;
+            @include typeTitle;
+        }
+    }
+}
+
+/*-------------------------------------
+  Vignettes d'images
+-------------------------------------*/
+
+.adminThumbs {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    gap: 16px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    @media only screen and (max-width: $mobileMaxWidth) {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    &_item {
+        @include Column;
+        gap: 8px;
+        padding: 10px;
+        background-color: #fff;
+        border: 1px solid $adminBorderSoft;
+        border-radius: 10px;
+
+        img {
+            display: block;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+            border-radius: 6px;
+        }
+
+        &--pending {
+            border-style: dashed;
+            border-color: $adminBorder;
+        }
+
+        &_footer {
+            @include Row;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+
+            p {
+                margin: 0;
+                @include typeText;
+                font-family: $mainFont;
+                color: $color1;
+            }
+        }
+
+        &_buttons {
+            @include Row;
+            gap: 6px;
+        }
+    }
+}
+
+.adminPreview {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid $adminBorderSoft;
+    border-radius: 10px;
+
+    img {
+        display: block;
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
+        border-radius: 6px;
+    }
+}
+
+.adminModal--wide {
+    width: min(1000px, 94%);
+}

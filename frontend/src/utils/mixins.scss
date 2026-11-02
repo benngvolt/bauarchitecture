@@ -121,27 +121,33 @@ $headerHeight: 100px;
     margin: auto;
     @include AllOverPaddings;
 
+    // Dans un titre, le gras du texte riche reprend la graisse du titre (pas de 3e graisse).
     h4  {
         font-family: $mainFont;
-        font-size: $fontSize2;
+        @include typeTitle;
+
+        strong { font-weight: inherit; }
     }
 
     h5 {
         font-family: $mainFont;
-        font-size: $fontSize3;
+        @include typeTitle;
         margin: 20px 0 0 0;
+
+        strong { font-weight: inherit; }
     }
 
     h6 {
         font-family: $mainFont;
-        font-size: $fontSize4;
+        @include typeText;
+        font-weight: 700;
         margin : 0;
     }
 
     p {
         text-align: justify;
         font-family: $mainFont;
-        font-size: $fontSize4;
+        @include typeText;
 
         @media only screen and (max-width: $mobileMaxWidth) {
             text-align: left;
@@ -151,7 +157,7 @@ $headerHeight: 100px;
     ul {
         list-style-type: none;
         font-family: $mainFont;
-        font-size: $fontSize4;
+        @include typeText;
         padding: 0;
         @include Column;
         row-gap: 10px;
@@ -167,7 +173,7 @@ $headerHeight: 100px;
     
     a {
         font-family: $mainFont;
-        font-size: $fontSize4;
+        @include typeText;
         text-decoration: none;
         color: $colorDarkGrey;
 
@@ -202,20 +208,60 @@ $headerHeight: 100px;
     background:rgba(0, 0, 0, 0.8);
 }
 
-@mixin h1Text {
+/*-----------------------------------------------------------
+Typographie du site public : trois niveaux seulement.
+(La police est toujours $mainFont ; la couleur reste à la charge de chaque composant.)
+
+- typeTitle   : titres (H1 du hero, titres de section, titres d'éléments)
+- typeText    : textes courants, légendes, boutons, navigation
+- typeConcept : mots-concept en capitales (CONSTRUCTION, CONSEILLER...)
+-----------------------------------------------------------*/
+
+$typeTitleSize: 22px;
+$typeTitleSizePad: 20px;
+$typeTitleSizeMobile: 19px;
+$typeTextSize: 15px;
+$typeConceptSizePad: 30px;
+$typeConceptSizeMobile: 24px;
+
+@mixin typeTitle {
     font-family: $mainFont;
     color: $colorDarkGrey;
-    @include fontSize2;
+    font-size: $typeTitleSize;
+    font-weight: 700;
+    line-height: 1.25;
+
+    @media only screen and (min-width: $padMinWidth) and (max-width: $padMaxWidth) {
+        font-size: $typeTitleSizePad;
+    }
+
+    @media only screen and (max-width: $mobileMaxWidth) {
+        font-size: $typeTitleSizeMobile;
+    }
 }
-@mixin h2Text {
+
+@mixin typeText {
     font-family: $mainFont;
-    color: $colorDarkGrey;
-    @include fontSize3;
+    font-size: $typeTextSize;
+    line-height: 1.45;
 }
-@mixin h3Text {
+
+// La taille suit la largeur d'écran (les mots doivent tenir dans les quatre colonnes du bloc des pictogrammes), plafonnée à 40 px.
+@mixin typeConcept {
     font-family: $mainFont;
-    color: $colorDarkGrey;
-    @include fontSize1;
+    font-size: clamp(20px, calc((100vw - 170px) / 33), 40px);
+    font-weight: 700;
+    text-transform: uppercase;
+    line-height: 1.1;
+
+    // Tablette : les blocs de mots-concept passent sur deux colonnes, donc plus de place.
+    @media only screen and (min-width: $padMinWidth) and (max-width: $padMaxWidth) {
+        font-size: $typeConceptSizePad;
+    }
+
+    @media only screen and (max-width: $mobileMaxWidth) {
+        font-size: $typeConceptSizeMobile;
+    }
 }
 
 @mixin mainText {

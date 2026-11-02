@@ -1,5 +1,4 @@
-import './ApproachForm.scss'
-import FormSimpleField from '../FormSimpleField/FormSimpleField'
+import AdminField from '../AdminUI/AdminField'
 import Loader from '../Loader/Loader'
 import React, { useState, useEffect } from 'react'
 import { API_URL, DEFAULT_APPROACH_TITLE, DEFAULT_APPROACH_ITEMS } from '../../utils/constants'
@@ -32,8 +31,13 @@ function ApproachForm ({
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [savedKey]);
 
+    function touch(updater) {
+        updater();
+        setStatusMessage('');
+    }
+
     function updateItem(index, field, value) {
-        setItems(items.map((item, i) => (i === index ? { ...item, [field]: value } : item)));
+        touch(() => setItems(items.map((item, i) => (i === index ? { ...item, [field]: value } : item))));
     }
 
     function moveItem(index, direction) {
@@ -42,15 +46,15 @@ function ApproachForm ({
 
         const reordered = [...items];
         [reordered[index], reordered[target]] = [reordered[target], reordered[index]];
-        setItems(reordered);
+        touch(() => setItems(reordered));
     }
 
     function removeItem(index) {
-        setItems(items.filter((item, i) => i !== index));
+        touch(() => setItems(items.filter((item, i) => i !== index)));
     }
 
     function addItem() {
-        setItems([...items, { title: '', text: '' }]);
+        touch(() => setItems([...items, { title: '', text: '' }]));
     }
 
     function saveSettings(newTitle, newItems, successMessage) {
@@ -89,12 +93,12 @@ function ApproachForm ({
         event.preventDefault();
 
         if (items.length === 0) {
-            setStatusMessage('Ajoutez au moins un bloc, ou rétablissez les textes par défaut.');
+            setStatusMessage('Erreur : ajoutez au moins un bloc, ou rétablissez les textes par défaut.');
             return;
         }
 
         if (items.some((item) => item.title.trim() === '')) {
-            setStatusMessage('Chaque bloc doit avoir un titre.');
+            setStatusMessage('Erreur : chaque bloc doit avoir un titre.');
             return;
         }
 
@@ -106,106 +110,120 @@ function ApproachForm ({
     }
 
     const hasCustomTexts = Boolean(savedTitle || savedItems.length);
+    const isModified =
+        title !== (savedTitle || DEFAULT_APPROACH_TITLE) ||
+        JSON.stringify(items) !== JSON.stringify(savedItems.length ? savedItems : DEFAULT_APPROACH_ITEMS);
 
     return (
-        <form className='approachForm' onSubmit={handleSubmit}>
+        <form className='adminForm' onSubmit={handleSubmit}>
             {loaderDisplay === true &&
                 <Loader />
             }
 
-            <p className='approachForm_text'>
-                <em>
-                    Section sombre de la page d'accueil, située sous les projets à la une :
-                    un titre et jusqu'à {MAX_ITEMS} blocs (titre + texte), affichés sur trois colonnes.
-                    Un titre laissé vide retrouve son texte par défaut.
-                </em>
+            <p className='adminIntro'>
+                Un titre et jusqu'à {MAX_ITEMS} blocs (titre + texte), affichés sur trois colonnes.
+                Un titre vidé retrouve son texte par défaut.
             </p>
 
-            <FormSimpleField
-                htmlFor='inputApproachTitle'
-                label='TITRE'
-                id='inputApproachTitle'
-                value={title}
-                onChangeFunction={setTitle}
-                multiline
-                rows={2}
-                maxLength={MAX_TITLE_LENGTH}
-            />
-
-            <ol className='approachForm_items'>
-                {items.map((item, index) => (
-                    <li className='approachForm_items_item' key={index}>
-                        <div className='approachForm_items_item_header'>
-                            <span>BLOC {index + 1}</span>
-
-                            <div className='approachForm_items_item_header_actions'>
-                                <button
-                                    type='button'
-                                    onClick={() => moveItem(index, -1)}
-                                    disabled={index === 0}
-                                    aria-label={`Monter le bloc ${index + 1}`}
-                                >
-                                    ↑
-                                </button>
-                                <button
-                                    type='button'
-                                    onClick={() => moveItem(index, 1)}
-                                    disabled={index === items.length - 1}
-                                    aria-label={`Descendre le bloc ${index + 1}`}
-                                >
-                                    ↓
-                                </button>
-                                <button
-                                    type='button'
-                                    onClick={() => removeItem(index)}
-                                    aria-label={`Supprimer le bloc ${index + 1}`}
-                                >
-                                    SUPPRIMER
-                                </button>
-                            </div>
-                        </div>
-
-                        <FormSimpleField
-                            htmlFor={`inputApproachItemTitle${index}`}
-                            label='TITRE'
-                            id={`inputApproachItemTitle${index}`}
-                            value={item.title}
-                            onChangeFunction={(value) => updateItem(index, 'title', value.slice(0, MAX_ITEM_TITLE_LENGTH))}
-                        />
-
-                        <FormSimpleField
-                            htmlFor={`inputApproachItemText${index}`}
-                            label='TEXTE'
-                            id={`inputApproachItemText${index}`}
-                            value={item.text}
-                            onChangeFunction={(value) => updateItem(index, 'text', value)}
-                            multiline
-                            rows={3}
-                            maxLength={MAX_ITEM_TEXT_LENGTH}
-                        />
-                    </li>
-                ))}
-            </ol>
-
-            <div className='approachForm_buttonsContainer'>
-                {items.length < MAX_ITEMS && (
-                    <button type='button' onClick={addItem}>+ AJOUTER UN BLOC +</button>
-                )}
+            <div className='adminCard'>
+                <AdminField
+                    id='inputApproachTitle'
+                    label='Titre de la section'
+                    value={title}
+                    onChange={(value) => touch(() => setTitle(value))}
+                    multiline
+                    rows={2}
+                    maxLength={MAX_TITLE_LENGTH}
+                />
             </div>
 
-            <div className='approachForm_buttonsContainer'>
-                <button type='submit'>ENREGISTRER</button>
+            {items.map((item, index) => (
+                <div className='adminCard' key={index}>
+                    <div className='adminCard_header'>
+                        <h4>Bloc {index + 1}</h4>
+
+                        <div className='adminActions'>
+                            <button
+                                type='button'
+                                className='adminButton adminButton--icon'
+                                onClick={() => moveItem(index, -1)}
+                                disabled={index === 0}
+                                aria-label={`Monter le bloc ${index + 1}`}
+                                title='Monter'
+                            >
+                                ↑
+                            </button>
+                            <button
+                                type='button'
+                                className='adminButton adminButton--icon'
+                                onClick={() => moveItem(index, 1)}
+                                disabled={index === items.length - 1}
+                                aria-label={`Descendre le bloc ${index + 1}`}
+                                title='Descendre'
+                            >
+                                ↓
+                            </button>
+                            <button
+                                type='button'
+                                className='adminButton adminButton--icon'
+                                onClick={() => removeItem(index)}
+                                aria-label={`Supprimer le bloc ${index + 1}`}
+                                title='Supprimer'
+                            >
+                                ✕
+                            </button>
+                        </div>
+                    </div>
+
+                    <AdminField
+                        id={`inputApproachItemTitle${index}`}
+                        label='Titre'
+                        value={item.title}
+                        onChange={(value) => updateItem(index, 'title', value.slice(0, MAX_ITEM_TITLE_LENGTH))}
+                        maxLength={MAX_ITEM_TITLE_LENGTH}
+                        required
+                    />
+
+                    <AdminField
+                        id={`inputApproachItemText${index}`}
+                        label='Texte'
+                        value={item.text}
+                        onChange={(value) => updateItem(index, 'text', value)}
+                        multiline
+                        rows={4}
+                        maxLength={MAX_ITEM_TEXT_LENGTH}
+                    />
+                </div>
+            ))}
+
+            {items.length < MAX_ITEMS && (
+                <div>
+                    <button type='button' className='adminButton adminButton--secondary' onClick={addItem}>
+                        + Ajouter un bloc
+                    </button>
+                </div>
+            )}
+
+            <div className='adminActions'>
+                <button type='submit' className='adminButton' disabled={!isModified}>
+                    Enregistrer
+                </button>
 
                 {hasCustomTexts && (
-                    <button type='button' onClick={resetTexts}>
-                        RÉTABLIR LES TEXTES PAR DÉFAUT
+                    <button type='button' className='adminButton adminButton--text' onClick={resetTexts}>
+                        Rétablir les textes par défaut
                     </button>
                 )}
-            </div>
 
-            {statusMessage && (
-                <p className='approachForm_status' role='status'>{statusMessage}</p>
-            )}
+                {statusMessage && (
+                    <p
+                        className={statusMessage.startsWith('Erreur') ? 'adminStatus adminStatus--error' : 'adminStatus'}
+                        role='status'
+                    >
+                        {statusMessage.replace(/^Erreur : /, '')}
+                    </p>
+                )}
+            </div>
         </form>
     )
 }

@@ -9,14 +9,14 @@
     &_title {
         font-family: $mainFont;
         color: $colorDarkGrey;
-        font-size: $fontSize3;
+        @include typeTitle;
         margin-bottom: 50px;
         
     }
     &_empty {
         font-family: $mainFont;
         color: $color1;
-        font-size: $fontSize4;
+        @include typeText;
     }
     &_list {
         list-style-type: none;
@@ -27,14 +27,14 @@
             &_question {
                 font-family: $mainFont;
                 color: $colorDarkGrey;
-                font-size: $fontSize4;
+                @include typeText;
                 font-weight: bold;
             }
             &_answer {
                 text-align: justify;
                 font-family: $mainFont;
                 color: $colorDarkGrey;
-                font-size: $fontSize4;
+                @include typeText;
 
                 div, p {
                     margin: 0 0 10px;
