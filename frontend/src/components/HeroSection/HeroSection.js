@@ -13,7 +13,6 @@ const HERO_SLIDE_DURATION = 5000;
 function HeroSection() {
     const {
         projects,
-        reassuranceItems,
         heroSettings,
         welcomeDisplay,
         setDisplayNavSection,
@@ -70,105 +69,104 @@ function HeroSection() {
                 </div>
             )}
 
+            {/* L'image est plus haute que l'écran : le bloc de présentation, repoussé sous la ligne de flottaison,
+                se découvre en défilant. */}
             <div
                 className={
                     slidesCount > 0
-                        ? 'hero_imageTitleContainer hero_imageTitleContainer--filled'
-                        : 'hero_imageTitleContainer'
+                        ? 'hero_stage hero_stage--filled'
+                        : 'hero_stage'
                 }
             >
-                {heroImageUrls.map((imageUrl, index) => (
-                    <img
-                        key={imageUrl}
-                        className={
-                            index === currentSlide
-                                ? 'hero_imageTitleContainer_image hero_imageTitleContainer_image--active'
-                                : 'hero_imageTitleContainer_image'
-                        }
-                        src={`${API_URL}${imageUrl}`}
-                        alt={
-                            hasCustomImages
-                                ? 'BAU Architecture'
-                                : heroProject?.title
-                                ? `Projet ${heroProject.title} par BAU Architecture`
-                                : 'Réalisation de BAU Architecture'
-                        }
-                        aria-hidden={index === currentSlide ? undefined : 'true'}
-                    />
-                ))}
-
-                {slidesCount > 1 && (
-                    <div className='hero_imageTitleContainer_dots'>
-                        {heroImageUrls.map((imageUrl, index) => (
-                            <button
-                                key={imageUrl}
-                                type='button'
-                                className={
-                                    index === currentSlide
-                                        ? 'hero_imageTitleContainer_dots_dot hero_imageTitleContainer_dots_dot--active'
-                                        : 'hero_imageTitleContainer_dots_dot'
-                                }
-                                aria-label={`Afficher l'image ${index + 1} sur ${slidesCount}`}
-                                aria-current={index === currentSlide ? 'true' : undefined}
-                                onClick={() => setActiveSlide(index)}
-                            />
-                        ))}
-                    </div>
-                )}
-            </div>
-            <div className='hero_mainContainer'>
-                <div className='hero_mainContainer_descriptionContainer'>
-                    <div className='hero_mainContainer_descriptionContainer_logoContainer'>
+                <div
+                    className={
+                        slidesCount > 0
+                            ? 'hero_imageTitleContainer hero_imageTitleContainer--filled'
+                            : 'hero_imageTitleContainer'
+                    }
+                >
+                    {heroImageUrls.map((imageUrl, index) => (
                         <img
-                            className='hero_mainContainer_descriptionContainer_logoContainer_logo'
-                            src={logo}
-                            alt='BAU Architecture — Amata Zdziobeck'
+                            key={imageUrl}
+                            className={
+                                index === currentSlide
+                                    ? 'hero_imageTitleContainer_image hero_imageTitleContainer_image--active'
+                                    : 'hero_imageTitleContainer_image'
+                            }
+                            src={`${API_URL}${imageUrl}`}
+                            alt={
+                                hasCustomImages
+                                    ? 'BAU Architecture'
+                                    : heroProject?.title
+                                    ? `Projet ${heroProject.title} par BAU Architecture`
+                                    : 'Réalisation de BAU Architecture'
+                            }
+                            aria-hidden={index === currentSlide ? undefined : 'true'}
                         />
+                    ))}
 
-                        <p className='hero_mainContainer_descriptionContainer_logoContainer_role'>
-                            Architecte HMONP
-                        </p>
-                    </div>
+                    {slidesCount > 1 && (
+                        <div className='hero_imageTitleContainer_dots'>
+                            {heroImageUrls.map((imageUrl, index) => (
+                                <button
+                                    key={imageUrl}
+                                    type='button'
+                                    className={
+                                        index === currentSlide
+                                            ? 'hero_imageTitleContainer_dots_dot hero_imageTitleContainer_dots_dot--active'
+                                            : 'hero_imageTitleContainer_dots_dot'
+                                    }
+                                    aria-label={`Afficher l'image ${index + 1} sur ${slidesCount}`}
+                                    aria-current={index === currentSlide ? 'true' : undefined}
+                                    onClick={() => setActiveSlide(index)}
+                                />
+                            ))}
+                        </div>
+                    )}
+                </div>
+                <div className='hero_mainContainer'>
+                    <div className='hero_mainContainer_descriptionContainer'>
+                        <div className='hero_mainContainer_descriptionContainer_logoContainer'>
+                            <img
+                                className='hero_mainContainer_descriptionContainer_logoContainer_logo'
+                                src={logo}
+                                alt='BAU Architecture — Amata Zdziobeck'
+                            />
 
-                    <div className='hero_mainContainer_descriptionContainer_content'>
-                        <h1>{heroSettings?.title || DEFAULT_HERO_TITLE}</h1>
+                            <p className='hero_mainContainer_descriptionContainer_logoContainer_role'>
+                                Architecte HMONP
+                            </p>
+                        </div>
 
-                        <p className='hero_mainContainer_descriptionContainer_content_description'>
-                            {heroSettings?.description || DEFAULT_HERO_DESCRIPTION}
-                        </p>
+                        <div className='hero_mainContainer_descriptionContainer_content'>
+                            <h1>{heroSettings?.title || DEFAULT_HERO_TITLE}</h1>
 
-                        <div className='hero_mainContainer_descriptionContainer_content_buttonContainer'>
-                            <Button
-                                variant='link'
-                                className='button_dark'
-                                link='/contact'
-                                ariaLabel='Discuter de votre projet avec BAU Architecture'
-                            >
-                                DISCUTONS DE VOTRE PROJET
-                            </Button>
+                            <p className='hero_mainContainer_descriptionContainer_content_description'>
+                                {heroSettings?.description || DEFAULT_HERO_DESCRIPTION}
+                            </p>
 
-                            <Button
-                                variant='link'
-                                className='button_light'
-                                link='/projets'
-                                ariaLabel='Découvrir les réalisations de BAU Architecture'
-                            >
-                                DÉCOUVRIR LES RÉALISATIONS
-                            </Button>
+                            <div className='hero_mainContainer_descriptionContainer_content_buttonContainer'>
+                                <Button
+                                    variant='link'
+                                    className='button_dark'
+                                    link='/contact'
+                                    ariaLabel='Discuter de votre projet avec BAU Architecture'
+                                >
+                                    DISCUTONS DE VOTRE PROJET
+                                </Button>
+
+                                <Button
+                                    variant='link'
+                                    className='button_light'
+                                    link='/projets'
+                                    ariaLabel='Découvrir les réalisations de BAU Architecture'
+                                >
+                                    DÉCOUVRIR LES RÉALISATIONS
+                                </Button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div className='hero_reassuranceContainer'>
-                {reassuranceItems.slice(0, 3).map((reassuranceItem) => (
-                    <div className='hero_reassuranceContainer_item' key={reassuranceItem._id}>
-                        <p className='hero_reassuranceContainer_item_title'>{reassuranceItem.title}</p>
-                        {reassuranceItem.subtitle && (
-                            <p className='hero_reassuranceContainer_item_subtitle'>{reassuranceItem.subtitle}</p>
-                        )}
-                    </div>
-                ))}
             </div>
         </section>
     );

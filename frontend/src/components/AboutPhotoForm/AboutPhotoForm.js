@@ -9,7 +9,13 @@ function AboutPhotoForm ({
     fieldName,
     currentImageUrl,
     defaultImageUrl,
-    handleLoadAboutPageContent,
+    onUpdated,
+    // Par défaut, le formulaire gère une photo de la page À propos ; ces propriétés le rendent réutilisable
+    // pour une autre image (même principe : un champ fichier envoyé en PUT, et une route DELETE pour réinitialiser).
+    uploadUrl = `${API_URL}/api/about-page-content`,
+    resetUrl = `${API_URL}/api/about-page-content/${fieldName}`,
+    hint,
+    previewAspectRatio,
     loaderDisplay,
     setLoaderDisplay
     }) {
@@ -57,7 +63,7 @@ function AboutPhotoForm ({
         const formData = new FormData();
         formData.append(fieldName, newImageFile);
 
-        fetch(`${API_URL}/api/about-page-content`, {
+        fetch(uploadUrl, {
             method: 'PUT',
             headers: {
                 // Authorization: `Bearer ${sessionStorage.getItem('1')}`,
@@ -74,7 +80,7 @@ function AboutPhotoForm ({
         })
         .then(() => {
             cancelNewImageFile();
-            handleLoadAboutPageContent();
+            onUpdated();
             setLoaderDisplay(false);
         })
         .catch((error) => {
@@ -86,7 +92,7 @@ function AboutPhotoForm ({
     function resetImage() {
         setLoaderDisplay(true);
 
-        fetch(`${API_URL}/api/about-page-content/${fieldName}`, {
+        fetch(resetUrl, {
             method: 'DELETE',
             headers: {
                 // Authorization: `Bearer ${sessionStorage.getItem('1')}`,
@@ -99,7 +105,7 @@ function AboutPhotoForm ({
             return response.json();
         })
         .then(() => {
-            handleLoadAboutPageContent();
+            onUpdated();
             setLoaderDisplay(false);
         })
         .catch((error) => {
@@ -123,6 +129,7 @@ function AboutPhotoForm ({
                     {currentImageUrl
                         ? "Cette image remplace la photo par défaut."
                         : "Aucune image personnalisée : la photo par défaut est utilisée."}
+                    {hint && ` ${hint}`}
                 </em>
             </p>
 
@@ -130,6 +137,7 @@ function AboutPhotoForm ({
                 {displayedImageUrl && (
                     <img
                         className='aboutPhotoForm_sampleContainer_image'
+                        style={previewAspectRatio ? { aspectRatio: previewAspectRatio } : undefined}
                         src={displayedImageUrl}
                         alt={`Prévisualisation de ${label}`}
                     />

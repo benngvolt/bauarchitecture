@@ -4,19 +4,23 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    row-gap: calc($minimalSpace / 2);
     margin-top: $headerHeight;
-    // margin-bottom: calc(2 * $minimalSpace);
+
+    // Scène du hero : les images remplissent toute sa hauteur, qui dépasse celle de l'écran
+    // car le bloc de présentation est repoussé sous la ligne de flottaison (voir &_mainContainer).
+    &_stage {
+        position: relative;
+        width: 100%;
+        padding-bottom: calc($minimalSpace * 2);
+    }
 
     &_imageTitleContainer {
-
-        position: relative;
-        width: 100vw;
-
-        &--filled {
-            aspect-ratio: 16 / 9;
-            overflow: hidden;
-        }
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        overflow: hidden;
 
         // Les images sont superposées : seule l'image active est visible (fondu enchaîné).
         &_image {
@@ -73,13 +77,19 @@
         }
     }
 
-    // Le bloc de texte est placé sous l'image et ne la recouvre que sur son bord inférieur
-    // (recouvrement = 2 x $minimalSpace, le row-gap du hero s'ajoutant en plus).
-    // Pour le placer entièrement sous l'image, sans la recouvrir : margin-top: 0.
+    // Le bloc de présentation est posé sur l'image, dans sa moitié basse : son margin-top le repousse
+    // exactement sous la ligne de flottaison (écran moins l'en-tête fixe), donc invisible à l'arrivée sur la page.
+    // Sans image (scène vide), il reste en haut de la page.
+    &_stage--filled &_mainContainer {
+        margin-top: calc(100vh - #{$headerHeight});
+        // Hauteur d'écran réelle sur mobile (barre d'adresse comprise), quand le navigateur la gère.
+        margin-top: calc(100svh - #{$headerHeight});
+    }
+
     &_mainContainer {
         position: relative;
+        z-index: 1;
         width: 67%;
-        margin-top: -($minimalSpace * 2.5);
         margin-left: $minimalSpace;
         @include Column;
 
@@ -88,9 +98,21 @@
             flex-direction: row;
             align-items: center;
             column-gap: calc($minimalSpace * 2 / 3);
-            background-color: $colorLightGrey;
+            // Blanc, pour se détacher du fond gris clair de la page.
+            background-color: #fff;
             padding: calc($minimalSpace/3) calc($minimalSpace);
             border-radius: 8px;
+
+            // Le bouton clair prend le fond du bloc pour ne pas ressortir en gris.
+            .button_light {
+                background-color: #fff;
+
+                @media (hover: hover) and (pointer: fine) {
+                    &:hover {
+                        background-color: $colorDarkGrey;
+                    }
+                }
+            }
 
             &_logoContainer {
                 @include Column;
@@ -154,7 +176,6 @@
 
         @media only screen and (max-width: $mobileMaxWidth) {
             width: auto;
-            margin-top: -$minimalSpace;
             margin-left: calc($minimalSpace / 2);
             margin-right: calc($minimalSpace / 2);
 
@@ -218,61 +239,5 @@
 
     a {
         text-decoration: none;
-    }
-
-    &_reassuranceContainer {
-
-        @include mainText;
-        @include Row;
-        margin: calc(2*$minimalSpace) auto;
-        padding: 0 $minimalSpace;
-        align-items: flex-start;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 1.5rem;
-
-        // Tablette et mobile : les arguments s'empilent (trois colonnes de texte ne tiennent pas côte à côte).
-        @media only screen and (max-width: $padMaxWidth) {
-            flex-direction: column;
-            align-items: center;
-            margin: $minimalSpace auto;
-            padding: 0 calc($minimalSpace / 2);
-        }
-
-        &_item {
-            @include Column;
-            position: relative;
-            text-align: center;
-            row-gap: 0.5rem;
-
-            &:not(:last-child)::after {
-                content: '';
-                position: absolute;
-                top: 50%;
-                right: calc(-1.5rem / 2 - 3px);
-                transform: translateY(-50%);
-                width: 6px;
-                height: 6px;
-                border-radius: 50%;
-                background: $colorDarkGrey;
-
-                // Les arguments sont empilés : plus de séparateur entre eux.
-                @media only screen and (max-width: $padMaxWidth) {
-                    display: none;
-                }
-            }
-
-            &_title {
-                @include fontSize3;
-                font-weight: 800;
-                margin: 0 2rem;
-            }
-
-            &_subtitle {
-                @include fontSize4;
-                margin: 0 2rem;
-                color: $color2;
-            }
-        }
     }
 }

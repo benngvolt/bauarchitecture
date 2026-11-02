@@ -4,7 +4,8 @@
     @include Column;
     margin: $minimalSpace auto;
     row-gap: calc($minimalSpace / 2);
-    padding: 0 $minimalSpace;
+    // Bloc deux fois plus haut qu'à l'origine : de l'air au-dessus et en dessous des pictogrammes.
+    padding: $minimalSpace $minimalSpace;
 
     &_list {
         display: grid;
@@ -63,7 +64,7 @@
 
 @media screen and (max-width: 768px) {
     .missions {
-        padding: 0 calc($minimalSpace / 2);
+        padding: $minimalSpace calc($minimalSpace / 2);
 
         &_list {
             grid-template-columns: repeat(2, minmax(0, 1fr));

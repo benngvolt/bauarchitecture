@@ -203,6 +203,22 @@
                 color: $color1;
             }
 
+            &_subSection {
+                margin: 0 0 $minimalSpace * 2;
+                padding-bottom: $minimalSpace;
+                border-bottom: 1px solid rgba($colorDarkGrey, 0.25);
+
+                &:last-child {
+                    border-bottom: none;
+                }
+
+                &_title {
+                    @include mainText;
+                    @include fontSize3;
+                    margin: 0 0 30px;
+                }
+            }
+
             &_helperText {
                 margin: 0 0 30px;
                 font-family: $mainFont;

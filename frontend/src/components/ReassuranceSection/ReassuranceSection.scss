@@ -1,0 +1,65 @@
+@import '../../utils/mixins';
+
+.reassurance {
+
+    @include mainText;
+    @include Row;
+    margin: calc(2*$minimalSpace) auto;
+    padding: 0 $minimalSpace;
+    align-items: stretch;
+    justify-content: center;
+    gap: 1.5rem;
+
+    // Mobile : les arguments s'empilent, sans les points de séparation.
+    @media only screen and (max-width: $mobileMaxWidth) {
+        flex-direction: column;
+        align-items: center;
+        margin: $minimalSpace auto;
+        padding: 0 calc($minimalSpace / 2);
+    }
+
+    &_item {
+        @include Column;
+        position: relative;
+        // Colonnes de même largeur : le texte passe à la ligne dans sa colonne plutôt que d'élargir la ligne.
+        flex: 1 1 0;
+        min-width: 0;
+        max-width: 420px;
+        text-align: center;
+        row-gap: 0.5rem;
+
+        @media only screen and (max-width: $mobileMaxWidth) {
+            flex: none;
+            max-width: none;
+        }
+
+        &:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: calc(-1.5rem / 2 - 3px);
+            transform: translateY(-50%);
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: $colorDarkGrey;
+
+            // Les arguments sont empilés : plus de séparateur entre eux.
+            @media only screen and (max-width: $mobileMaxWidth) {
+                display: none;
+            }
+        }
+
+        &_title {
+            @include fontSize3;
+            font-weight: 800;
+            margin: 0 1rem;
+        }
+
+        &_subtitle {
+            @include fontSize4;
+            margin: 0 1rem;
+            color: $color2;
+        }
+    }
+}

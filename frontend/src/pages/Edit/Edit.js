@@ -13,6 +13,8 @@ import CurriculumContentForm from '../../components/CurriculumContentForm/Curric
 import FriendUrlForm from '../../components/FriendUrlForm/FriendUrlForm';
 import FaqItemForm from '../../components/FaqItemForm/FaqItemForm';
 import { ProjectsContext } from '../../utils/ProjectsContext';
+import { API_URL } from '../../utils/constants';
+import { getDefaultBannerImage } from '../../utils/homeImages';
 import EditProjectsList from '../../components/EditProjectsList/EditProjectsList';
 import EditArticlesList from '../../components/EditArticlesList/EditArticlesList';
 import EditReassuranceItemsList from '../../components/EditReassuranceItemsList/EditReassuranceItemsList';
@@ -34,11 +36,11 @@ const SECTIONS = [
         label: "PAGE D'ACCUEIL",
         subSections: [
             { key: 'hero-texts', label: 'Hero : textes', description: "Titre principal et texte d'accroche, en haut de la page d'accueil." },
-            { key: 'hero-images', label: 'Hero : images de fond', description: "Images qui défilent derrière le titre, en haut de la page d'accueil." },
             { key: 'reassurance', label: 'Hero : arguments de réassurance', description: "Courts arguments affichés sous le texte d'accroche." },
             { key: 'featured', label: 'Projets à la une', description: "Les trois projets présentés sur la page d'accueil." },
             { key: 'approach', label: 'Approche', description: "Section sombre de la page d'accueil : titre et blocs de texte." },
             { key: 'process', label: 'Étapes du processus', description: "Les quatre étapes présentées sur la page d'accueil." },
+            { key: 'home-images', label: 'Images', description: "Images fixes de la page d'accueil : fond du hero et image pleine largeur." },
         ],
     },
     { key: 'projects', label: 'PROJETS', description: 'Tous les projets du site.' },
@@ -90,6 +92,7 @@ function Edit() {
         handleLoadFaqItems,
         handleLoadFeaturedProjects,
         handleLoadApproachSettings,
+        handleLoadHomeBanner,
         projects,
         articles,
         reassuranceItems,
@@ -100,6 +103,7 @@ function Edit() {
         faqItems,
         featuredProjects,
         approachSettings,
+        homeBanner,
         loaderDisplay,
         setLoaderDisplay,
         setDisplayNavSection,
@@ -108,6 +112,7 @@ function Edit() {
     const defaultHeroProject = projects[0];
     const defaultHeroImageUrl =
         defaultHeroProject?.images?.[defaultHeroProject.mainImageIndex]?.imageUrl;
+    const defaultBannerImage = getDefaultBannerImage(projects);
 
     const [activeSection, setActiveSection] = useState(getInitialPanelKey);
     const activePanel = PANELS.find((panel) => panel.key === activeSection);
@@ -376,15 +381,39 @@ function Edit() {
                         />
                     )}
 
-                    {/* PAGE D'ACCUEIL : HERO, IMAGES DE FOND */}
-                    {activeSection === 'hero-images' && (
-                        <HeroImageForm
-                            heroSettings={heroSettings}
-                            defaultHeroImageUrl={defaultHeroImageUrl}
-                            handleLoadHeroSettings={handleLoadHeroSettings}
-                            loaderDisplay={loaderDisplay}
-                            setLoaderDisplay={setLoaderDisplay}
-                        />
+                    {/* PAGE D'ACCUEIL : IMAGES FIXES (HERO ET IMAGE PLEINE LARGEUR) */}
+                    {activeSection === 'home-images' && (
+                        <>
+                            <div className='edit_content_section_subSection'>
+                                <h3 className='edit_content_section_subSection_title'>Hero : images de fond</h3>
+                                <HeroImageForm
+                                    heroSettings={heroSettings}
+                                    defaultHeroImageUrl={defaultHeroImageUrl}
+                                    handleLoadHeroSettings={handleLoadHeroSettings}
+                                    loaderDisplay={loaderDisplay}
+                                    setLoaderDisplay={setLoaderDisplay}
+                                />
+                            </div>
+
+                            <div className='edit_content_section_subSection'>
+                                <h3 className='edit_content_section_subSection_title'>Image pleine largeur</h3>
+                                <AboutPhotoForm
+                                    label="l'image pleine largeur"
+                                    fieldName='banner'
+                                    currentImageUrl={homeBanner?.imageUrl}
+                                    defaultImageUrl={
+                                        defaultBannerImage ? `${API_URL}${defaultBannerImage.imageUrl}` : undefined
+                                    }
+                                    uploadUrl={`${API_URL}/api/home-banner`}
+                                    resetUrl={`${API_URL}/api/home-banner`}
+                                    previewAspectRatio='16 / 9'
+                                    hint="Affichée entre « Approche » et « Étapes du processus », au format 16:9 horizontal (l'image est recadrée si besoin)."
+                                    onUpdated={handleLoadHomeBanner}
+                                    loaderDisplay={loaderDisplay}
+                                    setLoaderDisplay={setLoaderDisplay}
+                                />
+                            </div>
+                        </>
                     )}
 
                     {/* PAGE D'ACCUEIL : ARGUMENTS DE RÉASSURANCE (HERO) */}
@@ -468,7 +497,7 @@ function Edit() {
                             fieldName='photo1'
                             currentImageUrl={aboutPageContent?.photo1Url}
                             defaultImageUrl={skyline}
-                            handleLoadAboutPageContent={handleLoadAboutPageContent}
+                            onUpdated={handleLoadAboutPageContent}
                             loaderDisplay={loaderDisplay}
                             setLoaderDisplay={setLoaderDisplay}
                         />
@@ -489,7 +518,7 @@ function Edit() {
                             fieldName='photo2'
                             currentImageUrl={aboutPageContent?.photo2Url}
                             defaultImageUrl={ensase}
-                            handleLoadAboutPageContent={handleLoadAboutPageContent}
+                            onUpdated={handleLoadAboutPageContent}
                             loaderDisplay={loaderDisplay}
                             setLoaderDisplay={setLoaderDisplay}
                         />

@@ -11,12 +11,13 @@ const folders = {
   articles: "articles",
   drawings: "drawings",
   hero: "hero",
+  banner: "banner",
   philosophy: "philosophy",
   photo1: "about",
   photo2: "about",
 };
 
-const SINGLE_FILE_FIELDS = ["hero", "philosophy", "photo1", "photo2"];
+const SINGLE_FILE_FIELDS = ["hero", "banner", "philosophy", "photo1", "photo2"];
 
 async function ensureDir(dir) {
   await fs.mkdir(dir, { recursive: true });

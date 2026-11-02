@@ -1,0 +1,14 @@
+@import '../../utils/mixins';
+
+// Image pleine largeur, format 16:9 : l'image est recadrée (jamais déformée) si elle a un autre format.
+.banner {
+    width: 100%;
+    margin: 0;
+
+    &_image {
+        display: block;
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
+    }
+}

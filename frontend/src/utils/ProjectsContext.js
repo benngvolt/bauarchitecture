@@ -15,6 +15,7 @@ export const ProjectsProvider = ({ children }) => {
     const [faqItems, setFaqItems] = useState([]);
     const [featuredProjects, setFeaturedProjects] = useState(null);
     const [approachSettings, setApproachSettings] = useState(null);
+    const [homeBanner, setHomeBanner] = useState(null);
 
     const [loadProjects, setLoadProjects] = useState(false);
     const [loadArticles, setLoadArticles] = useState(false);
@@ -27,6 +28,7 @@ export const ProjectsProvider = ({ children }) => {
     const [loadFaqItems, setLoadFaqItems] = useState(false);
     const [loadFeaturedProjects, setLoadFeaturedProjects] = useState(false);
     const [loadApproachSettings, setLoadApproachSettings] = useState(false);
+    const [loadHomeBanner, setLoadHomeBanner] = useState(false);
 
     const [displayNavSection, setDisplayNavSection] = useState(false);
     const [loaderDisplay, setLoaderDisplay] = useState(false);
@@ -126,6 +128,21 @@ export const ProjectsProvider = ({ children }) => {
                 setLoaderDisplay(false);
             });
     }, [loadApproachSettings]);
+
+    useEffect(() => {
+        setLoaderDisplay(true);
+
+        fetch(`${API_URL}/api/home-banner`)
+            .then((res) => res.json())
+            .then((data) => {
+                setHomeBanner(data);
+                setLoaderDisplay(false);
+            })
+            .catch((error) => {
+                console.log(error.message);
+                setLoaderDisplay(false);
+            });
+    }, [loadHomeBanner]);
 
     useEffect(() => {
         setLoaderDisplay(true);
@@ -254,6 +271,10 @@ export const ProjectsProvider = ({ children }) => {
         setLoadApproachSettings(loadApproachSettings === false ? true : false);
     };
 
+    const handleLoadHomeBanner = () => {
+        setLoadHomeBanner(loadHomeBanner === false ? true : false);
+    };
+
     return (
         <ProjectsContext.Provider
             value={{
@@ -269,6 +290,7 @@ export const ProjectsProvider = ({ children }) => {
                 handleLoadFaqItems,
                 handleLoadFeaturedProjects,
                 handleLoadApproachSettings,
+                handleLoadHomeBanner,
                 articles,
                 drawings,
                 reassuranceItems,
@@ -279,6 +301,7 @@ export const ProjectsProvider = ({ children }) => {
                 faqItems,
                 featuredProjects,
                 approachSettings,
+                homeBanner,
                 displayNavSection,
                 setDisplayNavSection,
                 loaderDisplay,

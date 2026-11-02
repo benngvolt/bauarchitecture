@@ -6,6 +6,7 @@ const Article = require("../models/article");
 const Drawing = require("../models/drawing");
 const HeroSettings = require("../models/heroSettings");
 const AboutPageContent = require("../models/aboutPageContent");
+const HomeBanner = require("../models/homeBanner");
 
 const uploadRoot = path.join(__dirname, "../uploads");
 
@@ -15,6 +16,7 @@ const folders = {
   articles: "articles",
   drawings: "drawings",
   hero: "hero",
+  banner: "banner",
   philosophy: "philosophy",
   about: "about",
 };
@@ -104,6 +106,16 @@ async function deleteImages() {
     await deleteUnusedFiles(folders.hero, dbHeroUrls);
   } catch (error) {
     console.error("Erreur nettoyage hero :", error.message);
+  }
+
+  try {
+    const homeBanner = await HomeBanner.findOne();
+
+    const dbBannerUrls = homeBanner?.imageUrl ? [normalizeUrl(homeBanner.imageUrl)] : [];
+
+    await deleteUnusedFiles(folders.banner, dbBannerUrls);
+  } catch (error) {
+    console.error("Erreur nettoyage banner :", error.message);
   }
 
   try {

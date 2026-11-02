@@ -12,7 +12,9 @@ import preparerImage from '../../assets/missions/preparer.webp';
 import superviserImage from '../../assets/missions/superviser.webp';
 import HeroSection from '../../components/HeroSection/HeroSection'
 import MissionsSection from '../../components/MissionsSection/MissionsSection';
+import ReassuranceSection from '../../components/ReassuranceSection/ReassuranceSection';
 import ApproachSection from '../../components/ApproachSection/ApproachSection';
+import BannerSection from '../../components/BannerSection/BannerSection';
 import ProcessSection from '../../components/ProcessSection/ProcessSection';
 import ProjectsSection from '../../components/ProjectsSection/ProjectsSection';
 import PhilosophySection from '../../components/PhilosophySection/PhilosophySection';
@@ -70,8 +72,10 @@ function Home() {
         <main className='home'>
             <HeroSection/>
             <MissionsSection/>
+            <ReassuranceSection/>
             <ProjectsSection/>
             <ApproachSection/>
+            <BannerSection/>
             <ProcessSection/>
             <LastSection/>
         </main>
