@@ -19,8 +19,13 @@ import ProcessSection from '../../components/ProcessSection/ProcessSection';
 import ProjectsSection from '../../components/ProjectsSection/ProjectsSection';
 import PhilosophySection from '../../components/PhilosophySection/PhilosophySection';
 import LastSection from '../../components/LastSection/LastSection';
+import ScrollyHome from '../../components/ScrollyHome/ScrollyHome';
+import useMediaQuery from '../../utils/useMediaQuery';
 
 function Home() {
+    // Sur mobile, la page d'accueil est un scrollytelling (panneaux plein écran) ; ailleurs, la page classique.
+    const isMobile = useMediaQuery('(max-width: 768px)');
+
     const {
         projects,
         welcomeDisplay,
@@ -67,6 +72,14 @@ function Home() {
     useEffect(() => {
         setProjectsList(projects);
     }, [projects]);
+
+    if (isMobile) {
+        return (
+            <main className='home home--scrolly'>
+                <ScrollyHome/>
+            </main>
+        );
+    }
 
     return (
         <main className='home'>

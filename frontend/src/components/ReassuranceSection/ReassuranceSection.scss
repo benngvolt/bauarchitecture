@@ -16,6 +16,7 @@
         align-items: center;
         margin: $minimalSpace auto;
         padding: 0 calc($minimalSpace / 2);
+        gap: 2.25rem;
     }
 
     &_item {
@@ -44,9 +45,13 @@
             border-radius: 50%;
             background: $colorDarkGrey;
 
-            // Les arguments sont empilés : plus de séparateur entre eux.
+            // Mobile : arguments empilés, le point se place au milieu de l'espace qui les sépare.
             @media only screen and (max-width: $mobileMaxWidth) {
-                display: none;
+                top: auto;
+                right: auto;
+                left: 50%;
+                bottom: calc(-1.125rem - 3px);
+                transform: translateX(-50%);
             }
         }
 

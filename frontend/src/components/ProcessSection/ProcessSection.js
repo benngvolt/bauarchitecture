@@ -5,14 +5,7 @@ import DOMPurify from 'dompurify';
 
 import { ProjectsContext } from '../../utils/ProjectsContext';
 import { DEFAULT_PROCESS_TITLE, DEFAULT_PROCESS_DETAILS } from '../../utils/constants';
-
-function hasRichTextContent(richText) {
-    if (!richText) {
-        return false;
-    }
-
-    return richText.replace(/<[^>]*>/g, '').trim().length > 0;
-}
+import { hasRichTextContent } from '../../utils/richText';
 
 function ProcessStepItem({ step, index }) {
     const [isExpanded, setIsExpanded] = useState(false);

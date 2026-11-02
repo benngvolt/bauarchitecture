@@ -1,0 +1,441 @@
+@import '../../utils/mixins';
+
+// Page d'accueil en scrollytelling (mobile uniquement) : une scène plein écran épinglée sous l'en-tête,
+// où les panneaux se succèdent au fil du défilement (fondu + léger glissement).
+// Le conteneur est assez haut pour « payer » le défilement de chaque panneau ; la scène (sticky) reste en place.
+
+$scrollyShift: 28px;
+$scrollyDuration: 0.6s;
+
+.scrolly {
+    position: relative;
+    margin-top: $headerHeight;
+    // N panneaux × la part de défilement de chacun, plus la hauteur de la scène (qui reste épinglée).
+    height: calc(var(--scrolly-panels) * var(--scrolly-step) * 100vh + 100vh - #{$headerHeight});
+    height: calc(var(--scrolly-panels) * var(--scrolly-step) * 100svh + 100svh - #{$headerHeight});
+
+    &_stage {
+        position: sticky;
+        top: $headerHeight;
+        height: calc(100vh - #{$headerHeight});
+        height: calc(100svh - #{$headerHeight});
+        overflow: hidden;
+        background-color: $colorLightGrey;
+    }
+
+    // Avancement : fine barre en haut de la scène (visible sur fond clair comme sur fond foncé).
+    &_progress {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 3;
+        height: 3px;
+        pointer-events: none;
+
+        &_bar {
+            height: 100%;
+            background-color: #fff;
+            mix-blend-mode: difference;
+            transition: width $scrollyDuration ease;
+        }
+    }
+
+    /*-------------------------------------
+      Panneaux
+    -------------------------------------*/
+
+    &_panel {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transform: translateY($scrollyShift);
+        transition:
+            opacity $scrollyDuration ease,
+            transform $scrollyDuration ease,
+            visibility 0s linear $scrollyDuration;
+
+        &--past {
+            transform: translateY(-$scrollyShift);
+        }
+
+        &--active {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+            transform: none;
+            transition-delay: 0s;
+        }
+
+        &--light {
+            background-color: $colorLightGrey;
+        }
+
+        &--dark {
+            background-color: $colorDarkGrey;
+        }
+
+        &--image {
+            background-color: #1d1d1d;
+        }
+
+        // Contenu centré verticalement s'il tient, défilant depuis le haut s'il est trop long.
+        &_inner {
+            position: relative;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            width: 100%;
+            height: 100%;
+            padding: 22px;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+
+            &::before,
+            &::after {
+                content: '';
+                flex: 1 1 0;
+            }
+        }
+
+        &--image &_inner {
+            padding: 0;
+        }
+    }
+
+    /*-------------------------------------
+      Typographie commune
+    -------------------------------------*/
+
+    &_title {
+        margin: 0;
+        @include typeTitle;
+        text-align: center;
+
+        &--light {
+            color: $colorLightGrey;
+        }
+    }
+
+    &_concept {
+        margin: 0;
+        @include typeConcept;
+        color: $colorDarkGrey;
+        text-align: center;
+    }
+
+    &_text {
+        margin: 0;
+        @include mainText;
+        @include typeText;
+        text-align: center;
+        color: $color2;
+
+        &--light {
+            color: rgba($colorLightGrey, 0.85);
+        }
+    }
+
+    &_buttons {
+        @include Column;
+        gap: 10px;
+        width: 100%;
+
+        .button,
+        .button_container {
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+            text-align: center;
+        }
+    }
+
+    /*-------------------------------------
+      Images
+    -------------------------------------*/
+
+    &_backdrop,
+    &_cover,
+    &_shade {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+    }
+
+    &_backdrop_image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0;
+        transition: opacity 0.8s ease-in-out;
+
+        &--active {
+            opacity: 1;
+        }
+    }
+
+    &_cover {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    &_shade {
+        background-color: rgba(0, 0, 0, 0.35);
+
+        &--bottom {
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0) 55%);
+        }
+    }
+
+    &_hint {
+        position: absolute;
+        bottom: 28px;
+        left: 0;
+        right: 0;
+        @include Column;
+        align-items: center;
+        gap: 4px;
+        margin: 0;
+        @include typeText;
+        font-family: $mainFont;
+        color: #fff;
+        text-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
+
+        &_arrow {
+            font-size: 22px;
+            animation: scrollyHint 1.8s ease-in-out infinite;
+        }
+    }
+
+    /*-------------------------------------
+      Contenus des panneaux
+    -------------------------------------*/
+
+    // Présentation : carte blanche sur l'image.
+    &_card {
+        position: relative;
+        z-index: 1;
+        @include Column;
+        align-items: center;
+        gap: 12px;
+        box-sizing: border-box;
+        width: calc(100% - 44px);
+        margin: 0 auto;
+        padding: 22px;
+        background-color: #fff;
+        border-radius: 8px;
+
+        &_logo {
+            height: 72px;
+            width: auto;
+            align-self: flex-start;
+        }
+
+        &_role {
+            margin: -6px 0 0;
+            align-self: flex-start;
+            @include typeText;
+            font-family: $mainFont;
+            color: $colorDarkGrey;
+        }
+
+        &_title {
+            margin: 0;
+            @include typeTitle;
+            font-family: $mainFont;
+            text-align: left;
+            align-self: stretch;
+        }
+
+        .scrolly_text {
+            text-align: left;
+        }
+    }
+
+    // Services : pictogramme à gauche, texte à droite.
+    &_missions {
+        @include Column;
+        gap: 0;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+
+        &_item {
+            display: grid;
+            grid-template-columns: 40px minmax(0, 1fr);
+            column-gap: 16px;
+            row-gap: 4px;
+            align-items: center;
+            padding: 14px 0;
+
+            &:not(:last-child) {
+                border-bottom: 1px solid rgba($colorDarkGrey, 0.25);
+            }
+
+            .scrolly_concept,
+            .scrolly_text {
+                text-align: left;
+            }
+        }
+
+        &_icon {
+            grid-row: 1 / span 2;
+            width: 40px;
+            height: 40px;
+            color: $colorDarkGrey;
+        }
+    }
+
+    // Réassurance : arguments centrés, un point entre chaque.
+    &_reassurance {
+        @include Column;
+        gap: 36px;
+
+        &_item {
+            position: relative;
+            @include Column;
+            gap: 8px;
+
+            &:not(:last-child)::after {
+                content: '';
+                position: absolute;
+                left: 50%;
+                bottom: -21px;
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                background: $colorDarkGrey;
+                transform: translateX(-50%);
+            }
+        }
+    }
+
+    // Projets à la une : photo plein cadre et légende en bas.
+    &_caption {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        @include Column;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 22px 22px 28px;
+
+        &_more {
+            @include typeText;
+            font-family: $mainFont;
+            font-style: italic;
+            color: rgba(#fff, 0.85);
+        }
+
+        &_count {
+            margin: 0;
+            @include typeText;
+            font-family: $mainFont;
+            color: rgba(#fff, 0.8);
+        }
+
+        &_link {
+            @include Column;
+            gap: 6px;
+            text-decoration: none;
+
+            &:hover .scrolly_caption_more {
+                text-decoration: underline;
+            }
+
+            .scrolly_title {
+                text-align: left;
+                text-transform: uppercase;
+            }
+        }
+    }
+
+    // Approche : blocs séparés par des filets.
+    &_approach_item {
+        @include Column;
+        gap: 8px;
+        padding-top: 16px;
+        border-top: 1px solid rgba($colorLightGrey, 0.4);
+
+        .scrolly_title,
+        .scrolly_text {
+            text-align: left;
+        }
+    }
+
+    // Étapes du processus.
+    &_process {
+        &_index {
+            margin: 0;
+            @include typeText;
+            font-family: $mainFont;
+            color: $colorDarkGrey;
+            text-align: center;
+        }
+
+        &_toggle {
+            align-self: center;
+            padding: 0;
+            @include typeText;
+            font-weight: 700;
+            font-style: italic;
+            color: $colorDarkGrey;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        &_details {
+            @include mainText;
+            @include typeText;
+            text-align: left;
+            color: $color2;
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: max-height 0.3s ease, opacity 0.3s ease;
+
+            &--open {
+                max-height: 600px;
+                opacity: 1;
+            }
+        }
+    }
+}
+
+@keyframes scrollyHint {
+    0%, 100% { transform: translateY(0); opacity: 0.6; }
+    50% { transform: translateY(6px); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .scrolly {
+        &_panel {
+            transform: none;
+            transition-duration: 0.01s;
+
+            &--past,
+            &--active {
+                transform: none;
+            }
+        }
+
+        &_hint_arrow {
+            animation: none;
+        }
+    }
+}
