@@ -23,22 +23,11 @@ import { getDefaultBannerImage } from '../../utils/homeImages';
 import { hasRichTextContent } from '../../utils/richText';
 
 // Défilement nécessaire pour passer d'un panneau au suivant, en fraction de la hauteur d'écran.
-const SCROLL_PER_PANEL = 0.6;
+const SCROLL_PER_PANEL = 0.7;
 // Durée d'affichage de chaque image du hero avant la suivante (ms).
 const HERO_SLIDE_DURATION = 5000;
-// Nombre de blocs « Approche » par panneau.
-const APPROACH_ITEMS_PER_PANEL = 2;
-
-function chunk(list, size) {
-    const chunks = [];
-    for (let index = 0; index < list.length; index += size) {
-        chunks.push(list.slice(index, index + size));
-    }
-    return chunks;
-}
-
-// Une étape du processus : le texte détaillé se déplie sous le résumé.
-function ProcessPanelContent({ step, index, title }) {
+// Une étape du processus : numéro, mot-concept, résumé ; le texte détaillé se déplie dessous.
+function ProcessStepRow({ step, index }) {
     const [isExpanded, setIsExpanded] = useState(false);
     const details = hasRichTextContent(step.richText)
         ? step.richText
@@ -46,35 +35,36 @@ function ProcessPanelContent({ step, index, title }) {
     const hasDetails = hasRichTextContent(details);
 
     return (
-        <>
-            {title && <h2 className='scrolly_title'>{title}</h2>}
-
+        <li className='scrolly_process_step'>
             <p className='scrolly_process_index'>0{index + 1}</p>
-            <h3 className='scrolly_concept'>{step.title}</h3>
-            <p className='scrolly_text'>{step.tagline}</p>
 
-            {hasDetails && (
-                <>
-                    <button
-                        type='button'
-                        className='scrolly_process_toggle'
-                        aria-expanded={isExpanded}
-                        onClick={() => setIsExpanded((current) => !current)}
-                    >
-                        {isExpanded ? '− de détails' : '+ de détails'}
-                    </button>
+            <div className='scrolly_process_body'>
+                <h3 className='scrolly_concept'>{step.title}</h3>
+                <p className='scrolly_text'>{step.tagline}</p>
 
-                    <div
-                        className={
-                            isExpanded
-                                ? 'scrolly_process_details scrolly_process_details--open'
-                                : 'scrolly_process_details'
-                        }
-                        dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(details) }}
-                    />
-                </>
-            )}
-        </>
+                {hasDetails && (
+                    <>
+                        <button
+                            type='button'
+                            className='scrolly_process_toggle'
+                            aria-expanded={isExpanded}
+                            onClick={() => setIsExpanded((current) => !current)}
+                        >
+                            {isExpanded ? '− de détails' : '+ de détails'}
+                        </button>
+
+                        <div
+                            className={
+                                isExpanded
+                                    ? 'scrolly_process_details scrolly_process_details--open'
+                                    : 'scrolly_process_details'
+                            }
+                            dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(details) }}
+                        />
+                    </>
+                )}
+            </div>
+        </li>
     );
 }
 
@@ -234,64 +224,63 @@ function ScrollyHome() {
         });
     }
 
-    // 5. Projets à la une : un panneau par projet.
-    displayedProjects.forEach((project, index) => {
-        const mainImage = project.images?.[project.mainImageIndex] || project.images?.[0];
-        const isLast = index === displayedProjects.length - 1;
+    // 5. Projets à la une : les trois sur le même écran.
+    panels.push({
+        key: 'projects',
+        theme: 'light',
+        fill: true,
+        content: (
+            <div className='scrolly_projects'>
+                <ul className='scrolly_projects_list'>
+                    {displayedProjects.map((project) => {
+                        const mainImage = project.images?.[project.mainImageIndex] || project.images?.[0];
 
-        panels.push({
-            key: `project-${project._id}`,
-            theme: 'image',
-            content: (
-                <>
-                    {mainImage?.imageUrl && (
-                        <img
-                            className='scrolly_cover'
-                            src={`${API_URL}${mainImage.imageUrl}`}
-                            alt={project.title}
-                        />
-                    )}
-                    <div className='scrolly_shade scrolly_shade--bottom' aria-hidden='true' />
-                    <div className='scrolly_caption'>
-                        <p className='scrolly_caption_count'>{index + 1} / {displayedProjects.length}</p>
-                        <Link
-                            className='scrolly_caption_link'
-                            to={project._id ? `/projets/${project._id}` : '*'}
-                            aria-label={`Accéder à la page du projet ${project.title}`}
-                        >
-                            <h2 className='scrolly_title scrolly_title--light'>{project.title}</h2>
-                            <span className='scrolly_caption_more' aria-hidden='true'>Voir le projet →</span>
-                        </Link>
-                        {isLast && (
-                            <div className='button'>
-                                <Link className='button_container button_dark' to='/projets'>
-                                    VOIR TOUS LES PROJETS
+                        return (
+                            <li className='scrolly_projects_item' key={project._id}>
+                                <Link
+                                    to={project._id ? `/projets/${project._id}` : '*'}
+                                    aria-label={`Accéder à la page du projet ${project.title}`}
+                                >
+                                    {mainImage?.imageUrl && (
+                                        <img src={`${API_URL}${mainImage.imageUrl}`} alt={project.title} />
+                                    )}
+                                    <span className='scrolly_projects_shade' aria-hidden='true' />
+                                    <h2 className='scrolly_title scrolly_title--light'>{project.title}</h2>
                                 </Link>
-                            </div>
-                        )}
+                            </li>
+                        );
+                    })}
+                </ul>
+
+                <div className='scrolly_projects_button'>
+                    <div className='button'>
+                        <Link className='button_container button_dark' to='/projets'>
+                            VOIR TOUS LES PROJETS
+                        </Link>
                     </div>
-                </>
-            ),
-        });
+                </div>
+            </div>
+        ),
     });
 
-    // 6. Approche : titre puis blocs, deux par panneau.
-    chunk(approachItems, APPROACH_ITEMS_PER_PANEL).forEach((group, groupIndex) => {
-        panels.push({
-            key: `approach-${groupIndex}`,
-            theme: 'dark',
-            content: (
-                <>
-                    {groupIndex === 0 && <h2 className='scrolly_title scrolly_title--light'>{approachTitle}</h2>}
-                    {group.map((item) => (
-                        <div className='scrolly_approach_item' key={`${item.title}-${groupIndex}`}>
+    // 6. Approche : le titre et tous les blocs sur le même écran.
+    panels.push({
+        key: 'approach',
+        theme: 'dark',
+        dense: true,
+        content: (
+            <>
+                <h2 className='scrolly_title scrolly_title--light'>{approachTitle}</h2>
+                <ul className='scrolly_approach'>
+                    {approachItems.map((item, index) => (
+                        <li className='scrolly_approach_item' key={`${item.title}-${index}`}>
                             <h3 className='scrolly_title scrolly_title--light'>{item.title}</h3>
                             {item.text && <p className='scrolly_text scrolly_text--light'>{item.text}</p>}
-                        </div>
+                        </li>
                     ))}
-                </>
-            ),
-        });
+                </ul>
+            </>
+        ),
     });
 
     // 7. Image du bas.
@@ -311,19 +300,21 @@ function ScrollyHome() {
         });
     }
 
-    // 8. Étapes du processus : un panneau par étape, avec la phrase d'accroche sur le premier.
-    processSteps.forEach((step, index) => {
-        panels.push({
-            key: `process-${step._id}`,
-            theme: 'light',
-            content: (
-                <ProcessPanelContent
-                    step={step}
-                    index={index}
-                    title={index === 0 ? processSettings?.title || DEFAULT_PROCESS_TITLE : null}
-                />
-            ),
-        });
+    // 8. Étapes du processus : la phrase d'accroche et les quatre étapes sur le même écran.
+    panels.push({
+        key: 'process',
+        theme: 'light',
+        dense: true,
+        content: (
+            <>
+                <h2 className='scrolly_title'>{processSettings?.title || DEFAULT_PROCESS_TITLE}</h2>
+                <ul className='scrolly_process'>
+                    {processSteps.map((step, index) => (
+                        <ProcessStepRow key={step._id} step={step} index={index} />
+                    ))}
+                </ul>
+            </>
+        ),
     });
 
     // 9. Contact.
@@ -429,9 +420,9 @@ function ScrollyHome() {
                 {panels.map((panel, index) => (
                     <section
                         key={panel.key}
-                        className={`scrolly_panel scrolly_panel--${panel.theme} scrolly_panel--${
-                            index === activeIndex ? 'active' : index < activeIndex ? 'past' : 'upcoming'
-                        }`}
+                        className={`scrolly_panel scrolly_panel--${panel.theme}${panel.fill ? ' scrolly_panel--fill' : ''}${
+                            panel.dense ? ' scrolly_panel--dense' : ''
+                        } scrolly_panel--${index === activeIndex ? 'active' : index < activeIndex ? 'past' : 'upcoming'}`}
                         aria-hidden={index === activeIndex ? undefined : 'true'}
                     >
                         <div className='scrolly_panel_inner'>{panel.content}</div>
