@@ -219,10 +219,12 @@ Typographie du site public : trois niveaux seulement.
 
 $typeTitleSize: 22px;
 $typeTitleSizePad: 20px;
-$typeTitleSizeMobile: 19px;
+$typeTitleSizeMobile: 18px;
 $typeTextSize: 15px;
 $typeConceptSizePad: 30px;
-$typeConceptSizeMobile: 24px;
+$typeConceptSizeMobile: 22px;
+// Plancher d'accessibilité pour le texte courant : 14 px (jamais en dessous).
+$typeTextSizeMobile: 14px;
 
 @mixin typeTitle {
     font-family: $mainFont;
@@ -244,6 +246,11 @@ $typeConceptSizeMobile: 24px;
     font-family: $mainFont;
     font-size: $typeTextSize;
     line-height: 1.45;
+
+    @media only screen and (max-width: $mobileMaxWidth) {
+        font-size: $typeTextSizeMobile;
+        line-height: 1.4;
+    }
 }
 
 // La taille suit la largeur d'écran (les mots doivent tenir dans les quatre colonnes du bloc des pictogrammes), plafonnée à 40 px.

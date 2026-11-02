@@ -432,7 +432,7 @@ $scrollyDuration: 0.6s;
         }
     }
 
-    // Approche : tous les blocs sur le même écran, séparés par des filets.
+    // Approche : tous les titres sur le même écran, le texte du bloc ouvert se déroule dessous.
     &_approach {
         @include Column;
         gap: 0;
@@ -441,12 +441,47 @@ $scrollyDuration: 0.6s;
         list-style: none;
 
         &_item {
-            @include Column;
-            gap: 4px;
-            padding: 10px 0;
             border-top: 1px solid rgba($colorLightGrey, 0.4);
+        }
 
-            .scrolly_title,
+        &_heading {
+            margin: 0;
+        }
+
+        &_button {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            width: 100%;
+            padding: 12px 0;
+            @include typeTitle;
+            color: $colorLightGrey;
+            text-align: left;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        &_icon {
+            flex-shrink: 0;
+            width: 24px;
+            text-align: center;
+            font-weight: 400;
+        }
+
+        &_panel {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: max-height 0.3s ease, opacity 0.3s ease;
+
+            &--open {
+                max-height: 300px;
+                padding-bottom: 12px;
+                opacity: 1;
+            }
+
             .scrolly_text {
                 text-align: left;
             }

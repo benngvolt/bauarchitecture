@@ -26,6 +26,41 @@ import { hasRichTextContent } from '../../utils/richText';
 const SCROLL_PER_PANEL = 0.9;
 // Durée d'affichage de chaque image du hero avant la suivante (ms).
 const HERO_SLIDE_DURATION = 5000;
+// Démarche : les titres de tous les blocs restent visibles ; le texte du bloc ouvert se déroule dessous.
+function ApproachAccordion({ items }) {
+    const [openIndex, setOpenIndex] = useState(0);
+
+    return (
+        <ul className='scrolly_approach'>
+            {items.map((item, index) => {
+                const isOpen = index === openIndex;
+
+                return (
+                    <li className='scrolly_approach_item' key={`${item.title}-${index}`}>
+                        <h3 className='scrolly_approach_heading'>
+                            <button
+                                type='button'
+                                className='scrolly_approach_button'
+                                aria-expanded={isOpen}
+                                onClick={() => setOpenIndex(isOpen ? -1 : index)}
+                            >
+                                <span>{item.title}</span>
+                                <span className='scrolly_approach_icon' aria-hidden='true'>{isOpen ? '−' : '+'}</span>
+                            </button>
+                        </h3>
+
+                        {item.text && (
+                            <div className={isOpen ? 'scrolly_approach_panel scrolly_approach_panel--open' : 'scrolly_approach_panel'}>
+                                <p className='scrolly_text scrolly_text--light'>{item.text}</p>
+                            </div>
+                        )}
+                    </li>
+                );
+            })}
+        </ul>
+    );
+}
+
 // Une étape du processus : numéro, mot-concept, résumé ; le texte détaillé se déplie dessous.
 function ProcessStepRow({ step, index }) {
     const [isExpanded, setIsExpanded] = useState(false);
@@ -271,14 +306,7 @@ function ScrollyHome() {
         content: (
             <>
                 <h2 className='scrolly_title scrolly_title--light'>{approachTitle}</h2>
-                <ul className='scrolly_approach'>
-                    {approachItems.map((item, index) => (
-                        <li className='scrolly_approach_item' key={`${item.title}-${index}`}>
-                            <h3 className='scrolly_title scrolly_title--light'>{item.title}</h3>
-                            {item.text && <p className='scrolly_text scrolly_text--light'>{item.text}</p>}
-                        </li>
-                    ))}
-                </ul>
+                <ApproachAccordion items={approachItems} />
             </>
         ),
     });
