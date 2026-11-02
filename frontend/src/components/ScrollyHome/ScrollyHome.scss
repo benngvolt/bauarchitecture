@@ -10,9 +10,23 @@ $scrollyDuration: 0.6s;
 .scrolly {
     position: relative;
     margin-top: $headerHeight;
-    // N panneaux × la part de défilement de chacun, plus la hauteur de la scène (qui reste épinglée).
-    height: calc(var(--scrolly-panels) * var(--scrolly-step) * 100vh + 100vh - #{$headerHeight});
-    height: calc(var(--scrolly-panels) * var(--scrolly-step) * 100svh + 100svh - #{$headerHeight});
+    // (N - 1) pas de défilement entre le premier et le dernier panneau, plus la hauteur de la scène (qui reste épinglée).
+    height: calc((var(--scrolly-panels) - 1) * var(--scrolly-step) * 100vh + 100vh - #{$headerHeight});
+    height: calc((var(--scrolly-panels) - 1) * var(--scrolly-step) * 100svh + 100svh - #{$headerHeight});
+
+    // Point d'accroche du défilement : placé là où la page doit s'arrêter pour afficher le panneau n.
+    // (Le conteneur commence sous l'en-tête fixe, d'où le décalage.)
+    &_snap {
+        position: absolute;
+        left: 0;
+        width: 1px;
+        height: 1px;
+        pointer-events: none;
+        top: calc(var(--scrolly-index) * var(--scrolly-step) * 100vh - #{$headerHeight});
+        top: calc(var(--scrolly-index) * var(--scrolly-step) * 100svh - #{$headerHeight});
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+    }
 
     &_stage {
         position: sticky;
@@ -528,4 +542,9 @@ $scrollyDuration: 0.6s;
             animation: none;
         }
     }
+}
+
+// Actif seulement tant que la page d'accueil mobile est affichée (classe posée par ScrollyHome).
+html.scrolly-snap {
+    scroll-snap-type: y mandatory;
 }

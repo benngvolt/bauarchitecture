@@ -23,7 +23,7 @@ import { getDefaultBannerImage } from '../../utils/homeImages';
 import { hasRichTextContent } from '../../utils/richText';
 
 // Défilement nécessaire pour passer d'un panneau au suivant, en fraction de la hauteur d'écran.
-const SCROLL_PER_PANEL = 0.7;
+const SCROLL_PER_PANEL = 0.9;
 // Durée d'affichage de chaque image du hero avant la suivante (ms).
 const HERO_SLIDE_DURATION = 5000;
 // Une étape du processus : numéro, mot-concept, résumé ; le texte détaillé se déplie dessous.
@@ -363,9 +363,10 @@ function ScrollyHome() {
             const stickyTop = parseFloat(getComputedStyle(stage).top) || 0;
             // Distance parcourue depuis l'épinglage de la scène, et défilement alloué à chaque panneau.
             const scrolled = Math.max(0, stickyTop - container.getBoundingClientRect().top);
-            const step = (container.offsetHeight - stage.offsetHeight) / panelCount;
+            const step = panelCount > 1 ? (container.offsetHeight - stage.offsetHeight) / (panelCount - 1) : 1;
 
-            setActiveIndex(Math.min(panelCount - 1, Math.floor(scrolled / step)));
+            // Arrondi : le panneau change à mi-course, et la position « accrochée » (multiple exact du pas) est stable.
+            setActiveIndex(Math.max(0, Math.min(panelCount - 1, Math.round(scrolled / step))));
         }
 
         function onScroll() {
@@ -384,6 +385,12 @@ function ScrollyHome() {
             if (frame) cancelAnimationFrame(frame);
         };
     }, [panelCount]);
+
+    // Accrochage du défilement : un geste fait passer d'un panneau au suivant, sans emballement de l'élan.
+    useEffect(() => {
+        document.documentElement.classList.add('scrolly-snap');
+        return () => document.documentElement.classList.remove('scrolly-snap');
+    }, []);
 
     // Diaporama du hero (désactivé s'il n'y a qu'une image ou si l'utilisateur limite les animations).
     useEffect(() => {
@@ -408,6 +415,16 @@ function ScrollyHome() {
                     <img src={logo} alt='BAU Architecture' />
                 </div>
             )}
+
+            {/* Points d'accroche du défilement : un par panneau, invisibles. */}
+            {panels.map((panel, index) => (
+                <span
+                    key={`snap-${panel.key}`}
+                    className='scrolly_snap'
+                    style={{ '--scrolly-index': index }}
+                    aria-hidden='true'
+                />
+            ))}
 
             <div className='scrolly_stage' ref={stageRef}>
                 <div className='scrolly_progress' aria-hidden='true'>
