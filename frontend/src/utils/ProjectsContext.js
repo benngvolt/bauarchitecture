@@ -11,7 +11,7 @@ export const ProjectsProvider = ({ children }) => {
     const [heroSettings, setHeroSettings] = useState(null);
     const [processSteps, setProcessSteps] = useState([]);
     const [aboutPageContent, setAboutPageContent] = useState(null);
-    const [friendUrls, setFriendUrls] = useState([]);
+    const [curiosityItems, setCuriosityItems] = useState([]);
     const [faqItems, setFaqItems] = useState([]);
     const [featuredProjects, setFeaturedProjects] = useState(null);
     const [approachSettings, setApproachSettings] = useState(null);
@@ -26,7 +26,7 @@ export const ProjectsProvider = ({ children }) => {
     const [loadHeroSettings, setLoadHeroSettings] = useState(false);
     const [loadProcessSteps, setLoadProcessSteps] = useState(false);
     const [loadAboutPageContent, setLoadAboutPageContent] = useState(false);
-    const [loadFriendUrls, setLoadFriendUrls] = useState(false);
+    const [loadCuriosityItems, setLoadCuriosityItems] = useState(false);
     const [loadFaqItems, setLoadFaqItems] = useState(false);
     const [loadFeaturedProjects, setLoadFeaturedProjects] = useState(false);
     const [loadApproachSettings, setLoadApproachSettings] = useState(false);
@@ -211,17 +211,17 @@ export const ProjectsProvider = ({ children }) => {
     useEffect(() => {
         setLoaderDisplay(true);
 
-        fetch(`${API_URL}/api/friend-urls`)
+        fetch(`${API_URL}/api/curiosity-items`)
             .then((res) => res.json())
             .then((data) => {
-                setFriendUrls(data);
+                setCuriosityItems(data);
                 setLoaderDisplay(false);
             })
             .catch((error) => {
                 console.log(error.message);
                 setLoaderDisplay(false);
             });
-    }, [loadFriendUrls]);
+    }, [loadCuriosityItems]);
 
     useEffect(() => {
         setLoaderDisplay(true);
@@ -289,8 +289,8 @@ export const ProjectsProvider = ({ children }) => {
         setLoadAboutPageContent(loadAboutPageContent === false ? true : false);
     };
 
-    const handleLoadFriendUrls = () => {
-        setLoadFriendUrls(loadFriendUrls === false ? true : false);
+    const handleLoadCuriosityItems = () => {
+        setLoadCuriosityItems(loadCuriosityItems === false ? true : false);
     };
 
     const handleLoadFaqItems = () => {
@@ -328,7 +328,7 @@ export const ProjectsProvider = ({ children }) => {
                 handleLoadHeroSettings,
                 handleLoadProcessSteps,
                 handleLoadAboutPageContent,
-                handleLoadFriendUrls,
+                handleLoadCuriosityItems,
                 handleLoadFaqItems,
                 handleLoadFeaturedProjects,
                 handleLoadApproachSettings,
@@ -341,7 +341,7 @@ export const ProjectsProvider = ({ children }) => {
                 heroSettings,
                 processSteps,
                 aboutPageContent,
-                friendUrls,
+                curiosityItems,
                 faqItems,
                 featuredProjects,
                 approachSettings,

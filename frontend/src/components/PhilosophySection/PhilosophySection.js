@@ -16,13 +16,26 @@ const DEFAULT_PARAGRAPHS = [
 function PhilosophySection() {
     const { aboutPageContent } = useContext(ProjectsContext);
 
-    const imageUrl = aboutPageContent?.philosophyImageUrl
-        ? `${API_URL}${aboutPageContent.philosophyImageUrl}`
-        : portrait;
+    // Deux portraits au plus, l'un au-dessus de l'autre : le premier a une photo par défaut, le second n'apparaît que s'il est ajouté.
+    const portraitUrls = [
+        aboutPageContent?.philosophyImageUrl ? `${API_URL}${aboutPageContent.philosophyImageUrl}` : portrait,
+        aboutPageContent?.portrait2Url ? `${API_URL}${aboutPageContent.portrait2Url}` : null,
+    ].filter(Boolean);
 
     return (
         <section className='philosophy'>
             <div className='philosophy_content'>
+                <div className='philosophy_portraits'>
+                    {portraitUrls.map((portraitUrl) => (
+                        <figure className='philosophy_figure' key={portraitUrl}>
+                            <img
+                                src={portraitUrl}
+                                alt=''
+                            />
+                        </figure>
+                    ))}
+                </div>
+
                 {aboutPageContent?.philosophyText ? (
                     <div
                         className='philosophy_text'
@@ -37,13 +50,6 @@ function PhilosophySection() {
                         ))}
                     </div>
                 )}
-
-                <figure className='philosophy_figure'>
-                    <img
-                        src={imageUrl}
-                        alt=''
-                    />
-                </figure>
             </div>
         </section>
     );

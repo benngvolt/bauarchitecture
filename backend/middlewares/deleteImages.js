@@ -7,8 +7,13 @@ const Drawing = require("../models/drawing");
 const HeroSettings = require("../models/heroSettings");
 const AboutPageContent = require("../models/aboutPageContent");
 const HomeBanner = require("../models/homeBanner");
+const CuriosityItem = require("../models/curiosityItem");
 
 const uploadRoot = path.join(__dirname, "../uploads");
+
+// Un fichier envoyé il y a moins d'une minute n'est jamais supprimé : il peut appartenir à une requête en cours,
+// dont le document n'est pas encore enregistré en base (sinon un nettoyage lancé par une autre requête l'effacerait).
+const RECENT_FILE_GRACE_MS = 60 * 1000;
 
 const folders = {
   images: "projects_images",
@@ -19,6 +24,7 @@ const folders = {
   banner: "banner",
   philosophy: "philosophy",
   about: "about",
+  curiosities: "curiosities",
 };
 
 async function getLocalUrls(folder) {
@@ -45,6 +51,11 @@ async function deleteUnusedFiles(folder, dbUrls) {
     const filePath = path.join(uploadRoot, folder, filename);
 
     try {
+      const { mtimeMs } = await fs.stat(filePath);
+      if (Date.now() - mtimeMs < RECENT_FILE_GRACE_MS) {
+        continue;
+      }
+
       await fs.unlink(filePath);
       console.log("Image supprimée :", url);
     } catch (error) {
@@ -121,12 +132,14 @@ async function deleteImages() {
   try {
     const aboutPageContent = await AboutPageContent.findOne();
 
-    const dbPhilosophyUrls = aboutPageContent?.philosophyImageUrl
-      ? [normalizeUrl(aboutPageContent.philosophyImageUrl)]
-      : [];
+    // Les deux portraits (premier : philosophyImageUrl, second : portrait2Url) partagent le dossier « philosophy ».
+    const dbPhilosophyUrls = [aboutPageContent?.philosophyImageUrl, aboutPageContent?.portrait2Url]
+      .filter(Boolean)
+      .map(normalizeUrl);
 
     await deleteUnusedFiles(folders.philosophy, dbPhilosophyUrls);
 
+    // Anciennes grandes photos de la page (retirées de l'affichage) : on ne supprime pas leurs fichiers.
     const dbAboutPhotoUrls = [aboutPageContent?.photo1Url, aboutPageContent?.photo2Url]
       .filter(Boolean)
       .map(normalizeUrl);
@@ -134,6 +147,16 @@ async function deleteImages() {
     await deleteUnusedFiles(folders.about, dbAboutPhotoUrls);
   } catch (error) {
     console.error("Erreur nettoyage about :", error.message);
+  }
+
+  try {
+    const curiosityItems = await CuriosityItem.find();
+
+    const dbCuriosityUrls = curiosityItems.map((item) => normalizeUrl(item.imageUrl));
+
+    await deleteUnusedFiles(folders.curiosities, dbCuriosityUrls);
+  } catch (error) {
+    console.error("Erreur nettoyage curiosities :", error.message);
   }
 }
 

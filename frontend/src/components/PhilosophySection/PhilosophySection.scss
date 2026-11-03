@@ -16,15 +16,22 @@
         text-align: center;
     }
 
+    // Portraits à gauche (environ deux fois plus petits qu'avant), texte à droite.
     &_content {
         display: grid;
-        grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
-        align-items: stretch;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 4fr);
+        align-items: start;
         column-gap: calc(2 * $minimalSpace);
 
         width: 100%;
         max-width: 1400px;
         margin: 0 auto;
+    }
+
+    &_portraits {
+        display: flex;
+        flex-direction: column;
+        row-gap: calc($minimalSpace / 1.5);
     }
 
     &_text {
@@ -46,10 +53,13 @@
         }
     }
 
+    // Même format pour les deux portraits, bords très arrondis.
     &_figure {
         width: 100%;
         margin: 0;
+        aspect-ratio: 3 / 4;
 
+        border-radius: 40px;
         overflow: hidden;
 
         img {
@@ -86,20 +96,22 @@
             row-gap: $minimalSpace;
         }
 
-        &_text {
-            order: 2;
-
-            padding: 0;
+        // Sur mobile, les deux portraits se partagent la largeur, au-dessus du texte.
+        &_portraits {
+            flex-direction: row;
+            justify-content: center;
+            column-gap: calc($minimalSpace / 2);
         }
 
         &_figure {
-            order: 1;
+            flex: 0 1 calc(50% - $minimalSpace / 4);
+            width: auto;
 
-            aspect-ratio: 4 / 3;
+            border-radius: 28px;
+        }
 
-            img {
-                height: 100%;
-            }
+        &_text {
+            padding: 0;
         }
     }
 }

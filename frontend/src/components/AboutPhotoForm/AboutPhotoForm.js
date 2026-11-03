@@ -15,6 +15,10 @@ function AboutPhotoForm ({
     resetUrl = `${API_URL}/api/about-page-content/${fieldName}`,
     hint,
     previewAspectRatio,
+    previewMaxWidth,
+    // Sans image par défaut (ex. second portrait), « réinitialiser » devient « supprimer ».
+    emptyText,
+    resetLabel = 'Réinitialiser par défaut',
     loaderDisplay,
     setLoaderDisplay
     }) {
@@ -125,13 +129,13 @@ function AboutPhotoForm ({
 
             <p className='adminIntro'>
                 {currentImageUrl
-                    ? "Cette image remplace l'image par défaut."
-                    : "Aucune image personnalisée : l'image par défaut est utilisée."}
+                    ? (emptyText ? "Image en place." : "Cette image remplace l'image par défaut.")
+                    : (emptyText || "Aucune image personnalisée : l'image par défaut est utilisée.")}
                 {hint && ` ${hint}`}
             </p>
 
             {displayedImageUrl && (
-                <div className='adminPreview'>
+                <div className='adminPreview' style={previewMaxWidth ? { maxWidth: previewMaxWidth } : undefined}>
                     <img
                         style={previewAspectRatio ? { aspectRatio: previewAspectRatio } : undefined}
                         src={displayedImageUrl}
@@ -168,8 +172,8 @@ function AboutPhotoForm ({
                 )}
 
                 {!newImageFile && currentImageUrl && (
-                    <button aria-label={`Réinitialiser ${label} par défaut`} type='button' className='adminButton adminButton--text' onClick={resetImage}>
-                        Réinitialiser par défaut
+                    <button aria-label={`${resetLabel} : ${label}`} type='button' className='adminButton adminButton--text' onClick={resetImage}>
+                        {resetLabel}
                     </button>
                 )}
             </div>

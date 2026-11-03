@@ -13,11 +13,16 @@ const folders = {
   hero: "hero",
   banner: "banner",
   philosophy: "philosophy",
-  photo1: "about",
-  photo2: "about",
+  portrait2: "philosophy",
+  object: "curiosities",
 };
 
-const SINGLE_FILE_FIELDS = ["hero", "banner", "philosophy", "photo1", "photo2"];
+const SINGLE_FILE_FIELDS = ["hero", "banner", "philosophy", "portrait2", "object"];
+
+// Largeur maximale par champ (1500 px par défaut). Les objets du cabinet de curiosités s'affichent en vignettes : 1000 px suffisent.
+const MAX_WIDTHS = {
+  object: 1000,
+};
 
 async function ensureDir(dir) {
   await fs.mkdir(dir, { recursive: true });
@@ -44,7 +49,7 @@ function parseIndex(indexes, index) {
   }
 }
 
-async function processAndSaveImage(file, folder, indexes, index) {
+async function processAndSaveImage(file, folder, indexes, index, width = 1500) {
   const outputDir = path.join(uploadRoot, folder);
   await ensureDir(outputDir);
 
@@ -53,7 +58,7 @@ async function processAndSaveImage(file, folder, indexes, index) {
 
   await sharp(file.buffer)
     .resize({
-      width: 1500,
+      width,
       fit: "cover",
       kernel: "lanczos3",
     })
@@ -136,7 +141,9 @@ async function uploadImages(req, res, next) {
       ),
       ...SINGLE_FILE_FIELDS.map((field, i) =>
         Promise.all(
-          singleFiles[i].map((file) => processAndSaveImage(file, folders[field]))
+          singleFiles[i].map((file) =>
+            processAndSaveImage(file, folders[field], undefined, undefined, MAX_WIDTHS[field])
+          )
         )
       ),
     ]);

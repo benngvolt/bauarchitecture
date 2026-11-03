@@ -11,8 +11,7 @@ import MissionsForm from '../../components/MissionsForm/MissionsForm';
 import ProcessStepForm from '../../components/ProcessStepForm/ProcessStepForm';
 import PhilosophyContentForm from '../../components/PhilosophyContentForm/PhilosophyContentForm';
 import AboutPhotoForm from '../../components/AboutPhotoForm/AboutPhotoForm';
-import CurriculumContentForm from '../../components/CurriculumContentForm/CurriculumContentForm';
-import FriendUrlForm from '../../components/FriendUrlForm/FriendUrlForm';
+import CuriosityItemForm from '../../components/CuriosityItemForm/CuriosityItemForm';
 import FaqItemForm from '../../components/FaqItemForm/FaqItemForm';
 import { ProjectsContext } from '../../utils/ProjectsContext';
 import { API_URL } from '../../utils/constants';
@@ -21,11 +20,9 @@ import EditProjectsList from '../../components/EditProjectsList/EditProjectsList
 import EditArticlesList from '../../components/EditArticlesList/EditArticlesList';
 import EditReassuranceItemsList from '../../components/EditReassuranceItemsList/EditReassuranceItemsList';
 import EditProcessStepsList from '../../components/EditProcessStepsList/EditProcessStepsList';
-import EditFriendUrlsList from '../../components/EditFriendUrlsList/EditFriendUrlsList';
+import EditCuriosityItemsList from '../../components/EditCuriosityItemsList/EditCuriosityItemsList';
 import EditFaqItemsList from '../../components/EditFaqItemsList/EditFaqItemsList';
 import portrait from '../../assets/portrait.webp';
-import skyline from '../../assets/skyline.png';
-import ensase from '../../assets/ensase.png';
 import React, { useContext, useState, useEffect } from 'react';
 
 const MAX_REASSURANCE_ITEMS = 3;
@@ -51,11 +48,9 @@ const SECTIONS = [
         key: 'about',
         label: 'PAGE À PROPOS',
         subSections: [
-            { key: 'about-text', label: 'Texte de présentation', description: 'Portrait et texte de présentation.' },
-            { key: 'about-photo1', label: 'Photo pleine largeur 1', description: 'Première grande photo de la page.' },
-            { key: 'about-cv', label: 'CV', description: 'Parcours et formations.' },
-            { key: 'about-photo2', label: 'Photo pleine largeur 2', description: 'Seconde grande photo de la page.' },
-            { key: 'about-links', label: 'Liens amis', description: 'Liens vers des sites amis.' },
+            { key: 'about-text', label: 'Texte de présentation', description: 'Texte affiché à droite des portraits, en haut de la page.' },
+            { key: 'about-portraits', label: 'Portraits', description: 'Deux portraits au plus, l\'un au-dessus de l\'autre, à gauche du texte.' },
+            { key: 'about-objects', label: 'Cabinet de curiosités', description: 'Les objets de la grille : une photo qui ouvre un texte (CV, liens amis…) au clic.' },
         ],
     },
     { key: 'faq', label: 'FAQ', description: 'Questions fréquentes.' },
@@ -90,7 +85,7 @@ function Edit() {
         handleLoadHeroSettings,
         handleLoadProcessSteps,
         handleLoadAboutPageContent,
-        handleLoadFriendUrls,
+        handleLoadCuriosityItems,
         handleLoadFaqItems,
         handleLoadFeaturedProjects,
         handleLoadHomeBanner,
@@ -102,7 +97,7 @@ function Edit() {
         heroSettings,
         processSteps,
         aboutPageContent,
-        friendUrls,
+        curiosityItems,
         faqItems,
         featuredProjects,
         homeBanner,
@@ -150,10 +145,8 @@ function Edit() {
     const [displayProcessStepForm, setDisplayProcessStepForm] = useState(false);
     const [processStepEdit, setProcessStepEdit] = useState(null);
 
-    const [friendUrlFormMode, setFriendUrlFormMode] = useState('add');
-    const [friendUrlsList, setFriendUrlsList] = useState(friendUrls);
-    const [displayFriendUrlForm, setDisplayFriendUrlForm] = useState(false);
-    const [friendUrlEdit, setFriendUrlEdit] = useState(null);
+    const [displayCuriosityItemForm, setDisplayCuriosityItemForm] = useState(false);
+    const [curiosityItemEdit, setCuriosityItemEdit] = useState(null);
 
     const [faqItemFormMode, setFaqItemFormMode] = useState('add');
     const [faqItemsList, setFaqItemsList] = useState(faqItems);
@@ -179,10 +172,6 @@ function Edit() {
     useEffect(() => {
         setProcessStepsList(processSteps);
     }, [processSteps]);
-
-    useEffect(() => {
-        setFriendUrlsList(friendUrls);
-    }, [friendUrls]);
 
     useEffect(() => {
         setFaqItemsList(faqItems);
@@ -237,15 +226,9 @@ function Edit() {
     }
 
     // OUVERTURE MODE MODIF
-    async function handleEditFriendUrl(friendUrl) {
-        try {
-            setFriendUrlEdit(friendUrl);
-            handleLoadFriendUrls();
-            setDisplayFriendUrlForm(true);
-            setFriendUrlFormMode('edit');
-        } catch (error) {
-            console.log(error.message);
-        }
+    function handleEditCuriosityItem(curiosityItem) {
+        setCuriosityItemEdit(curiosityItem);
+        setDisplayCuriosityItemForm(true);
     }
 
     // OUVERTURE MODE MODIF
@@ -504,54 +487,60 @@ function Edit() {
                     {activeSection === 'about-text' && (
                         <PhilosophyContentForm
                             aboutPageContent={aboutPageContent}
-                            defaultImageUrl={portrait}
                             handleLoadAboutPageContent={handleLoadAboutPageContent}
                             loaderDisplay={loaderDisplay}
                             setLoaderDisplay={setLoaderDisplay}
                         />
                     )}
 
-                    {activeSection === 'about-photo1' && (
-                        <AboutPhotoForm
-                            label='la photo 1'
-                            previewAspectRatio='5 / 3'
-                            fieldName='photo1'
-                            currentImageUrl={aboutPageContent?.photo1Url}
-                            defaultImageUrl={skyline}
-                            onUpdated={handleLoadAboutPageContent}
-                            loaderDisplay={loaderDisplay}
-                            setLoaderDisplay={setLoaderDisplay}
-                        />
+                    {activeSection === 'about-portraits' && (
+                        <div className='adminForm'>
+                            <p className='adminIntro'>
+                                Deux portraits au plus, affichés l'un au-dessus de l'autre, à gauche du texte, dans le même format (3:4) avec des bords arrondis : l'image est recadrée si besoin.
+                            </p>
+
+                            <div className='adminColumns'>
+                                <div className='adminCard'>
+                                    <div className='adminCard_header'><h4>Portrait 1</h4></div>
+                                    <AboutPhotoForm
+                                        label='le portrait 1'
+                                        fieldName='philosophy'
+                                        currentImageUrl={aboutPageContent?.philosophyImageUrl}
+                                        defaultImageUrl={portrait}
+                                        resetUrl={`${API_URL}/api/about-page-content/philosophy-image`}
+                                        previewAspectRatio='3 / 4'
+                                        previewMaxWidth={260}
+                                        onUpdated={handleLoadAboutPageContent}
+                                        loaderDisplay={loaderDisplay}
+                                        setLoaderDisplay={setLoaderDisplay}
+                                    />
+                                </div>
+
+                                <div className='adminCard'>
+                                    <div className='adminCard_header'><h4>Portrait 2</h4></div>
+                                    <AboutPhotoForm
+                                        label='le portrait 2'
+                                        fieldName='portrait2'
+                                        currentImageUrl={aboutPageContent?.portrait2Url}
+                                        emptyText="Aucun second portrait : seul le premier est affiché."
+                                        resetLabel='Supprimer le portrait'
+                                        previewAspectRatio='3 / 4'
+                                        previewMaxWidth={260}
+                                        onUpdated={handleLoadAboutPageContent}
+                                        loaderDisplay={loaderDisplay}
+                                        setLoaderDisplay={setLoaderDisplay}
+                                    />
+                                </div>
+                            </div>
+                        </div>
                     )}
 
-                    {activeSection === 'about-cv' && (
-                        <CurriculumContentForm
-                            aboutPageContent={aboutPageContent}
-                            handleLoadAboutPageContent={handleLoadAboutPageContent}
-                            loaderDisplay={loaderDisplay}
-                            setLoaderDisplay={setLoaderDisplay}
-                        />
-                    )}
-
-                    {activeSection === 'about-photo2' && (
-                        <AboutPhotoForm
-                            label='la photo 2'
-                            previewAspectRatio='5 / 3'
-                            fieldName='photo2'
-                            currentImageUrl={aboutPageContent?.photo2Url}
-                            defaultImageUrl={ensase}
-                            onUpdated={handleLoadAboutPageContent}
-                            loaderDisplay={loaderDisplay}
-                            setLoaderDisplay={setLoaderDisplay}
-                        />
-                    )}
-
-                    {activeSection === 'about-links' && (
+                    {activeSection === 'about-objects' && (
                         <>
-                            <EditFriendUrlsList
-                                friendUrls={friendUrlsList}
-                                handleEditFriendUrl={handleEditFriendUrl}
-                                handleLoadFriendUrls={handleLoadFriendUrls}
+                            <EditCuriosityItemsList
+                                curiosityItems={curiosityItems}
+                                handleEditCuriosityItem={handleEditCuriosityItem}
+                                handleLoadCuriosityItems={handleLoadCuriosityItems}
                                 loaderDisplay={loaderDisplay}
                                 setLoaderDisplay={setLoaderDisplay}
                             />
@@ -559,11 +548,11 @@ function Edit() {
                             <button
                                 className='edit_content_section_addButton'
                                 onClick={() => {
-                                    setDisplayFriendUrlForm(true);
-                                    setFriendUrlFormMode('add');
+                                    setCuriosityItemEdit(null);
+                                    setDisplayCuriosityItemForm(true);
                                 }}
                             >
-                                + AJOUTER UN LIEN +
+                                + AJOUTER UN OBJET +
                             </button>
                         </>
                     )}
@@ -646,15 +635,12 @@ function Edit() {
                 />
             )}
 
-            {displayFriendUrlForm === true && (
-                <FriendUrlForm
-                    friendUrlFormMode={friendUrlFormMode}
-                    setFriendUrlFormMode={setFriendUrlFormMode}
-                    handleLoadFriendUrls={handleLoadFriendUrls}
-                    setDisplayFriendUrlForm={setDisplayFriendUrlForm}
-                    displayFriendUrlForm={displayFriendUrlForm}
-                    friendUrlEdit={friendUrlEdit}
-                    setFriendUrlEdit={setFriendUrlEdit}
+            {displayCuriosityItemForm === true && (
+                <CuriosityItemForm
+                    key={curiosityItemEdit?._id || 'new'}
+                    handleLoadCuriosityItems={handleLoadCuriosityItems}
+                    curiosityItemEdit={curiosityItemEdit}
+                    setDisplayCuriosityItemForm={setDisplayCuriosityItemForm}
                     loaderDisplay={loaderDisplay}
                     setLoaderDisplay={setLoaderDisplay}
                 />

@@ -33,6 +33,7 @@ const approachSettingsRoutes = require('./routes/approachSettings');
 const homeBannerRoutes = require('./routes/homeBanner');
 const processSettingsRoutes = require('./routes/processSettings');
 const missionsSettingsRoutes = require('./routes/missionsSettings');
+const curiosityItemsRoutes = require('./routes/curiosityItems');
 
 
 /* --------------------------------------------------------
@@ -113,6 +114,7 @@ app.use('/api/approach-settings', approachSettingsRoutes);
 app.use('/api/home-banner', homeBannerRoutes);
 app.use('/api/process-settings', processSettingsRoutes);
 app.use('/api/missions-settings', missionsSettingsRoutes);
+app.use('/api/curiosity-items', curiosityItemsRoutes);
 
 
 /* --------------------------------------------------------

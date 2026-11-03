@@ -12,8 +12,7 @@ router.put('/',
             // auth,
             multer.fields([
                 { name: 'philosophy' },
-                { name: 'photo1' },
-                { name: 'photo2' },
+                { name: 'portrait2' },
               ]),
             uploadImages,
             aboutPageContentCtrl.updateAboutPageContent,
@@ -24,14 +23,9 @@ router.delete('/philosophy-image',
             aboutPageContentCtrl.resetPhilosophyImage,
             deleteImages);
 
-router.delete('/photo1',
+router.delete('/portrait2',
             // auth,
-            aboutPageContentCtrl.resetPhoto1,
-            deleteImages);
-
-router.delete('/photo2',
-            // auth,
-            aboutPageContentCtrl.resetPhoto2,
+            aboutPageContentCtrl.resetPortrait2,
             deleteImages);
 
 module.exports = router;

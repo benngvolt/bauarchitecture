@@ -1,0 +1,111 @@
+@import '../../utils/mixins';
+
+// Fond noir translucide (0,8) plein écran, fenêtre claire centrée.
+.curiosityModal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 22px;
+    box-sizing: border-box;
+    background-color: rgba(0, 0, 0, 0.8);
+    animation: apparition 0.25s ease backwards;
+
+    &_dialog {
+        position: relative;
+        box-sizing: border-box;
+        width: min(760px, 100%);
+        max-height: 100%;
+        padding: calc($minimalSpace * 1.5) calc($minimalSpace * 1.25) calc($minimalSpace * 1.25);
+        overflow-y: auto;
+        background-color: $colorLightGrey;
+        border-radius: 10px;
+        animation: apparition 0.25s ease backwards;
+
+        @media only screen and (max-width: $mobileMaxWidth) {
+            padding: calc($minimalSpace * 1.5) 22px 28px;
+        }
+    }
+
+    &_close {
+        position: absolute;
+        top: 14px;
+        right: 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 4px;
+        @include typeText;
+        font-family: $mainFont;
+        color: $colorDarkGrey;
+        background: none;
+        border: none;
+        cursor: pointer;
+
+        &:hover {
+            color: $color1;
+        }
+
+        &:focus-visible {
+            outline: 2px solid $colorDarkGrey;
+            outline-offset: 2px;
+        }
+
+        &_label {
+            letter-spacing: 0.04em;
+        }
+    }
+
+    // Texte enrichi : titres (H1 de l'éditeur), gras, listes et liens.
+    &_text {
+        @include typeText;
+        font-family: $mainFont;
+        text-align: left;
+        color: $colorDarkGrey;
+
+        > * {
+            margin: 0 0 0.8em;
+        }
+
+        > :last-child {
+            margin-bottom: 0;
+        }
+
+        h1 {
+            @include typeTitle;
+            margin: 1.4em 0 0.4em;
+
+            strong {
+                font-weight: inherit;
+            }
+
+            &:first-child {
+                margin-top: 0;
+            }
+        }
+
+        ul {
+            padding-left: 1.2em;
+            list-style: disc;
+        }
+
+        li {
+            margin-bottom: 0.5em;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+
+            &:hover {
+                color: $color1;
+            }
+        }
+    }
+}
