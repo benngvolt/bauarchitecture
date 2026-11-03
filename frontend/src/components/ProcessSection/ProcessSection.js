@@ -1,14 +1,14 @@
 import './ProcessSection.scss';
 
 import { useContext, useState } from 'react';
-import DOMPurify from 'dompurify';
 
 import { ProjectsContext } from '../../utils/ProjectsContext';
 import { DEFAULT_PROCESS_TITLE, DEFAULT_PROCESS_DETAILS } from '../../utils/constants';
 import { hasRichTextContent } from '../../utils/richText';
+import ProcessDetailsModal from '../ProcessDetailsModal/ProcessDetailsModal';
 
 function ProcessStepItem({ step, index }) {
-    const [isExpanded, setIsExpanded] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const details = hasRichTextContent(step.richText)
         ? step.richText
@@ -28,27 +28,25 @@ function ProcessStepItem({ step, index }) {
                     <button
                         type='button'
                         className='process_list_item_content_toggle'
-                        aria-expanded={isExpanded}
-                        onClick={() => setIsExpanded((current) => !current)}
+                        aria-haspopup='dialog'
+                        onClick={() => setIsModalOpen(true)}
                     >
-                        {isExpanded ? '− de détails' : '+ de détails'}
+                        + de détails
                     </button>
                 ) : (
                     <span />
                 )}
-
-                <div
-                    className={
-                        hasDetails && isExpanded
-                            ? 'process_list_item_content_details process_list_item_content_details--open'
-                            : 'process_list_item_content_details'
-                    }
-                    aria-hidden={hasDetails && isExpanded ? undefined : 'true'}
-                    dangerouslySetInnerHTML={{
-                        __html: hasDetails ? DOMPurify.sanitize(details) : '',
-                    }}
-                />
             </div>
+
+            {isModalOpen && (
+                <ProcessDetailsModal
+                    index={index}
+                    title={step.title}
+                    tagline={step.tagline}
+                    details={details}
+                    onClose={() => setIsModalOpen(false)}
+                />
+            )}
         </li>
     );
 }

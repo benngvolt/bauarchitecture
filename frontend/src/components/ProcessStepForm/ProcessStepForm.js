@@ -138,7 +138,7 @@ function ProcessStepForm ({
                     variant='admin'
                     htmlFor='inputProcessStepRichText'
                     label='Texte détaillé'
-                    hint='Facultatif : affiché sous « + de détails ». Vide, le texte par défaut du site est utilisé.'
+                    hint="Facultatif : s'ouvre dans une fenêtre pop-up quand on clique sur « + de détails ». Vide, le texte par défaut du site est utilisé."
                     type='hidden'
                     id='inputProcessStepRichText'
                     ref={inputProcessStepRichTextRef}

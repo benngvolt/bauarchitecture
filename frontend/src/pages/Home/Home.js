@@ -85,9 +85,9 @@ function Home() {
         <main className='home'>
             <HeroSection/>
             <MissionsSection/>
-            <ReassuranceSection/>
             <ProjectsSection/>
-            <ApproachSection/>
+            <ReassuranceSection/>
+            {/* <ApproachSection/> */}
             <BannerSection/>
             <ProcessSection/>
             <LastSection/>

@@ -6,7 +6,6 @@ import ReassuranceItemForm from '../../components/ReassuranceItemForm/Reassuranc
 import HeroImageForm from '../../components/HeroImageForm/HeroImageForm';
 import HeroTextsForm from '../../components/HeroTextsForm/HeroTextsForm';
 import FeaturedProjectsForm from '../../components/FeaturedProjectsForm/FeaturedProjectsForm';
-import ApproachForm from '../../components/ApproachForm/ApproachForm';
 import ProcessHeadingForm from '../../components/ProcessHeadingForm/ProcessHeadingForm';
 import MissionsForm from '../../components/MissionsForm/MissionsForm';
 import ProcessStepForm from '../../components/ProcessStepForm/ProcessStepForm';
@@ -40,11 +39,10 @@ const SECTIONS = [
         subSections: [
             { key: 'hero', label: 'HERO', description: "Titre, texte d'accroche et images de fond, en haut de la page d'accueil." },
             { key: 'missions', label: 'SERVICES', description: "Petit texte sous chacun des quatre pictogrammes (Construction, Rénovation, Extension, Aménagements)." },
-            { key: 'reassurance', label: 'BLOC DE RÉASSURANCE', description: "Courts arguments affichés sous les pictogrammes." },
             { key: 'featured', label: 'Projets à la une', description: "Les trois projets présentés sur la page d'accueil." },
-            { key: 'approach', label: 'Approche', description: "Section sombre de la page d'accueil : titre et blocs de texte." },
+            { key: 'reassurance', label: 'BLOC DE RÉASSURANCE', description: "Courts arguments affichés sous les projets à la une." },
+            { key: 'banner', label: 'Image du bas', description: "Image pleine largeur, entre le bloc de réassurance et les étapes du processus." },
             { key: 'process', label: 'Étapes du processus', description: "Phrase d'accroche et quatre étapes présentées sur la page d'accueil." },
-            { key: 'banner', label: 'Image du bas', description: "Image pleine largeur, entre « Approche » et « Étapes du processus »." },
         ],
     },
     { key: 'projects', label: 'PROJETS', description: 'Tous les projets du site.' },
@@ -95,7 +93,6 @@ function Edit() {
         handleLoadFriendUrls,
         handleLoadFaqItems,
         handleLoadFeaturedProjects,
-        handleLoadApproachSettings,
         handleLoadHomeBanner,
         handleLoadProcessSettings,
         handleLoadMissionsSettings,
@@ -108,7 +105,6 @@ function Edit() {
         friendUrls,
         faqItems,
         featuredProjects,
-        approachSettings,
         homeBanner,
         processSettings,
         missionsSettings,
@@ -472,16 +468,6 @@ function Edit() {
                             projects={projects}
                             featuredProjects={featuredProjects}
                             handleLoadFeaturedProjects={handleLoadFeaturedProjects}
-                            loaderDisplay={loaderDisplay}
-                            setLoaderDisplay={setLoaderDisplay}
-                        />
-                    )}
-
-                    {/* PAGE D'ACCUEIL : APPROCHE */}
-                    {activeSection === 'approach' && (
-                        <ApproachForm
-                            approachSettings={approachSettings}
-                            handleLoadApproachSettings={handleLoadApproachSettings}
                             loaderDisplay={loaderDisplay}
                             setLoaderDisplay={setLoaderDisplay}
                         />

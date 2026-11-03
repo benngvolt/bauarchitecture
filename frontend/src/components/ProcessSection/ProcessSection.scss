@@ -44,10 +44,10 @@
             box-sizing: border-box;
             position: relative;
 
-            // Chaque étape occupe cinq rangées de la liste (numéro, mot-concept, résumé, bouton, détails),
+            // Chaque étape occupe quatre rangées de la liste (numéro, mot-concept, résumé, bouton),
             // partagées avec les autres étapes de la même ligne : les éléments de même rang sont alignés.
             display: grid;
-            grid-row: span 5;
+            grid-row: span 4;
             grid-template-rows: subgrid;
             row-gap: 0;
 
@@ -123,37 +123,6 @@
                     &:hover {
                         color: $color1;
                         text-decoration: underline;
-                    }
-                }
-
-                // Colonnes côte à côte (desktop, tablette) : la place du texte détaillé est toujours réservée
-                // (le plus long des quatre fixe la hauteur de la rangée commune), donc déplier ne décale rien en dessous.
-                &_details {
-                    @include mainText;
-                    @include typeText;
-                    text-align: left;
-                    margin: calc($minimalSpace / 3) auto 0;
-                    opacity: 0;
-                    visibility: hidden;
-                    transition: opacity 0.3s ease, visibility 0.3s;
-
-                    &--open {
-                        opacity: 1;
-                        visibility: visible;
-                    }
-
-                    // Mobile : les étapes sont empilées, réserver leur texte créerait de grands vides ;
-                    // le texte se déplie donc en poussant la suite.
-                    @media only screen and (max-width: $mobileMaxWidth) {
-                        overflow: hidden;
-                        max-height: 0;
-                        margin-top: 0;
-                        transition: max-height 0.3s ease, opacity 0.3s ease, margin 0.3s ease, visibility 0.3s;
-
-                        &--open {
-                            max-height: 1000px;
-                            margin-top: calc($minimalSpace / 3);
-                        }
                     }
                 }
             }

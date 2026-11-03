@@ -2,7 +2,6 @@ import './ScrollyHome.scss';
 
 import { useContext, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import DOMPurify from 'dompurify';
 
 import logo from '../../assets/bau_logo.png';
 import Button from '../Button/Button';
@@ -13,57 +12,21 @@ import {
     DEFAULT_HERO_TITLE,
     DEFAULT_HERO_DESCRIPTION,
     DEFAULT_MISSION_DESCRIPTIONS,
-    DEFAULT_APPROACH_TITLE,
-    DEFAULT_APPROACH_ITEMS,
     DEFAULT_PROCESS_TITLE,
     DEFAULT_PROCESS_DETAILS,
 } from '../../utils/constants';
 import { getDisplayedFeaturedProjects } from '../../utils/featuredProjects';
 import { getDefaultBannerImage } from '../../utils/homeImages';
 import { hasRichTextContent } from '../../utils/richText';
+import ProcessDetailsModal from '../ProcessDetailsModal/ProcessDetailsModal';
 
 // Défilement nécessaire pour passer d'un panneau au suivant, en fraction de la hauteur d'écran.
 const SCROLL_PER_PANEL = 0.9;
 // Durée d'affichage de chaque image du hero avant la suivante (ms).
 const HERO_SLIDE_DURATION = 5000;
-// Démarche : les titres de tous les blocs restent visibles ; le texte du bloc ouvert se déroule dessous.
-function ApproachAccordion({ items }) {
-    const [openIndex, setOpenIndex] = useState(0);
-
-    return (
-        <ul className='scrolly_approach'>
-            {items.map((item, index) => {
-                const isOpen = index === openIndex;
-
-                return (
-                    <li className='scrolly_approach_item' key={`${item.title}-${index}`}>
-                        <h3 className='scrolly_approach_heading'>
-                            <button
-                                type='button'
-                                className='scrolly_approach_button'
-                                aria-expanded={isOpen}
-                                onClick={() => setOpenIndex(isOpen ? -1 : index)}
-                            >
-                                <span>{item.title}</span>
-                                <span className='scrolly_approach_icon' aria-hidden='true'>{isOpen ? '−' : '+'}</span>
-                            </button>
-                        </h3>
-
-                        {item.text && (
-                            <div className={isOpen ? 'scrolly_approach_panel scrolly_approach_panel--open' : 'scrolly_approach_panel'}>
-                                <p className='scrolly_text scrolly_text--light'>{item.text}</p>
-                            </div>
-                        )}
-                    </li>
-                );
-            })}
-        </ul>
-    );
-}
-
-// Une étape du processus : numéro, mot-concept, résumé ; le texte détaillé se déplie dessous.
+// Une étape du processus : numéro, mot-concept, résumé ; le texte détaillé s'ouvre dans une fenêtre pop-up.
 function ProcessStepRow({ step, index }) {
-    const [isExpanded, setIsExpanded] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const details = hasRichTextContent(step.richText)
         ? step.richText
         : DEFAULT_PROCESS_DETAILS[index] || '';
@@ -78,27 +41,26 @@ function ProcessStepRow({ step, index }) {
                 <p className='scrolly_text'>{step.tagline}</p>
 
                 {hasDetails && (
-                    <>
-                        <button
-                            type='button'
-                            className='scrolly_process_toggle'
-                            aria-expanded={isExpanded}
-                            onClick={() => setIsExpanded((current) => !current)}
-                        >
-                            {isExpanded ? '− de détails' : '+ de détails'}
-                        </button>
-
-                        <div
-                            className={
-                                isExpanded
-                                    ? 'scrolly_process_details scrolly_process_details--open'
-                                    : 'scrolly_process_details'
-                            }
-                            dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(details) }}
-                        />
-                    </>
+                    <button
+                        type='button'
+                        className='scrolly_process_toggle'
+                        aria-haspopup='dialog'
+                        onClick={() => setIsModalOpen(true)}
+                    >
+                        + de détails
+                    </button>
                 )}
             </div>
+
+            {isModalOpen && (
+                <ProcessDetailsModal
+                    index={index}
+                    title={step.title}
+                    tagline={step.tagline}
+                    details={details}
+                    onClose={() => setIsModalOpen(false)}
+                />
+            )}
         </li>
     );
 }
@@ -110,7 +72,6 @@ function ScrollyHome() {
         missionsSettings,
         reassuranceItems,
         featuredProjects,
-        approachSettings,
         processSteps,
         processSettings,
         homeBanner,
@@ -142,9 +103,6 @@ function ScrollyHome() {
     const currentHeroSlide = heroSlide < heroUrls.length ? heroSlide : 0;
 
     const displayedProjects = getDisplayedFeaturedProjects(projects, featuredProjects);
-
-    const approachTitle = approachSettings?.title || DEFAULT_APPROACH_TITLE;
-    const approachItems = approachSettings?.items?.length ? approachSettings.items : DEFAULT_APPROACH_ITEMS;
 
     const defaultBanner = getDefaultBannerImage(projects);
     const bannerUrl = homeBanner?.imageUrl || defaultBanner?.imageUrl;
@@ -187,14 +145,12 @@ function ScrollyHome() {
         ),
     });
 
-    // 2. Bloc de présentation (logo, titre, texte, boutons) sur l'image.
+    // 2. Bloc de présentation (logo, titre, texte, boutons) : son propre panneau, à la suite de l'image, sur le fond de la page.
     panels.push({
         key: 'hero-card',
-        theme: 'image',
+        theme: 'light',
         content: (
             <>
-                {heroBackdrop}
-                <div className='scrolly_shade' aria-hidden='true' />
                 <div className='scrolly_card'>
                     <img className='scrolly_card_logo' src={logo} alt='BAU Architecture — Amata Zdziobeck' />
                     <p className='scrolly_card_role'>Architecte HMONP</p>
@@ -241,25 +197,7 @@ function ScrollyHome() {
         ),
     });
 
-    // 4. Bloc de réassurance.
-    if (reassuranceItems?.length) {
-        panels.push({
-            key: 'reassurance',
-            theme: 'light',
-            content: (
-                <div className='scrolly_reassurance'>
-                    {reassuranceItems.slice(0, 3).map((item) => (
-                        <div className='scrolly_reassurance_item' key={item._id}>
-                            <p className='scrolly_title'>{item.title}</p>
-                            {item.subtitle && <p className='scrolly_text'>{item.subtitle}</p>}
-                        </div>
-                    ))}
-                </div>
-            ),
-        });
-    }
-
-    // 5. Projets à la une : les trois sur le même écran.
+    // 4. Projets à la une : les trois sur le même écran.
     panels.push({
         key: 'projects',
         theme: 'light',
@@ -298,20 +236,25 @@ function ScrollyHome() {
         ),
     });
 
-    // 6. Approche : le titre et tous les blocs sur le même écran.
-    panels.push({
-        key: 'approach',
-        theme: 'dark',
-        dense: true,
-        content: (
-            <>
-                <h2 className='scrolly_title scrolly_title--light'>{approachTitle}</h2>
-                <ApproachAccordion items={approachItems} />
-            </>
-        ),
-    });
+    // 5. Bloc de réassurance.
+    if (reassuranceItems?.length) {
+        panels.push({
+            key: 'reassurance',
+            theme: 'light',
+            content: (
+                <div className='scrolly_reassurance'>
+                    {reassuranceItems.slice(0, 3).map((item) => (
+                        <div className='scrolly_reassurance_item' key={item._id}>
+                            <p className='scrolly_title'>{item.title}</p>
+                            {item.subtitle && <p className='scrolly_text'>{item.subtitle}</p>}
+                        </div>
+                    ))}
+                </div>
+            ),
+        });
+    }
 
-    // 7. Image du bas.
+    // 6. Image du bas.
     if (bannerUrl) {
         panels.push({
             key: 'banner',
@@ -328,7 +271,7 @@ function ScrollyHome() {
         });
     }
 
-    // 8. Étapes du processus : la phrase d'accroche et les quatre étapes sur le même écran.
+    // 7. Étapes du processus : la phrase d'accroche et les quatre étapes sur le même écran.
     panels.push({
         key: 'process',
         theme: 'light',
@@ -345,7 +288,7 @@ function ScrollyHome() {
         ),
     });
 
-    // 9. Contact.
+    // 8. Contact.
     panels.push({
         key: 'contact',
         theme: 'dark',

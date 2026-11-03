@@ -69,8 +69,7 @@ function HeroSection() {
                 </div>
             )}
 
-            {/* L'image est plus haute que l'écran : le bloc de présentation, repoussé sous la ligne de flottaison,
-                se découvre en défilant. */}
+            {/* Image plein écran, puis le bloc de présentation à sa suite (il se découvre au premier défilement). */}
             <div
                 className={
                     slidesCount > 0
