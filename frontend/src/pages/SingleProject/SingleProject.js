@@ -60,38 +60,56 @@ function SingleProject() {
                                 {singleProject.title}
                             </h3>
 
-                            {(singleProject.projectType || singleProject.location) && (
-                                <p className='singleProject_datasContainer_datasBox_subtitle'>
-                                    {[singleProject.projectType, singleProject.location]
-                                        .filter(Boolean)
-                                        .join(' · ')}
-                                </p>
-                            )}
-
-                            <div className='singleProject_datasContainer_datasBox_maindatas'>
-                                {singleProject.price && (
-                                    <p className='singleProject_datasContainer_datasBox_maindatas_price'>
-                                        Montant des travaux : {singleProject.price}
+                            <div className='singleProject_datasContainer_datasBox_infos'>
+                                {(singleProject.projectType || singleProject.location) && (
+                                    <p className='singleProject_datasContainer_datasBox_infos_item singleProject_datasContainer_datasBox_infos_item--type'>
+                                        {[singleProject.projectType, singleProject.location]
+                                            .filter(Boolean)
+                                            .join(' · ')}
                                     </p>
                                 )}
 
                                 {singleProject.surface && (
-                                    <p className='singleProject_datasContainer_datasBox_maindatas_surface'>
+                                    <p className='singleProject_datasContainer_datasBox_infos_item'>
                                         Surface : {singleProject.surface}
                                     </p>
                                 )}
-                            </div>
 
-                            <div className='singleProject_datasContainer_datasBox_description'>
-                                {cleanedDescription && (
-                                    <p
-                                        dangerouslySetInnerHTML={{
-                                            __html: cleanedDescription,
-                                        }}
-                                    />
+                                {singleProject.price && (
+                                    <p className='singleProject_datasContainer_datasBox_infos_item'>
+                                        Montant des travaux : {singleProject.price}
+                                    </p>
                                 )}
                             </div>
                         </article>
+
+                        <div className='singleProject_datasContainer_split'>
+                            {cleanedDescription && (
+                                <div
+                                    className='singleProject_datasContainer_split_text'
+                                    dangerouslySetInnerHTML={{
+                                        __html: cleanedDescription,
+                                    }}
+                                />
+                            )}
+
+                            {singleProject.images?.length > 0 && (
+                                <div className='singleProject_datasContainer_split_images'>
+                                    {singleProject.images.map((image, index) => (
+                                        <img
+                                            key={image._id || `image_${index}`}
+                                            className='singleProject_datasContainer_split_image'
+                                            src={getMediaUrl(image.imageUrl)}
+                                            alt={`${singleProject.title} ${index + 1}`}
+                                            onClick={() => {
+                                                setSelectedImageUrl(getMediaUrl(image.imageUrl));
+                                                setHandleDisplayImageBox(true);
+                                            }}
+                                        />
+                                    ))}
+                                </div>
+                            )}
+                        </div>
 
                         {singleProject.sketches?.length > 0 && (
                             <div className='singleProject_datasContainer_sketches'>
@@ -134,24 +152,6 @@ function SingleProject() {
                                 )}
                             </div>
                         )}
-                        <div className='singleProject_datasContainer_imagesWowColumn'>
-                            {singleProject.images?.length > 0 && (
-                                <div className='singleProject_datasContainer_imagesWowColumn_column'>
-                                    {singleProject.images?.map((image, index) => (
-                                        <img
-                                            key={image._id || `image_${index}`}
-                                            className='singleProject_datasContainer_imagesWowColumn_image'
-                                            src={getMediaUrl(image.imageUrl)}
-                                            alt={`${singleProject.title} ${index + 1}`}
-                                            onClick={() => {
-                                                setSelectedImageUrl(getMediaUrl(image.imageUrl));
-                                                setHandleDisplayImageBox(true);
-                                            }}
-                                        />
-                                    ))}
-                                </div>
-                            )}
-                        </div>
                     </section>
 
                     {handleDisplayImageBox && selectedImageUrl && (

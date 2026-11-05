@@ -8,16 +8,14 @@
     @include Column;
     justify-content: space-between;
 
-    // Infos du projet
+    // Titre et infos principales
     &_datasBox {
       @include Column;
       @include SidePaddings;
-      margin: 2% 0;
+      margin: calc(2 * $minimalSpace) 0 $minimalSpace;
       width: 100%;
-      min-height: calc(100vh - 250px);
 
       @media only screen and (max-width: $mobileMaxWidth) {
-        min-height: 0;
         margin: $minimalSpace 0;
       }
 
@@ -36,58 +34,95 @@
         }
       }
 
-      &_subtitle {
-        margin: $minimalSpace auto 0;
-        width: auto;
-        font-family: $mainFont;
-        @include typeText;
-        color: $color1;
-      }
-
-      &_maindatas {
-        @include Column;
-        justify-content: flex-start;
-        width: 50%;
-        margin: 45px 0;
-        font-family: $mainFont;
-        @include typeText;
-        color: $colorDarkGrey;
-
-        &_price,
-        &_surface {
-          margin: 0;
-        }
-
-        @media only screen and (max-width: $mobileMaxWidth) {
-          width: 100%;
-          @include typeText;
-        }
-      }
-
-      &_description {
+      // Type, lieu, surface et montant des travaux : sur une ligne sous le titre, à la ligne si l'écran est étroit.
+      &_infos {
         @include Row;
-        width: 100%;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 6px calc($minimalSpace / 1.5);
+        margin: $minimalSpace auto 0;
         font-family: $mainFont;
+        @include typeText;
         color: $colorDarkGrey;
-        justify-content: flex-end;
 
         @media only screen and (max-width: $mobileMaxWidth) {
-          justify-content: flex-start;
+          margin-top: 22px;
         }
 
-        p {
-          width: 50%;
-          text-align: justify;
-          @include typeText;
+        &_item {
+          margin: 0;
 
-          @media only screen and (min-width: $padMinWidth) and (max-width: $padMaxWidth) {
-            width: 80%;
+          &--type {
+            color: $color1;
           }
+        }
+      }
+    }
 
-          @media only screen and (max-width: $mobileMaxWidth) {
-            width: 100%;
-            @include typeText;
-          }
+    // Moitié gauche : les photos qui défilent. Moitié droite : le texte descriptif, qui reste en place pendant le défilement.
+    &_split {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      align-items: start;
+      column-gap: calc(2 * $minimalSpace);
+      @include SidePaddings;
+      width: 100%;
+      margin-bottom: $minimalSpace;
+
+      @media only screen and (max-width: $mobileMaxWidth) {
+        grid-template-columns: minmax(0, 1fr);
+        row-gap: $minimalSpace;
+      }
+
+      &_images {
+        @include Column;
+        grid-column: 1;
+        grid-row: 1;
+        row-gap: 12px;
+
+        @media only screen and (max-width: $mobileMaxWidth) {
+          grid-row: 2;
+        }
+      }
+
+      &_image {
+        display: block;
+        width: 100%;
+        height: auto;
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+
+      // Placé avant les photos dans le code (lu en premier) ; à droite sur grand écran, au-dessus des photos sur mobile.
+      &_text {
+        grid-column: 2;
+        grid-row: 1;
+        position: sticky;
+        top: calc($headerHeight + $minimalSpace / 2);
+        box-sizing: border-box;
+        max-height: calc(100vh - $headerHeight - $minimalSpace);
+        overflow-y: auto;
+        font-family: $mainFont;
+        @include typeText;
+        text-align: justify;
+        color: $colorDarkGrey;
+
+        @media only screen and (max-width: $mobileMaxWidth) {
+          grid-column: 1;
+          position: static;
+          max-height: none;
+          overflow-y: visible;
+          text-align: left;
+        }
+
+        > * {
+          margin: 0 0 0.8em;
+        }
+
+        > :last-child {
+          margin-bottom: 0;
         }
       }
     }
@@ -188,70 +223,6 @@
           @include typeText;
           font-weight: bold;
           text-align: justify;
-        }
-      }
-    }
-
-    // Colonne d’icônes/images verticales
-    &_imagesWowColumn {
-      z-index: 0;
-      width: 100%;
-
-      &_image {
-        z-index: 0;
-        width: auto;
-        max-width: 100%;
-        height: 80vh;
-        object-fit: contain;
-        margin: 0 auto;
-
-        // Mobile : l'image garde ses proportions plutôt que d'être centrée dans 80 % de la hauteur d'écran.
-        @media only screen and (max-width: $mobileMaxWidth) {
-          height: auto;
-          max-height: 80vh;
-        }
-
-        &:hover {
-          cursor: pointer;
-        }
-      }
-
-      &_column {
-        @include Column;
-        justify-content: center;
-        align-items: center;
-        row-gap: 5px;
-        width: 80%;
-        margin: auto;
-        position: relative;
-
-        @media only screen and (max-width: $padMaxWidth) {
-          width: 100%;
-          @include SidePaddings;
-        }
-
-        &_icon {
-          color: $colorDarkGrey;
-          margin: auto 10px;
-          vertical-align: middle;
-
-          &:hover {
-            color: $color1;
-            cursor: pointer;
-          }
-        }
-
-        &_indexBar {
-          font-family: $mainFont;
-          @include typeTitle;
-          font-weight: 400;
-          color: $colorDarkGrey;
-          margin: auto 2px;
-          padding: 0;
-
-          &--bold {
-            font-weight: 700;
-          }
         }
       }
     }
