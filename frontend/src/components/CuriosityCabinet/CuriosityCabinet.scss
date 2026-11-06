@@ -18,6 +18,8 @@
     }
 
     // Les photos (PNG / WebP détourés ou JPEG) gardent leurs proportions dans une case carrée.
+    // Ombre portée floue (drop-shadow : elle épouse la forme de l'objet, transparence comprise) : l'objet semble flotter.
+    // Au survol, il se soulève : l'ombre s'écarte, s'élargit et s'adoucit, et suit l'objet dans son mouvement.
     &_object {
         display: flex;
         align-items: center;
@@ -39,17 +41,31 @@
 
             object-fit: contain;
 
-            transition: transform 0.3s ease;
+            filter: drop-shadow(0 10px 5px rgba($colorDarkGrey, 0.6));
+            transition: transform 0.35s ease, filter 0.35s ease;
         }
 
         &:hover img,
         &:focus-visible img {
-            transform: scale(1.05) rotate(-1.5deg);
+            transform: translateY(-8px) scale(1.05) rotate(-1.5deg);
+            filter: drop-shadow(0 26px 10px rgba($colorDarkGrey, 0.48));
         }
 
         &:focus-visible {
             outline: 2px solid $colorDarkGrey;
             outline-offset: 4px;
+        }
+
+        // Sans animation : l'objet ne bouge pas, seule l'ombre s'accentue.
+        @media (prefers-reduced-motion: reduce) {
+            img {
+                transition: none;
+            }
+
+            &:hover img,
+            &:focus-visible img {
+                transform: none;
+            }
         }
     }
 }
