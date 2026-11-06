@@ -8,6 +8,7 @@ import FormRichTextField from '../FormRichTextField/FormRichTextField'
 import FormImageField from '../FormImageField/FormImageField'
 import DNDGallery from '../DNDGallery/DNDGallery'
 import { API_URL } from '../../utils/constants'
+import { authFetch } from '../../utils/auth'
 
 
 function DrawingForm ({
@@ -128,7 +129,7 @@ function DrawingForm ({
         }
         else {
             if (drawingFormMode==='add') {
-                fetch(`${API_URL}/api/drawings`, {
+                authFetch(`${API_URL}/api/drawings`, {
                     method: "POST",
                     headers: {
                         //'Content-Type': 'application/json',
@@ -156,7 +157,7 @@ function DrawingForm ({
                         setLoaderDisplay(false);
                     });
             } else if (drawingFormMode==='edit') {
-                fetch(`${API_URL}/api/drawings/${drawingEdit._id}`, {
+                authFetch(`${API_URL}/api/drawings/${drawingEdit._id}`, {
                     method: "PUT",
                     headers: {
                         // 'Content-Type': 'application/json',

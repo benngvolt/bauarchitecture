@@ -4,6 +4,7 @@ import FormRichTextField from '../FormRichTextField/FormRichTextField'
 import Loader from '../Loader/Loader'
 import React, { useState, useRef, useEffect } from 'react'
 import { API_URL } from '../../utils/constants'
+import { authFetch } from '../../utils/auth'
 
 
 function FaqItemForm ({
@@ -67,7 +68,7 @@ function FaqItemForm ({
         };
 
         if (faqItemFormMode === 'add') {
-            fetch(`${API_URL}/api/faq-items`, {
+            authFetch(`${API_URL}/api/faq-items`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -92,7 +93,7 @@ function FaqItemForm ({
                 setLoaderDisplay(false);
             });
         } else if (faqItemFormMode === 'edit') {
-            fetch(`${API_URL}/api/faq-items/${faqItemEdit._id}`, {
+            authFetch(`${API_URL}/api/faq-items/${faqItemEdit._id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

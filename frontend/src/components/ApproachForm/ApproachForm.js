@@ -2,6 +2,7 @@ import AdminField from '../AdminUI/AdminField'
 import Loader from '../Loader/Loader'
 import React, { useState, useEffect } from 'react'
 import { API_URL, DEFAULT_APPROACH_TITLE, DEFAULT_APPROACH_ITEMS } from '../../utils/constants'
+import { authFetch } from '../../utils/auth'
 
 const MAX_TITLE_LENGTH = 200;
 const MAX_ITEMS = 6;
@@ -61,7 +62,7 @@ function ApproachForm ({
         setLoaderDisplay(true);
         setStatusMessage('');
 
-        fetch(`${API_URL}/api/approach-settings`, {
+        authFetch(`${API_URL}/api/approach-settings`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

@@ -2,6 +2,7 @@ import AdminField from '../AdminUI/AdminField'
 import Loader from '../Loader/Loader'
 import React, { useState, useRef, useEffect } from 'react'
 import { API_URL } from '../../utils/constants'
+import { authFetch } from '../../utils/auth'
 
 
 function ReassuranceItemForm ({
@@ -52,7 +53,7 @@ function ReassuranceItemForm ({
         };
 
         if (reassuranceItemFormMode === 'add') {
-            fetch(`${API_URL}/api/reassurance-items`, {
+            authFetch(`${API_URL}/api/reassurance-items`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -77,7 +78,7 @@ function ReassuranceItemForm ({
                 setLoaderDisplay(false);
             });
         } else if (reassuranceItemFormMode === 'edit') {
-            fetch(`${API_URL}/api/reassurance-items/${reassuranceItemEdit._id}`, {
+            authFetch(`${API_URL}/api/reassurance-items/${reassuranceItemEdit._id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

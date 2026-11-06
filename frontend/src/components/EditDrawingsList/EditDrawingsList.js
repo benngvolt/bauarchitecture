@@ -3,6 +3,7 @@
 
 // import React, { useState, useRef, useEffect } from 'react'
 // import { API_URL } from '../../utils/constants'
+import { authFetch } from '../../utils/auth'
 
 
 // function EditDrawingsList ({
@@ -119,7 +120,7 @@ function EditDrawingsList({
 
         setLoaderDisplay(true);
 
-        fetch(`${API_URL}/api/drawings/${drawingToDelete._id}`, {
+        authFetch(`${API_URL}/api/drawings/${drawingToDelete._id}`, {
             method: 'DELETE',
             headers: {
                 // Authorization: `Bearer ${sessionStorage.getItem('1')}`,

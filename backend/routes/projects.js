@@ -14,7 +14,7 @@ const deleteImages = require('../middlewares/deleteImages').deleteImages;
 // l'argument next permet de passer au middleware suivant
 
 router.post('/',
-            // auth,
+            auth,
             // multer.array('images'), 
             multer.fields([
                 { name: 'images'},
@@ -30,12 +30,12 @@ router.get('/:id',
             projectsCtrl.getOneProject);
 
 router.delete ('/:id',
-            // auth, 
+            auth,
             projectsCtrl.deleteOneProject, 
             deleteImages);
 
 router.put ('/:id',
-            // auth, 
+            auth,
             multer.fields([
                 { name: 'images'},
                 { name: 'sketches'}

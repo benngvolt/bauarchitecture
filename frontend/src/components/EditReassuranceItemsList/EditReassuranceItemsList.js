@@ -2,6 +2,7 @@ import ConfirmBox from '../../components/ConfirmBox/ConfirmBox'
 
 import React, { useState } from 'react'
 import { API_URL } from '../../utils/constants'
+import { authFetch } from '../../utils/auth'
 
 
 
@@ -24,7 +25,7 @@ function EditReassuranceItemsList ({
 
     function deleteReassuranceItem() {
         setLoaderDisplay(true)
-        fetch(`${API_URL}/api/reassurance-items/${reassuranceItemToDelete._id}`, {
+        authFetch(`${API_URL}/api/reassurance-items/${reassuranceItemToDelete._id}`, {
             method: 'DELETE',
             headers: {
                 // Authorization: `Bearer ${sessionStorage.getItem('1')}`,

@@ -1,20 +1,21 @@
 const express = require ('express');
 const router = express.Router();
 const faqItemsCtrl = require ('../controllers/faqItems');
+const auth = require('../middlewares/auth');
 
 router.get('/',
             faqItemsCtrl.getAllFaqItems);
 
 router.post('/',
-            // auth,
+            auth,
             faqItemsCtrl.createFaqItem);
 
 router.put ('/:id',
-            // auth,
+            auth,
             faqItemsCtrl.updateOneFaqItem);
 
 router.delete ('/:id',
-            // auth,
+            auth,
             faqItemsCtrl.deleteOneFaqItem);
 
 module.exports = router;

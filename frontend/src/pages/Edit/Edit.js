@@ -22,6 +22,7 @@ import EditReassuranceItemsList from '../../components/EditReassuranceItemsList/
 import EditProcessStepsList from '../../components/EditProcessStepsList/EditProcessStepsList';
 import EditCuriosityItemsList from '../../components/EditCuriosityItemsList/EditCuriosityItemsList';
 import EditFaqItemsList from '../../components/EditFaqItemsList/EditFaqItemsList';
+import MaintenanceSwitch from '../../components/MaintenanceSwitch/MaintenanceSwitch';
 import portrait from '../../assets/portrait.webp';
 import React, { useContext, useState, useEffect } from 'react';
 
@@ -294,6 +295,8 @@ function Edit() {
                         );
                     })}
                 </ul>
+
+                <MaintenanceSwitch />
             </nav>
 
             <div className='edit_content'>

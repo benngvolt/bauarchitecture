@@ -14,7 +14,7 @@ const deleteImages = require('../middlewares/deleteImages').deleteImages;
 // l'argument next permet de passer au middleware suivant
 
 router.post('/',
-            // auth,
+            auth,
             multer.fields([
                 { name: 'images' },
                 { name: 'sketches' },
@@ -31,12 +31,12 @@ router.get('/:id',
     drawingsCtrl.getOneDrawing);
 
 router.delete('/:id',
-            // auth,
+            auth,
             drawingsCtrl.deleteOneDrawing,
             deleteImages);
 
 router.put('/:id',
-            // auth,
+            auth,
             multer.fields([
                 { name: 'images' },
                 { name: 'sketches' },

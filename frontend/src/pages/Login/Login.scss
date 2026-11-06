@@ -1,0 +1,95 @@
+@import '../../utils/mixins';
+
+.login {
+    @include Column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    min-height: 100vh;
+    padding: calc($headerHeight + $minimalSpace) 22px $minimalSpace;
+
+    &_form {
+        @include Column;
+        gap: 22px;
+        box-sizing: border-box;
+        width: min(420px, 100%);
+        padding: calc($minimalSpace * 0.9);
+        background-color: #fff;
+        border-radius: 10px;
+
+        @media only screen and (max-width: $mobileMaxWidth) {
+            padding: 28px 22px;
+        }
+
+        &_title {
+            margin: 0;
+            @include typeTitle;
+            font-family: $mainFont;
+            color: $colorDarkGrey;
+        }
+
+        &_field {
+            @include Column;
+            gap: 6px;
+
+            label {
+                @include typeText;
+                font-family: $mainFont;
+                font-weight: 700;
+                color: $colorDarkGrey;
+            }
+
+            input {
+                box-sizing: border-box;
+                width: 100%;
+                padding: 12px 14px;
+                font-family: $mainFont;
+                font-size: 16px;
+                color: $colorDarkGrey;
+                background-color: $colorLightGrey;
+                border: 1px solid rgba($colorDarkGrey, 0.3);
+                border-radius: 8px;
+
+                &:focus-visible {
+                    outline: 2px solid $colorDarkGrey;
+                    outline-offset: 1px;
+                }
+            }
+        }
+
+        &_error {
+            margin: 0;
+            @include typeText;
+            font-family: $mainFont;
+            color: #9b2c2c;
+        }
+
+        &_submit {
+            padding: 12px 22px;
+            @include typeText;
+            font-family: $mainFont;
+            color: $colorLightGrey;
+            background-color: $colorDarkGrey;
+            border: 1px solid $colorDarkGrey;
+            border-radius: 30px;
+            cursor: pointer;
+
+            &:disabled {
+                opacity: 0.6;
+                cursor: default;
+            }
+
+            @media (hover: hover) and (pointer: fine) {
+                &:hover:not(:disabled) {
+                    color: $colorDarkGrey;
+                    background-color: transparent;
+                }
+            }
+
+            &:focus-visible {
+                outline: 2px solid $colorDarkGrey;
+                outline-offset: 3px;
+            }
+        }
+    }
+}

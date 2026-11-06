@@ -1,0 +1,83 @@
+@import '../../utils/mixins';
+
+.maintenanceSwitch {
+    @include Column;
+    gap: 6px;
+    box-sizing: border-box;
+    padding: 22px calc($minimalSpace / 2);
+    border-top: 1px solid rgba($colorDarkGrey, 0.25);
+
+    @media only screen and (max-width: $mobileMaxWidth) {
+        flex-basis: 100%;
+        padding: 14px 4px 0;
+    }
+
+    &_row {
+        @include Row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+    }
+
+    &_label {
+        @include typeText;
+        font-family: $mainFont;
+        font-weight: 700;
+        color: $colorDarkGrey;
+    }
+
+    // Interrupteur : gris éteint, sombre allumé.
+    &_toggle {
+        position: relative;
+        flex-shrink: 0;
+        width: 46px;
+        height: 26px;
+        padding: 0;
+        background-color: rgba($colorDarkGrey, 0.3);
+        border: none;
+        border-radius: 13px;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+
+        &_knob {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 20px;
+            height: 20px;
+            background-color: #fff;
+            border-radius: 50%;
+            transition: transform 0.2s ease;
+        }
+
+        &--on {
+            background-color: $colorDarkGrey;
+
+            .maintenanceSwitch_toggle_knob {
+                transform: translateX(20px);
+            }
+        }
+
+        &:disabled {
+            opacity: 0.6;
+            cursor: default;
+        }
+
+        &:focus-visible {
+            outline: 2px solid $colorDarkGrey;
+            outline-offset: 3px;
+        }
+    }
+
+    &_status,
+    &_error {
+        margin: 0;
+        @include typeText;
+        font-family: $mainFont;
+        color: $color2;
+    }
+
+    &_error {
+        color: #9b2c2c;
+    }
+}

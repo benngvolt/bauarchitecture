@@ -1,20 +1,21 @@
 const express = require ('express');
 const router = express.Router();
 const friendUrlsCtrl = require ('../controllers/friendUrls');
+const auth = require('../middlewares/auth');
 
 router.get('/',
             friendUrlsCtrl.getAllFriendUrls);
 
 router.post('/',
-            // auth,
+            auth,
             friendUrlsCtrl.createFriendUrl);
 
 router.put ('/:id',
-            // auth,
+            auth,
             friendUrlsCtrl.updateOneFriendUrl);
 
 router.delete ('/:id',
-            // auth,
+            auth,
             friendUrlsCtrl.deleteOneFriendUrl);
 
 module.exports = router;

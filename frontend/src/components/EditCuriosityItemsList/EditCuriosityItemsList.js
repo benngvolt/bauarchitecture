@@ -2,6 +2,7 @@ import ConfirmBox from '../../components/ConfirmBox/ConfirmBox'
 
 import React, { useState } from 'react'
 import { API_URL } from '../../utils/constants'
+import { authFetch } from '../../utils/auth'
 
 
 // Liste des objets du cabinet de curiosités : l'ordre de la liste est l'ordre d'affichage (de gauche à droite, puis ligne par ligne).
@@ -24,7 +25,7 @@ function EditCuriosityItemsList ({
 
     function deleteCuriosityItem() {
         setLoaderDisplay(true)
-        fetch(`${API_URL}/api/curiosity-items/${curiosityItemToDelete._id}`, {
+        authFetch(`${API_URL}/api/curiosity-items/${curiosityItemToDelete._id}`, {
             method: 'DELETE',
         })
         .then (() => {
@@ -46,7 +47,7 @@ function EditCuriosityItemsList ({
         [ids[index], ids[targetIndex]] = [ids[targetIndex], ids[index]];
 
         setLoaderDisplay(true)
-        fetch(`${API_URL}/api/curiosity-items/order`, {
+        authFetch(`${API_URL}/api/curiosity-items/order`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

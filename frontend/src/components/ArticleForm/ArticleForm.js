@@ -6,7 +6,8 @@ import React, { useState, useRef, useEffect } from 'react';
 import FormRichTextField from '../FormRichTextField/FormRichTextField';
 import FormImageField from '../FormImageField/FormImageField';
 import DNDGallery from '../DNDGallery/DNDGallery';
-import { API_URL } from '../../utils/constants';
+import { API_URL } from '../../utils/constants'
+import { authFetch } from '../../utils/auth';
 
 function ArticleForm({
   handleLoadArticles,
@@ -122,7 +123,7 @@ function ArticleForm({
     }
 
     if (articleFormMode === 'add') {
-      fetch(`${API_URL}/api/articles`, {
+      authFetch(`${API_URL}/api/articles`, {
         method: 'POST',
         headers: {
           // Authorization: 'Bearer ' + token,
@@ -148,7 +149,7 @@ function ArticleForm({
           setLoaderDisplay(false);
         });
     } else if (articleFormMode === 'edit') {
-      fetch(`${API_URL}/api/articles/${articleEdit._id}`, {
+      authFetch(`${API_URL}/api/articles/${articleEdit._id}`, {
         method: 'PUT',
         headers: {
           // Authorization: 'Bearer ' + token,

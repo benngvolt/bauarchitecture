@@ -2,6 +2,7 @@ import AdminField from '../AdminUI/AdminField'
 import Loader from '../Loader/Loader'
 import React, { useState, useEffect } from 'react'
 import { API_URL, DEFAULT_MISSION_DESCRIPTIONS } from '../../utils/constants'
+import { authFetch } from '../../utils/auth'
 
 const MAX_DESCRIPTION_LENGTH = 200;
 
@@ -37,7 +38,7 @@ function MissionsForm ({
         setLoaderDisplay(true);
         setStatusMessage('');
 
-        fetch(`${API_URL}/api/missions-settings`, {
+        authFetch(`${API_URL}/api/missions-settings`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

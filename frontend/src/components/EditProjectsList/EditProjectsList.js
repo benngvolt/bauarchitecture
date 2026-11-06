@@ -3,6 +3,7 @@ import ConfirmBox from '../../components/ConfirmBox/ConfirmBox'
 
 import React, { useState, useRef, useEffect } from 'react'
 import { API_URL } from '../../utils/constants'
+import { authFetch } from '../../utils/auth'
 
 
 
@@ -29,7 +30,7 @@ function EditProjectsList ({
     function deleteProject() {
         console.log(projectToDelete)
         setLoaderDisplay(true)
-        fetch(`${API_URL}/api/projects/${projectToDelete._id}`, {
+        authFetch(`${API_URL}/api/projects/${projectToDelete._id}`, {
             method: 'DELETE',
             headers: {
                 // Authorization: `Bearer ${sessionStorage.getItem('1')}`,

@@ -3,6 +3,7 @@ import AdminField from '../AdminUI/AdminField'
 import Loader from '../Loader/Loader'
 import React, { useState, useEffect } from 'react'
 import { API_URL } from '../../utils/constants'
+import { authFetch } from '../../utils/auth'
 import { FEATURED_PROJECTS_COUNT } from '../../utils/featuredProjects'
 
 
@@ -43,7 +44,7 @@ function FeaturedProjectsForm ({
         setLoaderDisplay(true);
         setStatusMessage('');
 
-        fetch(`${API_URL}/api/featured-projects`, {
+        authFetch(`${API_URL}/api/featured-projects`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

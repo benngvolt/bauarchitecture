@@ -34,6 +34,8 @@ const homeBannerRoutes = require('./routes/homeBanner');
 const processSettingsRoutes = require('./routes/processSettings');
 const missionsSettingsRoutes = require('./routes/missionsSettings');
 const curiosityItemsRoutes = require('./routes/curiosityItems');
+const siteSettingsRoutes = require('./routes/siteSettings');
+const usersRoutes = require('./routes/users');
 
 
 /* --------------------------------------------------------
@@ -87,6 +89,9 @@ app.use((req, res, next) => {
 });
 
 
+// Le serveur est derrière un proxy (App Engine, nginx) : req.ip doit être l'adresse du visiteur (limiteur de tentatives de connexion).
+app.set('trust proxy', true);
+
 // pour parser les requêtes
 app.use(express.json());
 
@@ -115,6 +120,8 @@ app.use('/api/home-banner', homeBannerRoutes);
 app.use('/api/process-settings', processSettingsRoutes);
 app.use('/api/missions-settings', missionsSettingsRoutes);
 app.use('/api/curiosity-items', curiosityItemsRoutes);
+app.use('/api/site-settings', siteSettingsRoutes);
+app.use('/api/users', usersRoutes);
 
 
 /* --------------------------------------------------------

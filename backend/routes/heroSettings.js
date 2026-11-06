@@ -4,16 +4,17 @@ const heroSettingsCtrl = require ('../controllers/heroSettings');
 const multer = require('../middlewares/multer-config');
 const uploadImages = require('../middlewares/uploadImages').uploadImages;
 const deleteImages = require('../middlewares/deleteImages').deleteImages;
+const auth = require('../middlewares/auth');
 
 router.get('/',
             heroSettingsCtrl.getHeroSettings);
 
 router.put('/texts',
-            // auth,
+            auth,
             heroSettingsCtrl.updateHeroTexts);
 
 router.post('/images',
-            // auth,
+            auth,
             multer.fields([
                 { name: 'hero' }
               ]),
@@ -22,16 +23,16 @@ router.post('/images',
             deleteImages);
 
 router.put('/images/order',
-            // auth,
+            auth,
             heroSettingsCtrl.reorderHeroImages);
 
 router.delete('/images/:imageId',
-            // auth,
+            auth,
             heroSettingsCtrl.removeHeroImage,
             deleteImages);
 
 router.delete('/',
-            // auth,
+            auth,
             heroSettingsCtrl.deleteHeroSettings,
             deleteImages);
 

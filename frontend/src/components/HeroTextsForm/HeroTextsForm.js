@@ -2,6 +2,7 @@ import AdminField from '../AdminUI/AdminField'
 import Loader from '../Loader/Loader'
 import React, { useState, useEffect } from 'react'
 import { API_URL, DEFAULT_HERO_TITLE, DEFAULT_HERO_DESCRIPTION } from '../../utils/constants'
+import { authFetch } from '../../utils/auth'
 
 const MAX_TITLE_LENGTH = 300;
 const MAX_DESCRIPTION_LENGTH = 1500;
@@ -32,7 +33,7 @@ function HeroTextsForm ({
         setLoaderDisplay(true);
         setStatusMessage('');
 
-        fetch(`${API_URL}/api/hero-settings/texts`, {
+        authFetch(`${API_URL}/api/hero-settings/texts`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

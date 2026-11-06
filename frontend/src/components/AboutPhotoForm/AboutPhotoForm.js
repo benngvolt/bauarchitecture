@@ -1,6 +1,7 @@
 import Loader from '../Loader/Loader'
 import React, { useState, useRef } from 'react'
 import { API_URL } from '../../utils/constants'
+import { authFetch } from '../../utils/auth'
 
 
 function AboutPhotoForm ({
@@ -66,7 +67,7 @@ function AboutPhotoForm ({
         const formData = new FormData();
         formData.append(fieldName, newImageFile);
 
-        fetch(uploadUrl, {
+        authFetch(uploadUrl, {
             method: 'PUT',
             headers: {
                 // Authorization: `Bearer ${sessionStorage.getItem('1')}`,
@@ -95,7 +96,7 @@ function AboutPhotoForm ({
     function resetImage() {
         setLoaderDisplay(true);
 
-        fetch(resetUrl, {
+        authFetch(resetUrl, {
             method: 'DELETE',
             headers: {
                 // Authorization: `Bearer ${sessionStorage.getItem('1')}`,

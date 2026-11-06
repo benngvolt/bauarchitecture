@@ -2,7 +2,8 @@ import './EditArticlesList.scss';
 import ConfirmBox from '../ConfirmBox/ConfirmBox';
 
 import React, { useState } from 'react';
-import { API_URL } from '../../utils/constants';
+import { API_URL } from '../../utils/constants'
+import { authFetch } from '../../utils/auth';
 
 function EditArticlesList({
     articles,
@@ -33,7 +34,7 @@ function EditArticlesList({
 
         setLoaderDisplay(true);
 
-        fetch(`${API_URL}/api/articles/${articleToDelete._id}`, {
+        authFetch(`${API_URL}/api/articles/${articleToDelete._id}`, {
             method: 'DELETE',
             headers: {
                 // Authorization: `Bearer ${sessionStorage.getItem('1')}`,

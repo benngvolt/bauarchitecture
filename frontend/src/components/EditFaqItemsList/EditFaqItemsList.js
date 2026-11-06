@@ -3,6 +3,7 @@ import ConfirmBox from '../../components/ConfirmBox/ConfirmBox'
 
 import React, { useState } from 'react'
 import { API_URL } from '../../utils/constants'
+import { authFetch } from '../../utils/auth'
 
 
 
@@ -25,7 +26,7 @@ function EditFaqItemsList ({
 
     function deleteFaqItem() {
         setLoaderDisplay(true)
-        fetch(`${API_URL}/api/faq-items/${faqItemToDelete._id}`, {
+        authFetch(`${API_URL}/api/faq-items/${faqItemToDelete._id}`, {
             method: 'DELETE',
             headers: {
                 // Authorization: `Bearer ${sessionStorage.getItem('1')}`,

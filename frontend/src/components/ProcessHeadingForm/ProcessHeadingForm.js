@@ -2,6 +2,7 @@ import AdminField from '../AdminUI/AdminField'
 import Loader from '../Loader/Loader'
 import React, { useState, useEffect } from 'react'
 import { API_URL, DEFAULT_PROCESS_TITLE } from '../../utils/constants'
+import { authFetch } from '../../utils/auth'
 
 const MAX_TITLE_LENGTH = 200;
 
@@ -26,7 +27,7 @@ function ProcessHeadingForm ({
         setLoaderDisplay(true);
         setStatusMessage('');
 
-        fetch(`${API_URL}/api/process-settings`, {
+        authFetch(`${API_URL}/api/process-settings`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

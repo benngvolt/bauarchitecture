@@ -4,6 +4,7 @@ const curiosityItemsCtrl = require ('../controllers/curiosityItems');
 const multer = require('../middlewares/multer-config');
 const uploadImages = require('../middlewares/uploadImages').uploadImages;
 const deleteImages = require('../middlewares/deleteImages').deleteImages;
+const auth = require('../middlewares/auth');
 
 const ACCEPTED_IMAGE_TYPES = ['image/png', 'image/webp', 'image/jpeg'];
 
@@ -27,24 +28,24 @@ router.get('/',
             curiosityItemsCtrl.getAllCuriosityItems);
 
 router.post('/',
-            // auth,
+            auth,
             uploadObjectImage,
             curiosityItemsCtrl.createCuriosityItem,
             deleteImages);
 
 // Avant « /:id », sinon « order » serait pris pour un identifiant.
 router.put ('/order',
-            // auth,
+            auth,
             curiosityItemsCtrl.reorderCuriosityItems);
 
 router.put ('/:id',
-            // auth,
+            auth,
             uploadObjectImage,
             curiosityItemsCtrl.updateOneCuriosityItem,
             deleteImages);
 
 router.delete ('/:id',
-            // auth,
+            auth,
             curiosityItemsCtrl.deleteOneCuriosityItem,
             deleteImages);
 

@@ -8,6 +8,7 @@ import FormRichTextField from '../FormRichTextField/FormRichTextField'
 import FormImageField from '../FormImageField/FormImageField'
 import DNDGallery from '../DNDGallery/DNDGallery'
 import { API_URL, PROJECT_TYPES } from '../../utils/constants'
+import { authFetch } from '../../utils/auth'
 
 
 function ProjectForm ({
@@ -202,7 +203,7 @@ function ProjectForm ({
         }
         else {
             if (projectFormMode==='add') {
-                fetch(`${API_URL}/api/projects`, {
+                authFetch(`${API_URL}/api/projects`, {
                     method: "POST",
                     headers: {
                         //'Content-Type': 'application/json',
@@ -230,7 +231,7 @@ function ProjectForm ({
                 });
             } else if (projectFormMode==='edit') {
                 console.log('edit')
-                fetch(`${API_URL}/api/projects/${projectEdit._id}`, {
+                authFetch(`${API_URL}/api/projects/${projectEdit._id}`, {
                     method: "PUT",
                     headers: {
                         // 'Content-Type': 'application/json',

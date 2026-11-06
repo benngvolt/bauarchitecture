@@ -3,6 +3,7 @@ import FormRichTextField from '../FormRichTextField/FormRichTextField'
 import Loader from '../Loader/Loader'
 import React, { useState, useRef, useEffect } from 'react'
 import { API_URL } from '../../utils/constants'
+import { authFetch } from '../../utils/auth'
 
 
 function ProcessStepForm ({
@@ -64,7 +65,7 @@ function ProcessStepForm ({
             richText: richTextHtml,
         };
 
-        fetch(`${API_URL}/api/process-steps/${processStepEdit._id}`, {
+        authFetch(`${API_URL}/api/process-steps/${processStepEdit._id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

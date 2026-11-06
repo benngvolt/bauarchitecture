@@ -1,5 +1,5 @@
 import './NavSection.scss'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import agenceBau from '../../assets/agence_bau.jpg'
 import { ProjectsContext } from '../../utils/ProjectsContext'
 import React, { useContext, useState } from 'react'
@@ -9,7 +9,8 @@ import LegalMentions from '../LegalMentions/LegalMentions'
 import Button from '../Button/Button'
 
 function NavSection({ displayNavSection }) {
-  const { setDisplayNavSection } = useContext(ProjectsContext);
+  const { setDisplayNavSection, isAuthenticated, logout } = useContext(ProjectsContext);
+  const navigate = useNavigate();
   const [displayModal, setDisplayModal] = useState(false);
   const [modalMode, setModalMode] = useState('');
 
@@ -32,9 +33,26 @@ function NavSection({ displayNavSection }) {
                 <li>
                   <Link to="/projets" onClick={() => setDisplayNavSection(false)}><h2>Projets</h2></Link>
                 </li>
-                <li className='navSection_navContainer_navGrid_item_content_editSection'>
-                  <Link to="/edit" onClick={() => setDisplayNavSection(false)}><p>Edit</p></Link>
-                </li>
+                {isAuthenticated && (
+                  <>
+                    <li className='navSection_navContainer_navGrid_item_content_editSection'>
+                      <Link to="/edit" onClick={() => setDisplayNavSection(false)}><p>Edit</p></Link>
+                    </li>
+                    <li>
+                      <button
+                        type='button'
+                        className='navSection_navContainer_navGrid_item_content_logoutButton'
+                        onClick={() => {
+                          setDisplayNavSection(false);
+                          navigate('/');
+                          logout();
+                        }}
+                      >
+                        Logout
+                      </button>
+                    </li>
+                  </>
+                )}
               </ul>
             </div>
           </li>

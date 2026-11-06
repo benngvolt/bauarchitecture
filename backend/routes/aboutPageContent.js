@@ -4,12 +4,13 @@ const aboutPageContentCtrl = require ('../controllers/aboutPageContent');
 const multer = require('../middlewares/multer-config');
 const uploadImages = require('../middlewares/uploadImages').uploadImages;
 const deleteImages = require('../middlewares/deleteImages').deleteImages;
+const auth = require('../middlewares/auth');
 
 router.get('/',
             aboutPageContentCtrl.getAboutPageContent);
 
 router.put('/',
-            // auth,
+            auth,
             multer.fields([
                 { name: 'philosophy' },
                 { name: 'portrait2' },
@@ -19,12 +20,12 @@ router.put('/',
             deleteImages);
 
 router.delete('/philosophy-image',
-            // auth,
+            auth,
             aboutPageContentCtrl.resetPhilosophyImage,
             deleteImages);
 
 router.delete('/portrait2',
-            // auth,
+            auth,
             aboutPageContentCtrl.resetPortrait2,
             deleteImages);
 

@@ -4,12 +4,13 @@ const homeBannerCtrl = require ('../controllers/homeBanner');
 const multer = require('../middlewares/multer-config');
 const uploadImages = require('../middlewares/uploadImages').uploadImages;
 const deleteImages = require('../middlewares/deleteImages').deleteImages;
+const auth = require('../middlewares/auth');
 
 router.get('/',
             homeBannerCtrl.getHomeBanner);
 
 router.put('/',
-            // auth,
+            auth,
             multer.fields([
                 { name: 'banner' }
               ]),
@@ -18,7 +19,7 @@ router.put('/',
             deleteImages);
 
 router.delete('/',
-            // auth,
+            auth,
             homeBannerCtrl.resetHomeBanner,
             deleteImages);
 

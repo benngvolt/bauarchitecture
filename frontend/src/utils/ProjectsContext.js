@@ -1,5 +1,6 @@
 import React, { createContext, useState, useEffect } from 'react';
 import { API_URL } from './constants';
+import { AUTH_EXPIRED_EVENT, clearToken, getToken, getTokenExpiry, saveToken } from './auth';
 
 export const ProjectsContext = createContext();
 
@@ -38,6 +39,59 @@ export const ProjectsProvider = ({ children }) => {
     const [loaderDisplay, setLoaderDisplay] = useState(false);
     const [welcomeDisplay, setWelcomeDisplay] = useState(false);
     const [currentPage, setCurrentPage] = useState('');
+
+    // Connexion au tableau de bord (jeton gardé 48 h dans le navigateur) et mode maintenance (null tant que le serveur n'a pas répondu).
+    const [isAuthenticated, setIsAuthenticated] = useState(() => getToken() !== null);
+    const [maintenanceMode, setMaintenanceMode] = useState(null);
+
+    const login = (token) => {
+        saveToken(token);
+        setIsAuthenticated(true);
+    };
+
+    const logout = () => {
+        clearToken();
+        setIsAuthenticated(false);
+    };
+
+    useEffect(() => {
+        // Le serveur a refusé le jeton (expiré ou invalide), ou la session a changé dans un autre onglet.
+        const syncSession = () => setIsAuthenticated(getToken() !== null);
+
+        window.addEventListener(AUTH_EXPIRED_EVENT, syncSession);
+        window.addEventListener('storage', syncSession);
+
+        return () => {
+            window.removeEventListener(AUTH_EXPIRED_EVENT, syncSession);
+            window.removeEventListener('storage', syncSession);
+        };
+    }, []);
+
+    useEffect(() => {
+        // Déconnexion automatique à l'expiration du jeton, même si la page reste ouverte.
+        if (!isAuthenticated) {
+            return undefined;
+        }
+
+        const token = getToken();
+        const timeout = setTimeout(() => {
+            clearToken();
+            setIsAuthenticated(false);
+        }, Math.max(getTokenExpiry(token) - Date.now(), 0));
+
+        return () => clearTimeout(timeout);
+    }, [isAuthenticated]);
+
+    useEffect(() => {
+        fetch(`${API_URL}/api/site-settings`)
+            .then((res) => res.json())
+            .then((data) => setMaintenanceMode(data.maintenanceMode === true))
+            .catch((error) => {
+                console.log(error.message);
+                // Sans réponse du serveur, on affiche le site plutôt qu'une page vide.
+                setMaintenanceMode(false);
+            });
+    }, []);
 
     /*---------------------------------------------
     ----- Chargement des projets et stockage ------
@@ -356,6 +410,11 @@ export const ProjectsProvider = ({ children }) => {
                 setWelcomeDisplay,
                 currentPage,
                 setCurrentPage,
+                isAuthenticated,
+                login,
+                logout,
+                maintenanceMode,
+                setMaintenanceMode,
             }}
         >
             {children}

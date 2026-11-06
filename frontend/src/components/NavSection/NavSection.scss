@@ -167,6 +167,27 @@
               }
             }
           }
+          // Bouton « Logout » : même typographie que le lien « Edit », sous lui.
+          &_logoutButton {
+            padding: 0;
+            color: $colorDarkGrey;
+            font-family: $mainFont;
+            @include typeText;
+            font-weight: normal;
+            background: none;
+            border: none;
+            cursor: pointer;
+
+            &:hover {
+              font-weight: bold;
+            }
+
+            &:focus-visible {
+              outline: 2px solid $colorDarkGrey;
+              outline-offset: 3px;
+            }
+          }
+
           &_editSection {
             @media only screen and (min-width: $padMinWidth) and (max-width: $padMaxWidth) {
               display: none;

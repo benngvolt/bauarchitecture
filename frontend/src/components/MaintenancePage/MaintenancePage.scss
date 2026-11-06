@@ -1,0 +1,24 @@
+@import '../../utils/mixins';
+
+.maintenance {
+    @include Column;
+    align-items: center;
+    justify-content: center;
+    gap: calc($minimalSpace * 0.9);
+    box-sizing: border-box;
+    min-height: 100vh;
+    padding: $minimalSpace 22px;
+    text-align: center;
+
+    &_logo {
+        width: min(320px, 70vw);
+        height: auto;
+    }
+
+    &_text {
+        margin: 0;
+        @include typeText;
+        font-family: $mainFont;
+        color: $colorDarkGrey;
+    }
+}

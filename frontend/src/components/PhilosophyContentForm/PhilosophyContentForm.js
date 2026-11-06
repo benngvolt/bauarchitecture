@@ -2,6 +2,7 @@ import FormRichTextField from '../FormRichTextField/FormRichTextField'
 import Loader from '../Loader/Loader'
 import React, { useState, useRef, useEffect } from 'react'
 import { API_URL } from '../../utils/constants'
+import { authFetch } from '../../utils/auth'
 import { hasRichTextContent } from '../../utils/richText'
 
 
@@ -46,7 +47,7 @@ function PhilosophyContentForm ({
         const philosophyFormData = new FormData();
         philosophyFormData.append('philosophyText', richTextHtml);
 
-        fetch(`${API_URL}/api/about-page-content`, {
+        authFetch(`${API_URL}/api/about-page-content`, {
             method: 'PUT',
             headers: {
                 // Authorization: `Bearer ${sessionStorage.getItem('1')}`,

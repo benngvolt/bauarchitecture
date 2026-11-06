@@ -3,6 +3,7 @@ import FormRichTextField from '../FormRichTextField/FormRichTextField'
 import Loader from '../Loader/Loader'
 import React, { useState, useRef, useEffect } from 'react'
 import { API_URL } from '../../utils/constants'
+import { authFetch } from '../../utils/auth'
 import { hasRichTextContent } from '../../utils/richText'
 
 const ACCEPTED_IMAGE_TYPES = 'image/png,image/webp,image/jpeg';
@@ -87,7 +88,7 @@ function CuriosityItemForm ({
             formData.append('object', newImageFile);
         }
 
-        fetch(isEdit ? `${API_URL}/api/curiosity-items/${curiosityItemEdit._id}` : `${API_URL}/api/curiosity-items`, {
+        authFetch(isEdit ? `${API_URL}/api/curiosity-items/${curiosityItemEdit._id}` : `${API_URL}/api/curiosity-items`, {
             method: isEdit ? 'PUT' : 'POST',
             body: formData,
         })

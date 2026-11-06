@@ -2,6 +2,7 @@ import Loader from '../Loader/Loader'
 import ConfirmBox from '../ConfirmBox/ConfirmBox'
 import React, { useState, useRef, useEffect } from 'react'
 import { API_URL } from '../../utils/constants'
+import { authFetch } from '../../utils/auth'
 
 
 function HeroImageForm ({
@@ -47,7 +48,7 @@ function HeroImageForm ({
         setLoaderDisplay(true);
 
         // Authorization: `Bearer ${sessionStorage.getItem('1')}` à ajouter aux headers quand l'authentification sera réactivée
-        fetch(`${API_URL}/api/hero-settings${url}`, options)
+        authFetch(`${API_URL}/api/hero-settings${url}`, options)
         .then((response) => {
             if (!response.ok) {
                 return response.text().then((text) => {
