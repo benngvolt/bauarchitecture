@@ -1,9 +1,9 @@
 @import '../../utils/mixins';
 
-// Grille de trois colonnes occupant 70 % de la largeur de l'écran, centrée.
+// Grille de trois colonnes occupant 52,5 % de la largeur de l'écran (les trois quarts de 70 %), centrée.
 .curiosityCabinet {
     box-sizing: border-box;
-    width: 70%;
+    width: 52.5%;
     margin: calc(2 * $minimalSpace) auto calc(4 * $minimalSpace);
 
     &_grid {
@@ -72,7 +72,7 @@
 
 @media screen and (max-width: 1024px) {
     .curiosityCabinet {
-        width: 85%;
+        width: 64%;
 
         &_grid {
             gap: calc($minimalSpace / 2);
