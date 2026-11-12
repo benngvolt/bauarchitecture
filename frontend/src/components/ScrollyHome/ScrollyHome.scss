@@ -1,4 +1,4 @@
-@import '../../utils/mixins';
+@use '../../utils/mixins' as *;
 
 // Page d'accueil en scrollytelling (mobile uniquement) : une scène plein écran épinglée sous l'en-tête,
 // où les panneaux se succèdent au fil du défilement (fondu + léger glissement).

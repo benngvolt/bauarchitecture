@@ -1,4 +1,4 @@
-@import '../../utils/mixins';
+@use '../../utils/mixins' as *;
 
 // Fond noir translucide (0,8) plein écran, fenêtre claire centrée.
 .processModal {

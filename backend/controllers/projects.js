@@ -1,5 +1,4 @@
 const Project = require('../models/project')
-const { storage, bucket } = require('../config/storage');
 
 /*------------------------
 ----- GET ALL PROJECTS ---

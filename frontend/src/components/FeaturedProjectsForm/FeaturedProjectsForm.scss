@@ -1,4 +1,4 @@
-@import '../../utils/mixins';
+@use '../../utils/mixins' as *;
 
 // Emplacement d'un projet à la une : vignette du projet choisi + liste déroulante.
 .adminProjectSlot {

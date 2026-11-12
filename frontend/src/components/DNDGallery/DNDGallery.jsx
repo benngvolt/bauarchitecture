@@ -317,7 +317,6 @@ function DNDGallery({
         {activeItem ? (
           <img
             className="projectForm_DNDGallery_overlayImage"
-            itemId={activeId}
             alt={`image ${activeId}`}
             src={getMediaUrl(activeItem.imageUrl)}
           />

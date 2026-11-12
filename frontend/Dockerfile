@@ -1,5 +1,5 @@
 # Étape 1 : Build de l'application
-FROM node:18 AS build
+FROM node:22 AS build
 
 WORKDIR /app
 
@@ -7,7 +7,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Installer les dépendances
-RUN npm install
+RUN npm ci
 
 # Copier le code source
 COPY . .

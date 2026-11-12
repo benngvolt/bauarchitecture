@@ -1,4 +1,4 @@
-@import './utils/mixins';
+@use './utils/mixins' as *;
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',

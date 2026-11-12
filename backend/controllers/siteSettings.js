@@ -26,7 +26,7 @@ exports.updateSiteSettings = async (req, res) => {
     await SiteSettings.findOneAndUpdate(
       {},
       { maintenanceMode },
-      { upsert: true, new: true }
+      { upsert: true, returnDocument: 'after' }
     );
     res.status(200).json({ maintenanceMode });
   } catch (error) {

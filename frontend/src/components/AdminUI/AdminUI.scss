@@ -1,4 +1,4 @@
-@import '../../utils/mixins';
+@use '../../utils/mixins' as *;
 
 // Kit d'interface du tableau de bord : formulaires, cartes, boutons et messages d'état.
 // Chargé une fois (par la page Edit) ; les composants l'utilisent par leurs noms de classes (admin…).

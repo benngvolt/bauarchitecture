@@ -1,5 +1,4 @@
 const Drawing = require('../models/drawing')
-const { storage, bucket } = require('../config/storage');
 
 /*------------------------
 ----- GET ALL DRAWINGS ---

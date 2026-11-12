@@ -1,8 +1,8 @@
 // Pictogrammes : remplacer les fichiers de src/assets (logo_*.svg) suffit à les changer.
-import { ReactComponent as LogoConstruction } from '../../assets/logo_construction.svg';
-import { ReactComponent as LogoRenovation } from '../../assets/logo_renovation.svg';
-import { ReactComponent as LogoExtension } from '../../assets/logo_extension.svg';
-import { ReactComponent as LogoAmenagements } from '../../assets/logo_amenagements.svg';
+import LogoConstruction from '../../assets/logo_construction.svg?react';
+import LogoRenovation from '../../assets/logo_renovation.svg?react';
+import LogoExtension from '../../assets/logo_extension.svg?react';
+import LogoAmenagements from '../../assets/logo_amenagements.svg?react';
 
 export const MISSIONS = [
     { key: 'construction', label: 'CONSTRUCTION', Icon: LogoConstruction },

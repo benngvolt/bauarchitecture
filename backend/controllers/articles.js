@@ -1,5 +1,4 @@
 const Article = require('../models/article');
-const { storage, bucket } = require('../config/storage');
 
 /*------------------------
 ----- GET ALL ARTICLES ---

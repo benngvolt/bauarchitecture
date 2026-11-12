@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { lazy, Suspense, useContext } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { ProjectsContext } from '../../utils/ProjectsContext';
 
@@ -7,13 +7,15 @@ import PageTransition from '../PageTransition/PageTransition';
 import MaintenancePage from '../MaintenancePage/MaintenancePage';
 import RequireAuth from '../RequireAuth/RequireAuth';
 
-import Edit from '../../pages/Edit/Edit';
 import AllProjects from '../../pages/AllProjects/AllProjects';
 import SingleProject from '../../pages/SingleProject/SingleProject';
 import Home from '../../pages/Home/Home';
 import About from '../../pages/About/About';
 import Articles from '../../pages/Articles/Articles';
 import Login from '../../pages/Login/Login';
+
+// Le tableau de bord (éditeur de texte, glisser-déposer…) n'est téléchargé que par la personne qui l'ouvre, pas par les visiteurs.
+const Edit = lazy(() => import('../../pages/Edit/Edit'));
 
 // Pages du site. En mode maintenance, les visiteurs ne voient que la page de maintenance (sans en-tête) ;
 // la personne connectée voit le site normalement, et /login reste accessible pour pouvoir se connecter.
@@ -40,7 +42,16 @@ function SiteGate() {
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/login" element={<Login />} />
-                    <Route path="/edit" element={<RequireAuth><Edit /></RequireAuth>} />
+                    <Route
+                        path="/edit"
+                        element={
+                            <RequireAuth>
+                                <Suspense fallback={null}>
+                                    <Edit />
+                                </Suspense>
+                            </RequireAuth>
+                        }
+                    />
                     <Route path="/projets" element={<AllProjects />} />
                     <Route path="/journal" element={<Articles />} />
                     <Route path="/about" element={<About />} />

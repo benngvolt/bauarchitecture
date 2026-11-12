@@ -1,4 +1,4 @@
-@import '../../utils/mixins';
+@use '../../utils/mixins' as *;
 
 // Grille de trois colonnes occupant 52,5 % de la largeur de l'écran (les trois quarts de 70 %), centrée.
 .curiosityCabinet {

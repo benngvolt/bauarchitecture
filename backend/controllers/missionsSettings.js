@@ -53,7 +53,7 @@ exports.updateMissionsSettings = async (req, res) => {
     await MissionsSettings.findOneAndUpdate(
       {},
       updatedFields,
-      { upsert: true, new: true }
+      { upsert: true, returnDocument: 'after' }
     );
 
     res.status(200).json({ message: 'Descriptifs mis à jour !' });

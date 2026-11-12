@@ -36,7 +36,7 @@ exports.updateProcessSettings = async (req, res) => {
     await ProcessSettings.findOneAndUpdate(
       {},
       { title: title.trim() },
-      { upsert: true, new: true }
+      { upsert: true, returnDocument: 'after' }
     );
 
     res.status(200).json({ message: 'Phrase d\'accroche des étapes mise à jour !' });

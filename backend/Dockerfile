@@ -1,5 +1,5 @@
 # Utiliser une image Node.js officielle
-FROM node:18
+FROM node:22
 
 # Créer un répertoire de travail
 WORKDIR /usr/src/app
@@ -8,7 +8,7 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 
 # Installer les dépendances
-RUN npm install
+RUN npm ci --omit=dev
 
 # Copier le reste des fichiers
 COPY . .

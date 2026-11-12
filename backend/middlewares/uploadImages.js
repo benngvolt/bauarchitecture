@@ -1,7 +1,7 @@
 const path = require("path");
 const fs = require("fs/promises");
 const sharp = require("sharp");
-const { v4: uuidv4 } = require("uuid");
+const { randomUUID } = require("crypto");
 
 const uploadRoot = path.join(__dirname, "../uploads");
 
@@ -36,7 +36,7 @@ function safeFileName(originalname) {
     .replace(/\s+/g, "-")
     .replace(/[^a-zA-Z0-9-_]/g, "");
 
-  return `${Date.now()}_${uuidv4()}_${baseName}${ext}`;
+  return `${Date.now()}_${randomUUID()}_${baseName}${ext}`;
 }
 
 function parseIndex(indexes, index) {

@@ -36,7 +36,7 @@ exports.updateAboutPageContent = async (req, res, next) => {
     await AboutPageContent.findOneAndUpdate(
       {},
       updatedFields,
-      { upsert: true, new: true }
+      { upsert: true, returnDocument: 'after' }
     );
 
     res.status(200).json({ message: 'Page À propos mise à jour !' });

@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const validator = require('validator');
 
 const drawingSchema = mongoose.Schema({
     title: {type: String, required: true},

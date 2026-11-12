@@ -68,7 +68,7 @@ exports.updateApproachSettings = async (req, res) => {
         title: title.trim(),
         items: items.map((item) => ({ title: item.title.trim(), text: item.text.trim() })),
       },
-      { upsert: true, new: true }
+      { upsert: true, returnDocument: 'after' }
     );
 
     res.status(200).json({ message: 'Section Approche mise à jour !' });

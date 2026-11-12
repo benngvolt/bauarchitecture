@@ -1,4 +1,4 @@
-@import '../../utils/mixins';
+@use '../../utils/mixins' as *;
 
 .edit {
     margin-top: calc($headerHeight + 100px);

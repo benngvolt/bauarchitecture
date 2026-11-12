@@ -48,10 +48,7 @@ const usersRoutes = require('./routes/users');
 const path = require('path');
 
 // Connexion à mongoose avec l'adresse srv donnée lors de la création du cluster contenant le password
-mongoose.connect(SECRET_MONGODBKEY, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
+mongoose.connect(SECRET_MONGODBKEY)
 .then(() => {
   console.log('Connexion à MongoDB réussie !');
 })
@@ -94,6 +91,14 @@ app.set('trust proxy', true);
 
 // pour parser les requêtes
 app.use(express.json());
+
+// Express 5 laisse req.body indéfini quand la requête n'a pas de corps : les contrôleurs peuvent continuer à le déstructurer.
+app.use((req, res, next) => {
+  if (req.body === undefined) {
+    req.body = {};
+  }
+  next();
+});
 
 
 /* --------------------------------------------------------

@@ -1,4 +1,4 @@
-@import '../../utils/mixins';
+@use '../../utils/mixins' as *;
 
 // Image pleine largeur, format 16:9 : l'image est recadrée (jamais déformée) si elle a un autre format.
 .banner {

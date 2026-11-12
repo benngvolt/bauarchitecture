@@ -55,7 +55,7 @@ exports.updateFeaturedProjects = async (req, res) => {
     await FeaturedProjects.findOneAndUpdate(
       {},
       { projectIds: ids },
-      { upsert: true, new: true }
+      { upsert: true, returnDocument: 'after' }
     );
 
     res.status(200).json({ message: 'Projets à la une mis à jour !' });

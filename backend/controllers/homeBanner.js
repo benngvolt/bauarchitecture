@@ -29,7 +29,7 @@ exports.updateHomeBanner = async (req, res, next) => {
     await HomeBanner.findOneAndUpdate(
       {},
       { imageUrl: newBanner.imageUrl },
-      { upsert: true, new: true }
+      { upsert: true, returnDocument: 'after' }
     );
 
     res.status(200).json({ message: 'Image pleine largeur mise à jour !' });
